@@ -6,13 +6,18 @@ import android.app.Application
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import dagger.hilt.android.HiltAndroidApp
 
+
+//Hilt 를 사용하기위해 반드시 선언
+@HiltAndroidApp
 class App : Application() {
 
     init {
         instance = this
     }
 
+    //이때 의존성 주입이 이루어진다.
     override fun onCreate() {
         super.onCreate()
 

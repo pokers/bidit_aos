@@ -10,8 +10,13 @@ import com.alexk.bidit.R
 import com.alexk.bidit.databinding.ActivityMainBinding
 import com.alexk.bidit.presentation.base.BaseActivity
 import com.alexk.bidit.presentation.ui.sign.login.LoginFragment
+import dagger.hilt.android.AndroidEntryPoint
 
 class SignActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_sign, R.id.nav_sign_fragment) {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onBackPressed() {
         val f = getCurrentFragment()
