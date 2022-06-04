@@ -1,4 +1,4 @@
-package com.alexk.bidit.application
+package com.alexk.bidit
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -11,7 +11,7 @@ import dagger.hilt.android.HiltAndroidApp
 
 //Hilt 를 사용하기위해 반드시 선언
 @HiltAndroidApp
-class App : Application() {
+class GlobalApplication : Application() {
 
     init {
         instance = this
@@ -37,7 +37,7 @@ class App : Application() {
     }
 
     companion object {
-        lateinit var instance: App
+        lateinit var instance: GlobalApplication
             private set
 
         fun applicationContext(): Context {

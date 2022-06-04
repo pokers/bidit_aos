@@ -1,4 +1,4 @@
-package com.alexk.bidit.util
+package com.alexk.bidit.common.util
 
 import android.content.Context
 import android.util.TypedValue

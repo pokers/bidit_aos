@@ -1,4 +1,4 @@
-package com.alexk.bidit.util
+package com.alexk.bidit.common.util
 
 import android.content.pm.PackageManager
 import android.os.Build
@@ -7,7 +7,6 @@ import android.util.Base64
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.alexk.bidit.R
-import com.alexk.bidit.databinding.ActivityMainBinding
 import com.alexk.bidit.databinding.ActivitySignBinding
 import com.alexk.bidit.presentation.base.BaseActivity
 import java.security.MessageDigest
