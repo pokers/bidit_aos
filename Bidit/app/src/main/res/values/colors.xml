@@ -7,4 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    
+    <color name="persian_blue">#0F42F4</color>
+    <color name="sliver">#BDBDBD</color>
+    <color name="red_orange">#F44336</color>
+    <color name="persian_blue_trans_20">#CC0F42F4</color>
+    <color name="nobel">#9E9E9E</color>
+    <color name="charcoal">#424242</color>
+
 </resources>
