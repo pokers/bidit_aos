@@ -23,9 +23,11 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutId
     protected val navController: NavController get() = NavHostFragment.findNavController(this)
     val navigationViewModel: NavigationViewModel by viewModels()
 
-
     private var _binding: T? = null
     protected val binding: T get() = _binding!!
+
+    abstract fun init()
+    abstract fun initEvent()
 
     //옵저버 패턴
     private fun navigationAction() {

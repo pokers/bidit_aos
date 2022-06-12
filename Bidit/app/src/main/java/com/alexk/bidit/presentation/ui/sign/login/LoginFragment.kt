@@ -13,4 +13,12 @@ class LoginFragment:BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) 
             navigate(LoginFragmentDirections.actionLoginFragmentToJoinFragment("데이터 도착"))
         }
     }
+
+    override fun init() {
+        TODO("Not yet implemented")
+    }
+
+    override fun initEvent() {
+        TODO("Not yet implemented")
+    }
 }

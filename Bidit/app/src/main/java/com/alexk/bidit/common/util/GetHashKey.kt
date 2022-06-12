@@ -29,4 +29,12 @@ class GetHashKey : BaseActivity<ActivitySignBinding>(R.layout.activity_sign, R.i
             Log.d("hashcode", "에러::$e")
         }
     }
+
+    override fun init() {
+        TODO("Not yet implemented")
+    }
+
+    override fun initEvent() {
+        TODO("Not yet implemented")
+    }
 }

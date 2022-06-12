@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="@string/category_home"/>
+    <item
+        android:id="@+id/nav_search_fragment"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="@string/category_search"/>
+    <item
+        android:id="@+id/myTradeFragment"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="@string/category_my_trade"/>
+    <item
+        android:id="@+id/myPageFragment"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="@string/category_my_page"/>
+
+</menu>

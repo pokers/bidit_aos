@@ -1,3 +1,38 @@
 <resources>
     <string name="app_name">Bidit</string>
+
+    <string name="title_recent_search_keyword">최근 검색어</string>
+    <string name="title_filter">필터</string>
+    <string name="title_trade_type">거래 방법</string>
+    <string name="title_using_time">사용기간</string>
+    <string name="title_immediate_purchase_price">즉시구매가</string>
+    <string name="title_start_price">시작가</string>
+
+    <string name="category_home">홈</string>
+    <string name="category_search">검색</string>
+    <string name="category_my_trade">내 거래</string>
+    <string name="category_my_page">MY</string>
+    <string name="category_ending_soon">Ending Soon</string>
+    <string name="category_latest_order">최신순</string>
+    <string name="category_promotion">프로모션</string>
+    <string name="category_popular_item">인기매물순</string>
+    <string name="category_popular">인기순</string>
+    <string name="category_deadline_imminent">마감임박</string>
+
+
+    <string name="content_now">현재</string>
+    <string name="content_no_keyword">최근 검색 내역이 없습니다.</string>
+    <string name="content_input_keyword">검색어를 입력해주세요.</string>
+    <string name="content_all_delete">모두 지우기</string>
+    <string name="content_no_search_result">에 대한\n검색 결과가 없습니다.</string>
+    <string name="content_parcel">택배거래</string>
+    <string name="content_direct_purchase">직거래</string>
+    <string name="content_min_date">최소기간</string>
+    <string name="content_max_date">최대기간</string>
+    <string name="content_filter_clear">필터초기화</string>
+    <string name="content_min_price">최소금액</string>
+    <string name="content_max_price">최대금액</string>
+    <string name="content_apply">적용하기</string>
+    <string name="content_month">개월</string>
+    <string name="content_won">원</string>
 </resources>

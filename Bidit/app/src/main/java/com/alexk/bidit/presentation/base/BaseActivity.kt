@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 
 abstract class BaseActivity<B : ViewDataBinding>(
     @LayoutRes private val layoutId: Int,
@@ -17,12 +18,17 @@ abstract class BaseActivity<B : ViewDataBinding>(
 ) : AppCompatActivity() {
 
     lateinit var navController: NavController
+    protected lateinit var binding: B
+
+    abstract fun init()
+    abstract fun initEvent()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DataBindingUtil.setContentView<B>(this, layoutId)
-        val navHostFragment = supportFragmentManager.findFragmentById(navControllerId) as NavHostFragment
-        navController = navHostFragment.navController
+        binding = DataBindingUtil.setContentView(this, layoutId)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(navControllerId) as NavHostFragment
+        navController = navHostFragment.findNavController()
     }
 
     //현재 프래그먼트 찾기

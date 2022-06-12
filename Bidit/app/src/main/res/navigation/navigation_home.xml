@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_home"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        tools:layout="@layout/fragment_home"
+        android:name="com.alexk.bidit.presentation.ui.home.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/myTradeFragment"
+        tools:layout="@layout/fragment_my_trade"
+        android:name="com.alexk.bidit.presentation.ui.myTrade.MyTradeFragment"
+        android:label="MyTradeFragment" />
+    <fragment
+        android:id="@+id/myPageFragment"
+        tools:layout="@layout/fragment_my_page"
+        android:name="com.alexk.bidit.presentation.ui.myPage.MyPageFragment"
+        android:label="MyPageFragment" />
+</navigation>

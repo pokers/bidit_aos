@@ -10,7 +10,7 @@ import dagger.hilt.android.HiltAndroidApp
 
 
 //Hilt 를 사용하기위해 반드시 선언
-@HiltAndroidApp
+//@HiltAndroidApp
 class GlobalApplication : Application() {
 
     init {

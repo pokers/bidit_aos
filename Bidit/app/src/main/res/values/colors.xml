@@ -11,8 +11,10 @@
     <color name="persian_blue">#0F42F4</color>
     <color name="sliver">#BDBDBD</color>
     <color name="red_orange">#F44336</color>
-    <color name="persian_blue_trans_20">#CC0F42F4</color>
+    <color name="persian_blue_trans_80">#330F42F4</color>
     <color name="nobel">#9E9E9E</color>
     <color name="charcoal">#424242</color>
+    <color name="white_smoke">#F5F5F5</color>
+    <color name="transparent">#00000000</color>
 
 </resources>

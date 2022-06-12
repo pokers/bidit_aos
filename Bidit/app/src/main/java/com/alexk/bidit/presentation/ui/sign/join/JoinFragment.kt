@@ -11,7 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 //Inject 어노테이션 변수에대해 의존성 주입
-@AndroidEntryPoint
+//@AndroidEntryPoint
 class JoinFragment : BaseFragment<FragmentJoinBinding>(R.layout.fragment_join) {
 
     private val args: JoinFragmentArgs by navArgs()
@@ -21,5 +21,13 @@ class JoinFragment : BaseFragment<FragmentJoinBinding>(R.layout.fragment_join) {
         super.onViewCreated(view, savedInstanceState)
         binding.tvJoinTest.text = args.argLogin
         testRepository.load(binding.tvJoinTest.text.toString())
+    }
+
+    override fun init() {
+        TODO("Not yet implemented")
+    }
+
+    override fun initEvent() {
+        TODO("Not yet implemented")
     }
 }
