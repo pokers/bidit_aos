@@ -1,14 +1,12 @@
 package com.alexk.bidit.common.adapter.home
 
 import android.content.Context
-import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.alexk.bidit.R
 import com.alexk.bidit.common.util.addComma
 import com.alexk.bidit.data.service.response.home.HomeResponse
@@ -17,20 +15,21 @@ import com.bumptech.glide.Glide
 
 
 //데이터 바인딩 미적용 -> 일단 UI를 위해 임시로 해둠
-class HomeMerchandiseListAdapter(
+/* 사용하는 UI는 반드시 submitList를 해주세요! */
+class MerchandiseListAdapter(
     val context: Context,
     private val dataList: List<HomeResponse>
 ) :
-    RecyclerView.Adapter<HomeMerchandiseListAdapter.HomeMerchandiseListHolder>() {
+    ListAdapter<HomeResponse,MerchandiseListAdapter.HomeMerchandiseListHolder>(MerchandiseListDiffUtil) {
 
     inner class HomeMerchandiseListHolder(private val binding: ItemMerchandiseListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: HomeResponse) {
             with(data) {
-//                Glide.with(context)
-//                    .load(img)
-//                    .centerCrop()
-//                    .into(binding.ivMerchandiseImg)
+                Glide.with(context)
+                    .load(img)
+                    .centerCrop()
+                    .into(binding.ivMerchandiseImg)
                 binding.tvMerchandiseClosingTime.text = time
                 binding.tvMerchandiseName.text = name
                 binding.tvMerchandiseCurrentPrice.text = "${addComma(price)}원"
@@ -55,4 +54,16 @@ class HomeMerchandiseListAdapter(
 
     override fun getItemCount() = dataList.size
 
+    object MerchandiseListDiffUtil : DiffUtil.ItemCallback<HomeResponse>() {
+        //내부 데이터가 동일한지
+        /* 후에 수정해야함 */
+        override fun areItemsTheSame(oldItem: HomeResponse, newItem: HomeResponse): Boolean {
+            return oldItem.name == newItem.name
+        }
+
+        //두 값이 동일한 아이템인지
+        override fun areContentsTheSame(oldItem: HomeResponse, newItem: HomeResponse): Boolean {
+            return oldItem == newItem
+        }
+    }
 }

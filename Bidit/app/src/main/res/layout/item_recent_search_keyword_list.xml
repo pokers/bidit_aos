@@ -9,18 +9,22 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:background="@color/white">
 
         <TextView
             android:id="@+id/tv_search_keyword"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/notosans_kr_regular"
             android:includeFontPadding="false"
             android:text="최근 검색어1"
+            android:layout_marginEnd="20dp"
+            android:maxLines="1"
             android:textColor="@color/charcoal"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_delete"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

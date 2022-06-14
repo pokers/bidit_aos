@@ -16,8 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical"
             android:visibility="gone"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,28 +47,76 @@
             android:id="@+id/ly_keyword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white_smoke"
+            android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_margin"
+                android:layout_marginTop="33dp"
+                android:background="@color/transparent"
+                android:src="@drawable/ic_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/edit_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="@dimen/activity_margin"
+                android:background="@drawable/bg_rect_tranparent_white_smoke_radius4_stroke0"
+                android:fontFamily="@font/notosans_kr_regular"
+                android:hint="@string/content_input_keyword"
+                android:includeFontPadding="false"
+                android:inputType="text"
+                android:imeOptions="actionSearch"
+                android:paddingStart="12dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/btn_back"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btn_back"
+                app:layout_constraintTop_toTopOf="@id/btn_back" />
+
+            <ImageView
+                android:id="@+id/iv_edit_text_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_edit_text_delete"
+                app:layout_constraintBottom_toBottomOf="@id/edit_search"
+                app:layout_constraintEnd_toEndOf="@id/edit_search"
+                app:layout_constraintTop_toTopOf="@id/edit_search" />
+
             <TextView
                 android:id="@+id/tv_recent_search_keyword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_margin"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/notosans_kr_bold"
                 android:includeFontPadding="false"
                 android:text="@string/title_recent_search_keyword"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/edit_search" />
 
             <TextView
                 android:id="@+id/tv_all_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/activity_margin"
                 android:fontFamily="@font/notosans_kr_medium"
                 android:includeFontPadding="false"
                 android:text="@string/content_all_delete"
@@ -80,8 +128,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_search_keyword_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/activity_margin"
                 android:layout_marginTop="28dp"
+                android:layout_marginEnd="@dimen/activity_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_recent_search_keyword" />

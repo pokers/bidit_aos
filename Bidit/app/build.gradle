@@ -97,6 +97,8 @@ dependencies {
     //hilt
     implementation 'com.google.dagger:hilt-android:2.42'
     annotationProcessor 'com.google.dagger:hilt-compiler:2.42'
+
+    implementation "com.github.skydoves:balloon:1.4.5"
 }
 
 kapt {

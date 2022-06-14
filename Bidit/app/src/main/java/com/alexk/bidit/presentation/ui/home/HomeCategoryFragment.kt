@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.home.HomeMerchandiseListAdapter
+import com.alexk.bidit.common.adapter.home.MerchandiseListAdapter
 import com.alexk.bidit.data.service.response.home.HomeResponse
 import com.alexk.bidit.databinding.FragmentHomeMerchandiseListBinding
 import com.alexk.bidit.presentation.base.BaseFragment
@@ -22,7 +22,7 @@ class HomeCategoryFragment :
         binding.apply {
             rvMerchandiseList.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            rvMerchandiseList.adapter = HomeMerchandiseListAdapter(requireContext(), getListData!!)
+            rvMerchandiseList.adapter = MerchandiseListAdapter(requireContext(), getListData!!)
         }
     }
 

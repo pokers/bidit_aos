@@ -11,52 +11,16 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <ImageButton
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_margin"
-            android:layout_marginTop="33dp"
-            android:background="@color/transparent"
-            android:src="@drawable/ic_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/edit_search"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="@dimen/activity_margin"
-            android:background="@drawable/bg_rect_tranparent_white_smoke_radius4_stroke0"
-            android:fontFamily="@font/notosans_kr_regular"
-            android:hint="@string/content_input_keyword"
-            android:includeFontPadding="false"
-            android:paddingStart="12dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:textColor="@color/black"
-            android:drawableEnd="@drawable/ic_edit_text_delete"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/btn_back"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_back"
-            app:layout_constraintTop_toTopOf="@id/btn_back" />
-
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_search_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="@dimen/activity_margin"
-            android:layout_marginEnd="@dimen/activity_margin"
             app:defaultNavHost="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_search"
+            app:layout_constraintTop_toTopOf="parent"
             app:navGraph="@navigation/navigation_search" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

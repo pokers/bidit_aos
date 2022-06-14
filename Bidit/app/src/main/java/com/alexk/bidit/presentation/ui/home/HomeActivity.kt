@@ -1,10 +1,12 @@
 package com.alexk.bidit.presentation.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.navigation.ui.setupWithNavController
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.ActivityHomeBinding
 import com.alexk.bidit.presentation.base.BaseActivity
+import com.alexk.bidit.presentation.ui.search.SearchActivity
 
 class HomeActivity :
     BaseActivity<ActivityHomeBinding>(R.layout.activity_home, R.id.nav_home_fragment) {
@@ -13,6 +15,7 @@ class HomeActivity :
         init()
         initEvent()
     }
+
     override fun onBackPressed() {
         val f = getCurrentFragment()
         if (f is HomeFragment) {
@@ -26,7 +29,17 @@ class HomeActivity :
     }
 
     override fun init() {
-        binding.navHomeBottom.setupWithNavController(navController)
+        binding.apply {
+            navHomeBottom.setupWithNavController(navController)
+            navHomeBottom.setOnItemSelectedListener {
+                when (it.itemId) {
+                    R.id.nav_search_fragment -> {
+                        startActivity(Intent(this@HomeActivity, SearchActivity::class.java))
+                    }
+                }
+                false
+            }
+        }
     }
 
     override fun initEvent() {

@@ -74,8 +74,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                         itemCategoryTemp,
                         this
                     )
+                    vpMerchandiseList.currentItem = 1
                 }
-                vpMerchandiseList.currentItem = 1
             }
             itemCategoryPromotion.apply {
                 setCategoryName(context.getString(R.string.category_promotion))

@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/navigation_search">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_search"
+    app:startDestination="@id/searchKeywordFragment">
+
+    <fragment
+        android:id="@+id/searchKeywordFragment"
+        android:name="com.alexk.bidit.presentation.ui.search.SearchKeywordFragment"
+        android:label="SearchKeywordFragment"
+        tools:layout="@layout/fragment_search_keyword">
+        <action
+            android:id="@+id/action_searchKeywordFragment_to_searchResultFragment"
+            app:destination="@id/searchResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.alexk.bidit.presentation.ui.search.SearchResultFragment"
+        android:label="SearchResultFragment"
+        tools:layout="@layout/fragment_search_result">
+        <argument
+            android:name="keyword"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
 
 </navigation>
