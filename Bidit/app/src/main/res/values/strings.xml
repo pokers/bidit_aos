@@ -7,6 +7,8 @@
     <string name="title_using_time">사용기간</string>
     <string name="title_immediate_purchase_price">즉시구매가</string>
     <string name="title_start_price">시작가</string>
+    <string name="title_current_price">현재가</string>
+    <string name="title_deadline_time">마감 시간</string>
 
     <string name="category_home">홈</string>
     <string name="category_search">검색</string>
@@ -35,4 +37,19 @@
     <string name="content_apply">적용하기</string>
     <string name="content_month">개월</string>
     <string name="content_won">원</string>
+    <string name="content_space_won">원을</string>
+    <string name="content_recent_bidding_user">최근 입찰자</string>
+    <string name="content_immediate_purchase">즉시구매하기</string>
+    <string name="content_bidding">입찰하기</string>
+    <string name="content_current_price">현재가인&#160;</string>
+    <string name="content_must_over_bidding">원 이상 비딩해야합니다.</string>
+    <string name="content_won_at">원에</string>
+    <string name="content_do_immediate_purchase">즉시구매 할게요.</string>
+    <string name="content_do_immediate_purchase_for_chat">즉시구매 채팅 보내기</string>
+    <string name="content_cancel">취소</string>
+    <string name="content_check_price">가격을 다시 한 번 확인해주세요.</string>
+    <string name="content_do_bidding">입찰합니다.</string>
+    <string name="content_do_bidding_complete">입찰 완료했습니다.</string>
+    <string name="content_after_bidding_alarm">최종 입찰되면 알림이 가거나, 알람을 확인해주세요!</string>
+    <string name="content_okay">확인</string>
 </resources>

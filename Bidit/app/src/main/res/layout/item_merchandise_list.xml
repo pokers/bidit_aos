@@ -14,7 +14,7 @@
         android:background="@color/white">
 
         <ImageView
-            android:id="@+id/iv_merchandise_img"
+            android:id="@+id/vp_merchandise_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="center"
@@ -31,8 +31,8 @@
             android:gravity="center_vertical"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/iv_merchandise_img"
-            app:layout_constraintTop_toTopOf="@id/iv_merchandise_img">
+            app:layout_constraintStart_toEndOf="@id/vp_merchandise_img"
+            app:layout_constraintTop_toTopOf="@id/vp_merchandise_img">
 
             <TextView
                 android:id="@+id/tv_merchandise_name"

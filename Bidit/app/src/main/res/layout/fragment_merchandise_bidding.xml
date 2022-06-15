@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_rect_transparent_white_radius_top_left_4_top_right_4_stroke0">
+
+        <ImageButton
+            android:id="@+id/btn_bidding_minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/bg_rect_transparent_white_smoke_radius4_stroke0"
+            android:paddingStart="8dp"
+            android:paddingTop="17dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="17dp"
+            android:src="@drawable/ic_minus"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/ly_merchandise_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/btn_bidding_minus"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_bidding_minus">
+
+            <TextView
+                android:id="@+id/tv_merchandise_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_kr_bold"
+                android:includeFontPadding="false"
+                android:text="300,000"
+                android:textColor="@color/nero"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tv_won"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/notosans_kr_medium"
+                android:includeFontPadding="false"
+                android:text="@string/content_won"
+                android:textColor="@color/charcoal"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btn_bidding_plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="36dp"
+            android:background="@drawable/bg_rect_transparent_white_smoke_radius4_stroke0"
+            android:paddingStart="8dp"
+            android:paddingTop="9dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp"
+            android:src="@drawable/ic_plus"
+            app:layout_constraintBottom_toBottomOf="@id/btn_bidding_minus"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_bidding_minus" />
+
+        <TextView
+            android:id="@+id/tv_bidding_use_info_current_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/notosans_kr_medium"
+            android:includeFontPadding="false"
+            android:text="@string/content_current_price"
+            android:textColor="@color/nobel"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toStartOf="@id/tv_must_over_bidding_price"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@id/tv_must_over_bidding_price"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ly_merchandise_price" />
+
+        <TextView
+            android:id="@+id/tv_must_over_bidding_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_kr_bold"
+            android:includeFontPadding="false"
+            android:text="300,000,000"
+            android:textColor="@color/nobel"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_bidding_use_info_current_price"
+            app:layout_constraintEnd_toStartOf="@id/tv_must_over_bidding"
+            app:layout_constraintStart_toEndOf="@id/tv_bidding_use_info_current_price"
+            app:layout_constraintTop_toTopOf="@id/tv_bidding_use_info_current_price" />
+
+        <TextView
+            android:id="@+id/tv_must_over_bidding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_kr_medium"
+            android:includeFontPadding="false"
+            android:text="@string/content_must_over_bidding"
+            android:textColor="@color/nobel"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_bidding_use_info_current_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_must_over_bidding_price"
+            app:layout_constraintTop_toTopOf="@id/tv_bidding_use_info_current_price" />
+
+        <TextView
+            android:id="@+id/tv_error_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/notosans_kr_medium"
+            android:includeFontPadding="false"
+            android:text="@string/content_check_price"
+            android:textColor="@color/red_orange"
+            android:textSize="10sp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_bidding_use_info_current_price" />
+
+        <LinearLayout
+            android:id="@+id/ly_bidding_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="33dp"
+            android:layout_marginEnd="17dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_bidding_use_info_current_price">
+
+            <android.widget.Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_rect_transparent_white_smoke_radius4_stroke0"
+                android:fontFamily="@font/notosans_kr_medium"
+                android:includeFontPadding="false"
+                android:minHeight="0dp"
+                android:paddingTop="10dp"
+                android:textSize="16sp"
+                android:paddingBottom="9dp"
+                android:text="@string/content_cancel"
+                android:textColor="@color/nobel" />
+
+            <android.widget.Button
+                android:id="@+id/btn_bidding"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="2"
+                android:background="@drawable/bg_rect_transparent_persian_blue_radius4_stroke0"
+                android:fontFamily="@font/notosans_kr_medium"
+                android:includeFontPadding="false"
+                android:minHeight="0dp"
+                android:paddingTop="10dp"
+                android:textSize="16sp"
+                android:paddingBottom="9dp"
+                android:text="@string/content_bidding"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

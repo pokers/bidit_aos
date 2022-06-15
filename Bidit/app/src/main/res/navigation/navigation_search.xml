@@ -10,6 +10,10 @@
         android:name="com.alexk.bidit.presentation.ui.search.SearchKeywordFragment"
         android:label="SearchKeywordFragment"
         tools:layout="@layout/fragment_search_keyword">
+        <argument
+            android:name="keyword"
+            app:argType="string"
+            app:nullable="true" />
         <action
             android:id="@+id/action_searchKeywordFragment_to_searchResultFragment"
             app:destination="@id/searchResultFragment" />
@@ -23,6 +27,9 @@
             android:name="keyword"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_searchResultFragment_to_searchKeywordFragment"
+            app:destination="@id/searchKeywordFragment" />
     </fragment>
 
 

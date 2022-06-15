@@ -71,7 +71,7 @@
                 android:maxLines="1"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="@dimen/activity_margin"
-                android:background="@drawable/bg_rect_tranparent_white_smoke_radius4_stroke0"
+                android:background="@drawable/bg_rect_transparent_white_smoke_radius4_stroke0"
                 android:fontFamily="@font/notosans_kr_regular"
                 android:hint="@string/content_input_keyword"
                 android:includeFontPadding="false"

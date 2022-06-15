@@ -99,6 +99,9 @@ dependencies {
     annotationProcessor 'com.google.dagger:hilt-compiler:2.42'
 
     implementation "com.github.skydoves:balloon:1.4.5"
+
+    // https://github.com/hannesa2/AndroidSlidingUpPanel
+    implementation 'com.github.hannesa2:AndroidSlidingUpPanel:4.2.1'
 }
 
 kapt {

@@ -113,26 +113,26 @@ class SearchKeywordFragment :
     }
 
     override fun onEditorAction(view: TextView?, imeOption: Int, p2: KeyEvent?): Boolean {
-        //텍스트가 있어야하고 검색버튼을 누르면?
-        if (imeOption == EditorInfo.IME_ACTION_SEARCH && view?.text?.toString() != "") {
-            //sp에 추가 -> 베이스는 원래가지고 있는 리스트
-            SearchKeywordManager(requireContext()).addKeyword(
-                (binding.rvSearchKeywordList.adapter as SearchKeywordListAdapter).keywordList,
-                binding.editSearch.text.toString()
-            )
-            //바뀐 리스트를 적용해야함
-            keywordViewModel.initKeywordList(SearchKeywordManager(requireContext()).getKeyword())
-
-            //키워드를 번들에 담아서 주고 결과 프래그먼트로 변경
-            navigate(
-                SearchKeywordFragmentDirections.actionSearchKeywordFragmentToSearchResultFragment(
-                    view?.text?.toString()
+            //텍스트가 있어야하고 검색버튼을 누르면?
+            if (imeOption == EditorInfo.IME_ACTION_SEARCH && view?.text?.toString() != "") {
+                //sp에 추가 -> 베이스는 원래가지고 있는 리스트
+                SearchKeywordManager(requireContext()).addKeyword(
+                    (binding.rvSearchKeywordList.adapter as SearchKeywordListAdapter).keywordList,
+                    binding.editSearch.text.toString()
                 )
-            )
-            //input 텍스트 초기화
-            binding.editSearch.setText("")
-        }
-        return true
+                //바뀐 리스트를 적용해야함
+                keywordViewModel.initKeywordList(SearchKeywordManager(requireContext()).getKeyword())
+
+                //키워드를 번들에 담아서 주고 결과 프래그먼트로 변경
+                navigate(
+                    SearchKeywordFragmentDirections.actionSearchKeywordFragmentToSearchResultFragment(
+                        view?.text?.toString()
+                    )
+                )
+                //input 텍스트 초기화
+                binding.editSearch.setText("")
+            }
+            return true
     }
 
     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
