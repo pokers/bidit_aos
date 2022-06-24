@@ -8,7 +8,7 @@ import com.alexk.bidit.data.service.response.home.HomeResponse
 import com.alexk.bidit.presentation.ui.home.HomeCategoryFragment
 import java.util.ArrayList
 
-class HomeCategoryAdapter(
+class HomeCategoryPageAdapter(
     fragmentActivity: Fragment,
     private val list: List<ArrayList<HomeResponse>>
 ) :
@@ -16,10 +16,10 @@ class HomeCategoryAdapter(
     override fun getItemCount() = list.size
 
     override fun createFragment(position: Int): Fragment {
-        val fragment = HomeCategoryFragment.getFragmentInstance()
-        fragment?.arguments = Bundle().apply {
+        val fragment = HomeCategoryFragment()
+        fragment.arguments = Bundle().apply {
             putParcelableArrayList("listData", list[position] as ArrayList<out Parcelable>?)
         }
-        return fragment!!
+        return fragment
     }
 }

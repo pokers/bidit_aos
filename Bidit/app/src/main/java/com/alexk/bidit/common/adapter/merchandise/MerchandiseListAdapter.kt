@@ -1,6 +1,7 @@
-package com.alexk.bidit.common.adapter.home
+package com.alexk.bidit.common.adapter.merchandise
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -11,6 +12,7 @@ import com.alexk.bidit.R
 import com.alexk.bidit.common.util.addComma
 import com.alexk.bidit.data.service.response.home.HomeResponse
 import com.alexk.bidit.databinding.ItemMerchandiseListBinding
+import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
 import com.bumptech.glide.Glide
 
 
@@ -20,19 +22,25 @@ class MerchandiseListAdapter(
     val context: Context,
     private val dataList: List<HomeResponse>
 ) :
-    ListAdapter<HomeResponse,MerchandiseListAdapter.HomeMerchandiseListHolder>(MerchandiseListDiffUtil) {
+    ListAdapter<HomeResponse, MerchandiseListAdapter.HomeMerchandiseListHolder>(
+        MerchandiseListDiffUtil
+    ) {
 
     inner class HomeMerchandiseListHolder(private val binding: ItemMerchandiseListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: HomeResponse) {
             with(data) {
                 Glide.with(context)
-                    .load(img)
+                    .load(R.drawable.ic_launcher_background)
                     .centerCrop()
                     .into(binding.ivMerchandiseImg)
                 binding.tvMerchandiseClosingTime.text = time
                 binding.tvMerchandiseName.text = name
                 binding.tvMerchandiseCurrentPrice.text = "${addComma(price)}원"
+                binding.tvNowBiddingCount.text = "100,000건"
+            }
+            itemView.setOnClickListener {
+                context.startActivity(Intent(context, BiddingActivity::class.java))
             }
         }
     }

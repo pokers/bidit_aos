@@ -39,7 +39,7 @@ class SearchKeywordListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchKeywordListHolder {
         val view = DataBindingUtil.inflate<ItemRecentSearchKeywordListBinding>(
             LayoutInflater.from(parent.context),
-            R.layout.item_recent_search_keyword_list, parent, false
+            R.layout.item_search_recent_keyword_list, parent, false
         )
         return SearchKeywordListHolder(view)
     }

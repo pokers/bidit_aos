@@ -13,4 +13,12 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="home_detail_category_tab" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/sliver</item>
+        <item name="fontFamily">@font/notosans_kr_medium</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
 </resources>

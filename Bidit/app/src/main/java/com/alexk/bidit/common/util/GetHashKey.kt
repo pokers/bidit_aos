@@ -6,12 +6,13 @@ import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.ActivitySignBinding
 import com.alexk.bidit.presentation.base.BaseActivity
 import java.security.MessageDigest
 
-class GetHashKey : BaseActivity<ActivitySignBinding>(R.layout.activity_sign, R.id.nav_sign) {
+class GetHashKey : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,13 +29,5 @@ class GetHashKey : BaseActivity<ActivitySignBinding>(R.layout.activity_sign, R.i
         } catch (e: Exception) {
             Log.d("hashcode", "에러::$e")
         }
-    }
-
-    override fun init() {
-        TODO("Not yet implemented")
-    }
-
-    override fun initEvent() {
-        TODO("Not yet implemented")
     }
 }

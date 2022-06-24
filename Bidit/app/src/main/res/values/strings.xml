@@ -20,6 +20,7 @@
     <string name="category_popular_item">인기매물순</string>
     <string name="category_popular">인기순</string>
     <string name="category_deadline_imminent">마감임박</string>
+    <string name="category_chatting">채팅</string>
 
 
     <string name="content_now">현재</string>
@@ -52,4 +53,13 @@
     <string name="content_do_bidding_complete">입찰 완료했습니다.</string>
     <string name="content_after_bidding_alarm">최종 입찰되면 알림이 가거나, 알람을 확인해주세요!</string>
     <string name="content_okay">확인</string>
+    <string name="content_opening">비딩으로\n새로운 중고거래\n시장을 열다</string>
+
+    <string-array name="category_detail_merchandise">
+        <item>Ending Soon</item>
+        <item>최신순</item>
+        <item>프로모션</item>
+        <item>인기매물순</item>
+        <item>인기매물순</item>
+    </string-array>
 </resources>

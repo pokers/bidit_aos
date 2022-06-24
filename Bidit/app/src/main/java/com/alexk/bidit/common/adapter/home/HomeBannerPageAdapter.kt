@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.FragmentHomeBannerBinding
 
-class HomeBannerAdapter(val context: Context?, val bannerList: List<Int>) :
-    RecyclerView.Adapter<HomeBannerAdapter.HomeBannerHolder>() {
+class HomeBannerPageAdapter(val context: Context?, val bannerList: List<Int>) :
+    RecyclerView.Adapter<HomeBannerPageAdapter.HomeBannerHolder>() {
     inner class HomeBannerHolder(private val binding: FragmentHomeBannerBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(img: Int) {

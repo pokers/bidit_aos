@@ -1,13 +1,13 @@
-package com.alexk.bidit.presentation.ui.house
+package com.alexk.bidit.presentation.ui.category
 
 import android.os.Bundle
 import android.view.View
 import com.alexk.bidit.R
-import com.alexk.bidit.databinding.FragmentHouseBinding
+import com.alexk.bidit.databinding.FragmentCategoryBinding
 import com.alexk.bidit.presentation.base.BaseFragment
 
-class HouseFragment :
-    BaseFragment<FragmentHouseBinding>(R.layout.fragment_house) {
+class CategoryFragment :
+    BaseFragment<FragmentCategoryBinding>(R.layout.fragment_category) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

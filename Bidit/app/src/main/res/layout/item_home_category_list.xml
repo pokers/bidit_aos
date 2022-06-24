@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_category_img"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:includeFontPadding="false"
+            android:text="test"
+            android:textColor="@color/nero"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@id/iv_category_img"
+            app:layout_constraintStart_toStartOf="@id/iv_category_img"
+            app:layout_constraintTop_toBottomOf="@id/iv_category_img" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

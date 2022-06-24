@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/homeFragment"
-        android:icon="@drawable/ic_launcher_background"
-        android:title="@string/category_home"/>
+        android:id="@+id/nav_chatting_fragment"
+        android:icon="@drawable/ic_home_bottom_chatting"
+        app:showAsAction="always"
+        android:title="@string/category_chatting"/>
     <item
         android:id="@+id/nav_search_fragment"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/ic_home_bottom_search"
+        app:showAsAction="always"
         android:title="@string/category_search"/>
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_home_bottom_home"
+        app:showAsAction="always"
+        android:title="@string/category_home"/>
+
     <item
         android:id="@+id/myTradeFragment"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/ic_home_bottom_trade"
+        app:showAsAction="always"
         android:title="@string/category_my_trade"/>
+
     <item
         android:id="@+id/myPageFragment"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/ic_home_bottom_user"
+        app:showAsAction="always"
         android:title="@string/category_my_page"/>
 
 </menu>

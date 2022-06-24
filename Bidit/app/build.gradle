@@ -10,6 +10,11 @@ plugins {
 android {
     compileSdk 32
 
+    apollo {
+        packageName.set("com.alexk.bidit")
+        generateKotlinModels.set(true)
+    }
+
     viewBinding {
         enabled = true
     }
@@ -54,6 +59,7 @@ dependencies {
 
     // https://github.com/square/retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
     // https://github.com/square/retrofit/tree/master/retrofit-converters/gson
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
@@ -106,8 +112,4 @@ dependencies {
 
 kapt {
     correctErrorTypes true
-}
-
-apollo {
-    packageName.set("com.alexk.bidit")
 }

@@ -2,16 +2,12 @@ package com.alexk.bidit.common.component
 
 import com.alexk.bidit.R
 import android.content.Context
-import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.databinding.ItemCategoryListBinding
-import com.bumptech.glide.Glide
 
 
 class CategoryListItem @JvmOverloads constructor(
@@ -26,7 +22,7 @@ class CategoryListItem @JvmOverloads constructor(
     init {
         _binding = DataBindingUtil.inflate(
             LayoutInflater.from(context),
-            R.layout.item_category_list,
+            R.layout.item_merchandise_sort_category_list,
             this,
             false
         )

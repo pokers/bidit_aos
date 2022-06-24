@@ -15,13 +15,15 @@
         android:largeHeap="true"
         android:theme="@style/Theme.Bidit">
         <activity
-            android:name="com.alexk.bidit.presentation.ui.home.HomeActivity"
+            android:name=".presentation.ui.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".presentation.ui.home.HomeActivity"/>
+        <activity android:name=".presentation.ui.login.LoginActivity"/>
         <activity android:name=".presentation.ui.search.SearchActivity"/>
     </application>
 
