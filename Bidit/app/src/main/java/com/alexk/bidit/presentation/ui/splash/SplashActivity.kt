@@ -25,7 +25,6 @@ class SplashActivity : AppCompatActivity() {
         //초가 아니고 세션이 확인된다면 넘어가기
         val handler = Handler(mainLooper)
         handler.postDelayed({
-            //일단 로그인을 강제로, 나중에 확인
             if(TokenManager(this).getToken().isEmpty()){
                 finish()
                 startActivity(Intent(this, LoginActivity::class.java))

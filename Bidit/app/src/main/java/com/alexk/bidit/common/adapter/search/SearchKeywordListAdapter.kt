@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alexk.bidit.R
 import com.alexk.bidit.data.sharedPreference.SearchKeywordManager
-import com.alexk.bidit.databinding.ItemRecentSearchKeywordListBinding
+import com.alexk.bidit.databinding.ItemSearchRecentKeywordListBinding
 
 class SearchKeywordListAdapter(
     val context: Context,
@@ -19,7 +19,7 @@ class SearchKeywordListAdapter(
     RecyclerView.Adapter<SearchKeywordListAdapter.SearchKeywordListHolder>() {
 
 
-    inner class SearchKeywordListHolder(val binding: ItemRecentSearchKeywordListBinding) :
+    inner class SearchKeywordListHolder(val binding: ItemSearchRecentKeywordListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(keyword: String) {
             binding.tvSearchKeyword.text = keyword
@@ -37,7 +37,7 @@ class SearchKeywordListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchKeywordListHolder {
-        val view = DataBindingUtil.inflate<ItemRecentSearchKeywordListBinding>(
+        val view = DataBindingUtil.inflate<ItemSearchRecentKeywordListBinding>(
             LayoutInflater.from(parent.context),
             R.layout.item_search_recent_keyword_list, parent, false
         )

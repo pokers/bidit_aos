@@ -1,6 +1,7 @@
 package com.alexk.bidit.presentation.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -10,6 +11,8 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import com.alexk.bidit.GetMyInfoQuery
+import com.alexk.bidit.GetUserInfoQuery
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.home.HomeBannerPageAdapter
 import com.alexk.bidit.common.adapter.home.HomeCategoryPageAdapter
@@ -18,6 +21,7 @@ import com.alexk.bidit.common.util.GridRecyclerViewDeco
 import com.alexk.bidit.data.service.response.home.HomeCategoryResponse
 import com.alexk.bidit.data.service.response.home.HomeResponse
 import com.alexk.bidit.databinding.FragmentHomeBinding
+import com.alexk.bidit.di.NetworkModule
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -68,6 +72,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     override fun init() {
 
+        lifecycleScope.launchWhenResumed {
+            val response = NetworkModule.provideApolloClient().query(GetMyInfoQuery()).execute()
+            Log.d("apollo", response.data.toString())
+        }
+
+
         binding.apply {
 
             rvCategory.layoutManager =
@@ -84,7 +94,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     HomeCategoryResponse("test", "test"),
                 )
             )
-            rvCategory.addItemDecoration(GridRecyclerViewDeco(0,40,20,0))
+            rvCategory.addItemDecoration(GridRecyclerViewDeco(0, 40, 20, 0))
 
             vpMainBanner.adapter = HomeBannerPageAdapter(context, bannerList)
             vpMainBanner.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -115,16 +125,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
 
             //default로 0일 때 bold처리
-            changeSelectedTabItemFontFamily(0,R.font.notosans_kr_bold)
+            changeSelectedTabItemFontFamily(0, R.font.notosans_kr_bold)
 
-            lyDetailCategory.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            lyDetailCategory.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     vpMerchandiseList.currentItem = tab?.position!!
-                    changeSelectedTabItemFontFamily(tab.position,R.font.notosans_kr_bold)
+                    changeSelectedTabItemFontFamily(tab.position, R.font.notosans_kr_bold)
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
-                    changeSelectedTabItemFontFamily(tab?.position!!,R.font.notosans_kr_medium)
+                    changeSelectedTabItemFontFamily(tab?.position!!, R.font.notosans_kr_medium)
                 }
 
                 override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -136,7 +146,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun changeSelectedTabItemFontFamily(tabPosition: Int, @FontRes fontFamilyRes: Int) {
-        val linearLayout = (binding.lyDetailCategory.getChildAt(0) as ViewGroup).getChildAt(tabPosition) as LinearLayout
+        val linearLayout =
+            (binding.lyDetailCategory.getChildAt(0) as ViewGroup).getChildAt(tabPosition) as LinearLayout
         val tabTextView = linearLayout.getChildAt(1) as TextView
         val typeface = ResourcesCompat.getFont(requireContext(), fontFamilyRes)
         tabTextView.typeface = typeface

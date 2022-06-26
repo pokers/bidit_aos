@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.search.SearchKeywordListAdapter
 import com.alexk.bidit.data.sharedPreference.SearchKeywordManager
-import com.alexk.bidit.data.sharedPreference.keyword
 import com.alexk.bidit.databinding.FragmentSearchKeywordBinding
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.viewModel.SearchKeywordViewModel
@@ -45,7 +44,7 @@ class SearchKeywordFragment :
                 lyNoKeyword.visibility = View.VISIBLE
                 lyNoKeyword.bringToFront()
 
-                tvRecentSearchKeyword.visibility = View.GONE
+                tvRecentSearchKeywordTitle.visibility = View.GONE
                 tvAllDelete.visibility = View.GONE
                 rvSearchKeywordList.visibility = View.GONE
             }
@@ -77,7 +76,7 @@ class SearchKeywordFragment :
                         lyNoKeyword.visibility = View.VISIBLE
                         lyNoKeyword.bringToFront()
 
-                        tvRecentSearchKeyword.visibility = View.GONE
+                        tvRecentSearchKeywordTitle.visibility = View.GONE
                         tvAllDelete.visibility = View.GONE
                         rvSearchKeywordList.visibility = View.GONE
                     }

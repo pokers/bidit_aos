@@ -1,6 +1,9 @@
 package com.alexk.bidit.di
 
 import android.app.Application
+import com.alexk.bidit.GlobalApplication
+import com.alexk.bidit.data.interceptor.TokenInterceptor
+import com.alexk.bidit.data.sharedPreference.TokenManager
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.network.okHttpClient
 import dagger.Module
@@ -11,20 +14,19 @@ import dagger.hilt.android.internal.managers.ApplicationComponentManager
 import okhttp3.OkHttpClient
 import javax.inject.Singleton
 
-@Module
-@InstallIn(ActivityComponent::class)
 object NetworkModule {
-    @Singleton
-    @Provides
-    fun provideApolloClient():ApolloClient{
+
+    val token = TokenManager(GlobalApplication.applicationContext()).getToken()
+
+    fun provideApolloClient(): ApolloClient {
         val logging = HttpLoggingClient.provideHttpLoggingClient()
 
         val okHttpClient = OkHttpClient
             .Builder()
-            .addInterceptor(logging)
+            .addInterceptor(TokenInterceptor())
 
         return ApolloClient.Builder()
-            .serverUrl("123123")
+            .serverUrl(GlobalApplication.baseUrl)
             .okHttpClient(okHttpClient.build())
             .build()
     }

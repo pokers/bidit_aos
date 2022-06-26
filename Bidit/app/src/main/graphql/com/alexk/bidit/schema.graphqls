@@ -1,64 +1,29 @@
-# TODO : should use custom scalar. 
-enum UserStatus{
-    VALID,
-    INVALID
-}
-enum JoinPath{
-    KAKAO,
-    APPLE,
-    GOOGLE
-}
-enum gender{
-    MALE,
-    FEMALE
-}
-type User {
+# Bidding
+
+type Bidding {
     id: Int!
-    status: Int!    # 0=VALID, 1=INVALID
-    nickname: String
-    passwd: String
-    joinPath: JoinPath
-    gender: gender
-    birth: String
-    email: String
-    phone: String
+    status: Int!
+    userId: Int!
+    itemId: Int!
+    price: Int!
     createdAt: String!
-    updatedAt: String
-    deletedAt: String
-    description: String
-    items:ItemConnection
-    kakaoAccount:KakaoAccount
+    item: Item
+    user: User
 }
 
-type Query {
-    getUser(id: Int!): User
-    me:User
-}
-
-type Mutation {
-    addUser:User
-    updateUser(userUpdate:userUpdateInput):User
-    updatePushToken(pushTokenUpdate:pushTokenUpdateInput):Boolean
-}
-
-input userUpdateInput{
+input BiddingQueryInput {
     status: Int
-    nickname: String
-    gender: gender
-    birth: String
-    deletedAt: String
-    description: String
+    itemId: Int
+    price: Int
 }
 
-input pushTokenUpdateInput{
+input BidInput {
     status: Int
-    token: String
+    itemId: Int!
+    price: Int!
 }
 
-schema {
-    query: Query
-    mutation: Mutation
-}
+# Item
 
 enum DeliveryType {
     DIRECT,
@@ -134,17 +99,6 @@ type ItemConnection {
     pageInfo: PageInfo
 }
 
-type Query{
-    getItem(id: Int!):Item
-    getItemList(itemQuery: ItemQueryInput, keyword:String, first: Int, last: Int, after: String, before: String):ItemConnection
-}
-
-type Mutation{
-    addItem(itemAdd:ItemAddInput, description:String, images:[String]):Item
-    updateItem(itemId:Int, itemUpdate:ItemUpdateInput, description:String):Item
-    updateItemImage(itemId:Int, itemImageUpdate:ItemImageUpdateInput):Item
-}
-
 input ItemQueryInput {
     id: Int
     status: Int
@@ -183,6 +137,51 @@ input ItemUpdateInput {
     sCondition: Int
     aCondition: Int
 }
+
+input ItemImageUpdateInput{
+    itemImageId:Int
+    image:String
+}
+
+# ItemCategory
+
+enum CategoryStatus {
+    VALID,
+    INVALID
+}
+type Category {
+    id: Int!
+    status: Int!
+    parentId: Int
+    name: String
+    depth: Int
+    createdAt: String!
+    updatedAt: String
+    deletedAt: String
+    parent: Category
+}
+
+type CategoryEdge {
+    node: Category
+    cursor: String
+}
+
+type CategoryConnection {
+    totalCount: Int
+    edges: [CategoryEdge]
+    pageInfo: PageInfo
+}
+
+input CategoryQueryInput {
+    id: Int
+    status: Int
+    parentId: Int
+    name: String
+    depth: Int
+}
+
+# KakaoAccount
+
 
 scalar Long
 
@@ -223,85 +222,76 @@ type KakaoAccount{
     description:String
 }
 
-enum CategoryStatus {
+# User
+
+enum UserStatus{
     VALID,
     INVALID
 }
-
-type Category {
+enum JoinPath{
+    KAKAO,
+    APPLE,
+    GOOGLE
+}
+enum gender{
+    MALE,
+    FEMALE
+}
+type User {
     id: Int!
-    status: Int!
-    parentId: Int
-    name: String
-    depth: Int
+    status: Int!    # 0=VALID, 1=INVALID
+    nickname: String
+    passwd: String
+    joinPath: JoinPath
+    gender: gender
+    birth: String
+    email: String
+    phone: String
     createdAt: String!
     updatedAt: String
     deletedAt: String
-    parent: Category
+    description: String
+    items:ItemConnection
+    kakaoAccount:KakaoAccount
 }
 
-type CategoryEdge {
-    node: Category
-    cursor: String
-}
-
-type CategoryConnection {
-    totalCount: Int
-    edges: [CategoryEdge]
-    pageInfo: PageInfo
-}
-
-
-type Query{
-    getCategoryList(categoryQuery: CategoryQueryInput, first: Int, last: Int, after: String, before: String):CategoryConnection
-    getCategory(id: Int!):Category
-    scanCategory:[Category]
-}
-
-input CategoryQueryInput {
-    id: Int
+input userUpdateInput{
     status: Int
-    parentId: Int
-    name: String
-    depth: Int
+    nickname: String
+    gender: gender
+    birth: String
+    deletedAt: String
+    description: String
 }
-
-input ItemImageUpdateInput{
-    itemImageId:Int
-    image:String
-}
-
-
-type Bidding {
-    id: Int!
-    status: Int!
-    userId: Int!
-    itemId: Int!
-    price: Int!
-    createdAt: String!
-    item: Item
-    user: User
-}
-
-input BiddingQueryInput {
+input pushTokenUpdateInput{
     status: Int
-    itemId: Int
-    price: Int
-}
-
-input BidInput {
-    status: Int
-    itemId: Int!
-    price: Int!
+    token: String
 }
 
 type Query{
     getMyBidding(biddingQuery:BiddingQueryInput):[Bidding]
     getBidding(biddingQuery:BiddingQueryInput):[Bidding]
+    getItem(id: Int!):Item
+    getItemList(itemQuery: ItemQueryInput, keyword:String, first: Int, last: Int, after: String, before: String):ItemConnection
+    getCategoryList(categoryQuery: CategoryQueryInput, first: Int, last: Int, after: String, before: String):CategoryConnection
+    getCategory(id: Int!):Category
+    scanCategory:[Category]
+    getUser(id: Int!): User
+    me:User
 }
 
 type Mutation{
     bid(bid:BidInput):Bidding
+    addItem(itemAdd:ItemAddInput, description:String, images:[String]):Item
+    updateItem(itemId:Int, itemUpdate:ItemUpdateInput, description:String):Item
+    updateItemImage(itemId:Int, itemImageUpdate:ItemImageUpdateInput):Item
+    addUser:User
+    updateUser(userUpdate:userUpdateInput):User
+    updatePushToken(pushTokenUpdate:pushTokenUpdateInput):Boolean
 }
 
 
+schema {
+    query: Query
+    mutation: Mutation
+}

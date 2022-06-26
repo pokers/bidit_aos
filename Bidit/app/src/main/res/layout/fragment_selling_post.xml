@@ -228,6 +228,7 @@
             android:text="@string/content_selling_post_bidding_ending_date_hint"
             android:textColor="@color/nobel"
             android:textSize="14sp"
+            app:drawableEndCompat="@drawable/ic_text_delete"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/div_immediate_purchase_price" />
@@ -256,7 +257,7 @@
             android:text="@string/content_selling_post_bidding_ending_time_hint"
             android:textColor="@color/nobel"
             android:textSize="14sp"
-            android:drawableEnd="@drawable/clo"
+            app:drawableEndCompat="@drawable/ic_text_delete"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/div_bidding_ending_date" />

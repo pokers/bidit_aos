@@ -1,29 +1,18 @@
+# 쿼리 구현
+# 쿼리 이름(내가 만듦)
+# 내부는 어떤 쿼리를 사용할지
+# 안에 내용은 필요한 내용
 
-# query 는 get 이라고 생각해도 될 것 같다.
-# query 에 있는 것 가져오기(데이터는 내가 선택해도 상관 없다.
-query {
-    # 스키마에 적힌 메소드? 구현
-    getUser(id: Int){
-        # 내가 필요한 정보 적어주기
-        id
-        status
-    }
-
-    me {
-        id
+# query의 매개변수(실제 query 내용이 필요한 데이터)
+# 쿼리 내부 구현의 매개변수(위에서 사용한 변수를 넣어줌 (단, 스키마에 있는 변수명을 그대로 사용해야함)
+query getUserInfo($inputId : Int!){
+    getUser(id:$inputId){
         status
     }
 }
 
-# mutation 구현
-# mutation 은 서버에 request 를 보내는 작업
-mutation {
-    addUser {
-        #User 를 어떻게 채울 건지?
-        status
-    }
-
-    updateUser{
-        status
+query getMyInfo{
+    me {
+        id
     }
 }

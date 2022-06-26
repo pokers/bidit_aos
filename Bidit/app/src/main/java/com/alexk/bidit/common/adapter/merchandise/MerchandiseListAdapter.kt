@@ -12,6 +12,7 @@ import com.alexk.bidit.R
 import com.alexk.bidit.common.util.addComma
 import com.alexk.bidit.data.service.response.home.HomeResponse
 import com.alexk.bidit.databinding.ItemMerchandiseListBinding
+import com.alexk.bidit.databinding.ItemMerchandiseListVerticalBinding
 import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
 import com.bumptech.glide.Glide
 
@@ -26,7 +27,7 @@ class MerchandiseListAdapter(
         MerchandiseListDiffUtil
     ) {
 
-    inner class HomeMerchandiseListHolder(private val binding: ItemMerchandiseListBinding) :
+    inner class HomeMerchandiseListHolder(private val binding: ItemMerchandiseListVerticalBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: HomeResponse) {
             with(data) {
@@ -47,7 +48,7 @@ class MerchandiseListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeMerchandiseListHolder {
         val view =
-            DataBindingUtil.inflate<ItemMerchandiseListBinding>(
+            DataBindingUtil.inflate<ItemMerchandiseListVerticalBinding>(
                 LayoutInflater.from(parent.context),
                 R.layout.item_merchandise_list_vertical,
                 parent,

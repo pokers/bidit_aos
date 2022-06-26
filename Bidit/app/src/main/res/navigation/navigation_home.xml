@@ -20,4 +20,14 @@
         tools:layout="@layout/fragment_my_page"
         android:name="com.alexk.bidit.presentation.ui.myPage.MyPageFragment"
         android:label="MyPageFragment" />
+    <fragment
+        android:id="@+id/searchFragment"
+        tools:layout="@layout/fragment_search_keyword"
+        android:name="com.alexk.bidit.presentation.ui.search.SearchKeywordFragment"
+        android:label="SearchFragment" />
+    <fragment
+        android:id="@+id/chattingFragment"
+        tools:layout="@layout/fragment_my_page"
+        android:name="com.alexk.bidit.presentation.ui.myPage.MyPageFragment"
+        android:label="ChattingFragment" />
 </navigation>

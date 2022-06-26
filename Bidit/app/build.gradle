@@ -111,9 +111,6 @@ dependencies {
     // kakao
     implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.0'
     implementation "com.kakao.sdk:v2-user:2.5.0" // 카카오 로그인
-
-    // https://github.com/prolificinteractive/material-calendarview
-    implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
 }
 
 kapt {

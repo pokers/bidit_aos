@@ -11,7 +11,6 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
@@ -45,9 +44,12 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initEvent() {
         binding.btnKakaoLogin.setOnClickListener {
+            //카카오톡이 있으면 카카오톡으로
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
                 UserApiClient.instance.loginWithKakaoTalk(this, callback = callback)
-            } else {
+            }
+            //아니면 인터넷으로
+            else {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
             }
         }
