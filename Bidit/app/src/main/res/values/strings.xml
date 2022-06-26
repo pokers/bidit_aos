@@ -13,6 +13,10 @@
     <string name="title_remaining_time">잔여 시간</string>
     <string name="title_write_time">작성일</string>
     <string name="title_dialog_delete_board">판매글을 삭제하시겠어요?</string>
+    <string name="title_recent_search_item">최근 검색 제품</string>
+    <string name="title_selling_post_temporary">임시저장된 글이 있어요.</string>
+    <string name="title_selling_post_required">아직 작성하지 않은 항목이 있어요.</string>
+    <string name="title_selling_post">판매글 올리기</string>
 
     <string name="category_home">홈</string>
     <string name="category_search">검색</string>
@@ -67,6 +71,18 @@
     <string name="content_delete_detail_explanation">입찰된 게시글을 삭제하면 다른 유저들이\n당황할 수 있어요.</string>
     <string name="content_selling">판매중</string>
     <string name="content_selling_status">판매 상태는 실제 거래 이후, 채팅창에서 바꿀 수 있어요.</string>
+    <string name="content_selling_post_temporary">이어서 작성하시겠어요?</string>
+    <string name="content_selling_post_continue">이어서 등록</string>
+    <string name="content_selling_post_new">새로 등록</string>
+    <string name="content_selling_post_required">제목, 카테고리, 가격, 마감 날짜 및 시간, 내용은\n필수적으로 작성해주세요.</string>
+    <string name="content_selling_post_title_hint">글 제목</string>
+    <string name="content_selling_post_bidding_start_price_hint">₩ 비딩 시작가</string>
+    <string name="content_selling_post_bidding_immediate_price_hint">₩ 즉시 구매가</string>
+    <string name="content_selling_post_bidding_ending_date_hint">경매 마감 날짜</string>
+    <string name="content_selling_post_bidding_ending_time_hint">경매 마감 시간</string>
+    <string name="content_selling_post_registration">판매글 등록</string>
+    <string name="content_selling_post_content_hint">경매에 올릴 게시글 내용을 10자 이상 작성해주세요.\n(가품 및 판매금지품목은 게시가 제한될 수 있습니다.</string>
+    <string name="content_category">카테고리</string>
 
     <string-array name="category_detail_merchandise">
         <item>Ending Soon</item>

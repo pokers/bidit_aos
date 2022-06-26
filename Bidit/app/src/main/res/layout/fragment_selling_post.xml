@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ly_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_margin"
+                android:src="@drawable/ic_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_kr_medium"
+                android:includeFontPadding="false"
+                android:text="@string/title_selling_post"
+                android:textColor="@color/charcoal"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/iv_merchandise_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="26dp"
+            android:background="@drawable/bg_rect_transparent_white_smoke_radius4_stroke0"
+            android:paddingStart="22dp"
+            android:paddingTop="18dp"
+            android:paddingEnd="23dp"
+            android:paddingBottom="33dp"
+            android:src="@drawable/ic_camera"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ly_appbar" />
+
+        <TextView
+            android:id="@+id/tv_img_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:fontFamily="@font/notosans_kr_medium"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="0/10"
+            android:textColor="@color/nobel"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_merchandise_img"
+            app:layout_constraintEnd_toEndOf="@id/iv_merchandise_img"
+            app:layout_constraintStart_toStartOf="@id/iv_merchandise_img" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_merchandise_img_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/activity_margin"
+            app:layout_constraintBottom_toBottomOf="@id/iv_merchandise_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_merchandise_img"
+            app:layout_constraintTop_toTopOf="@id/iv_merchandise_img" />
+
+        <View
+            android:id="@+id/div_merchandise_img_list"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:background="@color/whisper"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_merchandise_img" />
+
+        <EditText
+            android:id="@+id/edit_post_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:background="@color/transparent"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:hint="@string/content_selling_post_title_hint"
+            android:includeFontPadding="false"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/nobel"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/div_merchandise_img_list" />
+
+        <View
+            android:id="@+id/div_title"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:background="@color/whisper"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_post_title" />
+
+        <TextView
+            android:id="@+id/tv_category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:includeFontPadding="false"
+            android:text="@string/content_category"
+            android:textColor="@color/nobel"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/div_title" />
+
+        <View
+            android:id="@+id/div_category"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:background="@color/whisper"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_category" />
+
+        <EditText
+            android:id="@+id/edit_bidding_start_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:background="@color/transparent"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:hint="@string/content_selling_post_bidding_start_price_hint"
+            android:includeFontPadding="false"
+            android:textColor="@color/black"
+            android:textColorHint="@color/nobel"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/div_category" />
+
+        <View
+            android:id="@+id/div_bidding_start_price"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:background="@color/whisper"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_bidding_start_price" />
+
+        <EditText
+            android:id="@+id/edit_bidding_immediate_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:background="@color/transparent"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:hint="@string/content_selling_post_bidding_immediate_price_hint"
+            android:includeFontPadding="false"
+            android:textColor="@color/black"
+            android:textColorHint="@color/nobel"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/div_bidding_start_price" />
+
+        <View
+            android:id="@+id/div_immediate_purchase_price"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:background="@color/whisper"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_bidding_immediate_price" />
+
+        <TextView
+            android:id="@+id/tv_bidding_ending_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:includeFontPadding="false"
+            android:text="@string/content_selling_post_bidding_ending_date_hint"
+            android:textColor="@color/nobel"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/div_immediate_purchase_price" />
+
+        <View
+            android:id="@+id/div_bidding_ending_date"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:background="@color/whisper"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_bidding_ending_date" />
+
+        <TextView
+            android:id="@+id/tv_bidding_ending_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:includeFontPadding="false"
+            android:text="@string/content_selling_post_bidding_ending_time_hint"
+            android:textColor="@color/nobel"
+            android:textSize="14sp"
+            android:drawableEnd="@drawable/clo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/div_bidding_ending_date" />
+
+        <View
+            android:id="@+id/div_bidding_ending_time"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:background="@color/whisper"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_bidding_ending_time" />
+
+        <EditText
+            android:id="@+id/edit_post_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:background="@color/transparent"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:hint="@string/content_selling_post_content_hint"
+            android:includeFontPadding="false"
+            android:textColor="@color/black"
+            android:textColorHint="@color/nobel"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/div_bidding_ending_time" />
+
+        <android.widget.Button
+            android:id="@+id/btn_post_registration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_margin"
+            android:background="@drawable/bg_rect_transparent_persian_blue_radius4_stroke0"
+            android:fontFamily="@font/notosans_kr_medium"
+            android:includeFontPadding="false"
+            android:text="@string/content_selling_post_registration"
+            android:textColor="@color/whisper"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_post_content" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

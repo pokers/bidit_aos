@@ -36,4 +36,14 @@
         <item name="android:includeFontPadding">false</item>
     </style>
 
+    <style name="custom_time_picker">
+        <!-- 텍스트 컬러 -->
+        <item name="android:textColorPrimary">@color/black</item>
+        <!-- Divider 컬러 -->
+        <item name="colorControlNormal">@color/transparent</item>
+        <item name="android:background">@color/white</item>
+        <item name="fontFamily">@font/notosans_kr_medium</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
 </resources>

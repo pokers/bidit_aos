@@ -31,14 +31,6 @@ class HomeActivity :
     override fun init() {
         binding.apply {
             navHomeBottom.setupWithNavController(navController)
-            navHomeBottom.setOnItemSelectedListener {
-                when (it.itemId) {
-                    R.id.nav_search_fragment -> {
-                        startActivity(Intent(this@HomeActivity, SearchActivity::class.java))
-                    }
-                }
-                false
-            }
         }
     }
 

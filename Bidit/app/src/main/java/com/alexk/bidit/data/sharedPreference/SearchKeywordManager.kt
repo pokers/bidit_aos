@@ -47,7 +47,7 @@ class SearchKeywordManager(context: Context) {
     //sp에 추가
     fun addKeyword(baseList: ArrayList<String>, value: String) {
         val jsonArray = JSONArray()
-        if(baseList.size == 30){
+        if(baseList.size == 10){
             baseList.removeAt(29)
         }
         jsonArray.put(value)
