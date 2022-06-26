@@ -1,0 +1,29 @@
+
+# query 는 get 이라고 생각해도 될 것 같다.
+# query 에 있는 것 가져오기(데이터는 내가 선택해도 상관 없다.
+query {
+    # 스키마에 적힌 메소드? 구현
+    getUser(id: Int){
+        # 내가 필요한 정보 적어주기
+        id
+        status
+    }
+
+    me {
+        id
+        status
+    }
+}
+
+# mutation 구현
+# mutation 은 서버에 request 를 보내는 작업
+mutation {
+    addUser {
+        #User 를 어떻게 채울 건지?
+        status
+    }
+
+    updateUser{
+        status
+    }
+}

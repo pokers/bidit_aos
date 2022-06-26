@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_user_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/notosans_kr_medium"
+            android:includeFontPadding="false"
+            android:text="구매자 이름"
+            android:textColor="@color/charcoal"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@id/tv_bidding_time"
+            app:layout_constraintStart_toEndOf="@id/iv_user_img"
+            app:layout_constraintTop_toTopOf="@id/iv_user_img"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tv_bidding_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:includeFontPadding="false"
+            android:text="3분 전"
+            android:textColor="@color/nobel"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_user_img"
+            app:layout_constraintStart_toEndOf="@id/iv_user_img"
+            app:layout_constraintTop_toBottomOf="@id/tv_user_name" />
+
+        <TextView
+            android:id="@+id/tv_bidding_total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_kr_medium"
+            android:includeFontPadding="false"
+            android:text="12,000,000원"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_user_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_user_name" />
+
+        <TextView
+            android:id="@+id/tv_bidding_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_kr_medium"
+            android:includeFontPadding="false"
+            android:text="+1000원"
+            android:textColor="@color/persian_blue"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_bidding_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_bidding_time" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

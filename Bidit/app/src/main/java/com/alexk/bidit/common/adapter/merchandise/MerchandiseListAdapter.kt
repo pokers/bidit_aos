@@ -49,7 +49,7 @@ class MerchandiseListAdapter(
         val view =
             DataBindingUtil.inflate<ItemMerchandiseListBinding>(
                 LayoutInflater.from(parent.context),
-                R.layout.item_merchandise_list,
+                R.layout.item_merchandise_list_vertical,
                 parent,
                 false
             )

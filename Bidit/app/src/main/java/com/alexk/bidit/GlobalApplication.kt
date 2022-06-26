@@ -6,6 +6,7 @@ import android.app.Application
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import com.kakao.sdk.common.KakaoSdk
 import dagger.hilt.android.HiltAndroidApp
 
 
@@ -34,6 +35,7 @@ class GlobalApplication : Application() {
             override fun onActivityStopped(activity: Activity) {}
             override fun onActivityResumed(activity: Activity) {}
         })
+        KakaoSdk.init(this,getString(R.string.kakao_app_key))
     }
 
     companion object {

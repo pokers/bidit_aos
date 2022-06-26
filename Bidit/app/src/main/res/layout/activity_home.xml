@@ -29,6 +29,7 @@
             android:id="@+id/nav_home_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:itemTextColor="@color/nero"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,6 +43,9 @@
             android:layout_marginEnd="@dimen/activity_margin"
             android:layout_marginBottom="16dp"
             android:stateListAnimator="@null"
+            app:tint="@color/white"
+            android:src="@drawable/ic_home_floating_btn"
+            android:backgroundTint="@color/persian_blue"
             app:elevation="0dp"
             app:layout_constraintBottom_toTopOf="@id/nav_home_bottom"
             app:layout_constraintEnd_toEndOf="parent" />

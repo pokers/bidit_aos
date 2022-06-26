@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
+import com.alexk.bidit.data.sharedPreference.TokenManager
 import com.alexk.bidit.databinding.ActivitySplashBinding
 import com.alexk.bidit.presentation.ui.home.HomeActivity
 import com.alexk.bidit.presentation.ui.login.LoginActivity
@@ -25,8 +26,14 @@ class SplashActivity : AppCompatActivity() {
         val handler = Handler(mainLooper)
         handler.postDelayed({
             //일단 로그인을 강제로, 나중에 확인
-            finish()
-            startActivity(Intent(this, HomeActivity::class.java))
+            if(TokenManager(this).getToken().isEmpty()){
+                finish()
+                startActivity(Intent(this, LoginActivity::class.java))
+            }
+            else{
+                finish()
+                startActivity(Intent(this, HomeActivity::class.java))
+            }
         }, 2000)
     }
 }

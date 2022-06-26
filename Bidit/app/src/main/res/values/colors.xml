@@ -7,7 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    
+
     <color name="persian_blue">#0F42F4</color>
     <color name="sliver">#BDBDBD</color>
     <color name="red_orange">#F44336</color>
@@ -18,5 +18,9 @@
     <color name="transparent">#00000000</color>
     <color name="nero">#191919</color>
     <color name="whisper">#EEEEEE</color>
+    <color name="black_trans25">#40000000</color>
+    <color name="white_somke_trans70">#B3F5F5F5</color>
+    <color name="dodger_blue">#007AFF</color>
+    <color name="blue_zodiac_trans_36">#3C3C435C</color>
 
 </resources>

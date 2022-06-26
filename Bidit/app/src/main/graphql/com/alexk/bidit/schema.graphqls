@@ -1,0 +1,307 @@
+# TODO : should use custom scalar. 
+enum UserStatus{
+    VALID,
+    INVALID
+}
+enum JoinPath{
+    KAKAO,
+    APPLE,
+    GOOGLE
+}
+enum gender{
+    MALE,
+    FEMALE
+}
+type User {
+    id: Int!
+    status: Int!    # 0=VALID, 1=INVALID
+    nickname: String
+    passwd: String
+    joinPath: JoinPath
+    gender: gender
+    birth: String
+    email: String
+    phone: String
+    createdAt: String!
+    updatedAt: String
+    deletedAt: String
+    description: String
+    items:ItemConnection
+    kakaoAccount:KakaoAccount
+}
+
+type Query {
+    getUser(id: Int!): User
+    me:User
+}
+
+type Mutation {
+    addUser:User
+    updateUser(userUpdate:userUpdateInput):User
+    updatePushToken(pushTokenUpdate:pushTokenUpdateInput):Boolean
+}
+
+input userUpdateInput{
+    status: Int
+    nickname: String
+    gender: gender
+    birth: String
+    deletedAt: String
+    description: String
+}
+
+input pushTokenUpdateInput{
+    status: Int
+    token: String
+}
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+enum DeliveryType {
+    DIRECT,
+    PARCEL,
+    BOTH
+}
+enum ItemStatus{
+    REGISTED,
+    ONGOING,
+    SOLD
+}
+
+type Item {
+    id: Int!
+    status: Int! # 0=REGISTED, 1=ONGOING, 2=SOLD
+    userId: Int!
+    categoryId: Int
+    sPrice: Int
+    cPrice: Int # It's not used. Temporary.
+    buyNow: Int
+    viewCount: Int
+    name: String
+    title: String
+    dueDate: String
+    deliveryType: Int # 0=DIRECT, 1=PARCEL, 2=BOTH
+    sCondition: Int
+    aCondition: Int
+    createdAt: String!
+    updatedAt: String
+    deletedAt: String
+    description:ItemDescription
+    image:[ItemImage]
+    category: Category
+}
+
+type ItemDescription{
+    id: Int!
+    status: Int!
+    itemId: Int!
+    type: Int
+    description: String
+    createdAt: String!
+    updatedAt: String
+    deletedAt: String
+}
+
+type ItemImage{
+    id: Int!
+    status: Int!
+    itemId: Int!
+    type: Int
+    url: String
+    createdAt: String!
+    updatedAt: String
+    deletedAt: String
+}
+
+type ItemEdge {
+    node: Item
+    cursor: String
+}
+
+type PageInfo {
+    startCursor: String
+    endCursor: String
+    hasNextPage: Boolean
+    hasPrevPage: Boolean
+}
+
+type ItemConnection {
+    totalCount: Int
+    edges: [ItemEdge]
+    pageInfo: PageInfo
+}
+
+type Query{
+    getItem(id: Int!):Item
+    getItemList(itemQuery: ItemQueryInput, keyword:String, first: Int, last: Int, after: String, before: String):ItemConnection
+}
+
+type Mutation{
+    addItem(itemAdd:ItemAddInput, description:String, images:[String]):Item
+    updateItem(itemId:Int, itemUpdate:ItemUpdateInput, description:String):Item
+    updateItemImage(itemId:Int, itemImageUpdate:ItemImageUpdateInput):Item
+}
+
+input ItemQueryInput {
+    id: Int
+    status: Int
+    userId: Int
+    categoryId: Int
+    name: String
+    dueDate: String
+    deliveryType: Int
+    sCondition: Int
+    aCondition: Int
+    createdAt: Int
+}
+
+input ItemAddInput {
+    status: Int
+    categoryId: Int!
+    sPrice: Int!
+    buyNow: Int
+    name: String!
+    title: String!
+    dueDate: String!
+    deliveryType: Int!
+    sCondition: Int!
+    aCondition: Int!
+}
+
+input ItemUpdateInput {
+    status: Int
+    categoryId: Int
+    sPrice: Int
+    buyNow: Int
+    name: String
+    title: String
+    dueDate: String
+    deliveryType: Int
+    sCondition: Int
+    aCondition: Int
+}
+
+scalar Long
+
+type KakaoAccount{
+    id:Long!
+    status:Int!
+    userId:Int!
+    profile_needs_agreement: Boolean
+    profile_nickname_needs_agreement:Boolean
+    profile_image_needs_agreement:Boolean
+    name_needs_agreement:Boolean
+    name:String
+    email_needs_agreement:Boolean
+    is_email_valid:Boolean
+    is_email_verified:Boolean
+    email:String
+    age_range_needs_agreement:Boolean
+    age_range:String
+    birthyear_needs_agreement:Boolean
+    birthyear:String
+    birthday_needs_agreement:Boolean
+    birthday:String
+    birthday_type:String
+    gender_needs_agreement:Boolean
+    gender:String
+    phone_number_needs_agreement:Boolean
+    phone_number:String
+    ci_needs_agreement:Boolean
+    ci:String
+    ci_authenticated_at:String
+    nickname:String
+    thumbnail_image_url:String
+    profile_image_url:String
+    is_default_image:Boolean
+    createdAt:String!
+    updatedAt:String!
+    deletedAt:String
+    description:String
+}
+
+enum CategoryStatus {
+    VALID,
+    INVALID
+}
+
+type Category {
+    id: Int!
+    status: Int!
+    parentId: Int
+    name: String
+    depth: Int
+    createdAt: String!
+    updatedAt: String
+    deletedAt: String
+    parent: Category
+}
+
+type CategoryEdge {
+    node: Category
+    cursor: String
+}
+
+type CategoryConnection {
+    totalCount: Int
+    edges: [CategoryEdge]
+    pageInfo: PageInfo
+}
+
+
+type Query{
+    getCategoryList(categoryQuery: CategoryQueryInput, first: Int, last: Int, after: String, before: String):CategoryConnection
+    getCategory(id: Int!):Category
+    scanCategory:[Category]
+}
+
+input CategoryQueryInput {
+    id: Int
+    status: Int
+    parentId: Int
+    name: String
+    depth: Int
+}
+
+input ItemImageUpdateInput{
+    itemImageId:Int
+    image:String
+}
+
+
+type Bidding {
+    id: Int!
+    status: Int!
+    userId: Int!
+    itemId: Int!
+    price: Int!
+    createdAt: String!
+    item: Item
+    user: User
+}
+
+input BiddingQueryInput {
+    status: Int
+    itemId: Int
+    price: Int
+}
+
+input BidInput {
+    status: Int
+    itemId: Int!
+    price: Int!
+}
+
+type Query{
+    getMyBidding(biddingQuery:BiddingQueryInput):[Bidding]
+    getBidding(biddingQuery:BiddingQueryInput):[Bidding]
+}
+
+type Mutation{
+    bid(bid:BidInput):Bidding
+}
+
+

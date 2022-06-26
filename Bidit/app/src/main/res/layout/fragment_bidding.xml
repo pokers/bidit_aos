@@ -67,58 +67,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/iv_back" />
 
-            <TextView
-                android:id="@+id/tv_merchandise_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="26dp"
-                android:fontFamily="@font/notosans_kr_bold"
-                android:gravity="start|center"
-                android:includeFontPadding="false"
-                android:text="제목"
-                android:textColor="@color/nero"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/vp_merchandise_img" />
-
-            <ImageView
-                android:id="@+id/iv_user_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/bg_oval_transparent_sliver_stroke0_radius0"
-                android:src="@drawable/ic_share"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_merchandise_name" />
-
-            <TextView
-                android:id="@+id/tv_user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/notosans_kr_medium"
-                android:includeFontPadding="false"
-                android:text="판매자"
-                android:textColor="@color/charcoal"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="@id/iv_user_img"
-                app:layout_constraintStart_toEndOf="@id/iv_user_img"
-                app:layout_constraintTop_toTopOf="@id/iv_user_img" />
-
             <LinearLayout
                 android:id="@+id/ly_current_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="37dp"
+                android:layout_marginTop="12dp"
                 android:gravity="start"
                 android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@id/ly_current_bidding_people"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_user_name">
+                app:layout_constraintTop_toBottomOf="@id/vp_merchandise_img">
 
                 <TextView
                     android:id="@+id/tv_current_price_title"
@@ -144,90 +104,283 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ly_deadline_time"
+                android:id="@+id/ly_current_bidding_people"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
                 android:gravity="start"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="@id/ly_current_price"
+                app:layout_constraintEnd_toStartOf="@id/ly_remaining_time"
                 app:layout_constraintStart_toEndOf="@id/ly_current_price"
                 app:layout_constraintTop_toTopOf="@+id/ly_current_price">
 
                 <TextView
-                    android:id="@+id/tv_deadline_time_title"
+                    android:id="@+id/tv_current_bidding_people_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/notosans_kr_medium"
                     android:includeFontPadding="false"
-                    android:text="@string/title_deadline_time"
+                    android:text="@string/title_current_bidding_people_count"
                     android:textColor="@color/nobel"
                     android:textSize="10sp" />
 
                 <TextView
-                    android:id="@+id/tv_deadline_time"
+                    android:id="@+id/tv_current_bidding_people"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosans_kr_bold"
                     android:includeFontPadding="false"
-                    android:text="6월 6일 20:00"
+                    android:text="191,000명"
                     android:textColor="@color/nero"
                     android:textSize="14sp" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ly_immediate_price"
+                android:id="@+id/ly_remaining_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
                 android:layout_marginEnd="@dimen/activity_margin"
                 android:gravity="start"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="@id/ly_current_price"
-                app:layout_constraintStart_toEndOf="@id/ly_deadline_time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ly_current_bidding_people"
                 app:layout_constraintTop_toTopOf="@id/ly_current_price">
 
                 <TextView
-                    android:id="@+id/tv_immediate_price_title"
+                    android:id="@+id/tv_remaining_time_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/notosans_kr_medium"
                     android:includeFontPadding="false"
-                    android:text="@string/title_immediate_purchase_price"
+                    android:text="@string/title_remaining_time"
                     android:textColor="@color/nobel"
                     android:textSize="10sp" />
 
                 <TextView
-                    android:id="@+id/tv_immediate_price"
+                    android:id="@+id/tv_remaining_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosans_kr_bold"
                     android:includeFontPadding="false"
-                    android:text="3,000,000원"
+                    android:text="10일 10:59:59"
                     android:textColor="@color/nero"
                     android:textSize="14sp" />
 
             </LinearLayout>
 
             <View
-                android:id="@+id/div_merchandise_info"
+                android:id="@+id/div_bidding_info"
                 android:layout_width="match_parent"
-                android:layout_height="6dp"
-                android:layout_marginTop="32dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/activity_margin"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="@dimen/activity_margin"
                 android:background="@color/white_smoke"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ly_current_price" />
 
             <TextView
+                android:id="@+id/tv_merchandise_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="26dp"
+                android:fontFamily="@font/notosans_kr_medium"
+                android:gravity="start|center"
+                android:includeFontPadding="false"
+                android:text="제목"
+                android:textColor="@color/nero"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/div_bidding_info" />
+
+            <ImageView
+                android:id="@+id/iv_selling_user_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_oval_transparent_sliver_stroke0_radius0"
+                android:src="@drawable/ic_share"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_merchandise_name" />
+
+            <TextView
+                android:id="@+id/tv_selling_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/notosans_kr_medium"
+                android:includeFontPadding="false"
+                android:text="판매자"
+                android:textColor="@color/charcoal"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_selling_user_img"
+                app:layout_constraintStart_toEndOf="@id/iv_selling_user_img"
+                app:layout_constraintTop_toTopOf="@id/iv_selling_user_img" />
+
+            <LinearLayout
+                android:id="@+id/ly_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_selling_user_img">
+
+                <TextView
+                    android:id="@+id/tv_bidding_stauts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="@dimen/activity_margin"
+                    android:background="@drawable/bg_rect_nobel_white_smoke_radius4_stroke1"
+                    android:fontFamily="@font/notosans_kr_medium"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/content_selling"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:drawablePadding="8dp"
+                    android:fontFamily="@font/notosans_kr_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/content_selling_status"
+                    android:textColor="@color/nobel"
+                    android:textSize="10sp"
+                    app:drawableStartCompat="@drawable/ic_notification" />
+
+            </LinearLayout>
+
+
+            <View
+                android:id="@+id/div_user_info"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/activity_margin"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="@dimen/activity_margin"
+                android:background="@color/white_smoke"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ly_status" />
+
+            <TextView
+                android:id="@+id/tv_immediate_purchase_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_margin"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/notosans_kr_medium"
+                android:includeFontPadding="false"
+                android:text="@string/title_immediate_purchase_price"
+                android:textColor="@color/nobel"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/div_user_info" />
+
+            <TextView
+                android:id="@+id/tv_deadline_time_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_margin"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/notosans_kr_medium"
+                android:includeFontPadding="false"
+                android:text="@string/title_deadline_time"
+                android:textColor="@color/nobel"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_immediate_purchase_title" />
+
+            <TextView
+                android:id="@+id/tv_write_time_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_margin"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/notosans_kr_medium"
+                android:includeFontPadding="false"
+                android:text="@string/title_write_time"
+                android:textColor="@color/nobel"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_deadline_time_title" />
+
+            <LinearLayout
+                android:id="@+id/ly_merchandise_detail_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toEndOf="@id/tv_immediate_purchase_title"
+                app:layout_constraintTop_toTopOf="@id/tv_immediate_purchase_title">
+
+                <TextView
+                    android:id="@+id/tv_immediate_purchase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosans_kr_medium"
+                    android:includeFontPadding="false"
+                    android:text="3,000,000원"
+                    android:textColor="@color/nero"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_deadline_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/notosans_kr_medium"
+                    android:includeFontPadding="false"
+                    android:text="3,000,000원"
+                    android:textColor="@color/nero"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_write_tiem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/notosans_kr_medium"
+                    android:includeFontPadding="false"
+                    android:text="3,000,000원"
+                    android:textColor="@color/nero"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/div_merchandise_detail_info"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/white_smoke"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ly_merchandise_detail_info" />
+
+            <TextView
                 android:id="@+id/tv_merchandise_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="@dimen/activity_margin"
                 android:fontFamily="@font/notosans_kr_regular"
                 android:includeFontPadding="false"
@@ -236,14 +389,14 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/div_merchandise_info" />
+                app:layout_constraintTop_toBottomOf="@id/div_merchandise_detail_info" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_merchandise_description_filter"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="@dimen/activity_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -252,8 +405,8 @@
             <View
                 android:id="@+id/div_merchandise_description"
                 android:layout_width="match_parent"
-                android:layout_height="6dp"
-                android:layout_marginTop="32dp"
+                android:layout_height="4dp"
+                android:layout_marginTop="20dp"
                 android:background="@color/white_smoke"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -264,12 +417,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/notosans_kr_medium"
                 android:includeFontPadding="false"
                 android:text="@string/content_recent_bidding_user"
                 android:textColor="@color/nobel"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/div_merchandise_description" />
 
@@ -278,7 +431,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="@dimen/activity_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

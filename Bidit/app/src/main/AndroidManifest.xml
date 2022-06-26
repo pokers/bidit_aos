@@ -2,18 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alexk.bidit">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="false"
-        android:largeHeap="true"
-        android:theme="@style/Theme.Bidit">
+        android:theme="@style/Theme.Bidit"
+        android:usesCleartextTraffic="false">
         <activity
             android:name=".presentation.ui.splash.SplashActivity"
             android:exported="true">
@@ -22,9 +22,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.ui.home.HomeActivity"/>
-        <activity android:name=".presentation.ui.login.LoginActivity"/>
-        <activity android:name=".presentation.ui.search.SearchActivity"/>
+        <activity android:name=".presentation.ui.home.HomeActivity" />
+        <activity android:name=".presentation.ui.login.LoginActivity" />
+        <activity android:name=".presentation.ui.search.SearchActivity" />
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="oauth"
+                    android:scheme="@string/kakao_native_key" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
