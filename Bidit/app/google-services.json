@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "889668503847",
+    "project_id": "bidit-80d4b",
+    "storage_bucket": "bidit-80d4b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:889668503847:android:da3f98eb85b5cf9bc0c102",
+        "android_client_info": {
+          "package_name": "com.alexk.bidit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "889668503847-n76rb37sh4g0681bj3a6ou0veuqp38kt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCvlQnQET45h_P0tcFntL2u75fKLwy8iA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "889668503847-n76rb37sh4g0681bj3a6ou0veuqp38kt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "889668503847-89nns7q89hnno9k7bln45dv8vepslvm5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.biditkr.Bidit"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,14 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.alexk.bidit.R
+import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.common.adapter.merchandise.MerchandiseListAdapter
-import com.alexk.bidit.data.service.response.home.HomeResponse
+import com.alexk.bidit.common.util.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentHomeMerchandiseListBinding
-import com.alexk.bidit.presentation.base.BaseFragment
+import com.alexk.bidit.tempResponse.HomeResponse
 
 class HomeCategoryFragment :
     Fragment() {
@@ -25,7 +23,7 @@ class HomeCategoryFragment :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeMerchandiseListBinding.inflate(inflater,container,false)
+        _binding = FragmentHomeMerchandiseListBinding.inflate(inflater, container, false)
         init()
         return binding.root
     }
@@ -38,8 +36,9 @@ class HomeCategoryFragment :
     fun init() {
         binding.apply {
             rvMerchandiseList.layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
             rvMerchandiseList.adapter = MerchandiseListAdapter(requireContext(), getListData!!)
+            rvMerchandiseList.addItemDecoration((GridRecyclerViewDeco(0, 80, 40, 0)))
         }
     }
 }

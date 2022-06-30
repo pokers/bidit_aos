@@ -1,17 +1,20 @@
 package com.alexk.bidit.common.adapter.home.category
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alexk.bidit.R
-import com.alexk.bidit.data.service.response.home.HomeCategoryResponse
 import com.alexk.bidit.databinding.ItemHomeCategoryListBinding
+import com.alexk.bidit.presentation.ui.category.CategoryActivity
 import com.bumptech.glide.Glide
 
-class HomeCategoryListAdapter(val context: Context, val list: List<HomeCategoryResponse>) :
+class HomeCategoryListAdapter(val context: Context, val imgList: List<Int>) :
     RecyclerView.Adapter<HomeCategoryListAdapter.HomeCategoryHolder>() {
+
+    val categoryList = context.resources.getStringArray(R.array.category_home_item)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeCategoryHolder {
         val view = DataBindingUtil.inflate<ItemHomeCategoryListBinding>(
@@ -24,21 +27,25 @@ class HomeCategoryListAdapter(val context: Context, val list: List<HomeCategoryR
     }
 
     override fun onBindViewHolder(holder: HomeCategoryHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(categoryList[position], imgList[position])
     }
 
-    override fun getItemCount() = list.size
+    override fun getItemCount() = categoryList.size
 
     inner class HomeCategoryHolder(val binding: ItemHomeCategoryListBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: HomeCategoryResponse) {
+        fun bind(data: String, img: Int) {
             binding.apply {
                 Glide.with(context)
-                    .load(R.drawable.ic_launcher_background)
-                    .centerCrop()
+                    .load(img)
                     .into(ivCategoryImg)
 
-                tvCategory.text = data.title
+                tvCategory.text = data
+            }
+            itemView.setOnClickListener {
+                val intent = Intent(context, CategoryActivity::class.java)
+                intent.putExtra("category", binding.tvCategory.text.toString())
+                context.startActivity(intent)
             }
         }
     }

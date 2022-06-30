@@ -1,27 +1,33 @@
-package com.alexk.bidit.data.service.response.home
+package com.alexk.bidit.tempResponse
 
 import android.os.Parcel
 import android.os.Parcelable
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
 
-//리스폰스 구현
 data class HomeResponse(
-    val img: String?,
-    val name: String?,
-    val time: String?,
-    val price: Int
+    val imgUrl : String?,
+    val merchandiseName : String?,
+    val endingTime : String?,
+    val biddingPeopleCount : Int,
+    val currentPrice : Int
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
+        parcel.readInt(),
         parcel.readInt()
-    )
+    ) {
+    }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(img)
-        parcel.writeString(name)
-        parcel.writeString(time)
-        parcel.writeInt(price)
+        parcel.writeString(imgUrl)
+        parcel.writeString(merchandiseName)
+        parcel.writeString(endingTime)
+        parcel.writeInt(currentPrice)
+        parcel.writeInt(biddingPeopleCount)
     }
 
     override fun describeContents(): Int {

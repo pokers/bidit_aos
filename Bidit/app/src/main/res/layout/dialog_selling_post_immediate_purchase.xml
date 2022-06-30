@@ -9,6 +9,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_margin"
+        android:layout_marginEnd="@dimen/activity_margin"
         android:background="@color/white">
 
         <TextView
@@ -42,51 +44,56 @@
 
         <TextView
             android:id="@+id/tv_bidding"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:fontFamily="@font/notosans_kr_bold"
+            android:gravity="center"
             android:includeFontPadding="false"
             android:text="@string/content_do_immediate_purchase"
             android:textColor="@color/nobel"
             android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="@+id/tv_merchandise_price_won"
-            app:layout_constraintStart_toStartOf="@+id/tv_merchandise_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_merchandise_price" />
 
         <android.widget.Button
             android:id="@+id/btn_cancel"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="15dp"
             android:background="@drawable/bg_rect_transparent_white_smoke_radius4_stroke0"
             android:fontFamily="@font/notosans_kr_medium"
-            android:textSize="16sp"
             android:includeFontPadding="false"
             android:minHeight="0dp"
             android:paddingTop="10dp"
             android:paddingBottom="9dp"
+            android:stateListAnimator="@null"
             android:text="@string/content_cancel"
             android:textColor="@color/nobel"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_bidding" />
 
         <android.widget.Button
             android:id="@+id/btn_chat"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginEnd="15dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/bg_rect_transparent_persian_blue_radius4_stroke0"
             android:fontFamily="@font/notosans_kr_medium"
             android:includeFontPadding="false"
             android:minHeight="0dp"
             android:paddingTop="10dp"
             android:paddingBottom="9dp"
+            android:stateListAnimator="@null"
             android:text="@string/content_do_immediate_purchase_for_chat"
             android:textColor="@color/white"
             android:textSize="16sp"

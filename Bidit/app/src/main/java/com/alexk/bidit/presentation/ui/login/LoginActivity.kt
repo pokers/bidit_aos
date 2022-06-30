@@ -19,8 +19,8 @@ class LoginActivity : AppCompatActivity() {
             //로그인 실패
             Log.d("kakao login", "fail")
         } else {
-            UserApiClient.instance.me { user, error ->
-                val kakaoId = user!!.id
+            UserApiClient.instance.me { _, _ ->
+//                val kakaoId = user!!.id
                 val token = oAuthToken?.accessToken
                 //뷰모델로 카카오 로그인 성공 처리
                 TokenManager(this).setToken(token!!)

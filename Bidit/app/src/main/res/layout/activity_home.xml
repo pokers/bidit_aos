@@ -29,26 +29,13 @@
             android:id="@+id/nav_home_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:itemIconTint="@color/black"
             app:itemTextColor="@color/nero"
+            app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:labelVisibilityMode="labeled"
             app:menu="@menu/menu_home_bottom_navi" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_add_merchandise"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/activity_margin"
-            android:layout_marginBottom="16dp"
-            android:stateListAnimator="@null"
-            app:tint="@color/white"
-            android:src="@drawable/ic_home_floating_btn"
-            android:backgroundTint="@color/persian_blue"
-            app:elevation="0dp"
-            app:layout_constraintBottom_toTopOf="@id/nav_home_bottom"
-            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

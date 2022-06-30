@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lay_slip"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:visibility="invisible">
+
+    <View
+        android:layout_width="72dp"
+        android:layout_height="4dp"
+        android:background="@drawable/bg_home_category_scroll_background" />
+
+    <View
+        android:id="@+id/view_slip_front"
+        android:layout_width="48dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/bg_home_category_scroll_thumb" />
+
+</FrameLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.alexk.bidit">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -25,6 +26,8 @@
         <activity android:name=".presentation.ui.home.HomeActivity" />
         <activity android:name=".presentation.ui.login.LoginActivity" />
         <activity android:name=".presentation.ui.search.SearchActivity" />
+        <activity android:name=".presentation.ui.category.CategoryActivity" />
+        <activity android:name=".presentation.ui.bidding.BiddingActivity" />
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">

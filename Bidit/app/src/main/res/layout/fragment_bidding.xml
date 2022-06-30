@@ -471,6 +471,7 @@
                 android:id="@+id/btn_bidding"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="17dp"
                 android:background="@drawable/bg_rect_transparent_persian_blue_radius4_stroke0"
                 android:fontFamily="@font/notosans_kr_medium"

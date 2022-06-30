@@ -1,5 +1,6 @@
 package com.alexk.bidit.presentation.ui.home
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -7,29 +8,30 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.FontRes
+import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.alexk.bidit.GetMyInfoQuery
-import com.alexk.bidit.GetUserInfoQuery
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.home.HomeBannerPageAdapter
+import com.alexk.bidit.common.adapter.home.HomeBannerAutoPageAdapter
 import com.alexk.bidit.common.adapter.home.HomeCategoryPageAdapter
 import com.alexk.bidit.common.adapter.home.category.HomeCategoryListAdapter
 import com.alexk.bidit.common.util.GridRecyclerViewDeco
-import com.alexk.bidit.data.service.response.home.HomeCategoryResponse
-import com.alexk.bidit.data.service.response.home.HomeResponse
 import com.alexk.bidit.databinding.FragmentHomeBinding
-import com.alexk.bidit.di.NetworkModule
 import com.alexk.bidit.presentation.base.BaseFragment
+import com.alexk.bidit.tempResponse.HomeResponse
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 
+
 //@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
+
+    var endX = 0
 
     private val bannerList = listOf(
         R.drawable.ic_launcher_background,
@@ -41,17 +43,75 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private val tempList = listOf(
         arrayListOf(
-            HomeResponse(img = "123", name = "상품1", time = "마감 1일", price = 100000),
-            HomeResponse(img = "123", name = "상품1", time = "마감 1일", price = 100000),
-            HomeResponse(img = "123", name = "상품1", time = "마감 1일", price = 100000),
-            HomeResponse(img = "123", name = "상품1", time = "마감 1일", price = 100000),
-            HomeResponse(img = "123", name = "상품1", time = "마감 1일", price = 100000),
-            HomeResponse(img = "123", name = "상품1", time = "마감 1일", price = 100000),
+            HomeResponse(
+                imgUrl = "123",
+                merchandiseName = "상품1",
+                endingTime = "마감 1일",
+                currentPrice = 100000
+            ),
+            HomeResponse(
+                imgUrl = "123",
+                merchandiseName = "상품1",
+                endingTime = "마감 1일",
+                currentPrice = 100000
+            ),
+            HomeResponse(
+                imgUrl = "123",
+                merchandiseName = "상품1",
+                endingTime = "마감 1일",
+                currentPrice = 100000
+            ),
+            HomeResponse(
+                imgUrl = "123",
+                merchandiseName = "상품1",
+                endingTime = "마감 1일",
+                currentPrice = 100000
+            ),
+            HomeResponse(
+                imgUrl = "123",
+                merchandiseName = "상품1",
+                endingTime = "마감 1일",
+                currentPrice = 100000
+            ),
+            HomeResponse(
+                imgUrl = "123",
+                merchandiseName = "상품1",
+                endingTime = "마감 1일",
+                currentPrice = 100000
+            ),
         ),
-        arrayListOf(HomeResponse(img = "123", name = "상품2", time = "마감 1일", price = 100000)),
-        arrayListOf(HomeResponse(img = "123", name = "상품3", time = "마감 1일", price = 100000)),
-        arrayListOf(HomeResponse(img = "123", name = "상품4", time = "마감 1일", price = 100000)),
-        arrayListOf(HomeResponse(img = "123", name = "상품5", time = "마감 1일", price = 100000))
+        arrayListOf(
+            HomeResponse(
+                imgUrl = "123",
+                merchandiseName = "상품1",
+                endingTime = "마감 1일",
+                currentPrice = 100000
+            ),
+        ),
+        arrayListOf(
+            HomeResponse(
+                imgUrl = "123",
+                merchandiseName = "상품1",
+                endingTime = "마감 1일",
+                currentPrice = 100000
+            ),
+        ),
+        arrayListOf(
+            HomeResponse(
+                imgUrl = "123",
+                merchandiseName = "상품1",
+                endingTime = "마감 1일",
+                currentPrice = 100000
+            ),
+        ),
+        arrayListOf(
+            HomeResponse(
+                imgUrl = "123",
+                merchandiseName = "상품1",
+                endingTime = "마감 1일",
+                currentPrice = 100000
+            ),
+        )
     )
 
     lateinit var slideJob: Job
@@ -71,32 +131,54 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     override fun init() {
-
-        lifecycleScope.launchWhenResumed {
-            val response = NetworkModule.provideApolloClient().query(GetMyInfoQuery()).execute()
-            Log.d("apollo", response.data.toString())
-        }
-
-
         binding.apply {
-
             rvCategory.layoutManager =
                 GridLayoutManager(requireContext(), 2, GridLayoutManager.HORIZONTAL, false)
             rvCategory.adapter = HomeCategoryListAdapter(
                 requireContext(), listOf(
-                    HomeCategoryResponse("test", "test"),
-                    HomeCategoryResponse("test", "test"),
-                    HomeCategoryResponse("test", "test"),
-                    HomeCategoryResponse("test", "test"),
-                    HomeCategoryResponse("test", "test"),
-                    HomeCategoryResponse("test", "test"),
-                    HomeCategoryResponse("test", "test"),
-                    HomeCategoryResponse("test", "test"),
+                    R.drawable.ic_category_apple,
+                    R.drawable.ic_category_galaxy,
+                    R.drawable.ic_category_another_phone,
+                    R.drawable.ic_category_smart_watch,
+                    R.drawable.ic_category_labtop,
+                    R.drawable.ic_category_drone,
+                    R.drawable.ic_category_tablet,
+                    R.drawable.ic_category_monitor,
+                    R.drawable.ic_category_game,
+                    R.drawable.ic_category_audio,
+                    R.drawable.ic_category_camera,
+                    R.drawable.ic_category_another_category
                 )
             )
-            rvCategory.addItemDecoration(GridRecyclerViewDeco(0, 40, 20, 0))
+            rvCategory.addItemDecoration(GridRecyclerViewDeco(0, 80, 40, 0))
 
-            vpMainBanner.adapter = HomeBannerPageAdapter(context, bannerList)
+            rvCategory.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                }
+
+                @RequiresApi(Build.VERSION_CODES.N)
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    //리사이클러뷰 전체 길이
+                    val range = rvCategory.computeHorizontalScrollRange()
+                    //dpi
+                    val density = resources.displayMetrics.density
+
+                    //최대 거리(thumb /2)
+                    val maxEndX = range - resources.displayMetrics.widthPixels + (20 * density) + 12
+
+                    //슬라이딩 거리
+                    endX += dx
+
+                    val proportion = endX.div(maxEndX)
+                    val transMaxRange = lyCategoryScrollBar.width - viewSlipFront.width
+                    viewSlipFront.translationX = transMaxRange * proportion
+                }
+            })
+
+            vpMainBanner.adapter = HomeBannerAutoPageAdapter(context, bannerList)
             vpMainBanner.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageScrollStateChanged(state: Int) {
                     super.onPageScrollStateChanged(state)

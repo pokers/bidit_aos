@@ -77,6 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_margin"
             android:layout_marginEnd="@dimen/activity_margin"
+            android:stateListAnimator="@null"
             android:background="@drawable/bg_rect_transparent_persian_blue_radius4_stroke0"
             android:fontFamily="@font/notosans_kr_medium"
             android:includeFontPadding="false"

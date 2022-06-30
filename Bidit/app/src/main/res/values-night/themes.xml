@@ -2,21 +2,46 @@
     <!-- Base application theme. -->
     <style name="Theme.Bidit" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="home_category_tab" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="home_category_selected" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/notosans_kr_bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="home_category_unselected" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/notosans_kr_medium</item>
+        <item name="android:textColor">@color/nobel</item>
     </style>
 
     <style name="home_detail_category_tab" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/sliver</item>
+        <item name="fontFamily">@font/notosans_kr_medium</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="custom_time_picker">
+        <!-- 텍스트 컬러 -->
+        <item name="android:textColorPrimary">@color/black</item>
+        <!-- Divider 컬러 -->
+        <item name="colorControlNormal">@color/transparent</item>
+        <item name="android:background">@color/white</item>
         <item name="fontFamily">@font/notosans_kr_medium</item>
         <item name="android:includeFontPadding">false</item>
     </style>

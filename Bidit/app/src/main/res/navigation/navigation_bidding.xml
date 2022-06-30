@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/navigation_bidding">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_bidding"
+    app:startDestination="@id/biddingFragment">
 
+    <fragment
+        android:id="@+id/biddingFragment"
+        android:name="com.alexk.bidit.presentation.ui.bidding.BiddingFragment"
+        android:label="BiddingFragment"
+        tools:layout="@layout/fragment_bidding" >
+        <action
+            android:id="@+id/action_biddingFragment_to_biddingCompleteFragment"
+            app:destination="@id/biddingCompleteFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/biddingCompleteFragment"
+        android:name="com.alexk.bidit.presentation.ui.bidding.BiddingCompleteFragment"
+        android:label="BiddingCompleteFragment"
+        tools:layout="@layout/fragment_bidding_complete" />
 </navigation>

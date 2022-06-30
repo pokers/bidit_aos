@@ -1,6 +1,9 @@
 package com.alexk.bidit.presentation.ui.bidding
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +13,12 @@ import com.alexk.bidit.databinding.DialogBiddingBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 //고차함수 (매개변수는 Int, 반환은 Unit(없음))
-class BiddingBottomFragment(private val onClick: (Int) -> Unit) : BottomSheetDialogFragment(), View.OnClickListener {
+class BiddingDialog(private val onClick: (Int) -> Unit) :
+    BottomSheetDialogFragment(), View.OnClickListener, TextWatcher {
 
     private lateinit var binding: DialogBiddingBinding
+
+    var price = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,25 +26,22 @@ class BiddingBottomFragment(private val onClick: (Int) -> Unit) : BottomSheetDia
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.dialog_bidding, container, false)
+        init()
+        initEvent()
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        init()
-        initEvent()
-    }
-
     fun init() {
-
+        price = arguments?.getInt("price")!!
     }
 
     fun initEvent() {
         binding.apply {
-            btnBidding.setOnClickListener(this@BiddingBottomFragment)
-            btnCancel.setOnClickListener(this@BiddingBottomFragment)
-            btnBiddingMinus.setOnClickListener(this@BiddingBottomFragment)
-            btnBiddingPlus.setOnClickListener(this@BiddingBottomFragment)
+            btnBidding.setOnClickListener(this@BiddingDialog)
+            btnCancel.setOnClickListener(this@BiddingDialog)
+            btnBiddingMinus.setOnClickListener(this@BiddingDialog)
+            btnBiddingPlus.setOnClickListener(this@BiddingDialog)
+
         }
     }
 
@@ -67,5 +70,17 @@ class BiddingBottomFragment(private val onClick: (Int) -> Unit) : BottomSheetDia
 
             }
         }
+    }
+
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        Log.d("before", s.toString())
+    }
+
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        Log.d("change", s.toString())
+    }
+
+    override fun afterTextChanged(s: Editable?) {
+        Log.d("after", s.toString())
     }
 }

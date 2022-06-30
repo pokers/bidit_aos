@@ -2,6 +2,7 @@ package com.alexk.bidit.data.sharedPreference
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.alexk.bidit.BuildConfig
@@ -25,10 +26,12 @@ class TokenManager(context: Context) {
     }
 
     fun getToken(): String {
+        Log.d("token",prefs.getString(Token,"").toString())
         return prefs.getString(Token, "").toString()
     }
 
     fun setToken(value: String) {
+        Log.d("token",value)
         prefs.edit().putString(Token, value).apply()
     }
 

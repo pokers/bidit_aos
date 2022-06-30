@@ -4,12 +4,23 @@
 
     <data>
 
+        <variable
+            name="homeResponse"
+            type="com.alexk.bidit.tempResponse.HomeResponse" />
+
+        <variable
+            name="image"
+            type="String" />
+
+        <variable
+            name="number"
+            type="Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="37dp"
+        android:layout_marginBottom="40dp"
         android:background="@color/white">
 
         <ImageView
@@ -17,7 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background"
+            app:imageUrl="@{image}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,7 +43,7 @@
             android:gravity="center"
             android:includeFontPadding="false"
             android:padding="6dp"
-            android:text="00시간 후 마감"
+            android:text="@{homeResponse.endingTime}"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_merchandise_img"
@@ -58,11 +69,11 @@
             android:layout_marginStart="6dp"
             android:fontFamily="@font/notosans_kr_bold"
             android:includeFontPadding="false"
-            android:text="30,300,000원"
             android:textColor="@color/nero"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_current_price_title"
-            app:layout_constraintStart_toEndOf="@id/tv_current_price_title" />
+            app:layout_constraintStart_toEndOf="@id/tv_current_price_title"
+            app:price="@{number}" />
 
         <TextView
             android:id="@+id/tv_merchandise_content"
@@ -79,35 +90,58 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_current_price" />
 
-        <TextView
-            android:id="@+id/tv_now_bidding_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/notosans_kr_bold"
-            android:includeFontPadding="false"
-            android:text="참여 850,000"
-            android:textColor="@color/nobel"
-            android:textSize="10sp"
-            app:layout_constraintStart_toEndOf="@+id/tv_reservation"
-            app:layout_constraintTop_toBottomOf="@id/tv_merchandise_content" />
-
-        <TextView
-            android:id="@+id/tv_reservation"
+        <LinearLayout
+            android:id="@+id/ly_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@drawable/bg_rect_transparent_persian_blue_radius4_stroke0"
-            android:fontFamily="@font/notosans_kr_medium"
-            android:includeFontPadding="false"
-            android:paddingStart="6dp"
-            android:paddingEnd="6dp"
-            android:text="예약중"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:visibility="gone"
+            android:gravity="center"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_merchandise_content" />
+            app:layout_constraintTop_toBottomOf="@id/tv_merchandise_content">
+
+            <TextView
+                android:id="@+id/tv_reservation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/bg_rect_transparent_persian_blue_radius4_stroke0"
+                android:fontFamily="@font/notosans_kr_medium"
+                android:includeFontPadding="false"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:text="예약중"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_now_bidding_count_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosans_kr_bold"
+                    android:includeFontPadding="false"
+                    android:text="참여 "
+                    android:textColor="@color/nobel"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tv_now_bidding_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosans_kr_bold"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/nobel"
+                    android:textSize="10sp"
+                    app:number="@{number}" />
+
+            </LinearLayout>
+
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

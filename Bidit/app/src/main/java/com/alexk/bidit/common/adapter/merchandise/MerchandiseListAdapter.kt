@@ -4,16 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.alexk.bidit.R
 import com.alexk.bidit.common.util.addComma
-import com.alexk.bidit.data.service.response.home.HomeResponse
 import com.alexk.bidit.databinding.ItemMerchandiseListBinding
-import com.alexk.bidit.databinding.ItemMerchandiseListVerticalBinding
 import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
+import com.alexk.bidit.tempResponse.HomeResponse
 import com.bumptech.glide.Glide
 
 
@@ -27,19 +28,15 @@ class MerchandiseListAdapter(
         MerchandiseListDiffUtil
     ) {
 
-    inner class HomeMerchandiseListHolder(private val binding: ItemMerchandiseListVerticalBinding) :
+    inner class HomeMerchandiseListHolder(private val binding: ItemMerchandiseListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: HomeResponse) {
-            with(data) {
-                Glide.with(context)
-                    .load(R.drawable.ic_launcher_background)
-                    .centerCrop()
-                    .into(binding.ivMerchandiseImg)
-                binding.tvMerchandiseClosingTime.text = time
-                binding.tvMerchandiseName.text = name
-                binding.tvMerchandiseCurrentPrice.text = "${addComma(price)}원"
-                binding.tvNowBiddingCount.text = "100,000건"
-            }
+
+            binding.homeResponse = data
+            binding.image = data.imgUrl
+            binding.number = data.biddingPeopleCount
+            binding.executePendingBindings()
+
             itemView.setOnClickListener {
                 context.startActivity(Intent(context, BiddingActivity::class.java))
             }
@@ -48,9 +45,9 @@ class MerchandiseListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeMerchandiseListHolder {
         val view =
-            DataBindingUtil.inflate<ItemMerchandiseListVerticalBinding>(
+            DataBindingUtil.inflate<ItemMerchandiseListBinding>(
                 LayoutInflater.from(parent.context),
-                R.layout.item_merchandise_list_vertical,
+                R.layout.item_merchandise_list,
                 parent,
                 false
             )
@@ -67,7 +64,7 @@ class MerchandiseListAdapter(
         //내부 데이터가 동일한지
         /* 후에 수정해야함 */
         override fun areItemsTheSame(oldItem: HomeResponse, newItem: HomeResponse): Boolean {
-            return oldItem.name == newItem.name
+            return oldItem.merchandiseName == newItem.merchandiseName
         }
 
         //두 값이 동일한 아이템인지

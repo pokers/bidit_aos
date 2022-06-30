@@ -37,12 +37,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/btn_bidding_minus">
 
-            <TextView
-                android:id="@+id/tv_merchandise_price"
+            <EditText
+                android:id="@+id/edit_merchandise_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/transparent"
                 android:fontFamily="@font/notosans_kr_bold"
                 android:includeFontPadding="false"
+                android:inputType="number"
                 android:text="300,000"
                 android:textColor="@color/nero"
                 android:textSize="24sp" />
@@ -158,10 +160,10 @@
                 android:includeFontPadding="false"
                 android:minHeight="0dp"
                 android:paddingTop="10dp"
-                android:textSize="16sp"
                 android:paddingBottom="9dp"
                 android:text="@string/content_cancel"
-                android:textColor="@color/nobel" />
+                android:textColor="@color/nobel"
+                android:textSize="16sp" />
 
             <android.widget.Button
                 android:id="@+id/btn_bidding"
@@ -174,10 +176,10 @@
                 android:includeFontPadding="false"
                 android:minHeight="0dp"
                 android:paddingTop="10dp"
-                android:textSize="16sp"
                 android:paddingBottom="9dp"
                 android:text="@string/content_bidding"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
 
         </LinearLayout>

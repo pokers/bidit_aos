@@ -14,5 +14,13 @@ query getUserInfo($inputId : Int!){
 query getMyInfo{
     me {
         id
+        nickname
+        joinPath
+    }
+}
+
+mutation postMyInfo{
+    addUser{
+        id
     }
 }

@@ -6,109 +6,147 @@
 
     </data>
 
-
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white">
+            android:layout_height="match_parent">
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vp_main_banner"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="match_parent"
+                android:background="@color/white">
 
-            <ImageView
-                android:id="@+id/iv_alarm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="@dimen/activity_margin"
-                android:src="@drawable/ic_alarm"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vp_main_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <me.relex.circleindicator.CircleIndicator3
-                android:id="@+id/ci_main_banner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="17dp"
-                android:layout_marginBottom="12dp"
-                app:ci_animator="@animator/ani_indicator"
-                app:ci_drawable="@drawable/ic_indicator_selected"
-                app:ci_drawable_unselected="@drawable/ic_indicator_unselected"
-                app:ci_height="4dp"
-                app:ci_margin="6dp"
-                app:layout_constraintBottom_toBottomOf="@id/vp_main_banner"
-                app:layout_constraintEnd_toEndOf="parent" />
+                <ImageView
+                    android:id="@+id/iv_alarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="@dimen/activity_margin"
+                    android:src="@drawable/ic_alarm"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- 정적 or 동적 -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_category"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="32dp"
-                android:scrollbarAlwaysDrawVerticalTrack="true"
-                android:scrollbarFadeDuration="0"
-                android:scrollbarSize="12dp"
-                android:scrollbarStyle="outsideInset"
-                android:scrollbarThumbHorizontal="@drawable/ic_category_scroll_bar"
-                android:scrollbarTrackHorizontal="@drawable/bg_category_scroll_bar"
-                android:scrollbars="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/vp_main_banner" />
+                <me.relex.circleindicator.CircleIndicator3
+                    android:id="@+id/ci_main_banner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="17dp"
+                    android:layout_marginBottom="12dp"
+                    app:ci_animator="@animator/ani_indicator"
+                    app:ci_drawable="@drawable/ic_indicator_selected"
+                    app:ci_drawable_unselected="@drawable/ic_indicator_unselected"
+                    app:ci_height="4dp"
+                    app:ci_margin="6dp"
+                    app:layout_constraintBottom_toBottomOf="@id/vp_main_banner"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/ly_detail_category"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="52dp"
-                android:layout_marginEnd="@dimen/activity_margin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_category"
-                app:tabIndicatorColor="@color/charcoal"
-                app:tabIndicatorFullWidth="false"
-                app:tabIndicatorHeight="2dp"
-                app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/black"
-                app:tabTextAppearance="@style/home_detail_category_tab"
-                app:tabTextColor="@color/sliver" />
+                <!-- 정적 or 동적 -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="23dp"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/vp_main_banner" />
 
-            <View
-                android:id="@+id/div_detail_category"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/white_smoke"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ly_detail_category" />
+                <FrameLayout
+                    android:id="@+id/ly_category_scroll_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_category">
+
+                    <View
+                        android:layout_width="72dp"
+                        android:layout_height="5dp"
+                        android:background="@drawable/bg_home_category_scroll_background" />
+
+                    <View
+                        android:id="@+id/view_slip_front"
+                        android:layout_width="48dp"
+                        android:layout_height="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/bg_home_category_scroll_thumb" />
+
+                </FrameLayout>
 
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vp_merchandise_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="@dimen/activity_margin"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/div_detail_category" />
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/ly_detail_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="@dimen/activity_margin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ly_category_scroll_bar"
+                    app:tabIndicatorColor="@color/charcoal"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabIndicatorHeight="2dp"
+                    app:tabMode="scrollable"
+                    app:tabSelectedTextColor="@color/black"
+                    app:tabTextAppearance="@style/home_detail_category_tab"
+                    app:tabTextColor="@color/sliver" />
+
+                <View
+                    android:id="@+id/div_detail_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/white_smoke"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ly_detail_category" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vp_merchandise_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_margin"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="@dimen/activity_margin"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/div_detail_category" />
 
-    </androidx.core.widget.NestedScrollView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_add_merchandise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/persian_blue"
+            android:src="@drawable/ic_home_floating_btn"
+            android:stateListAnimator="@null"
+            app:elevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/white" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </layout>

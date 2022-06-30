@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.alexk.bidit.data.service.response.home.HomeResponse
 import com.alexk.bidit.presentation.ui.home.HomeCategoryFragment
+import com.alexk.bidit.tempResponse.HomeResponse
 import java.util.ArrayList
 
 class HomeCategoryPageAdapter(

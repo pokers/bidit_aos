@@ -6,6 +6,8 @@
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/bg.xml" value="0.2025" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/bg_.xml" value="0.1785" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/bg_category_scroll_bar.xml" value="0.209" />
+        <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/bg_home_category_scroll.xml" value="0.193" />
+        <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/bg_home_category_scroll_thumb.xml" value="0.193" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/bg_oval_trans100_sliver_stroke0_radius0.xml" value="0.25" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/bg_rect_.xml" value="0.1525" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/bg_rect_nobel_white_smoke_radius4_stroke1.xml" value="0.193" />
@@ -24,20 +26,31 @@
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/dialog_bidding_report.xml" value="0.2025" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_apple.xml" value="0.1" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_back.xml" value="0.1785" />
+        <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_camera.xml" value="0.193" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_cancel.xml" value="0.193" />
+        <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_category_another_category.xml" value="0.193" />
+        <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_category_camera.xml" value="0.193" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_category_scroll_bar.xml" value="0.209" />
+        <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_content_delete.xml" value="0.193" />
+        <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_drone.xml" value="0.193" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_filter_selected.xml" value="0.25" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_filter_unselected.xml" value="0.282" />
+        <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_galaxy.xml" value="0.193" />
+        <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_game.xml" value="0.193" />
+        <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_home_bottom_chatting_selected.xml" value="0.193" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_home_bottom_home.xml" value="0.211" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_home_bottom_search.xml" value="0.211" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_home_bottom_trade.xml" value="0.1" />
+        <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_home_bottom_trade_selected.xml" value="0.193" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_home_bottom_user.xml" value="0.211" />
+        <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_home_chatting_selected.xml" value="0.193" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_home_floating_btn.xml" value="0.1" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_indicator_selected.xml" value="0.25" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_indicator_unselected.xml" value="0.25" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1785" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_main_logo.xml" value="0.211" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_share.xml" value="0.25" />
+        <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/ic_smart_watch.xml" value="0.193" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/sc.xml" value="0.25" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/sc_btn_filter_button.xml" value="0.211" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/sc_color_persian_blue_sliver.xml" value="0.211" />
@@ -53,6 +66,7 @@
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/drawable/sc_rect_transparent_persian_blue_trans_80_radius4_stroke0_rect_sliver_transparent_radius4_stroke1.xml" value="0.1525" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/activitiy_bidding.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/activity_bidding.xml" value="0.20555555555555555" />
+        <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/activity_category.xml" value="0.3729166666666667" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/activity_house.xml" value="0.22" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/activity_login.xml" value="0.22" />
@@ -71,12 +85,14 @@
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/dialog_merchandise_filter.xml" value="0.16" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/dialog_selling_post_calander.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/dialog_selling_post_calendar.xml" value="0.31510658016682114" />
+        <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/dialog_selling_post_immediate_purchase.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/dialog_selling_post_required_content.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/dialog_selling_post_temporary.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/dialog_selling_post_time.xml" value="0.3619791666666667" />
-        <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/dialog_sort.xml" value="0.75" />
+        <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/dialog_sort.xml" value="0.5" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/fragment_add_merchandise.xml" value="0.16296296296296298" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/fragment_bidding.xml" value="0.3619791666666667" />
+        <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/fragment_bidding_check.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/fragment_bidding_complete.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/fragment_category.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/fragment_home.xml" value="0.23481781376518218" />
@@ -111,7 +127,9 @@
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/item_filter_list.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/item_home_category.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/item_home_category_list.xml" value="0.5" />
+        <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/item_home_category_scroll_bar.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/item_merchandise_list.xml" value="0.5" />
+        <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/item_merchandise_list_vertical.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/item_merchandise_sort_category_list.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/item_recent_search_keyword_list.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/rsw14/Desktop/RyuSw/Project/Bidit_Project/Bidit/app/src/main/res/layout/item_recent_search_list.xml" value="0.3619791666666667" />
