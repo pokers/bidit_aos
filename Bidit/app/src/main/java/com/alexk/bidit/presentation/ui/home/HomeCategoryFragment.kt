@@ -1,6 +1,7 @@
 package com.alexk.bidit.presentation.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,28 +9,25 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.common.adapter.merchandise.MerchandiseListAdapter
-import com.alexk.bidit.common.adapter.merchandise.TempMerchandiseListAdapter
 import com.alexk.bidit.common.util.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentHomeMerchandiseListBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
-import com.alexk.bidit.tempResponse.TempHomeResponse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-
-/* 뷰모델 사용 시, 반드시 밑의 어노테이션 주석처리를 풀어주세요. */
 
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
 class HomeCategoryFragment :
     Fragment() {
 
-    private val getListData: List<TempHomeResponse>? by lazy { arguments?.getParcelableArrayList("listData") }
     private var _binding: FragmentHomeMerchandiseListBinding? = null
     private val binding get() = _binding!!
 
     private val merchandiseAdapter by lazy { MerchandiseListAdapter() }
     private val viewModel by viewModels<MerchandiseViewModel>()
+
+    private val sortType by lazy { arguments?.getString("sortType") }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,48 +35,51 @@ class HomeCategoryFragment :
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeMerchandiseListBinding.inflate(inflater, container, false)
-        init()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.apply {
+            rvMerchandiseList.layoutManager =
+                GridLayoutManager(requireContext(), 2, GridLayoutManager.HORIZONTAL, false)
+            rvMerchandiseList.adapter = merchandiseAdapter
+            rvMerchandiseList.addItemDecoration(GridRecyclerViewDeco(12, 12, 0, 37))
+        }
+        viewModel.getSortTypeItemList(sortType!!)
+        observeMerchandiseList()
+    }
+
+    private fun observeMerchandiseList() {
+        //fragment는 viewLifeCycleOwner로
+        viewModel.cursorTypeItemList.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                //서버 연결 대기중
+                is ViewState.Loading -> {
+                    Log.d("Merchandise Loading", "Loading GET merchandise list")
+                }
+                //아이템 가져오기 성공
+                is ViewState.Success -> {
+                    Log.d("Merchandise Success", "Success GET merchandise list")
+                    //리사이클러뷰 어댑터 연결
+                    val result = response.value?.data?.getItemList?.edges
+                    if (result?.size == 0) {
+                        merchandiseAdapter.submitList(emptyList())
+                    } else {
+                        merchandiseAdapter.submitList(result)
+                    }
+                }
+                //서버 연결 실패(만료) -> 재발급 요청
+                is ViewState.Error -> {
+                    merchandiseAdapter.submitList(emptyList())
+                    Log.d("Merchandise Failure", "Fail GET merchandise list")
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun init() {
-        binding.apply {
-            rvMerchandiseList.layoutManager =
-                GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
-            rvMerchandiseList.adapter = TempMerchandiseListAdapter(requireContext(), getListData!!)
-            rvMerchandiseList.addItemDecoration((GridRecyclerViewDeco(0, 80, 40, 0)))
-        }
-        //임시 id
-        viewModel.getItemInfo(12)
-    }
-
-    private fun observeLiveData(){
-        viewModel.item.observe(viewLifecycleOwner){response ->
-            when(response){
-                //Loading 상태
-                is ViewState.Loading -> {
-
-                }
-                //데이터 받아오기 성공
-                is ViewState.Success -> {
-                    //데이터가 없다?
-                    if(response.value?.data?.getItem == null){
-                        merchandiseAdapter.submitList(emptyList())
-                    }
-                    val result = response.value?.data?.getItem
-                    //리스트 처리해야함
-//                    merchandiseAdapter.submitList(result)
-                }
-                //데이터 받아오기 실패
-                is ViewState.Error -> {
-
-                }
-            }
-        }
     }
 }

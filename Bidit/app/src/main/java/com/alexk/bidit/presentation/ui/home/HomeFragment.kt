@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.annotation.FontRes
 import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,106 +21,40 @@ import com.alexk.bidit.common.adapter.home.category.HomeCategoryListAdapter
 import com.alexk.bidit.common.util.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentHomeBinding
 import com.alexk.bidit.presentation.base.BaseFragment
-import com.alexk.bidit.tempResponse.TempHomeResponse
+import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 
-/* 뷰모델 사용 시, 반드시 밑의 어노테이션 주석처리를 풀어주세요. */
-
-//@AndroidEntryPoint
-//@ExperimentalCoroutinesApi
+@AndroidEntryPoint
+@ExperimentalCoroutinesApi
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
-    var endX = 0
-
-    private val bannerList = listOf(
-        R.drawable.ic_launcher_background,
-        R.drawable.ic_launcher_background,
-        R.drawable.ic_launcher_background
-    )
-
+    var categoryScrollBarEndX = 0
     private val categoryList by lazy { resources.getStringArray(R.array.category_detail_merchandise) }
-
-    private val tempList = listOf<ArrayList<TempHomeResponse>>(
-        arrayListOf(
-            TempHomeResponse(
-                imgUrl = "123",
-                merchandiseName = "상품1",
-                endingTime = "마감 1일",
-                biddingPeopleCount = 1,
-                currentPrice = 100000
-            ),
-            TempHomeResponse(
-                imgUrl = "123",
-                merchandiseName = "상품1",
-                endingTime = "마감 1일",
-                biddingPeopleCount = 1,
-                currentPrice = 100000
-            ),
-            TempHomeResponse(
-                imgUrl = "123",
-                merchandiseName = "상품1",
-                endingTime = "마감 1일",
-                biddingPeopleCount = 1,
-                currentPrice = 100000
-            ),
-            TempHomeResponse(
-                imgUrl = "123",
-                merchandiseName = "상품1",
-                endingTime = "마감 1일",
-                biddingPeopleCount = 1,
-                currentPrice = 100000
-            ),
-            TempHomeResponse(
-                imgUrl = "123",
-                merchandiseName = "상품1",
-                endingTime = "마감 1일",
-                biddingPeopleCount = 1,
-                currentPrice = 100000
-            ),
-        ),
-        arrayListOf<TempHomeResponse>(
-            TempHomeResponse(
-                imgUrl = "123",
-                merchandiseName = "상품1",
-                endingTime = "마감 1일",
-                biddingPeopleCount = 1,
-                currentPrice = 100000
-            ),
-        ),
-        arrayListOf(
-            TempHomeResponse(
-                imgUrl = "123",
-                merchandiseName = "상품1",
-                endingTime = "마감 1일",
-                biddingPeopleCount = 1,
-                currentPrice = 100000
-            ),
-        ),
-        arrayListOf(
-            TempHomeResponse(
-                imgUrl = "123",
-                merchandiseName = "상품1",
-                endingTime = "마감 1일",
-                biddingPeopleCount = 1,
-                currentPrice = 100000
-            ),
-        ),
-        arrayListOf(
-            TempHomeResponse(
-                imgUrl = "123",
-                merchandiseName = "상품1",
-                endingTime = "마감 1일",
-                biddingPeopleCount = 1,
-                currentPrice = 100000
-            ),
-        )
+    private val categoryImg = listOf(
+        R.drawable.ic_category_apple,
+        R.drawable.ic_category_galaxy,
+        R.drawable.ic_category_another_phone,
+        R.drawable.ic_category_smart_watch,
+        R.drawable.ic_category_labtop,
+        R.drawable.ic_category_drone,
+        R.drawable.ic_category_tablet,
+        R.drawable.ic_category_monitor,
+        R.drawable.ic_category_game,
+        R.drawable.ic_category_audio,
+        R.drawable.ic_category_camera,
+        R.drawable.ic_category_another_category
     )
-
-    lateinit var slideJob: Job
+    private val tempBannerList = listOf(
+        R.drawable.bg_temp_banner,
+        R.drawable.bg_temp_banner,
+        R.drawable.bg_temp_banner,
+    )
+    lateinit var mainBannerAutoSlideJob: Job
     private var bannerPosition = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -128,110 +63,106 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         initEvent()
     }
 
-    private fun slideJobCreate() {
-        slideJob = lifecycleScope.launchWhenResumed {
-            delay(2000)
-            binding.vpMainBanner.setCurrentItem(bannerPosition++, true)
-        }
-    }
-
     override fun init() {
         binding.apply {
-            rvCategory.layoutManager =
-                GridLayoutManager(requireContext(), 2, GridLayoutManager.HORIZONTAL, false)
-            rvCategory.adapter = HomeCategoryListAdapter(
-                requireContext(), listOf(
-                    R.drawable.ic_category_apple,
-                    R.drawable.ic_category_galaxy,
-                    R.drawable.ic_category_another_phone,
-                    R.drawable.ic_category_smart_watch,
-                    R.drawable.ic_category_labtop,
-                    R.drawable.ic_category_drone,
-                    R.drawable.ic_category_tablet,
-                    R.drawable.ic_category_monitor,
-                    R.drawable.ic_category_game,
-                    R.drawable.ic_category_audio,
-                    R.drawable.ic_category_camera,
-                    R.drawable.ic_category_another_category
+            rvCategory.apply {
+                layoutManager =
+                    GridLayoutManager(requireContext(), 2, GridLayoutManager.HORIZONTAL, false)
+                adapter = HomeCategoryListAdapter(
+                    requireContext(), categoryImg
                 )
-            )
-            rvCategory.addItemDecoration(GridRecyclerViewDeco(0, 80, 40, 0))
+                addItemDecoration(GridRecyclerViewDeco(0, 80, 40, 0))
+            }
 
-            rvCategory.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                    super.onScrollStateChanged(recyclerView, newState)
-                }
+            vpMainBanner.apply {
+                vpMainBanner.adapter = HomeBannerAutoPageAdapter(context, tempBannerList)
+            }
 
-                @RequiresApi(Build.VERSION_CODES.N)
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
+            vpMerchandiseList.apply{
+                adapter = HomeCategoryPageAdapter(this@HomeFragment)
+                TabLayoutMediator(lyDetailCategory, this) { tab, position ->
+                    tab.text = categoryList[position]
+                }.attach()
+                changeSelectedTabItemFontFamily(0, R.font.notosans_kr_bold)
+            }
 
-                    //리사이클러뷰 전체 길이
-                    val range = rvCategory.computeHorizontalScrollRange()
-                    //dpi
-                    val density = resources.displayMetrics.density
+            ciMainBanner.apply {
+                //메모리 릭 발생 -> 커스텀 뷰 or 다른 라이브러리 사용해야함
+                //setViewPager(vpMainBanner)
+            }
+        }
+    }
+    override fun initEvent() {
+        binding.apply {
+            rvCategory.apply {
+                addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                        super.onScrollStateChanged(recyclerView, newState)
+                    }
 
-                    //최대 거리(thumb /2)
-                    val maxEndX = range - resources.displayMetrics.widthPixels + (20 * density) + 12
+                    @RequiresApi(Build.VERSION_CODES.N)
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(recyclerView, dx, dy)
 
-                    //슬라이딩 거리
-                    endX += dx
+                        //리사이클러뷰 전체 길이
+                        val range = computeHorizontalScrollRange()
+                        //dpi
+                        val density = resources.displayMetrics.density
 
-                    val proportion = endX.div(maxEndX)
-                    val transMaxRange = lyCategoryScrollBar.width - viewSlipFront.width
-                    viewSlipFront.translationX = transMaxRange * proportion
-                }
-            })
+                        //최대 거리(thumb /2)
+                        val maxEndX =
+                            range - resources.displayMetrics.widthPixels + (20 * density) + 12
 
-            vpMainBanner.adapter = HomeBannerAutoPageAdapter(context, bannerList)
-            vpMainBanner.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageScrollStateChanged(state: Int) {
-                    super.onPageScrollStateChanged(state)
-                    when (state) {
-                        ViewPager2.SCROLL_STATE_SETTLING -> {
+                        //슬라이딩 거리
+                        categoryScrollBarEndX += dx
 
-                        }
-                        //멈춤
-                        ViewPager2.SCROLL_STATE_IDLE -> {
-                            if (!slideJob.isActive) slideJobCreate()
-                        }
-                        //드래그
-                        ViewPager2.SCROLL_STATE_DRAGGING -> {
-                            slideJob.cancel()
+                        val proportion = categoryScrollBarEndX.div(maxEndX)
+                        val transMaxRange = lyCategoryScrollBar.width - viewSlipFront.width
+                        viewSlipFront.translationX = transMaxRange * proportion
+                    }
+                })
+            }
+            vpMainBanner.apply {
+                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                    override fun onPageScrollStateChanged(state: Int) {
+                        super.onPageScrollStateChanged(state)
+                        when (state) {
+                            ViewPager2.SCROLL_STATE_SETTLING -> {
+
+                            }
+                            //멈춤
+                            ViewPager2.SCROLL_STATE_IDLE -> {
+                                if (!mainBannerAutoSlideJob.isActive) slideJobCreate()
+                            }
+                            //드래그
+                            ViewPager2.SCROLL_STATE_DRAGGING -> {
+                                mainBannerAutoSlideJob.cancel()
+                            }
                         }
                     }
-                }
-            })
+                })
+            }
+            lyDetailCategory.apply {
+                addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                    override fun onTabSelected(tab: TabLayout.Tab?) {
+                        vpMerchandiseList.currentItem = tab?.position!!
+                        changeSelectedTabItemFontFamily(tab.position, R.font.notosans_kr_bold)
+                    }
 
-            //ciMainBanner.setViewPager(vpMainBanner)
-            vpMerchandiseList.adapter = HomeCategoryPageAdapter(this@HomeFragment, tempList)
+                    override fun onTabUnselected(tab: TabLayout.Tab?) {
+                        changeSelectedTabItemFontFamily(tab?.position!!, R.font.notosans_kr_medium)
+                    }
 
-            TabLayoutMediator(lyDetailCategory, vpMerchandiseList) { tab, position ->
-                tab.text = categoryList[position]
-            }.attach()
+                    override fun onTabReselected(tab: TabLayout.Tab?) {
 
+                    }
 
-            //default로 0일 때 bold처리
-            changeSelectedTabItemFontFamily(0, R.font.notosans_kr_bold)
-
-            lyDetailCategory.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    vpMerchandiseList.currentItem = tab?.position!!
-                    changeSelectedTabItemFontFamily(tab.position, R.font.notosans_kr_bold)
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab?) {
-                    changeSelectedTabItemFontFamily(tab?.position!!, R.font.notosans_kr_medium)
-                }
-
-                override fun onTabReselected(tab: TabLayout.Tab?) {
-
-                }
-
-            })
+                })
+            }
         }
     }
 
+    //탭 레이아웃 선택된 폰트 변경경
     private fun changeSelectedTabItemFontFamily(tabPosition: Int, @FontRes fontFamilyRes: Int) {
         val linearLayout =
             (binding.lyDetailCategory.getChildAt(0) as ViewGroup).getChildAt(tabPosition) as LinearLayout
@@ -240,13 +171,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         tabTextView.typeface = typeface
     }
 
-    override fun initEvent() {
 
+    private fun slideJobCreate() {
+        mainBannerAutoSlideJob = lifecycleScope.launchWhenResumed {
+            delay(2000)
+            binding.vpMainBanner.setCurrentItem(bannerPosition++, true)
+        }
     }
 
     override fun onPause() {
         super.onPause()
-        slideJob.cancel()
+        mainBannerAutoSlideJob.cancel()
     }
 
     override fun onResume() {

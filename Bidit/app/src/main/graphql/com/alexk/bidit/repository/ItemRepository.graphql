@@ -7,7 +7,9 @@ query getItemInfo($getItemId : Int!){
     }
 }
 
-query getItemInfoList($itemQueryInfo:ItemQueryInput, $keywordInfo:String, $firstInfo:Int, $lastInfo:Int, $afterInfo:String, $beforeInfo:String, $cursorTypeInfo : CursorType){
+#cursorType에 따라 정렬이 나뉨.
+
+query getItemList($itemQueryInfo:ItemQueryInput, $keywordInfo:String, $firstInfo:Int, $lastInfo:Int, $afterInfo:String, $beforeInfo:String, $cursorTypeInfo : CursorType){
     getItemList(itemQuery: $itemQueryInfo, keyword: $keywordInfo,first: $firstInfo,last: $lastInfo,after: $afterInfo,before: $beforeInfo,cursorType: $cursorTypeInfo){
         totalCount
         pageInfo {
@@ -16,7 +18,24 @@ query getItemInfoList($itemQueryInfo:ItemQueryInput, $keywordInfo:String, $first
         edges {
             node {
                 id
+                status
+                sPrice
+                cPrice
+                viewCount
+                title
+                dueDate
+                image {
+                    url
+                }
             }
         }
+    }
+}
+
+mutation addItemInfo($itemAdd:ItemAddInput, $description:String, $images:[String]){
+    addItem(itemAdd : $itemAdd, description : $description, images:$images){
+        userId
+        id
+        name
     }
 }
