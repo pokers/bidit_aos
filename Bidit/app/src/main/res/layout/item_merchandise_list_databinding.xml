@@ -4,6 +4,10 @@
 
     <data>
 
+        <variable
+            name="merchandiseResponse"
+            type="com.alexk.bidit.GetItemInfoQuery.GetItem" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

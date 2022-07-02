@@ -13,8 +13,7 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Bidit"
-        android:usesCleartextTraffic="false">
+        android:theme="@style/Theme.Bidit">
         <activity
             android:name=".presentation.ui.splash.SplashActivity"
             android:exported="true">

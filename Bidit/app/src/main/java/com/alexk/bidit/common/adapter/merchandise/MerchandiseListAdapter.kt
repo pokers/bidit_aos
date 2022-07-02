@@ -1,74 +1,47 @@
 package com.alexk.bidit.common.adapter.merchandise
 
-import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.alexk.bidit.GetItemInfoQuery
 import com.alexk.bidit.R
-import com.alexk.bidit.common.util.addComma
 import com.alexk.bidit.databinding.ItemMerchandiseListBinding
-import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
-import com.alexk.bidit.tempResponse.HomeResponse
-import com.bumptech.glide.Glide
+import com.alexk.bidit.databinding.ItemMerchandiseListDatabindingBinding
 
 
-//데이터 바인딩 미적용 -> 일단 UI를 위해 임시로 해둠
-/* 사용하는 UI는 반드시 submitList를 해주세요! */
-class MerchandiseListAdapter(
-    val context: Context,
-    private val dataList: List<HomeResponse>
-) :
-    ListAdapter<HomeResponse, MerchandiseListAdapter.HomeMerchandiseListHolder>(
-        MerchandiseListDiffUtil
-    ) {
+/* 변경해야할 UI */
 
-    inner class HomeMerchandiseListHolder(private val binding: ItemMerchandiseListBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: HomeResponse) {
+//현재는 getItemInfo, 객체 한개만 가져오므로 LIST 형태로 변경해야함
+//getItemListInfo 는 구조를 좀 더 알아야 할 것 같음
 
-            binding.homeResponse = data
-            binding.image = data.imgUrl
-            binding.number = data.biddingPeopleCount
-            binding.executePendingBindings()
+class MerchandiseListAdapter : ListAdapter<GetItemInfoQuery.GetItem,MerchandiseListAdapter.MerchandiseListHolder>(MerchandiseListDiffUtil) {
 
-            itemView.setOnClickListener {
-                context.startActivity(Intent(context, BiddingActivity::class.java))
-            }
+    class MerchandiseListHolder(val binding : ItemMerchandiseListDatabindingBinding):RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MerchandiseListHolder {
+        val view = DataBindingUtil.inflate<ItemMerchandiseListDatabindingBinding>(LayoutInflater.from(parent.context),
+            R.layout.item_merchandise_list,parent,false)
+        return MerchandiseListHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: MerchandiseListHolder, position: Int) {
+        holder.binding.merchandiseResponse = getItem(position)
+    }
+
+    object MerchandiseListDiffUtil : DiffUtil.ItemCallback<GetItemInfoQuery.GetItem>() {
+        override fun areItemsTheSame(
+            oldItem: GetItemInfoQuery.GetItem,
+            newItem: GetItemInfoQuery.GetItem
+        ): Boolean {
+            return oldItem.id == newItem.id
         }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeMerchandiseListHolder {
-        val view =
-            DataBindingUtil.inflate<ItemMerchandiseListBinding>(
-                LayoutInflater.from(parent.context),
-                R.layout.item_merchandise_list,
-                parent,
-                false
-            )
-        return HomeMerchandiseListHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: HomeMerchandiseListHolder, position: Int) {
-        holder.bind(dataList[position])
-    }
-
-    override fun getItemCount() = dataList.size
-
-    object MerchandiseListDiffUtil : DiffUtil.ItemCallback<HomeResponse>() {
-        //내부 데이터가 동일한지
-        /* 후에 수정해야함 */
-        override fun areItemsTheSame(oldItem: HomeResponse, newItem: HomeResponse): Boolean {
-            return oldItem.merchandiseName == newItem.merchandiseName
-        }
-
-        //두 값이 동일한 아이템인지
-        override fun areContentsTheSame(oldItem: HomeResponse, newItem: HomeResponse): Boolean {
+        override fun areContentsTheSame(
+            oldItem: GetItemInfoQuery.GetItem,
+            newItem: GetItemInfoQuery.GetItem
+        ): Boolean {
             return oldItem == newItem
         }
     }

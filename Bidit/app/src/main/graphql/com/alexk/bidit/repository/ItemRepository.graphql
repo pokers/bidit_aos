@@ -1,6 +1,9 @@
 query getItemInfo($getItemId : Int!){
     getItem(id: $getItemId){
         id
+        image {
+            url
+        }
     }
 }
 

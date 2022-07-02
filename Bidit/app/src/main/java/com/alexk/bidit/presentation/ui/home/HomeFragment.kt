@@ -2,7 +2,6 @@ package com.alexk.bidit.presentation.ui.home
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -21,14 +20,17 @@ import com.alexk.bidit.common.adapter.home.category.HomeCategoryListAdapter
 import com.alexk.bidit.common.util.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentHomeBinding
 import com.alexk.bidit.presentation.base.BaseFragment
-import com.alexk.bidit.tempResponse.HomeResponse
+import com.alexk.bidit.tempResponse.TempHomeResponse
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 
+/* 뷰모델 사용 시, 반드시 밑의 어노테이션 주석처리를 풀어주세요. */
 
 //@AndroidEntryPoint
+//@ExperimentalCoroutinesApi
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     var endX = 0
@@ -41,74 +43,77 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private val categoryList by lazy { resources.getStringArray(R.array.category_detail_merchandise) }
 
-    private val tempList = listOf(
+    private val tempList = listOf<ArrayList<TempHomeResponse>>(
         arrayListOf(
-            HomeResponse(
+            TempHomeResponse(
                 imgUrl = "123",
                 merchandiseName = "상품1",
                 endingTime = "마감 1일",
+                biddingPeopleCount = 1,
                 currentPrice = 100000
             ),
-            HomeResponse(
+            TempHomeResponse(
                 imgUrl = "123",
                 merchandiseName = "상품1",
                 endingTime = "마감 1일",
+                biddingPeopleCount = 1,
                 currentPrice = 100000
             ),
-            HomeResponse(
+            TempHomeResponse(
                 imgUrl = "123",
                 merchandiseName = "상품1",
                 endingTime = "마감 1일",
+                biddingPeopleCount = 1,
                 currentPrice = 100000
             ),
-            HomeResponse(
+            TempHomeResponse(
                 imgUrl = "123",
                 merchandiseName = "상품1",
                 endingTime = "마감 1일",
+                biddingPeopleCount = 1,
                 currentPrice = 100000
             ),
-            HomeResponse(
+            TempHomeResponse(
                 imgUrl = "123",
                 merchandiseName = "상품1",
                 endingTime = "마감 1일",
+                biddingPeopleCount = 1,
                 currentPrice = 100000
             ),
-            HomeResponse(
+        ),
+        arrayListOf<TempHomeResponse>(
+            TempHomeResponse(
                 imgUrl = "123",
                 merchandiseName = "상품1",
                 endingTime = "마감 1일",
+                biddingPeopleCount = 1,
                 currentPrice = 100000
             ),
         ),
         arrayListOf(
-            HomeResponse(
+            TempHomeResponse(
                 imgUrl = "123",
                 merchandiseName = "상품1",
                 endingTime = "마감 1일",
+                biddingPeopleCount = 1,
                 currentPrice = 100000
             ),
         ),
         arrayListOf(
-            HomeResponse(
+            TempHomeResponse(
                 imgUrl = "123",
                 merchandiseName = "상품1",
                 endingTime = "마감 1일",
+                biddingPeopleCount = 1,
                 currentPrice = 100000
             ),
         ),
         arrayListOf(
-            HomeResponse(
+            TempHomeResponse(
                 imgUrl = "123",
                 merchandiseName = "상품1",
                 endingTime = "마감 1일",
-                currentPrice = 100000
-            ),
-        ),
-        arrayListOf(
-            HomeResponse(
-                imgUrl = "123",
-                merchandiseName = "상품1",
-                endingTime = "마감 1일",
+                biddingPeopleCount = 1,
                 currentPrice = 100000
             ),
         )

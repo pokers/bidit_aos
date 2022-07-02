@@ -11,7 +11,6 @@ import com.alexk.bidit.common.adapter.merchandise.MerchandiseListAdapter
 import com.alexk.bidit.common.adapter.merchandise.TempMerchandiseListAdapter
 import com.alexk.bidit.common.util.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentHomeMerchandiseListBinding
-import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
 import com.alexk.bidit.tempResponse.TempHomeResponse
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,17 +18,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /* 뷰모델 사용 시, 반드시 밑의 어노테이션 주석처리를 풀어주세요. */
 
-@AndroidEntryPoint
-@ExperimentalCoroutinesApi
-class HomeCategoryFragment :
+class HomeCategoryFragmentTemp :
     Fragment() {
 
     private val getListData: List<TempHomeResponse>? by lazy { arguments?.getParcelableArrayList("listData") }
     private var _binding: FragmentHomeMerchandiseListBinding? = null
     private val binding get() = _binding!!
-
-    private val merchandiseAdapter by lazy { MerchandiseListAdapter() }
-    private val viewModel by viewModels<MerchandiseViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,39 +40,13 @@ class HomeCategoryFragment :
         _binding = null
     }
 
-    private fun init() {
+    fun init() {
+
         binding.apply {
             rvMerchandiseList.layoutManager =
                 GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
             rvMerchandiseList.adapter = TempMerchandiseListAdapter(requireContext(), getListData!!)
             rvMerchandiseList.addItemDecoration((GridRecyclerViewDeco(0, 80, 40, 0)))
-        }
-        //임시 id
-        viewModel.getItemInfo(12)
-    }
-
-    private fun observeLiveData(){
-        viewModel.item.observe(viewLifecycleOwner){response ->
-            when(response){
-                //Loading 상태
-                is ViewState.Loading -> {
-
-                }
-                //데이터 받아오기 성공
-                is ViewState.Success -> {
-                    //데이터가 없다?
-                    if(response.value?.data?.getItem == null){
-                        merchandiseAdapter.submitList(emptyList())
-                    }
-                    val result = response.value?.data?.getItem
-                    //리스트 처리해야함
-//                    merchandiseAdapter.submitList(result)
-                }
-                //데이터 받아오기 실패
-                is ViewState.Error -> {
-
-                }
-            }
         }
     }
 }

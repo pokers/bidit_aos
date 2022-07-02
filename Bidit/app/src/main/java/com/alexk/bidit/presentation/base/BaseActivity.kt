@@ -11,6 +11,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import com.alexk.bidit.type.ItemQueryInput
+import com.alexk.bidit.type.PageInfo
 
 abstract class BaseActivity<B : ViewDataBinding>(
     @LayoutRes private val layoutId: Int,

@@ -84,4 +84,5 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutId
         _binding = null
         navigationClear()
     }
+
 }

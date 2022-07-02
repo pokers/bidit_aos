@@ -11,9 +11,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-////반드시 알맞는 스코프를 사용
-////Application, Activity, Fragment..
-////Module 클래스에 반드시 InstallIn을 해주기
 @InstallIn(SingletonComponent::class)
 @Module
 object ApiModule {

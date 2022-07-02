@@ -1,6 +1,6 @@
 package com.alexk.bidit.tempResponse
 
-data class BiddingUserResponse(
+data class TempBiddingUserResponse(
     val userName: String,
     val endingTime: String,
     val currentPrice: Int,

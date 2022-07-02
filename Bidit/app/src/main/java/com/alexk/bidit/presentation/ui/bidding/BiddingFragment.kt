@@ -10,7 +10,7 @@ import com.alexk.bidit.common.adapter.bidding.BiddingMerchandiseImgPageAdapter
 import com.alexk.bidit.common.adapter.bidding.BiddingUserAdapter
 import com.alexk.bidit.databinding.FragmentBiddingBinding
 import com.alexk.bidit.presentation.base.BaseFragment
-import com.alexk.bidit.tempResponse.BiddingUserResponse
+import com.alexk.bidit.tempResponse.TempBiddingUserResponse
 
 class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_bidding),
     View.OnClickListener {
@@ -22,9 +22,9 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
     )
 
     private val tempBiddingUserList = listOf(
-        BiddingUserResponse("구매자이름1", "3분전", 30000, 1000, "temp"),
-        BiddingUserResponse("구매자이름2", "3분전", 30000, 1000, "temp"),
-        BiddingUserResponse("구매자이름3", "3분전", 30000, 1000, "temp"),
+        TempBiddingUserResponse("구매자이름1", "3분전", 30000, 1000, "temp"),
+        TempBiddingUserResponse("구매자이름2", "3분전", 30000, 1000, "temp"),
+        TempBiddingUserResponse("구매자이름3", "3분전", 30000, 1000, "temp"),
     )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
