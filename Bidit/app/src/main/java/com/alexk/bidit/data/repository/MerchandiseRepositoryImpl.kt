@@ -11,16 +11,16 @@ import javax.inject.Inject
 
 class MerchandiseRepositoryImpl @Inject constructor(private val apiService: ApolloClient) :
     MerchandiseRepository {
-    override suspend fun getItem(id: Int): ApolloResponse<GetItemInfoQuery.Data> {
+    override suspend fun retrieveItemInfo(id: Int): ApolloResponse<GetItemInfoQuery.Data> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getCursorTypeItemList(cursorType: CursorType): ApolloResponse<GetItemListQuery.Data> {
+    override suspend fun retrieveCursorTypeItemList(cursorType: CursorType): ApolloResponse<GetItemListQuery.Data> {
         return apiService.provideApolloClient()
             .query(GetItemListQuery(cursorTypeInfo = Optional.Present(cursorType))).execute()
     }
 
-    override suspend fun getCategoryItemList(
+    override suspend fun retrieveCategoryItemList(
         categoryId: Int,
         cursorType: CursorType
     ): ApolloResponse<GetItemListQuery.Data> {

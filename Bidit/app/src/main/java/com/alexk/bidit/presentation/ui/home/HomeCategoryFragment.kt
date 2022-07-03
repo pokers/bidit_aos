@@ -1,5 +1,6 @@
 package com.alexk.bidit.presentation.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import com.alexk.bidit.common.adapter.merchandise.MerchandiseListAdapter
 import com.alexk.bidit.common.util.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentHomeMerchandiseListBinding
 import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -42,7 +44,7 @@ class HomeCategoryFragment :
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             rvMerchandiseList.layoutManager =
-                GridLayoutManager(requireContext(), 2, GridLayoutManager.HORIZONTAL, false)
+                GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
             rvMerchandiseList.adapter = merchandiseAdapter
             rvMerchandiseList.addItemDecoration(GridRecyclerViewDeco(12, 12, 0, 37))
         }
@@ -66,6 +68,12 @@ class HomeCategoryFragment :
                     if (result?.size == 0) {
                         merchandiseAdapter.submitList(emptyList())
                     } else {
+                        merchandiseAdapter.onItemClicked =
+                            {
+                                val intent = Intent(requireContext(), BiddingActivity::class.java)
+                                intent.putExtra("itemId", it)
+                                startActivity(intent)
+                            }
                         merchandiseAdapter.submitList(result)
                     }
                 }

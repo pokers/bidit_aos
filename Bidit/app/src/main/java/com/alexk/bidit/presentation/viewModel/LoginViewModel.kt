@@ -9,6 +9,7 @@ import com.alexk.bidit.domain.repository.LoginRepository
 import com.alexk.bidit.di.ViewState
 import com.apollographql.apollo.exception.ApolloException
 import com.apollographql.apollo3.api.ApolloResponse
+import com.apollographql.apollo3.exception.ApolloHttpException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
@@ -26,7 +27,7 @@ class LoginViewModel @Inject constructor(private val repository: LoginRepository
         try {
             val response = repository.checkToken()
             _id.postValue(ViewState.Success(response))
-        } catch (e: ApolloException) {
+        } catch (e: ApolloHttpException) {
             Log.e("ApolloException", "Failure", e)
             _id.postValue(ViewState.Error("Error fetching id"))
         }

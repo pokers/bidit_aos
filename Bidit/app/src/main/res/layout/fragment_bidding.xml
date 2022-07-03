@@ -4,6 +4,13 @@
 
     <data>
 
+        <variable
+            name="biddingInfo"
+            type="com.alexk.bidit.GetBiddingInfoQuery.Item" />
+
+        <variable
+            name="bidSellingUserInfo"
+            type="com.alexk.bidit.GetBiddingInfoQuery.User" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -97,9 +104,9 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosans_kr_bold"
                     android:includeFontPadding="false"
-                    android:text="3,000,000원"
                     android:textColor="@color/nero"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    app:price="@{biddingInfo.CPrice}" />
 
             </LinearLayout>
 
@@ -131,9 +138,9 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosans_kr_bold"
                     android:includeFontPadding="false"
-                    android:text="191,000명"
                     android:textColor="@color/nero"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    app:peopleCount="@{biddingInfo.viewCount}" />
 
             </LinearLayout>
 
@@ -166,9 +173,9 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosans_kr_bold"
                     android:includeFontPadding="false"
-                    android:text="10일 10:59:59"
                     android:textColor="@color/nero"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    app:time="@{biddingInfo.dueDate}" />
 
             </LinearLayout>
 
@@ -194,7 +201,7 @@
                 android:fontFamily="@font/notosans_kr_medium"
                 android:gravity="start|center"
                 android:includeFontPadding="false"
-                android:text="제목"
+                android:text="@{bidSellingUserInfo.nickname}"
                 android:textColor="@color/nero"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -208,7 +215,7 @@
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_oval_transparent_sliver_stroke0_radius0"
-                android:src="@drawable/ic_share"
+                app:imageUrl="@{bidSellingUserInfo.kakaoAccount.profile_image_url}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_merchandise_name" />
 
@@ -219,7 +226,7 @@
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/notosans_kr_medium"
                 android:includeFontPadding="false"
-                android:text="판매자"
+                android:text="@{bidSellingUserInfo.nickname}"
                 android:textColor="@color/charcoal"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@id/iv_selling_user_img"
@@ -337,7 +344,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosans_kr_medium"
                     android:includeFontPadding="false"
-                    android:text="3,000,000원"
+                    app:price="@{biddingInfo.SPrice}"
                     android:textColor="@color/nero"
                     android:textSize="12sp" />
 
@@ -348,7 +355,7 @@
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/notosans_kr_medium"
                     android:includeFontPadding="false"
-                    android:text="3,000,000원"
+                    app:time="@{biddingInfo.dueDate}"
                     android:textColor="@color/nero"
                     android:textSize="12sp" />
 
@@ -359,7 +366,7 @@
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/notosans_kr_medium"
                     android:includeFontPadding="false"
-                    android:text="3,000,000원"
+                    app:time="@{biddingInfo.createdAt}"
                     android:textColor="@color/nero"
                     android:textSize="12sp" />
 
@@ -384,7 +391,7 @@
                 android:layout_marginEnd="@dimen/activity_margin"
                 android:fontFamily="@font/notosans_kr_regular"
                 android:includeFontPadding="false"
-                android:text="설명글입니다."
+                android:text="@{biddingInfo.description.description}"
                 android:textColor="@color/nero"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"

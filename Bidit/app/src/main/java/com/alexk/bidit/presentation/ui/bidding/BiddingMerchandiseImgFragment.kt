@@ -8,8 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.FragmentHomeBannerBinding
+import com.bumptech.glide.Glide
 
-class BiddingMerchandiseImgFragment(val img: Int) : Fragment() {
+class BiddingMerchandiseImgFragment(val imgUrl: String?) : Fragment() {
 
     lateinit var binding: FragmentHomeBannerBinding
 
@@ -19,7 +20,13 @@ class BiddingMerchandiseImgFragment(val img: Int) : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_banner, container, false)
-        binding.ivBanner.setImageResource(img)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Glide.with(requireContext())
+            .load(imgUrl)
+            .into(binding.ivBanner)
     }
 }

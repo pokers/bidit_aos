@@ -1,0 +1,28 @@
+query getBiddingInfo($biddingQuery : BiddingQueryInput){
+    getBidding(biddingQuery: $biddingQuery){
+        user{
+            id
+            nickname
+            kakaoAccount {
+                profile_image_url
+            }
+        }
+        item {
+            id
+            image {
+                url
+            }
+            name
+            cPrice
+            sPrice
+            dueDate
+            createdAt
+            buyNow
+            title
+            viewCount
+            description {
+                description
+            }
+        }
+    }
+}

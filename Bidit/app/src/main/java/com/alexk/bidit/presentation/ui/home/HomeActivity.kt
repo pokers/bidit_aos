@@ -8,8 +8,10 @@ import com.alexk.bidit.databinding.ActivityHomeBinding
 import com.alexk.bidit.presentation.base.BaseActivity
 import com.alexk.bidit.presentation.ui.search.SearchActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
+@ExperimentalCoroutinesApi
 class HomeActivity :
     BaseActivity<ActivityHomeBinding>(R.layout.activity_home, R.id.nav_home_fragment) {
     override fun onCreate(savedInstanceState: Bundle?) {

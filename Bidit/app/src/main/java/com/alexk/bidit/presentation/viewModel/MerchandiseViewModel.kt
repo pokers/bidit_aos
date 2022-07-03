@@ -10,7 +10,7 @@ import com.alexk.bidit.domain.repository.MerchandiseRepository
 import com.apollographql.apollo3.api.ApolloResponse
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.type.CursorType
-import com.apollographql.apollo.exception.ApolloException
+import com.apollographql.apollo3.exception.ApolloHttpException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
@@ -32,17 +32,16 @@ class MerchandiseViewModel @Inject constructor(private val repository: Merchandi
         try {
             when (sortType) {
                 "latestOrder" -> {
-
-                    val response = repository.getCursorTypeItemList(CursorType.createdAt)
+                    val response = repository.retrieveCursorTypeItemList(CursorType.createdAt)
                     _cursorTypeItemList.postValue(ViewState.Success(response))
                 }
                 "deadline" -> {
                     _cursorTypeItemList.postValue(ViewState.Loading())
-                    val response = repository.getCursorTypeItemList(CursorType.dueDate)
+                    val response = repository.retrieveCursorTypeItemList(CursorType.dueDate)
                     _cursorTypeItemList.postValue(ViewState.Success(response))
                 }
             }
-        } catch (e: ApolloException) {
+        } catch (e: ApolloHttpException) {
             Log.e("ApolloException", "Failure", e)
             _cursorTypeItemList.postValue(ViewState.Error("Error fetching ItemList"))
         }
@@ -61,9 +60,9 @@ class MerchandiseViewModel @Inject constructor(private val repository: Merchandi
         }
         _categoryItemList.postValue(ViewState.Loading())
         try {
-            val response = repository.getCategoryItemList(categoryId, cursorType!!)
+            val response = repository.retrieveCategoryItemList(categoryId, cursorType!!)
             _categoryItemList.postValue(ViewState.Success(response))
-        } catch (e: ApolloException) {
+        } catch (e: ApolloHttpException) {
             Log.e("ApolloException", "Failure", e)
             _categoryItemList.postValue(ViewState.Error("Error fetching latestOrderItemList"))
         }

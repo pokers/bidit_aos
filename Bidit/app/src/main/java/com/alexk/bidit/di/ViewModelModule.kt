@@ -1,7 +1,9 @@
 package com.alexk.bidit.di
 
+import com.alexk.bidit.data.repository.BiddingRepositoryImpl
 import com.alexk.bidit.data.repository.LoginRepositoryImpl
 import com.alexk.bidit.data.repository.MerchandiseRepositoryImpl
+import com.alexk.bidit.domain.repository.BiddingRepository
 import com.alexk.bidit.domain.repository.LoginRepository
 import com.alexk.bidit.domain.repository.MerchandiseRepository
 import dagger.Binds
@@ -20,4 +22,8 @@ abstract class ViewModelModule {
     @Binds
     @ViewModelScoped
     abstract fun bindMerchandiseRepository(repo: MerchandiseRepositoryImpl): MerchandiseRepository
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindBiddingRepository(repo: BiddingRepositoryImpl): BiddingRepository
 }

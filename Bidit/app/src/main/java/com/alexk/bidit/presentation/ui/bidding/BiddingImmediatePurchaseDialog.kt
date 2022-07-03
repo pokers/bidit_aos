@@ -9,7 +9,7 @@ import com.alexk.bidit.R
 import com.alexk.bidit.common.util.addComma
 import com.alexk.bidit.databinding.DialogSellingPostImmediatePurchaseBinding
 
-class BiddingImmediatePurchaseDialog(context: Context, private val price: Int) : Dialog(context) {
+class BiddingImmediatePurchaseDialog(context: Context, private val price: Int?) : Dialog(context) {
 
     private lateinit var binding: DialogSellingPostImmediatePurchaseBinding
 
@@ -28,7 +28,7 @@ class BiddingImmediatePurchaseDialog(context: Context, private val price: Int) :
 
     private fun init() {
         binding.apply {
-            tvMerchandisePrice.text = addComma(price)
+            tvMerchandisePrice.text = addComma(price!!)
         }
     }
 
