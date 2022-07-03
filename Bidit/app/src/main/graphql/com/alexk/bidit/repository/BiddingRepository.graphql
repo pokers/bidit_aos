@@ -26,3 +26,10 @@ query getBiddingInfo($biddingQuery : BiddingQueryInput){
         }
     }
 }
+mutation doBid($bidInfo:BidInput){
+    bid(bid: $bidInfo){
+        item{
+            id
+        }
+    }
+}

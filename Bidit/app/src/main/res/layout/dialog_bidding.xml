@@ -33,25 +33,31 @@
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="@id/btn_bidding_minus"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_bidding_plus"
+            app:layout_constraintStart_toEndOf="@+id/btn_bidding_minus"
             app:layout_constraintTop_toTopOf="@id/btn_bidding_minus">
 
             <EditText
                 android:id="@+id/edit_merchandise_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:background="@color/transparent"
                 android:fontFamily="@font/notosans_kr_bold"
+                android:gravity="center"
                 android:includeFontPadding="false"
                 android:inputType="number"
                 android:text="300,000"
+                android:hint="0"
+                android:textColorHint="@color/nobel"
                 android:textColor="@color/nero"
                 android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/tv_won"
                 android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/notosans_kr_medium"

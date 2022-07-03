@@ -201,7 +201,7 @@
                 android:fontFamily="@font/notosans_kr_medium"
                 android:gravity="start|center"
                 android:includeFontPadding="false"
-                android:text="@{bidSellingUserInfo.nickname}"
+                android:text="@{biddingInfo.title}"
                 android:textColor="@color/nero"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -344,7 +344,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosans_kr_medium"
                     android:includeFontPadding="false"
-                    app:price="@{biddingInfo.SPrice}"
+                    app:price="@{biddingInfo.buyNow}"
                     android:textColor="@color/nero"
                     android:textSize="12sp" />
 

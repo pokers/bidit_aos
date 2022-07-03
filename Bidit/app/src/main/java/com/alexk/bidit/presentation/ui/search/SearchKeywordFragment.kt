@@ -23,7 +23,6 @@ class SearchKeywordFragment :
     // sp에 저장된 검색 리스트를 불러온다.
     private val keywordViewModel: SearchKeywordViewModel by viewModels()
 
-    //아니 이게 왜..? pause개념이 아니지..?
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()

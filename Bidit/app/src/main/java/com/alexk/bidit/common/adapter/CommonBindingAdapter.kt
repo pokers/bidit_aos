@@ -5,6 +5,8 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.alexk.bidit.GetBiddingInfoQuery
 import com.alexk.bidit.GetItemListQuery
+import com.alexk.bidit.common.adapter.CommonBindingAdapter.changePeopleCountType
+import com.alexk.bidit.common.adapter.CommonBindingAdapter.changePriceType
 import com.alexk.bidit.common.util.addComma
 import com.bumptech.glide.Glide
 
@@ -34,20 +36,34 @@ object CommonBindingAdapter {
     @JvmStatic
     @BindingAdapter("price")
     fun TextView.changePriceType(price: Int?) {
-        price?.let { this.text = "${addComma(price)}원" }
+        if(price == null){
+            this.text = "0원"
+        }
+        else{
+            this.text =  "${addComma(price)}원"
+        }
     }
 
     @JvmStatic
     @BindingAdapter("peopleCount")
     fun TextView.changePeopleCountType(count: Int?) {
-        count?.let { this.text = "${addComma(count)}명" }
+        if(count == null){
+            this.text = "0명"
+        }
+        else{
+            this.text =  "${addComma(count)}명"
+        }
     }
 
     @JvmStatic
     @BindingAdapter("number")
     fun TextView.changeNumberType(number: Int?) {
-        //텍스트 날짜 형식으로 변환 필요
-        number?.let { this.text = addComma(number) }
+        if(number == null){
+            this.text = "0"
+        }
+        else{
+            this.text =  "${addComma(number)}"
+        }
     }
 
     @JvmStatic

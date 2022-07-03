@@ -9,16 +9,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
+import com.alexk.bidit.common.util.addComma
 import com.alexk.bidit.databinding.DialogBiddingBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 //고차함수 (매개변수는 Int, 반환은 Unit(없음))
-class BiddingDialog(private val onClick: (Int) -> Unit) :
-    BottomSheetDialogFragment(), View.OnClickListener, TextWatcher {
+class BiddingDialog(private val bid: (Int) -> Unit) :
+    BottomSheetDialogFragment() {
 
     private lateinit var binding: DialogBiddingBinding
-
-    var price = 0
+    private var currentPrice = 0
+    private var mustOverPrice = 0
+    private val bidPrice by lazy { arguments?.getInt("bidPrice") }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,55 +34,65 @@ class BiddingDialog(private val onClick: (Int) -> Unit) :
     }
 
     fun init() {
-        price = arguments?.getInt("price")!!
+        currentPrice = arguments?.getInt("currentPrice")!!
+        mustOverPrice = arguments?.getInt("currentPrice")!!
+        binding.apply {
+            editMerchandisePrice.setText(addComma(currentPrice))
+            tvMustOverBiddingPrice.text = addComma(currentPrice)
+        }
     }
 
     fun initEvent() {
         binding.apply {
-            btnBidding.setOnClickListener(this@BiddingDialog)
-            btnCancel.setOnClickListener(this@BiddingDialog)
-            btnBiddingMinus.setOnClickListener(this@BiddingDialog)
-            btnBiddingPlus.setOnClickListener(this@BiddingDialog)
+            editMerchandisePrice.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    Log.d("beforeTextChanged", "$s, $start, $count, $after")
+                }
 
-        }
-    }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    if(editMerchandisePrice.text.toString() != ""){
+                        val getEditText = s?.toString()?.toCharArray()
+                        var price = ""
+                        for(data in getEditText?.indices!!){
+                            if(getEditText[data] != ','){
+                                price += getEditText[data]
+                            }
+                        }
+                        currentPrice = price.toInt()
+                        editMerchandisePrice.setText(addComma(price.toInt()))
+                    }
+                }
 
-    override fun onClick(view: View?) {
-        when (view) {
+                override fun afterTextChanged(s: Editable?) {
+                    
+                }
+            })
 
-            //입찰
-            binding.btnBidding -> {
-                //고차 함수 사용
-                onClick(1)
+            btnBidding.setOnClickListener {
+                if (currentPrice <= mustOverPrice) {
+                    tvErrorMessage.visibility = View.VISIBLE
+                } else {
+                    //고차 함수 사용(홈 화면 이동)
+                    bid(currentPrice)
+                    dismiss()
+                }
+            }
+            btnCancel.setOnClickListener {
                 dismiss()
             }
-
-            //취소
-            binding.btnCancel -> {
-                dismiss()
+            btnBiddingMinus.setOnClickListener {
+                currentPrice -= bidPrice!!
+                editMerchandisePrice.setText(addComma(currentPrice))
             }
-
-            //마이너스
-            binding.btnBiddingMinus -> {
-
-            }
-
-            //플러스
-            binding.btnBiddingPlus -> {
-
+            btnBiddingPlus.setOnClickListener {
+                currentPrice += bidPrice!!
+                editMerchandisePrice.setText(addComma(currentPrice))
             }
         }
-    }
-
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        Log.d("before", s.toString())
-    }
-
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        Log.d("change", s.toString())
-    }
-
-    override fun afterTextChanged(s: Editable?) {
-        Log.d("after", s.toString())
     }
 }

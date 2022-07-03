@@ -1,5 +1,4 @@
 package com.alexk.bidit.presentation.ui.bidding
-
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
@@ -8,17 +7,19 @@ import android.view.LayoutInflater
 import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
 import com.alexk.bidit.common.util.addComma
+import com.alexk.bidit.databinding.DialogBiddingCancelBinding
 import com.alexk.bidit.databinding.DialogSellingPostImmediatePurchaseBinding
 
-class BiddingImmediatePurchaseDialog(context: Context, private val price: Int?) : Dialog(context) {
+//취소
+class BiddingCancelDialog(context: Context, val bidId : Int) : Dialog(context) {
 
-    private lateinit var binding: DialogSellingPostImmediatePurchaseBinding
+    private lateinit var binding: DialogBiddingCancelBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(context),
-            R.layout.dialog_selling_post_immediate_purchase,
+            R.layout.dialog_bidding_cancel,
             null,
             false
         )
@@ -29,17 +30,16 @@ class BiddingImmediatePurchaseDialog(context: Context, private val price: Int?) 
 
     private fun init() {
         binding.apply {
-            Log.d("price","$price")
-            tvMerchandisePrice.text = addComma(price!!)
+
         }
     }
 
     private fun initEvent() {
         binding.apply {
-            btnCancel.setOnClickListener {
+            btnBidCancel.setOnClickListener {
                 dismiss()
             }
-            btnChat.setOnClickListener {
+            btnPreviousDisplay.setOnClickListener {
                 //chatting activity
             }
         }

@@ -1,12 +1,15 @@
 package com.alexk.bidit.presentation.ui.bidding
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.Window
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,20 +30,19 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
 
     private val viewModel by viewModels<BiddingViewModel>()
     private val itemId by lazy { activity?.intent?.getIntExtra("itemId", 0) }
-    private lateinit var getBiddingInfo : GetBiddingInfoQuery.GetBidding
+    private lateinit var getBiddingInfo: GetBiddingInfoQuery.GetBidding
+    private var bidPrice = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        initEvent()
     }
 
     override fun init() {
         observeBiddingInfo()
-        Log.d("itemId","$itemId")
+        Log.d("itemId", "$itemId")
         viewModel.retrieveBiddingInfo(itemId!!)
     }
-
     override fun initEvent() {
         binding.apply {
             ivBack.setOnClickListener {
@@ -56,54 +58,28 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
             }
             btnBidding.setOnClickListener {
                 val biddingFragment = BiddingDialog {
-                    when (it) {
-                        0 -> Toast.makeText(requireContext(), "0 콜백", Toast.LENGTH_SHORT).show()
-                        1 -> Toast.makeText(requireContext(), "0 콜백", Toast.LENGTH_SHORT).show()
-                    }
+                    //고차 함수로 입력한 입찰가 받아옴
+                    bidPrice = it
+                    viewModel.doBid(itemId!!, bidPrice)
                 }
+
                 //bidding price
-                biddingFragment.arguments.apply {
-                    Bundle().putInt("price", 1000)
+                biddingFragment.arguments = Bundle().apply {
+                    this.putInt("currentPrice", getBiddingInfo.item?.cPrice!!)
+                    this.putInt("bidPrice", 1000)
                 }
                 biddingFragment.show(childFragmentManager, biddingFragment.tag)
             }
             btnImmediatePurchase.setOnClickListener {
-                val dialog = BiddingImmediatePurchaseDialog(requireContext(), getBiddingInfo.item?.buyNow)
+                val dialog =
+                    BiddingImmediatePurchaseDialog(requireContext(), getBiddingInfo.item?.buyNow)
                 dialog.setCanceledOnTouchOutside(true)
                 dialog.show()
                 dialog.window?.setLayout(
                     WindowManager.LayoutParams.MATCH_PARENT,
                     WindowManager.LayoutParams.WRAP_CONTENT
                 )
-            }
-        }
-    }
-
-    private fun observeBiddingInfo() {
-        //fragment는 viewLifeCycleOwner로
-        viewModel.biddingInfo.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                //서버 연결 대기중
-                is ViewState.Loading -> {
-                    Log.d("Bidding Loading", "Loading GET bidding info")
-                }
-                //아이템 가져오기 성공
-                is ViewState.Success -> {
-                    Log.d("Bidding Success", "Success GET bidding info")
-                    //데이터 연동 작업 필요
-                    val result = response.value?.data?.getBidding
-                    if(result?.isNotEmpty() == true){
-                        getBiddingInfo = result[0]!!
-                        setBiddingInfoUI(getBiddingInfo)
-                    }
-                    else{
-                        Log.d("Bidding Failure", "Success GET bidding info, but not data")
-                    }
-                }
-                //서버 연결 실패(만료) -> 재발급 요청
-                is ViewState.Error -> {
-                    Log.d("Bidding Failure", "Fail GET bidding info")
-                }
+                dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
             }
         }
     }
@@ -130,6 +106,60 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                 layoutManager =
                     LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                 adapter = BiddingUserAdapter()
+            }
+        }
+    }
+
+    private fun observeBiddingInfo() {
+        //fragment는 viewLifeCycleOwner로
+        viewModel.biddingInfo.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                //서버 연결 대기중
+                is ViewState.Loading -> {
+                    Log.d("Bidding Loading", "Loading GET bidding info")
+                }
+                //아이템 가져오기 성공
+                is ViewState.Success -> {
+                    Log.d("Bidding Success", "Success GET bidding info")
+                    //데이터 연동 작업 필요
+                    val result = response.value?.data?.getBidding
+                    if (result?.isNotEmpty() == true) {
+                        getBiddingInfo = result[0]!!
+                        setBiddingInfoUI(getBiddingInfo)
+                        initEvent()
+                    } else {
+                        Log.d("Bidding Failure", "Success GET bidding info, but not data")
+                    }
+                }
+                is ViewState.Error -> {
+                    Log.d("Bidding Failure", "Fail GET bidding info")
+                }
+            }
+        }
+        viewModel.bidCompleteInfo.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    Log.d("Bidding Loading", "Loading POST bidding info")
+                }
+                is ViewState.Success -> {
+                    Log.d("Bidding Success", "Success POST bidding info")
+                    //성공
+                    val result = response.value?.data?.bid
+                    if (result != null) {
+                        navigate(
+                            BiddingFragmentDirections.actionBiddingFragmentToBiddingCompleteFragment(
+                                bidPrice,
+                                itemId!!
+                            )
+                        )
+                    }
+                    else{
+                        //내가 더 많은 가격을 bid함
+                    }
+                }
+                is ViewState.Error -> {
+                    Log.d("Bidding Failure", "Fail POST bidding info")
+                }
             }
         }
     }

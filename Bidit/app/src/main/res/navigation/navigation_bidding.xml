@@ -19,5 +19,12 @@
         android:id="@+id/biddingCompleteFragment"
         android:name="com.alexk.bidit.presentation.ui.bidding.BiddingCompleteFragment"
         android:label="BiddingCompleteFragment"
-        tools:layout="@layout/fragment_bidding_complete" />
+        tools:layout="@layout/fragment_bidding_complete" >
+        <argument
+            android:name="price"
+            app:argType="integer" />
+        <argument
+            android:name="bid"
+            app:argType="integer" />
+    </fragment>
 </navigation>
