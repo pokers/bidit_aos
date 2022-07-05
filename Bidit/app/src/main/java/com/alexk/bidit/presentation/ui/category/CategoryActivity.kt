@@ -1,5 +1,6 @@
 package com.alexk.bidit.presentation.ui.category
 
+import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,7 @@ import com.alexk.bidit.common.adapter.merchandise.MerchandiseListAdapter
 import com.alexk.bidit.common.util.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.ActivityCategoryBinding
 import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.Balloon
@@ -67,7 +69,6 @@ class CategoryActivity : AppCompatActivity() {
     }
 
     private fun makeBalloon(sortType: String): Balloon {
-
         val balloon = Balloon.Builder(this)
             .setLayout(R.layout.dialog_sort)
             .setArrowSize(10)
@@ -166,6 +167,11 @@ class CategoryActivity : AppCompatActivity() {
                     if (result?.size == 0) {
                         merchandiseAdapter.submitList(emptyList())
                     } else {
+                        merchandiseAdapter.onItemClicked = {
+                            val intent = Intent(this, BiddingActivity::class.java)
+                            intent.putExtra("itemId", it)
+                            startActivity(intent)
+                        }
                         merchandiseAdapter.submitList(result)
                     }
                 }

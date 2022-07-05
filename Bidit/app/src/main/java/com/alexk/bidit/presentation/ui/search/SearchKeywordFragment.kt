@@ -64,7 +64,7 @@ class SearchKeywordFragment :
             }
             //데이터가 존재 할때만 리스트를 가져온다
             else {
-                merchandiseViewModel.getKeywordItemList(keywordList[0])
+                merchandiseViewModel.getKeywordItemList(keywordList[0], "latestOrder")
                 observeMerchandiseList()
             }
 
@@ -78,11 +78,7 @@ class SearchKeywordFragment :
                         keywordList,
                         onClickDeleteKeyword = { keywordViewModel.deleteKeyword(it) },
                         onClickItem = {
-                            navigate(
-                                SearchKeywordFragmentDirections.actionSearchKeywordFragmentToSearchResultFragment(
-                                    it
-                                )
-                            )
+                            navigate(SearchKeywordFragmentDirections.actionSearchKeywordFragmentToSearchResultFragment(it))
                         }
                     )
             }
@@ -103,7 +99,7 @@ class SearchKeywordFragment :
                 keywordViewModel.deleteAllKeyword()
             }
             btnBack.setOnClickListener {
-                activity?.finish()
+                navigate(SearchKeywordFragmentDirections.actionSearchKeywordFragmentToHomeFragment())
             }
             ivEditTextDelete.setOnClickListener {
                 binding.editSearch.setText("")
@@ -177,7 +173,7 @@ class SearchKeywordFragment :
 
     private fun observeMerchandiseList() {
         //fragment는 viewLifeCycleOwner로
-        merchandiseViewModel.cursorTypeItemList.observe(viewLifecycleOwner) { response ->
+        merchandiseViewModel.keywordItemList.observe(viewLifecycleOwner) { response ->
             when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {
@@ -189,6 +185,7 @@ class SearchKeywordFragment :
                     //리사이클러뷰 어댑터 연결
                     val result = response.value?.data?.getItemList?.edges
                     if (result?.size == 0) {
+                        Log.d("Empty Merchandise List","No merchandise data")
                         merchandiseAdapter.submitList(emptyList())
                     } else {
                         merchandiseAdapter.onItemClicked =

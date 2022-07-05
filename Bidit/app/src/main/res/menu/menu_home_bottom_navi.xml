@@ -7,7 +7,7 @@
         android:title="@string/category_chatting"
         app:showAsAction="always" />
     <item
-        android:id="@+id/searchFragment"
+        android:id="@+id/searchKeywordFragment"
         android:icon="@drawable/sc_home_bottom_search"
         android:title="@string/category_search"
         app:showAsAction="always" />

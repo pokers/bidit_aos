@@ -35,7 +35,7 @@ class MerchandiseRepositoryImpl @Inject constructor(private val apiService: Apol
         ).execute()
     }
 
-    override suspend fun retrieveKeywordItemList(keyword: String): ApolloResponse<GetItemListQuery.Data> {
-        return apiService.provideApolloClient().query(GetItemListQuery(keywordInfo = Optional.Present(keyword))).execute()
+    override suspend fun retrieveKeywordItemList(keyword: String,cursorType: CursorType): ApolloResponse<GetItemListQuery.Data> {
+        return apiService.provideApolloClient().query(GetItemListQuery(keywordInfo = Optional.Present(keyword), cursorTypeInfo = Optional.presentIfNotNull(cursorType))).execute()
     }
 }

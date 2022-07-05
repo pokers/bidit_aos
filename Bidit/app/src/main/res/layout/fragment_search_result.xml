@@ -88,21 +88,38 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_list_sort"
+        <LinearLayout
+            android:id="@+id/ly_sort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_margin"
             android:layout_marginTop="20dp"
-            android:drawablePadding="6dp"
-            android:fontFamily="@font/notosans_kr_bold"
-            android:includeFontPadding="false"
-            android:text="@string/category_popular"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:drawableEndCompat="@drawable/ic_sort"
+            android:gravity="center"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_search" />
+            app:layout_constraintTop_toBottomOf="@id/edit_search">
+
+            <TextView
+                android:id="@+id/tv_list_sort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/notosans_kr_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/category_latest_order"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/iv_sort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="6dp"
+                android:src="@drawable/ic_sort" />
+
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/btn_filter"
@@ -111,9 +128,9 @@
             android:layout_marginEnd="@dimen/activity_margin"
             android:background="@color/transparent"
             android:src="@drawable/ic_filter"
-            app:layout_constraintBottom_toBottomOf="@id/tv_list_sort"
+            app:layout_constraintBottom_toBottomOf="@id/ly_sort"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_list_sort" />
+            app:layout_constraintTop_toTopOf="@id/ly_sort" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_merchandise_list"
@@ -125,7 +142,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_list_sort" />
+            app:layout_constraintTop_toBottomOf="@id/ly_sort" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

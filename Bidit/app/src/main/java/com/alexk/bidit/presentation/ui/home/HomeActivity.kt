@@ -1,12 +1,10 @@
 package com.alexk.bidit.presentation.ui.home
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.navigation.ui.setupWithNavController
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.ActivityHomeBinding
 import com.alexk.bidit.presentation.base.BaseActivity
-import com.alexk.bidit.presentation.ui.search.SearchActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 

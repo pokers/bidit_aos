@@ -66,6 +66,7 @@ class HomeCategoryFragment :
                     //리사이클러뷰 어댑터 연결
                     val result = response.value?.data?.getItemList?.edges
                     if (result?.size == 0) {
+                        Log.d("Empty Merchandise List","No merchandise data")
                         merchandiseAdapter.submitList(emptyList())
                     } else {
                         merchandiseAdapter.onItemClicked =

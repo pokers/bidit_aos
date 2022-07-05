@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         tools:layout="@layout/fragment_home"
         android:name="com.alexk.bidit.presentation.ui.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_searchKeywordFragment"
+            app:destination="@id/searchKeywordFragment" />
+    </fragment>
     <fragment
         android:id="@+id/myTradeFragment"
         tools:layout="@layout/fragment_my_trade"
@@ -20,11 +24,37 @@
         tools:layout="@layout/fragment_my_page"
         android:name="com.alexk.bidit.presentation.ui.myPage.MyPageFragment"
         android:label="MyPageFragment" />
+
     <fragment
-        android:id="@+id/searchFragment"
-        tools:layout="@layout/fragment_search_keyword"
+        android:id="@+id/searchKeywordFragment"
         android:name="com.alexk.bidit.presentation.ui.search.SearchKeywordFragment"
-        android:label="SearchFragment" />
+        android:label="SearchKeywordFragment"
+        tools:layout="@layout/fragment_search_keyword">
+        <argument
+            android:name="keyword"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_searchKeywordFragment_to_searchResultFragment"
+            app:destination="@id/searchResultFragment" />
+        <action
+            android:id="@+id/action_searchKeywordFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.alexk.bidit.presentation.ui.search.SearchResultFragment"
+        android:label="SearchResultFragment"
+        tools:layout="@layout/fragment_search_result">
+        <argument
+            android:name="keyword"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_searchResultFragment_to_searchKeywordFragment"
+            app:destination="@id/searchKeywordFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/chattingFragment"
         tools:layout="@layout/fragment_my_page"

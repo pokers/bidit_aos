@@ -27,6 +27,9 @@ class MerchandiseViewModel @Inject constructor(private val repository: Merchandi
     private val _categoryItemList by lazy { MutableLiveData<ViewState<ApolloResponse<GetItemListQuery.Data>>>() }
     val categoryItemList: LiveData<ViewState<ApolloResponse<GetItemListQuery.Data>>> get() = _categoryItemList
 
+    private val _keywordItemList by lazy { MutableLiveData<ViewState<ApolloResponse<GetItemListQuery.Data>>>() }
+    val keywordItemList: LiveData<ViewState<ApolloResponse<GetItemListQuery.Data>>> get() = _keywordItemList
+
     fun getSortTypeItemList(sortType: String) = viewModelScope.launch {
         _cursorTypeItemList.postValue(ViewState.Loading())
         try {
@@ -57,6 +60,10 @@ class MerchandiseViewModel @Inject constructor(private val repository: Merchandi
             "deadline" -> {
                 cursorType = CursorType.dueDate
             }
+            //후에 수정
+            "popular" -> {
+                cursorType = CursorType.dueDate
+            }
         }
         _categoryItemList.postValue(ViewState.Loading())
         try {
@@ -68,14 +75,29 @@ class MerchandiseViewModel @Inject constructor(private val repository: Merchandi
         }
     }
 
-    fun getKeywordItemList(keyword: String) = viewModelScope.launch {
-        _categoryItemList.postValue(ViewState.Loading())
+    fun getKeywordItemList(keyword: String, sortType: String) = viewModelScope.launch {
+        var cursorType: CursorType? = null
+
+        when (sortType) {
+            "latestOrder" -> {
+                cursorType = CursorType.createdAt
+            }
+            "deadline" -> {
+                cursorType = CursorType.dueDate
+            }
+            //후에 수정
+            "popular" -> {
+                cursorType = CursorType.dueDate
+            }
+        }
+
+        _keywordItemList.postValue(ViewState.Loading())
         try {
-            val response = repository.retrieveKeywordItemList(keyword)
-            _categoryItemList.postValue(ViewState.Success(response))
+            val response = repository.retrieveKeywordItemList(keyword,cursorType!!)
+            _keywordItemList.postValue(ViewState.Success(response))
         } catch (e: ApolloHttpException) {
             Log.e("ApolloException", "Failure", e)
-            _categoryItemList.postValue(ViewState.Error("Error fetching latestOrderItemList"))
+            _keywordItemList.postValue(ViewState.Error("Error fetching latestOrderItemList"))
         }
     }
 }
