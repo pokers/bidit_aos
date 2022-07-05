@@ -21,6 +21,7 @@ class BiddingDialog(private val bid: (Int) -> Unit) :
     private var currentPrice = 0
     private var mustOverPrice = 0
     private val bidPrice by lazy { arguments?.getInt("bidPrice") }
+    private var inputPriceText = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,14 +52,15 @@ class BiddingDialog(private val bid: (Int) -> Unit) :
                     count: Int,
                     after: Int
                 ) {
-                    Log.d("beforeTextChanged", "$s, $start, $count, $after")
+
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
                     if(editMerchandisePrice.text.toString() != ""){
-                        val getEditText = s?.toString()?.toCharArray()
+                        val getEditText = s.toString().toCharArray()
                         var price = ""
-                        for(data in getEditText?.indices!!){
+                        for(data in getEditText.indices){
                             if(getEditText[data] != ','){
                                 price += getEditText[data]
                             }
