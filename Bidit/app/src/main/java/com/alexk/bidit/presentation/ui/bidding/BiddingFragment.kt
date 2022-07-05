@@ -17,6 +17,7 @@ import com.alexk.bidit.GetBiddingInfoQuery
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.bidding.BiddingMerchandiseImgPageAdapter
 import com.alexk.bidit.common.adapter.bidding.BiddingUserAdapter
+import com.alexk.bidit.common.util.ErrorOwnItemBidding
 import com.alexk.bidit.databinding.FragmentBiddingBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
@@ -145,7 +146,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                     Log.d("Bidding Success", "Success POST bidding info")
                     //성공
                     val result = response.value?.data?.bid
-                    if (result != null) {
+                    if (result != null && response.value.errors?.get(0)?.message == ErrorOwnItemBidding) {
                         navigate(
                             BiddingFragmentDirections.actionBiddingFragmentToBiddingCompleteFragment(
                                 bidPrice,

@@ -6,9 +6,8 @@ import android.util.Log
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.alexk.bidit.BuildConfig
-
-const val TOKEN = "Token"
-const val PUSH_TOKEN = "UpdatePushToken"
+import com.alexk.bidit.common.util.PUSH_TOKEN
+import com.alexk.bidit.common.util.TOKEN
 
 class TokenManager(context: Context) {
     private val prefs: SharedPreferences by lazy {

@@ -15,6 +15,10 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
 }
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
     compileSdk 32
 
@@ -45,6 +49,8 @@ android {
         versionCode 1
         versionName "1.0"
 
+        resValue "string", "KAKAO_APP_KEY", properties['kakao_app_key']
+        resValue "string", "KAKAO_NATIVE_KEY", properties['kakao_native_key']
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -120,7 +126,7 @@ dependencies {
     kapt 'com.google.dagger:hilt-compiler:2.42'
 
     //hilt instrument tests
-    androidTestImplementation  'com.google.dagger:hilt-android-testing:2.42'
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.42'
     kaptAndroidTest 'com.google.dagger:hilt-compiler:2.42'
 
     //hilt local unit tests

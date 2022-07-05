@@ -24,7 +24,7 @@ class GlobalApplication : Application() {
     //이때 의존성 주입이 이루어진다.
     override fun onCreate() {
         super.onCreate()
-        KakaoSdk.init(this,getString(R.string.kakao_app_key))
+        KakaoSdk.init(this,getString(R.string.KAKAO_APP_KEY))
         FirebaseMessaging.getInstance().token.addOnSuccessListener {
             Log.d("fbToken",it)
             TokenManager(this).setPushToken(it)

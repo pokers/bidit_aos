@@ -2,13 +2,16 @@ package com.alexk.bidit.presentation.ui.bidding
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import com.alexk.bidit.R
+import com.alexk.bidit.common.util.EditTextWatcher
 import com.alexk.bidit.common.util.addComma
 import com.alexk.bidit.databinding.DialogBiddingBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -21,7 +24,7 @@ class BiddingDialog(private val bid: (Int) -> Unit) :
     private var currentPrice = 0
     private var mustOverPrice = 0
     private val bidPrice by lazy { arguments?.getInt("bidPrice") }
-    private var inputPriceText = ""
+    private val inputTextWatcher by lazy { EditTextWatcher(binding.editMerchandisePrice) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +40,9 @@ class BiddingDialog(private val bid: (Int) -> Unit) :
     fun init() {
         currentPrice = arguments?.getInt("currentPrice")!!
         mustOverPrice = arguments?.getInt("currentPrice")!!
+
         binding.apply {
+            EditTextWatcher(editMerchandisePrice)
             editMerchandisePrice.setText(addComma(currentPrice))
             tvMustOverBiddingPrice.text = addComma(currentPrice)
         }
@@ -45,37 +50,13 @@ class BiddingDialog(private val bid: (Int) -> Unit) :
 
     fun initEvent() {
         binding.apply {
-            editMerchandisePrice.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-                    if(editMerchandisePrice.text.toString() != ""){
-                        val getEditText = s.toString().toCharArray()
-                        var price = ""
-                        for(data in getEditText.indices){
-                            if(getEditText[data] != ','){
-                                price += getEditText[data]
-                            }
-                        }
-                        currentPrice = price.toInt()
-                        editMerchandisePrice.setText(addComma(price.toInt()))
-                    }
-                }
-
-                override fun afterTextChanged(s: Editable?) {
-                    
-                }
-            })
+            editMerchandisePrice.addTextChangedListener(inputTextWatcher)
 
             btnBidding.setOnClickListener {
+
+                currentPrice = inputTextWatcher.getInputPrice()
+                Log.d("currentPrice","$currentPrice")
+
                 if (currentPrice <= mustOverPrice) {
                     tvErrorMessage.visibility = View.VISIBLE
                 } else {

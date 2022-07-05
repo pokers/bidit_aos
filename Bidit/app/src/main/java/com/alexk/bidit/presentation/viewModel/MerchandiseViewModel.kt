@@ -67,4 +67,15 @@ class MerchandiseViewModel @Inject constructor(private val repository: Merchandi
             _categoryItemList.postValue(ViewState.Error("Error fetching latestOrderItemList"))
         }
     }
+
+    fun getKeywordItemList(keyword: String) = viewModelScope.launch {
+        _categoryItemList.postValue(ViewState.Loading())
+        try {
+            val response = repository.retrieveKeywordItemList(keyword)
+            _categoryItemList.postValue(ViewState.Success(response))
+        } catch (e: ApolloHttpException) {
+            Log.e("ApolloException", "Failure", e)
+            _categoryItemList.postValue(ViewState.Error("Error fetching latestOrderItemList"))
+        }
+    }
 }

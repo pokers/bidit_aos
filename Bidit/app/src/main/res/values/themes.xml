@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogStyle</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -45,6 +46,12 @@
         <item name="android:background">@color/white</item>
         <item name="fontFamily">@font/notosans_kr_medium</item>
         <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="BottomSheetDialogStyle" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
 </resources>

@@ -10,4 +10,6 @@ interface MerchandiseRepository {
     suspend fun retrieveCursorTypeItemList(cursorType: CursorType):ApolloResponse<GetItemListQuery.Data>
 
     suspend fun retrieveCategoryItemList(categoryId : Int, cursorType: CursorType):ApolloResponse<GetItemListQuery.Data>
+
+    suspend fun retrieveKeywordItemList(keyword : String) : ApolloResponse<GetItemListQuery.Data>
 }
