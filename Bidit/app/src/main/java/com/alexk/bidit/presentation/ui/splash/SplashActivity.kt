@@ -7,16 +7,12 @@ import android.os.Handler
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
-import com.alexk.bidit.GetMyInfoQuery
 import com.alexk.bidit.data.sharedPreference.TokenManager
 import com.alexk.bidit.databinding.ActivitySplashBinding
-import com.alexk.bidit.di.ApolloClient
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.presentation.ui.home.HomeActivity
 import com.alexk.bidit.presentation.ui.login.LoginActivity
-import com.alexk.bidit.presentation.viewModel.LoginViewModel
+import com.alexk.bidit.presentation.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -28,7 +24,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashBinding
-    private val viewModel by viewModels<LoginViewModel>()
+    private val viewModel by viewModels<UserViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,11 +54,29 @@ class SplashActivity : AppCompatActivity() {
                 //토큰 확인 성공 -> 홈으로 이동
                 is ViewState.Success -> {
                     Log.d("login success", "Token: ${TokenManager(this).getToken()}")
-                    startActivity(Intent(this, HomeActivity::class.java))
+                    viewModel.updatePushToken()
                 }
                 //서버 연결 실패(만료) -> 재발급 요청
                 is ViewState.Error -> {
                     Log.d("login failure", "expire token")
+                    startActivity(Intent(this, LoginActivity::class.java))
+                }
+            }
+        }
+        viewModel.pushToken.observe(this) { response ->
+            when (response) {
+                //서버 연결 대기중
+                is ViewState.Loading -> {
+
+                }
+                //토큰 확인 성공 -> 홈으로 이동
+                is ViewState.Success -> {
+                    Log.d("pushToken Update", "Token: ${TokenManager(this).getPushToken()}")
+                    startActivity(Intent(this, HomeActivity::class.java))
+                }
+                //서버 연결 실패(만료) -> 재발급 요청
+                is ViewState.Error -> {
+                    Log.d("pushToken Update", "failure token")
                     startActivity(Intent(this, LoginActivity::class.java))
                 }
             }

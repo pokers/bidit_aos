@@ -7,7 +7,8 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.alexk.bidit.BuildConfig
 
-const val Token = "Token"
+const val TOKEN = "Token"
+const val PUSH_TOKEN = "UpdatePushToken"
 
 class TokenManager(context: Context) {
     private val prefs: SharedPreferences by lazy {
@@ -26,16 +27,30 @@ class TokenManager(context: Context) {
     }
 
     fun getToken(): String {
-        Log.d("token",prefs.getString(Token,"").toString())
-        return prefs.getString(Token, "").toString()
+        Log.d("token",prefs.getString(TOKEN,"").toString())
+        return prefs.getString(TOKEN, "").toString()
     }
 
     fun setToken(value: String) {
         Log.d("token",value)
-        prefs.edit().putString(Token, value).apply()
+        prefs.edit().putString(TOKEN, value).apply()
     }
 
     fun removeToken() {
-        prefs.edit().remove(Token).apply()
+        prefs.edit().remove(TOKEN).apply()
+    }
+
+    fun getPushToken(): String {
+        Log.d("pushToken",prefs.getString(PUSH_TOKEN,"").toString())
+        return prefs.getString(PUSH_TOKEN, "").toString()
+    }
+
+    fun setPushToken(value: String) {
+        Log.d("pushToken",value)
+        prefs.edit().putString(PUSH_TOKEN, value).apply()
+    }
+
+    fun removePushToken() {
+        prefs.edit().remove(PUSH_TOKEN).apply()
     }
 }

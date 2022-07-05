@@ -6,10 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexk.bidit.DoBidMutation
 import com.alexk.bidit.GetBiddingInfoQuery
-import com.alexk.bidit.GetMyInfoQuery
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.domain.repository.BiddingRepository
-import com.alexk.bidit.domain.repository.LoginRepository
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.exception.ApolloHttpException
 import dagger.hilt.android.lifecycle.HiltViewModel

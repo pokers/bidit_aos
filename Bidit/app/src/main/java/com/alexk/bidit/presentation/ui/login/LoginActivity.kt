@@ -9,7 +9,7 @@ import com.alexk.bidit.data.sharedPreference.TokenManager
 import com.alexk.bidit.databinding.ActivityLoginBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.presentation.ui.home.HomeActivity
-import com.alexk.bidit.presentation.viewModel.LoginViewModel
+import com.alexk.bidit.presentation.viewModel.UserViewModel
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +19,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private val viewModel by viewModels<LoginViewModel>()
+    private val viewModel by viewModels<UserViewModel>()
     private val callback: (OAuthToken?, Throwable?) -> Unit = { oAuthToken, throwable ->
         if (throwable != null) {
             //로그인 실패

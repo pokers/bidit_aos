@@ -1,10 +1,10 @@
 package com.alexk.bidit.di
 
 import com.alexk.bidit.data.repository.BiddingRepositoryImpl
-import com.alexk.bidit.data.repository.LoginRepositoryImpl
+import com.alexk.bidit.data.repository.UserRepositoryImpl
 import com.alexk.bidit.data.repository.MerchandiseRepositoryImpl
 import com.alexk.bidit.domain.repository.BiddingRepository
-import com.alexk.bidit.domain.repository.LoginRepository
+import com.alexk.bidit.domain.repository.UserRepository
 import com.alexk.bidit.domain.repository.MerchandiseRepository
 import dagger.Binds
 import dagger.Module
@@ -17,7 +17,7 @@ import dagger.hilt.android.scopes.ViewModelScoped
 abstract class ViewModelModule {
     @Binds
     @ViewModelScoped
-    abstract fun bindLoginRepository(repo: LoginRepositoryImpl): LoginRepository
+    abstract fun bindLoginRepository(repo: UserRepositoryImpl): UserRepository
 
     @Binds
     @ViewModelScoped

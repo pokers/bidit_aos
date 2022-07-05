@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
+import com.alexk.bidit.data.sharedPreference.TokenManager
 import com.google.firebase.messaging.FirebaseMessaging
 import com.kakao.sdk.common.KakaoSdk
 import dagger.hilt.android.HiltAndroidApp
@@ -26,6 +27,7 @@ class GlobalApplication : Application() {
         KakaoSdk.init(this,getString(R.string.kakao_app_key))
         FirebaseMessaging.getInstance().token.addOnSuccessListener {
             Log.d("fbToken",it)
+            TokenManager(this).setPushToken(it)
         }
     }
 

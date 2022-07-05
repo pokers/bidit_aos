@@ -24,3 +24,7 @@ mutation postMyInfo{
         id
     }
 }
+
+mutation updatePushToken($pushTokenUpdate : pushTokenUpdateInput){
+    updatePushToken(pushTokenUpdate: $pushTokenUpdate)
+}
