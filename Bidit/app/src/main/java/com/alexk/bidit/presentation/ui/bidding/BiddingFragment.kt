@@ -1,19 +1,13 @@
 package com.alexk.bidit.presentation.ui.bidding
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.Window
 import android.view.WindowManager
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.databinding.BindingAdapter
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexk.bidit.GetBiddingInfoQuery
+import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.bidding.BiddingMerchandiseImgPageAdapter
 import com.alexk.bidit.common.adapter.bidding.BiddingUserAdapter
@@ -21,6 +15,10 @@ import com.alexk.bidit.common.util.ErrorOwnItemBidding
 import com.alexk.bidit.databinding.FragmentBiddingBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
+import com.alexk.bidit.presentation.ui.bidding.dialog.BiddingBidDialog
+import com.alexk.bidit.presentation.ui.bidding.dialog.BiddingBidImmediatePurchaseDialog
+import com.alexk.bidit.presentation.ui.bidding.dialog.BiddingBoardMoreInfoDialog
+import com.alexk.bidit.presentation.ui.bidding.dialog.BiddingBoardStatusDialog
 import com.alexk.bidit.presentation.viewModel.BiddingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -44,6 +42,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
         Log.d("itemId", "$itemId")
         viewModel.retrieveBiddingInfo(itemId!!)
     }
+
     override fun initEvent() {
         binding.apply {
             ivBack.setOnClickListener {
@@ -57,8 +56,28 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
             ivShare.setOnClickListener {
 
             }
+            //더 보기
+            ivMoreInfo.setOnClickListener {
+                val biddingMoreInfoDialog = BiddingBoardMoreInfoDialog()
+                biddingMoreInfoDialog.arguments = Bundle().apply {
+                    this.putInt("itemId", itemId!!)
+                }
+                biddingMoreInfoDialog.show(childFragmentManager, biddingMoreInfoDialog.tag)
+            }
+            //상태변경 Dialog
+            tvBiddingStatus.setOnClickListener {
+                val dialog =
+                    BiddingBoardStatusDialog(requireContext(), getBiddingInfo.item?.status!!)
+                dialog.setCanceledOnTouchOutside(true)
+                dialog.show()
+                dialog.window?.setLayout(
+                    WindowManager.LayoutParams.MATCH_PARENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT
+                )
+                dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+            }
             btnBidding.setOnClickListener {
-                val biddingFragment = BiddingDialog {
+                val biddingFragment = BiddingBidDialog {
                     //고차 함수로 입력한 입찰가 받아옴
                     bidPrice = it
                     viewModel.doBid(itemId!!, bidPrice)
@@ -73,7 +92,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
             }
             btnImmediatePurchase.setOnClickListener {
                 val dialog =
-                    BiddingImmediatePurchaseDialog(requireContext(), getBiddingInfo.item?.buyNow)
+                    BiddingBidImmediatePurchaseDialog(requireContext(), getBiddingInfo.item?.buyNow)
                 dialog.setCanceledOnTouchOutside(true)
                 dialog.show()
                 dialog.window?.setLayout(
@@ -88,6 +107,38 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
     private fun setBiddingInfoUI(getBiddingInfo: GetBiddingInfoQuery.GetBidding?) {
         //UI 작업 진행
         binding.apply {
+
+            biddingInfo = getBiddingInfo?.item
+            bidSellingUserInfo = getBiddingInfo?.user
+
+            vpMerchandiseImg.apply {
+                adapter =
+                    BiddingMerchandiseImgPageAdapter(
+                        this@BiddingFragment,
+                        getBiddingInfo?.item?.image
+                    )
+            }
+            ciMerchandiseImg.apply {
+                setViewPager(vpMerchandiseImg)
+            }
+
+            rvRecentBiddingUser.apply {
+                layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                adapter = BiddingUserAdapter()
+            }
+        }
+    }
+
+    private fun setMyBiddingInfoUI(getBiddingInfo: GetBiddingInfoQuery.GetBidding?) {
+        //UI 작업 진행
+        binding.apply {
+
+            lyStatus.visibility = View.VISIBLE
+            ivMoreInfo.visibility = View.VISIBLE
+
+            btnBidding.visibility = View.GONE
+            btnImmediatePurchase.visibility = View.GONE
 
             biddingInfo = getBiddingInfo?.item
             bidSellingUserInfo = getBiddingInfo?.user
@@ -126,8 +177,16 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                     val result = response.value?.data?.getBidding
                     if (result?.isNotEmpty() == true) {
                         getBiddingInfo = result[0]!!
-                        setBiddingInfoUI(getBiddingInfo)
                         initEvent()
+                        //내 게시글
+                        if (result[0]?.user?.id == GlobalApplication.id) {
+                            setMyBiddingInfoUI(getBiddingInfo)
+                        }
+
+                        //다른 사람 게시글
+                        else {
+                            setBiddingInfoUI(getBiddingInfo)
+                        }
                     } else {
                         Log.d("Bidding Failure", "Success GET bidding info, but not data")
                     }
@@ -146,15 +205,14 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                     Log.d("Bidding Success", "Success POST bidding info")
                     //성공
                     val result = response.value?.data?.bid
-                    if (result != null && response.value.errors?.get(0)?.message == ErrorOwnItemBidding) {
+                    if (result != null && response.value.errors?.get(0)?.message != ErrorOwnItemBidding) {
                         navigate(
                             BiddingFragmentDirections.actionBiddingFragmentToBiddingCompleteFragment(
                                 bidPrice,
                                 itemId!!
                             )
                         )
-                    }
-                    else{
+                    } else {
                         //내가 더 많은 가격을 bid함
                     }
                 }

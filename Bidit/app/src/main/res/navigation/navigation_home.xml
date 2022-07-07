@@ -37,9 +37,6 @@
         <action
             android:id="@+id/action_searchKeywordFragment_to_searchResultFragment"
             app:destination="@id/searchResultFragment" />
-        <action
-            android:id="@+id/action_searchKeywordFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchResultFragment"

@@ -8,6 +8,7 @@ import com.alexk.bidit.R
 import com.alexk.bidit.common.util.addComma
 import com.alexk.bidit.databinding.FragmentBiddingCompleteBinding
 import com.alexk.bidit.presentation.base.BaseFragment
+import com.alexk.bidit.presentation.ui.bidding.dialog.BiddingBidCancelDialog
 
 class BiddingCompleteFragment :
     BaseFragment<FragmentBiddingCompleteBinding>(R.layout.fragment_bidding_complete) {
@@ -35,7 +36,7 @@ class BiddingCompleteFragment :
             }
             btnBidCancle.setOnClickListener {
                 val dialog =
-                    BiddingCancelDialog(requireContext(), args.bid)
+                    BiddingBidCancelDialog(requireContext(), args.bid)
                 dialog.setCanceledOnTouchOutside(true)
                 dialog.show()
                 dialog.window?.setLayout(

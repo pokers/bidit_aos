@@ -2,7 +2,6 @@ package com.alexk.bidit.common.adapter.home.category
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -11,7 +10,6 @@ import com.alexk.bidit.R
 import com.alexk.bidit.databinding.ItemHomeCategoryListBinding
 import com.alexk.bidit.presentation.ui.category.CategoryActivity
 import com.bumptech.glide.Glide
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi

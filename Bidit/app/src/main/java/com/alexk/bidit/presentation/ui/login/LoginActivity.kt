@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.data.sharedPreference.TokenManager
 import com.alexk.bidit.databinding.ActivityLoginBinding
 import com.alexk.bidit.di.ViewState
@@ -65,12 +66,15 @@ class LoginActivity : AppCompatActivity() {
                 }
                 //토큰 받아오기 성공
                 is ViewState.Success -> {
+                    GlobalApplication.id = response.value?.data?.me?.id!!
                     Log.d("login success", "Token: ${TokenManager(this).getToken()}")
                     startActivity(Intent(this, HomeActivity::class.java))
                 }
-                //서버 연결 실패
+                //토큰 재발급?
                 is ViewState.Error -> {
+                    //앱 실행 후, 토큰 재발급 시 오류 발생(메시지 추적해야함)
                     Log.e("error", "get my info error")
+                    viewModel.getMyInfo()
                 }
             }
         }

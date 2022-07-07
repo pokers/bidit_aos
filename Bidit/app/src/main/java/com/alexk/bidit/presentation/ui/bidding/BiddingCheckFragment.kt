@@ -5,7 +5,7 @@ import android.view.View
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.FragmentBiddingCheckBinding
 import com.alexk.bidit.presentation.base.BaseFragment
-
+/* 삭제된 내용, */
 class BiddingCheckFragment :
     BaseFragment<FragmentBiddingCheckBinding>(R.layout.fragment_bidding_check),
     View.OnClickListener {

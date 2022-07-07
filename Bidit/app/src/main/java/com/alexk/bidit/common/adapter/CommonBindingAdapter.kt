@@ -3,10 +3,7 @@ package com.alexk.bidit.common.adapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.alexk.bidit.GetBiddingInfoQuery
 import com.alexk.bidit.GetItemListQuery
-import com.alexk.bidit.common.adapter.CommonBindingAdapter.changePeopleCountType
-import com.alexk.bidit.common.adapter.CommonBindingAdapter.changePriceType
 import com.alexk.bidit.common.util.addComma
 import com.bumptech.glide.Glide
 
@@ -71,5 +68,26 @@ object CommonBindingAdapter {
     fun TextView.changeDateType(date: String?) {
         //텍스트 날짜 형식으로 변환 필요
         date?.let { this.text = date }
+    }
+
+    @JvmStatic
+    @BindingAdapter("status")
+    fun TextView.changeStatusType(status : Int?) {
+        //텍스트 날짜 형식으로 변환 필요
+        val statusText : String = when(status){
+            1 -> {
+                "판매중"
+            }
+            2->{
+                "예약중"
+            }
+            3->{
+                "판매완료"
+            }
+            else -> {
+                "error"
+            }
+        }
+        this.text = statusText
     }
 }

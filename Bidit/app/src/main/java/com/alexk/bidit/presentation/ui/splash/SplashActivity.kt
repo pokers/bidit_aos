@@ -7,6 +7,7 @@ import android.os.Handler
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.data.sharedPreference.TokenManager
 import com.alexk.bidit.databinding.ActivitySplashBinding
 import com.alexk.bidit.di.ViewState
@@ -54,6 +55,8 @@ class SplashActivity : AppCompatActivity() {
                 //토큰 확인 성공 -> 홈으로 이동
                 is ViewState.Success -> {
                     Log.d("login success", "Token: ${TokenManager(this).getToken()}")
+                    //내 id 기억하기
+                    GlobalApplication.id = response.value?.data?.me?.id!!
                     viewModel.updatePushToken()
                 }
                 //서버 연결 실패(만료) -> 재발급 요청

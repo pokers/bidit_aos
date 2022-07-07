@@ -1,15 +1,11 @@
-package com.alexk.bidit.presentation.ui.bidding
+package com.alexk.bidit.presentation.ui.bidding.dialog
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextUtils
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
 import com.alexk.bidit.R
 import com.alexk.bidit.common.util.EditTextWatcher
 import com.alexk.bidit.common.util.addComma
@@ -17,7 +13,7 @@ import com.alexk.bidit.databinding.DialogBiddingBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 //고차함수 (매개변수는 Int, 반환은 Unit(없음))
-class BiddingDialog(private val bid: (Int) -> Unit) :
+class BiddingBidDialog(private val bid: (Int) -> Unit) :
     BottomSheetDialogFragment() {
 
     private lateinit var binding: DialogBiddingBinding

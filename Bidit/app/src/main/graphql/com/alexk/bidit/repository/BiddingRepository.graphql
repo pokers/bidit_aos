@@ -8,6 +8,7 @@ query getBiddingInfo($biddingQuery : BiddingQueryInput){
             }
         }
         item {
+            status
             id
             image {
                 url

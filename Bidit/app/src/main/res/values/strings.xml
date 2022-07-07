@@ -18,6 +18,7 @@
     <string name="title_selling_post_required">아직 작성하지 않은 항목이 있어요.</string>
     <string name="title_selling_post">판매글 올리기</string>
     <string name="title_bid_cancel">입찰을 취소하시겠어요?</string>
+    <string name="title_bid_delete_warning">판매글 삭제가 불가능합니다.</string>
 
     <string name="category_home">홈</string>
     <string name="category_search">검색</string>
@@ -89,6 +90,8 @@
     <string name="content_bid_cancel_warning">취소 과정 도중 시간이 마감되면 취소가 불가능해져요.</string>
     <string name="content_bid_cancel_do">입찰 취소하기</string>
     <string name="content_return_previous_display">이전 화면으로 돌아가기</string>
+    <string name="content_bidding_delete_warning">이 판매글은 현재 입찰이 진행되어\n삭제가 불가능해요.</string>
+    <string name="content_selling_complete">판매완료</string>
 
     <string-array name="category_detail_merchandise">
         <item>Ending Soon</item>

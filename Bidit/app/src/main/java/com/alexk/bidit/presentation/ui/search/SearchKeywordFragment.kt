@@ -5,12 +5,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexk.bidit.R
@@ -99,7 +96,7 @@ class SearchKeywordFragment :
                 keywordViewModel.deleteAllKeyword()
             }
             btnBack.setOnClickListener {
-                navigate(SearchKeywordFragmentDirections.actionSearchKeywordFragmentToHomeFragment())
+
             }
             ivEditTextDelete.setOnClickListener {
                 binding.editSearch.setText("")

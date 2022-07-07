@@ -54,4 +54,12 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="CustomBottomSheetDialogTransparentBackgroundTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetDialogTransparentBackground</item>
+    </style>
+
+    <style name="BottomSheetDialogTransparentBackground" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
 </resources>

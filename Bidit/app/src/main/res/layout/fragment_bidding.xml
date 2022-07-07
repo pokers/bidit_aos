@@ -27,6 +27,7 @@
                 android:id="@+id/vp_merchandise_img"
                 android:layout_width="0dp"
                 android:layout_height="300dp"
+                android:background="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -54,25 +55,42 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/iv_like"
+            <LinearLayout
+                android:id="@+id/ly_more_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_like"
-                app:layout_constraintBottom_toBottomOf="@id/iv_back"
-                app:layout_constraintEnd_toStartOf="@id/iv_share"
-                app:layout_constraintTop_toTopOf="@id/iv_back" />
-
-            <ImageView
-                android:id="@+id/iv_share"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:src="@drawable/ic_share"
+                android:layout_marginEnd="@dimen/activity_margin"
+                android:gravity="center"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="@id/iv_back"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/iv_back" />
+                app:layout_constraintTop_toTopOf="@id/iv_back">
+
+                <ImageView
+                    android:id="@+id/iv_like"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_like" />
+
+                <ImageView
+                    android:id="@+id/iv_share"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/ic_share" />
+
+                <ImageView
+                    android:id="@+id/iv_more_info"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/ic_more_info" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ly_current_price"
@@ -237,15 +255,13 @@
                 android:id="@+id/ly_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:orientation="vertical"
-                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_selling_user_img">
 
                 <TextView
-                    android:id="@+id/tv_bidding_stauts"
+                    android:id="@+id/tv_bidding_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_margin"
@@ -257,7 +273,7 @@
                     android:includeFontPadding="false"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:text="@string/content_selling"
+                    app:status="@{biddingInfo.status}"
                     android:textSize="14sp" />
 
                 <TextView
@@ -265,6 +281,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:drawablePadding="8dp"
+                    android:layout_marginStart="@dimen/activity_margin"
                     android:fontFamily="@font/notosans_kr_regular"
                     android:includeFontPadding="false"
                     android:text="@string/content_selling_status"
@@ -344,9 +361,9 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosans_kr_medium"
                     android:includeFontPadding="false"
-                    app:price="@{biddingInfo.buyNow}"
                     android:textColor="@color/nero"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    app:price="@{biddingInfo.buyNow}" />
 
                 <TextView
                     android:id="@+id/tv_deadline_time"
@@ -355,9 +372,9 @@
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/notosans_kr_medium"
                     android:includeFontPadding="false"
-                    app:time="@{biddingInfo.dueDate}"
                     android:textColor="@color/nero"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    app:time="@{biddingInfo.dueDate}" />
 
                 <TextView
                     android:id="@+id/tv_write_tiem"
@@ -366,9 +383,9 @@
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/notosans_kr_medium"
                     android:includeFontPadding="false"
-                    app:time="@{biddingInfo.createdAt}"
                     android:textColor="@color/nero"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    app:time="@{biddingInfo.createdAt}" />
 
             </LinearLayout>
 
