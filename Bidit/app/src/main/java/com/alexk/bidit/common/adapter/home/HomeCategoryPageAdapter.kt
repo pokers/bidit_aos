@@ -31,6 +31,7 @@ class HomeCategoryPageAdapter(
                 }
                 return fragment
             }
+            //2번부터는 임시용
             2 -> {
                 val fragment = HomeCategoryFragment()
                 fragment.arguments = Bundle().apply {

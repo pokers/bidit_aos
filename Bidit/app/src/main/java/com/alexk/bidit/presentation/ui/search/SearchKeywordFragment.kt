@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.merchandise.MerchandiseListAdapter
+import com.alexk.bidit.common.adapter.common.CommonMerchandiseListAdapter
 import com.alexk.bidit.common.adapter.search.SearchKeywordListAdapter
 import com.alexk.bidit.common.util.GridRecyclerViewDeco
 import com.alexk.bidit.data.sharedPreference.SearchKeywordManager
@@ -31,7 +31,7 @@ class SearchKeywordFragment :
     // sp에 저장된 검색 리스트를 불러온다.
     private val keywordViewModel: SearchKeywordViewModel by viewModels()
     private val merchandiseViewModel by viewModels<MerchandiseViewModel>()
-    private val merchandiseAdapter by lazy { MerchandiseListAdapter() }
+    private val merchandiseAdapter by lazy { CommonMerchandiseListAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -6,20 +6,16 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.merchandise.MerchandiseListAdapter
-import com.alexk.bidit.common.adapter.search.SearchKeywordListAdapter
+import com.alexk.bidit.common.adapter.common.CommonMerchandiseListAdapter
 import com.alexk.bidit.data.sharedPreference.SearchKeywordManager
 import com.alexk.bidit.databinding.FragmentSearchResultBinding
 import com.alexk.bidit.di.ViewState
@@ -41,7 +37,7 @@ class SearchResultFragment :
     private var keyword = ""
     private var currentSortType = "latestOrder"
     private val merchandiseViewModel by viewModels<MerchandiseViewModel>()
-    private val merchandiseAdapter by lazy { MerchandiseListAdapter() }
+    private val merchandiseAdapter by lazy { CommonMerchandiseListAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.alexk.bidit.common.adapter.merchandise.MerchandiseListAdapter
+import com.alexk.bidit.common.adapter.common.CommonMerchandiseListAdapter
 import com.alexk.bidit.common.util.GridRecyclerViewDeco
-import com.alexk.bidit.databinding.FragmentHomeMerchandiseListBinding
+import com.alexk.bidit.databinding.FragmentCommonMerchandiseListBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
@@ -23,10 +23,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class HomeCategoryFragment :
     Fragment() {
 
-    private var _binding: FragmentHomeMerchandiseListBinding? = null
+    private var _binding: FragmentCommonMerchandiseListBinding? = null
     private val binding get() = _binding!!
 
-    private val merchandiseAdapter by lazy { MerchandiseListAdapter() }
+    private val merchandiseAdapter by lazy { CommonMerchandiseListAdapter() }
     private val viewModel by viewModels<MerchandiseViewModel>()
 
     private val sortType by lazy { arguments?.getString("sortType") }
@@ -36,7 +36,7 @@ class HomeCategoryFragment :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeMerchandiseListBinding.inflate(inflater, container, false)
+        _binding = FragmentCommonMerchandiseListBinding.inflate(inflater, container, false)
         return binding.root
     }
 

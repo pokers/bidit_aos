@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="merchandiseResponse"
-            type="com.alexk.bidit.GetItemListQuery.Edge" />
+            name="bidResponse"
+            type="com.alexk.bidit.GetBiddingInfoQuery.Item" />
 
     </data>
 
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:scaleType="center"
             android:src="@drawable/ic_launcher_background"
-            app:imageItemUrlList="@{merchandiseResponse.node.image}"
+            app:imageBidUrlList="@{bidResponse.image}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,7 +41,7 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_merchandise_img"
             app:layout_constraintStart_toStartOf="@id/iv_merchandise_img"
-            app:time="@{merchandiseResponse.node.dueDate}" />
+            app:time="@{bidResponse.dueDate}" />
 
         <TextView
             android:id="@+id/tv_current_price_title"
@@ -67,7 +67,7 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_current_price_title"
             app:layout_constraintStart_toEndOf="@id/tv_current_price_title"
-            app:price="@{merchandiseResponse.node.CPrice}" />
+            app:price="@{bidResponse.CPrice}" />
 
         <TextView
             android:id="@+id/tv_merchandise_content"
@@ -77,7 +77,7 @@
             android:fontFamily="@font/notosans_kr_medium"
             android:includeFontPadding="false"
             android:maxEms="20"
-            android:text="@{merchandiseResponse.node.title}"
+            android:text="@{bidResponse.title}"
             android:textColor="@color/charcoal"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -132,7 +132,7 @@
                     android:includeFontPadding="false"
                     android:textColor="@color/nobel"
                     android:textSize="10sp"
-                    app:number="@{merchandiseResponse.node.viewCount}" />
+                    app:number="@{bidResponse.viewCount}" />
 
             </LinearLayout>
 

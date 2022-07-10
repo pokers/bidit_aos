@@ -30,6 +30,21 @@ class MerchandiseViewModel @Inject constructor(private val repository: Merchandi
     private val _keywordItemList by lazy { MutableLiveData<ViewState<ApolloResponse<GetItemListQuery.Data>>>() }
     val keywordItemList: LiveData<ViewState<ApolloResponse<GetItemListQuery.Data>>> get() = _keywordItemList
 
+    private val _myItemList by lazy { MutableLiveData<ViewState<ApolloResponse<GetItemListQuery.Data>>>() }
+    val myItemList get() = _myItemList
+
+
+    fun getMyItemList(id: Int) = viewModelScope.launch {
+        _myItemList.postValue(ViewState.Loading())
+        try {
+            val response = repository.retrieveMyItemList(userId = id)
+            _myItemList.postValue(ViewState.Success(response))
+        } catch (e: ApolloHttpException) {
+            Log.e("MY_ITEM_LIST", "Error GET my list")
+            _myItemList.postValue(ViewState.Error("Error fetching ItemList"))
+        }
+    }
+
     fun getSortTypeItemList(sortType: String) = viewModelScope.launch {
         _cursorTypeItemList.postValue(ViewState.Loading())
         try {
@@ -93,7 +108,7 @@ class MerchandiseViewModel @Inject constructor(private val repository: Merchandi
 
         _keywordItemList.postValue(ViewState.Loading())
         try {
-            val response = repository.retrieveKeywordItemList(keyword,cursorType!!)
+            val response = repository.retrieveKeywordItemList(keyword, cursorType!!)
             _keywordItemList.postValue(ViewState.Success(response))
         } catch (e: ApolloHttpException) {
             Log.e("ApolloException", "Failure", e)

@@ -24,10 +24,10 @@ class BiddingViewModel @Inject constructor(private val repository: BiddingReposi
     private val _bidCompleteInfo by lazy { MutableLiveData<ViewState<ApolloResponse<DoBidMutation.Data>>>() }
     val bidCompleteInfo get() = _bidCompleteInfo
 
-    fun retrieveBiddingInfo(itemId : Int) = viewModelScope.launch {
+    fun retrieveBiddingInfo(id : Int) = viewModelScope.launch {
         _biddingInfo.postValue(ViewState.Loading())
         try {
-            val response = repository.retrieveBiddingInfo(itemId)
+            val response = repository.retrieveBiddingInfo(id)
             _biddingInfo.postValue(ViewState.Success(response))
         } catch (e: ApolloHttpException) {
             Log.e("ApolloException", "Failure", e)

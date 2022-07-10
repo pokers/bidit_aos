@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.merchandise.MerchandiseListAdapter
+import com.alexk.bidit.common.adapter.common.CommonMerchandiseListAdapter
 import com.alexk.bidit.common.util.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.ActivityCategoryBinding
 import com.alexk.bidit.di.ViewState
@@ -29,7 +29,7 @@ class CategoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCategoryBinding
     private var currentSortType = "latestOrder"
     private val viewModel by viewModels<MerchandiseViewModel>()
-    private val merchandiseAdapter by lazy { MerchandiseListAdapter() }
+    private val merchandiseAdapter by lazy { CommonMerchandiseListAdapter() }
     private val categoryId by lazy { intent?.getIntExtra("categoryId", 0)?.plus(2) }
 
     override fun onCreate(savedInstanceState: Bundle?) {

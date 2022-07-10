@@ -6,10 +6,8 @@ import com.apollographql.apollo3.api.ApolloResponse
 
 interface MerchandiseRepository {
     suspend fun retrieveItemInfo(id : Int) : ApolloResponse<GetItemInfoQuery.Data>
-
     suspend fun retrieveCursorTypeItemList(cursorType: CursorType):ApolloResponse<GetItemListQuery.Data>
-
     suspend fun retrieveCategoryItemList(categoryId : Int, cursorType: CursorType):ApolloResponse<GetItemListQuery.Data>
-
     suspend fun retrieveKeywordItemList(keyword : String, cursorType: CursorType) : ApolloResponse<GetItemListQuery.Data>
+    suspend fun retrieveMyItemList(userId: Int):ApolloResponse<GetItemListQuery.Data>
 }

@@ -9,19 +9,17 @@ import android.widget.TextView
 import androidx.annotation.FontRes
 import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.home.HomeBannerAutoPageAdapter
+import com.alexk.bidit.common.adapter.common.CommonBannerAutoPageAdapter
 import com.alexk.bidit.common.adapter.home.HomeCategoryPageAdapter
 import com.alexk.bidit.common.adapter.home.category.HomeCategoryListAdapter
 import com.alexk.bidit.common.util.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentHomeBinding
 import com.alexk.bidit.presentation.base.BaseFragment
-import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -75,7 +73,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             }
 
             vpMainBanner.apply {
-                vpMainBanner.adapter = HomeBannerAutoPageAdapter(context, tempBannerList)
+                vpMainBanner.adapter = CommonBannerAutoPageAdapter(context, tempBannerList)
             }
 
             vpMerchandiseList.apply{
@@ -161,8 +159,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             }
         }
     }
-
-    //탭 레이아웃 선택된 폰트 변경경
+    //탭 레이아웃 선택된 폰트 변경
     private fun changeSelectedTabItemFontFamily(tabPosition: Int, @FontRes fontFamilyRes: Int) {
         val linearLayout =
             (binding.lyDetailCategory.getChildAt(0) as ViewGroup).getChildAt(tabPosition) as LinearLayout
@@ -170,6 +167,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         val typeface = ResourcesCompat.getFont(requireContext(), fontFamilyRes)
         tabTextView.typeface = typeface
     }
+
 
 
     private fun slideJobCreate() {

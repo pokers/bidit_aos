@@ -31,7 +31,6 @@ class LoginActivity : AppCompatActivity() {
                 //뷰모델로 카카오 로그인 성공 처리
                 TokenManager(this).setToken(token!!)
                 viewModel.getMyInfo()
-                observeToken()
             }
             Log.d("kakao login", "success")
         }
@@ -42,6 +41,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initEvent()
+        observeToken()
     }
 
     private fun initEvent() {

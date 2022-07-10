@@ -10,15 +10,41 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/ly_my_trade_list"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/activity_margin"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:tabIndicatorColor="@color/charcoal"
+            app:tabIndicatorHeight="2dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextAppearance="@style/home_detail_category_tab"
+            app:tabTextColor="@color/sliver" />
+
+        <View
+            android:id="@+id/div_detail_category"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/white_smoke"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ly_my_trade_list" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_my_trade_list"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="내 거래"/>
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/div_detail_category" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

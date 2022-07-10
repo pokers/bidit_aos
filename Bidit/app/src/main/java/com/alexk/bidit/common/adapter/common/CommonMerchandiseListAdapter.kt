@@ -1,23 +1,18 @@
-package com.alexk.bidit.common.adapter.merchandise
+package com.alexk.bidit.common.adapter.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.alexk.bidit.GetItemListQuery
 import com.alexk.bidit.R
-import com.alexk.bidit.common.util.addComma
 import com.alexk.bidit.databinding.ItemMerchandiseListBinding
-import com.bumptech.glide.Glide
 
 
-class MerchandiseListAdapter() :
-    ListAdapter<GetItemListQuery.Edge, MerchandiseListAdapter.MerchandiseListHolder>(
+class CommonMerchandiseListAdapter() :
+    ListAdapter<GetItemListQuery.Edge, CommonMerchandiseListAdapter.MerchandiseListHolder>(
         MerchandiseListDiffUtil
     ) {
 

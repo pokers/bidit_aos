@@ -115,4 +115,9 @@
         <item>카메라</item>
         <item>기타</item>
     </string-array>
+
+    <string-array name="category_my_trade">
+        <item>판매 내역</item>
+        <item>구매 내역</item>
+    </string-array>
 </resources>
