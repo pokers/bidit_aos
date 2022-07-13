@@ -1,4 +1,33 @@
-# Bidding
+enum AlarmType{
+    MASTER,
+    ENDINGSOON,
+    ENDTIME,
+    SUCCESSFULBID,
+    HIGHERBIDDER,
+    CHAT,
+    EVENT
+}
+
+type UserAlarm{
+    id: Int
+    status: Int
+    userId: Int
+    alarmId: Int
+    createdAt: String
+    updatedAt: String
+    deletedAt: String
+}
+
+type Alarm{
+    id: Int
+    status: Int
+    type: AlarmType
+    title: String
+    content: String
+    createdAt: String
+    updatedAt: String
+    deletedAt: String
+}
 
 type Bidding {
     id: Int!
@@ -6,6 +35,17 @@ type Bidding {
     userId: Int!
     itemId: Int!
     price: Int!
+    createdAt: String!
+    item: Item
+    user: User
+}
+
+type SuccessfulBid {
+    id: Int!
+    status: Int!
+    userId: Int!
+    itemId: Int!
+    biddingId: Int!
     createdAt: String!
     item: Item
     user: User
@@ -23,17 +63,17 @@ input BidInput {
     price: Int!
 }
 
-# Item
-
 enum DeliveryType {
     DIRECT,
     PARCEL,
     BOTH
 }
+
 enum ItemStatus{
     REGISTED,
     ONGOING,
-    SOLD
+    SOLD,
+    END
 }
 
 enum CursorType{
@@ -43,7 +83,7 @@ enum CursorType{
 
 type Item {
     id: Int!
-    status: Int! # 0=REGISTED, 1=ONGOING, 2=SOLD
+    status: Int! # 0=REGISTED, 1=ONGOING, 2=SOLD, 3=END
     userId: Int!
     categoryId: Int
     sPrice: Int
@@ -148,8 +188,6 @@ input ItemImageUpdateInput{
     image:String
 }
 
-# ItemCategory
-
 enum CategoryStatus {
     VALID,
     INVALID
@@ -184,8 +222,6 @@ input CategoryQueryInput {
     name: String
     depth: Int
 }
-
-# KakaoAccount
 
 
 scalar Long
@@ -227,7 +263,37 @@ type KakaoAccount{
     description:String
 }
 
-# User
+enum PenaltyType{
+    BIDDING,
+    SELLING,
+    KICKED
+}
+
+type Penalty {
+    id: Int!
+    status: Int!    # 0=VALID, 1=INVALID
+    userId: Int
+    type: PenaltyType
+    dueDate: String
+    description: String
+    createdAt: String!
+    updatedAt: String
+    deletedAt: String
+}
+
+input userUpdateInput{
+    status: Int
+    nickname: String
+    gender: gender
+    birth: String
+    deletedAt: String
+    description: String
+}
+
+input pushTokenUpdateInput{
+    status: Int
+    token: String
+}
 
 enum UserStatus{
     VALID,
@@ -260,42 +326,28 @@ type User {
     kakaoAccount:KakaoAccount
 }
 
-input userUpdateInput{
-    status: Int
-    nickname: String
-    gender: gender
-    birth: String
-    deletedAt: String
-    description: String
-}
-input pushTokenUpdateInput{
-    status: Int
-    token: String
-}
-
-type Query{
-    getMyBidding(biddingQuery:BiddingQueryInput):[Bidding]
-    getBidding(biddingQuery:BiddingQueryInput):[Bidding]
-    getItem(id: Int!):Item
-    getItemList(itemQuery: ItemQueryInput, keyword:String, first: Int, last: Int, after: String, before: String, cursorType:CursorType):ItemConnection
-    getEndingSoonItems(itemQuery: ItemQueryInput, keyword:String, count:Int):[Item]
+type Query {
+    getUser(id: Int!): User
+    me:User
     getCategoryList(categoryQuery: CategoryQueryInput, first: Int, last: Int, after: String, before: String):CategoryConnection
     getCategory(id: Int!):Category
     scanCategory:[Category]
-    getUser(id: Int!): User
-    me:User
+    getItem(id: Int!):Item
+    getItemList(itemQuery: ItemQueryInput, keyword:String, first: Int, last: Int, after: String, before: String, cursorType:CursorType):ItemConnection
+    getEndingSoonItems(itemQuery: ItemQueryInput, keyword:String, count:Int):[Item]
+    getMyBidding(biddingQuery:BiddingQueryInput):[Bidding]
+    getBidding(biddingQuery:BiddingQueryInput):[Bidding]
 }
 
-type Mutation{
-    bid(bid:BidInput):Bidding
-    addItem(itemAdd:ItemAddInput, description:String, images:[String]):Item
-    updateItem(itemId:Int, itemUpdate:ItemUpdateInput, description:String):Item
-    updateItemImage(itemId:Int, itemImageUpdate:ItemImageUpdateInput):Item
+type Mutation {
     addUser:User
     updateUser(userUpdate:userUpdateInput):User
     updatePushToken(pushTokenUpdate:pushTokenUpdateInput):Boolean
+    addItem(itemAdd:ItemAddInput, description:String, images:[String]):Item
+    updateItem(itemId:Int, itemUpdate:ItemUpdateInput, description:String):Item
+    updateItemImage(itemId:Int, itemImageUpdate:ItemImageUpdateInput):Item
+    bid(bid:BidInput):Bidding
 }
-
 
 schema {
     query: Query

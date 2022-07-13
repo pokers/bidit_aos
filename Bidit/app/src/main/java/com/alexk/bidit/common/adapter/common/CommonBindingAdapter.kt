@@ -1,5 +1,6 @@
 package com.alexk.bidit.common.adapter.common
 
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -15,8 +16,10 @@ object CommonBindingAdapter {
         imageUrlList: List<GetItemListQuery.Image?>?
     ) {
         if (!imageUrlList.isNullOrEmpty()) {
+            val img = imageUrlList[0]?.url
             Glide.with(this.context)
-                .load(imageUrlList[0])
+                .load(img)
+                .centerInside()
                 .into(this)
         }
     }
@@ -27,8 +30,10 @@ object CommonBindingAdapter {
         imageUrlList: List<GetBiddingInfoQuery.Image?>?
     ) {
         if (!imageUrlList.isNullOrEmpty()) {
+            val img = imageUrlList[0]?.url
             Glide.with(this.context)
-                .load(imageUrlList[0])
+                .load(img)
+                .centerInside()
                 .into(this)
         }
     }
@@ -99,5 +104,13 @@ object CommonBindingAdapter {
             }
         }
         this.text = statusText
+    }
+
+    @JvmStatic
+    @BindingAdapter("reservation")
+    fun TextView.checkReservation(status: Int?) {
+        if (status == 0) {
+            this.visibility = View.VISIBLE
+        }
     }
 }

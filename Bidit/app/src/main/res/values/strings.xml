@@ -92,6 +92,7 @@
     <string name="content_return_previous_display">이전 화면으로 돌아가기</string>
     <string name="content_bidding_delete_warning">이 판매글은 현재 입찰이 진행되어\n삭제가 불가능해요.</string>
     <string name="content_selling_complete">판매완료</string>
+    <string name="content_merchandise_no_list">상품이 없습니다.</string>
 
     <string-array name="category_detail_merchandise">
         <item>Ending Soon</item>

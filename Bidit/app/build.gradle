@@ -99,14 +99,14 @@ dependencies {
     implementation 'me.relex:circleindicator:2.1.6'
 
     // Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:2.4.2"
-    implementation "androidx.navigation:navigation-ui-ktx:2.4.2"
-    implementation 'androidx.navigation:navigation-common:2.4.2'
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.4.2"
-    androidTestImplementation "androidx.navigation:navigation-testing:2.4.2"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.5.0"
+    implementation "androidx.navigation:navigation-ui-ktx:2.5.0"
+    implementation 'androidx.navigation:navigation-common:2.5.0'
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.5.0"
+    androidTestImplementation "androidx.navigation:navigation-testing:2.5.0"
 
     // LifeCycle
-    implementation 'androidx.fragment:fragment-ktx:1.4.1'
+    implementation 'androidx.fragment:fragment-ktx:1.5.0'
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation 'androidx.core:core-ktx:1.8.0'
 
@@ -133,7 +133,6 @@ dependencies {
     testImplementation 'com.google.dagger:hilt-android-testing:2.42'
     kaptTest 'com.google.dagger:hilt-compiler:2.42'
 
-
     // https://github.com/hannesa2/AndroidSlidingUpPanel
     implementation 'com.github.hannesa2:AndroidSlidingUpPanel:4.2.1'
 
@@ -148,6 +147,9 @@ dependencies {
 
     // balloon
     implementation "com.github.skydoves:balloon:1.4.6"
+
+    // https://github.com/hdodenhof/CircleImageView
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 }
 
