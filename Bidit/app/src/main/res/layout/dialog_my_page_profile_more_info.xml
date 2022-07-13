@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/transparent">
+
+        <LinearLayout
+            android:id="@+id/ly_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_rect_transparent_white_smoke_trans70_radius13_stroke0"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.widget.Button
+                android:id="@+id/btn_delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:fontFamily="@font/notosans_kr_regular"
+                android:includeFontPadding="false"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:text="사진 삭제"
+                android:textColor="@color/dodger_blue"
+                android:textSize="20sp" />
+
+            <View
+                android:id="@+id/div_delete_btn"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/blue_zodiac_trans_36" />
+
+            <android.widget.Button
+                android:id="@+id/btn_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:fontFamily="@font/notosans_kr_regular"
+                android:includeFontPadding="false"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:text="사진 촬영"
+                android:textColor="@color/dodger_blue"
+                android:textSize="20sp" />
+
+            <View
+                android:id="@+id/div_btn_add"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/blue_zodiac_trans_36" />
+
+            <android.widget.Button
+                android:id="@+id/btn_add_for_album"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:fontFamily="@font/notosans_kr_regular"
+                android:includeFontPadding="false"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:text="앨범에서 사진 불러오기"
+                android:textColor="@color/dodger_blue"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <android.widget.Button
+            android:id="@+id/btn_close"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/bg_rect_trasparent_white_radius13_stroke0"
+            android:fontFamily="@font/notosans_kr_medium"
+            android:includeFontPadding="false"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            android:stateListAnimator="@null"
+            android:text="@string/content_close"
+            android:textColor="@color/persian_blue"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ly_btn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

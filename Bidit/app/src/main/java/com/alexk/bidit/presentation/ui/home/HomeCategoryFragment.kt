@@ -77,6 +77,7 @@ class HomeCategoryFragment :
                                 startActivity(intent)
                             }
                         merchandiseAdapter.submitList(result)
+                        binding.rvMerchandiseList.setHasFixedSize(true)
                     }
                 }
                 //서버 연결 실패(만료) -> 재발급 요청

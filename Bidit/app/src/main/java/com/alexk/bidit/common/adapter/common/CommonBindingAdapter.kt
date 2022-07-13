@@ -1,5 +1,7 @@
 package com.alexk.bidit.common.adapter.common
 
+import android.annotation.SuppressLint
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -8,6 +10,8 @@ import com.alexk.bidit.GetBiddingInfoQuery
 import com.alexk.bidit.GetItemListQuery
 import com.alexk.bidit.common.util.addComma
 import com.bumptech.glide.Glide
+import java.text.SimpleDateFormat
+import java.util.*
 
 object CommonBindingAdapter {
     @JvmStatic
@@ -78,11 +82,37 @@ object CommonBindingAdapter {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     @JvmStatic
     @BindingAdapter("time")
     fun TextView.changeDateType(date: String?) {
         //텍스트 날짜 형식으로 변환 필요
-        date?.let { this.text = date }
+        val dateTime = date?.split("T")
+        if (dateTime?.size == 2) {
+            var parseData: Date? = null
+            val date = dateTime[0]
+            val time = dateTime[1]
+            val simpleDataFormat = SimpleDateFormat("yyyy-MM-ddHH:mm:SS")
+            try {
+                parseData = simpleDataFormat.parse(date + time)
+                val currentDate = Calendar.getInstance()
+
+                //밀리초
+                val calcDate = (parseData?.time?.minus(currentDate.time.time))
+
+                val hour = calcDate?.div((60 * 60 * 24 * 1000))
+                if (hour != null) {
+                    if (hour > 0) {
+                        this.text = "${hour}일 후 마감"
+                    } else {
+                        this.text = "${hour * 1000 * 60 * 60}시간 후 마감"
+                    }
+                }
+
+            } catch (e: Exception) {
+                Log.d("error", "time error")
+            }
+        }
     }
 
     @JvmStatic

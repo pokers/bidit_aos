@@ -11,16 +11,17 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="37dp"
         android:background="@color/white">
 
         <ImageView
             android:id="@+id/iv_merchandise_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="center"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerInside"
+            app:layout_constraintDimensionRatio="4:4"
             android:src="@drawable/ic_launcher_background"
             app:imageItemUrlList="@{merchandiseResponse.node.image}"
             app:layout_constraintEnd_toEndOf="parent"

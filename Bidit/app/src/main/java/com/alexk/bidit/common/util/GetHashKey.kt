@@ -7,9 +7,6 @@ import android.util.Base64
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.alexk.bidit.R
-import com.alexk.bidit.databinding.ActivitySignBinding
-import com.alexk.bidit.presentation.base.BaseActivity
 import java.security.MessageDigest
 
 class GetHashKey : AppCompatActivity() {

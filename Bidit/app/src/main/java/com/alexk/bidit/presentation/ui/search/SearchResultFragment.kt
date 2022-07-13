@@ -150,7 +150,7 @@ class SearchResultFragment :
 
     private fun makeBalloon(sortType: String): Balloon {
         val balloon = Balloon.Builder(requireContext())
-            .setLayout(R.layout.dialog_sort)
+            .setLayout(R.layout.dialog_merchandise_sort_type)
             .setArrowSize(10)
             .setArrowOrientation(ArrowOrientation.TOP)
             .setArrowPosition(0.5f)

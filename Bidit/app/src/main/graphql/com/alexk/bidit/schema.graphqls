@@ -10,7 +10,7 @@ enum AlarmType{
 
 type UserAlarm{
     id: Int
-    status: Int
+    status: Int     # 0=enable, 1=disable
     userId: Int
     alarmId: Int
     createdAt: String
@@ -68,7 +68,6 @@ enum DeliveryType {
     PARCEL,
     BOTH
 }
-
 enum ItemStatus{
     REGISTED,
     ONGOING,
@@ -102,6 +101,7 @@ type Item {
     description:ItemDescription
     image:[ItemImage]
     category: Category
+    detail: ItemDetail
 }
 
 type ItemDescription{
@@ -124,6 +124,31 @@ type ItemImage{
     createdAt: String!
     updatedAt: String
     deletedAt: String
+}
+
+type ItemDetail {
+    id:Int
+    status:Int  # 0=valid, 1=invalid
+    itemId:Int
+    categoryId:Int
+    period:Int
+    type:String
+    vendor:String
+    battery:String
+    flash:String
+    ram:String
+    size:String
+    networkType:String
+    weight:String
+    cpu:String
+    wire:String
+    lens:String
+    resolution:String
+    cam:String
+    warranty:String
+    createdAt:String
+    updatedAt:String
+    deletedAt:String
 }
 
 type ItemEdge {
@@ -168,6 +193,7 @@ input ItemAddInput {
     deliveryType: Int!
     sCondition: Int!
     aCondition: Int!
+    detail: ItemDetailInput
 }
 
 input ItemUpdateInput {
@@ -181,8 +207,29 @@ input ItemUpdateInput {
     deliveryType: Int
     sCondition: Int
     aCondition: Int
+    detail: ItemDetailInput
 }
 
+input ItemDetailInput {
+    id:Int
+    status:Int  # 0=valid, 1=invalid
+    categoryId:Int
+    period:Int
+    type:String
+    vendor:String
+    battery:String
+    flash:String
+    ram:String
+    size:String
+    networkType:String
+    weight:String
+    cpu:String
+    wire:String
+    lens:String
+    resolution:String
+    cam:String
+    warranty:String
+}
 input ItemImageUpdateInput{
     itemImageId:Int
     image:String
@@ -263,6 +310,7 @@ type KakaoAccount{
     description:String
 }
 
+
 enum PenaltyType{
     BIDDING,
     SELLING,
@@ -281,20 +329,7 @@ type Penalty {
     deletedAt: String
 }
 
-input userUpdateInput{
-    status: Int
-    nickname: String
-    gender: gender
-    birth: String
-    deletedAt: String
-    description: String
-}
-
-input pushTokenUpdateInput{
-    status: Int
-    token: String
-}
-
+# TODO : should use custom scalar.
 enum UserStatus{
     VALID,
     INVALID
@@ -308,6 +343,16 @@ enum gender{
     MALE,
     FEMALE
 }
+
+type PushToken {
+    id: Int
+    status: Int
+    userId: Int
+    token: String
+    createdAt: String
+    updatedAt: String
+}
+
 type User {
     id: Int!
     status: Int!    # 0=VALID, 1=INVALID
@@ -324,7 +369,28 @@ type User {
     description: String
     items:ItemConnection
     kakaoAccount:KakaoAccount
+    appleAccount:AppleAccount
+    pushToken: PushToken
+    penalty: Penalty
+    userAlarm: UserAlarm
 }
+
+
+type AppleAccount{
+    id: Int!
+    status: Int!        # 0=VALID, 1=INVALID
+    userId: Int!
+    sub: String
+    email: String
+    email_verified: String
+    is_private_email: Boolean
+    real_user_status: Int
+    createdAt: String
+    updatedAt: String
+    deletedAt: String
+    description: String
+}
+
 
 type Query {
     getUser(id: Int!): User
@@ -343,10 +409,24 @@ type Mutation {
     addUser:User
     updateUser(userUpdate:userUpdateInput):User
     updatePushToken(pushTokenUpdate:pushTokenUpdateInput):Boolean
+    addUserAlarm(userId:Int, status:Int):Boolean
     addItem(itemAdd:ItemAddInput, description:String, images:[String]):Item
     updateItem(itemId:Int, itemUpdate:ItemUpdateInput, description:String):Item
     updateItemImage(itemId:Int, itemImageUpdate:ItemImageUpdateInput):Item
     bid(bid:BidInput):Bidding
+}
+
+input userUpdateInput{
+    status: Int
+    nickname: String
+    gender: gender
+    birth: String
+    deletedAt: String
+    description: String
+}
+input pushTokenUpdateInput{
+    status: Int
+    token: String
 }
 
 schema {

@@ -1,5 +1,6 @@
 package com.alexk.bidit.presentation.ui.home
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -14,12 +15,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.alexk.bidit.R
+import com.alexk.bidit.common.adapter.common.CommonBannerAdapter
 import com.alexk.bidit.common.adapter.common.CommonBannerAutoPageAdapter
 import com.alexk.bidit.common.adapter.home.HomeCategoryPageAdapter
 import com.alexk.bidit.common.adapter.home.category.HomeCategoryListAdapter
 import com.alexk.bidit.common.util.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentHomeBinding
 import com.alexk.bidit.presentation.base.BaseFragment
+import com.alexk.bidit.presentation.ui.home.alarm.HomeAlarmActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,11 +50,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         R.drawable.ic_category_camera,
         R.drawable.ic_category_another_category
     )
-    private val tempBannerList = listOf(
-        R.drawable.bg_temp_banner,
-        R.drawable.bg_temp_banner,
-        R.drawable.bg_temp_banner,
-    )
+
     lateinit var mainBannerAutoSlideJob: Job
     private var bannerPosition = 0
 
@@ -63,6 +62,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     override fun init() {
         binding.apply {
+
             rvCategory.apply {
                 layoutManager =
                     GridLayoutManager(requireContext(), 2, GridLayoutManager.HORIZONTAL, false)
@@ -73,10 +73,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             }
 
             vpMainBanner.apply {
-                vpMainBanner.adapter = CommonBannerAutoPageAdapter(context, tempBannerList)
+                vpMainBanner.adapter = CommonBannerAdapter(this@HomeFragment)
             }
 
-            vpMerchandiseList.apply{
+            vpMerchandiseList.apply {
                 adapter = HomeCategoryPageAdapter(this@HomeFragment)
                 TabLayoutMediator(lyDetailCategory, this) { tab, position ->
                     tab.text = categoryList[position]
@@ -86,12 +86,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
             ciMainBanner.apply {
                 //메모리 릭 발생 -> 커스텀 뷰 or 다른 라이브러리 사용해야함
-                //setViewPager(vpMainBanner)
+                setViewPager(vpMainBanner)
             }
         }
     }
+
     override fun initEvent() {
         binding.apply {
+            ivAlarm.setOnClickListener {
+                startActivity(Intent(requireContext(), HomeAlarmActivity::class.java))
+            }
+
             rvCategory.apply {
                 addOnScrollListener(object : RecyclerView.OnScrollListener() {
                     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -120,26 +125,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     }
                 })
             }
-            vpMainBanner.apply {
-                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                    override fun onPageScrollStateChanged(state: Int) {
-                        super.onPageScrollStateChanged(state)
-                        when (state) {
-                            ViewPager2.SCROLL_STATE_SETTLING -> {
-
-                            }
-                            //멈춤
-                            ViewPager2.SCROLL_STATE_IDLE -> {
-                                if (!mainBannerAutoSlideJob.isActive) slideJobCreate()
-                            }
-                            //드래그
-                            ViewPager2.SCROLL_STATE_DRAGGING -> {
-                                mainBannerAutoSlideJob.cancel()
-                            }
-                        }
-                    }
-                })
-            }
+//            vpMainBanner.apply {
+//                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+//                    override fun onPageScrollStateChanged(state: Int) {
+//                        super.onPageScrollStateChanged(state)
+//                        when (state) {
+//                            ViewPager2.SCROLL_STATE_SETTLING -> {
+//
+//                            }
+//                            //멈춤
+//                            ViewPager2.SCROLL_STATE_IDLE -> {
+//                                if (!mainBannerAutoSlideJob.isActive) slideJobCreate()
+//                            }
+//                            //드래그
+//                            ViewPager2.SCROLL_STATE_DRAGGING -> {
+//                                mainBannerAutoSlideJob.cancel()
+//                            }
+//                        }
+//                    }
+//                })
+//            }
             lyDetailCategory.apply {
                 addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                     override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -159,6 +164,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             }
         }
     }
+
     //탭 레이아웃 선택된 폰트 변경
     private fun changeSelectedTabItemFontFamily(tabPosition: Int, @FontRes fontFamilyRes: Int) {
         val linearLayout =
@@ -167,7 +173,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         val typeface = ResourcesCompat.getFont(requireContext(), fontFamilyRes)
         tabTextView.typeface = typeface
     }
-
 
 
     private fun slideJobCreate() {
@@ -179,11 +184,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     override fun onPause() {
         super.onPause()
-        mainBannerAutoSlideJob.cancel()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        slideJobCreate()
+//        mainBannerAutoSlideJob.cancel()
     }
 }
