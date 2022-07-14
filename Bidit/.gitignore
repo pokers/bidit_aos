@@ -13,4 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
-/appKey/BiditKey.jks
+/appKey
+/app/release

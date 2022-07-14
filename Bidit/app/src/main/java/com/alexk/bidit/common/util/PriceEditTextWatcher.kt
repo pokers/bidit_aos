@@ -5,12 +5,17 @@ import android.text.Selection
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.widget.EditText
+import java.lang.NumberFormatException
 
 
-class EditTextWatcher(private val editText: EditText) : TextWatcher {
+class PriceEditTextWatcher(private val editText: EditText) : TextWatcher {
 
     var inputText = ""
-    var price = editText.text.toString().replace(",","").toInt()
+    var price = try {
+        editText.text.toString().replace(",", "").toInt()
+    } catch (e: NumberFormatException) {
+        0
+    }
 
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -31,5 +36,5 @@ class EditTextWatcher(private val editText: EditText) : TextWatcher {
 
     }
 
-    fun getInputPrice() : Int = price
+    fun getInputPrice(): Int = price
 }

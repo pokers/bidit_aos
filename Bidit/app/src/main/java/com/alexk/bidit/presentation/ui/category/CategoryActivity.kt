@@ -1,12 +1,17 @@
 package com.alexk.bidit.presentation.ui.category
 
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Point
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,6 +21,7 @@ import com.alexk.bidit.common.util.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.ActivityCategoryBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
+import com.alexk.bidit.presentation.ui.bidding.dialog.BiddingBidImmediatePurchaseDialog
 import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.Balloon
@@ -60,7 +66,18 @@ class CategoryActivity : AppCompatActivity() {
                 finish()
             }
             btnFilter.setOnClickListener {
-                //dialog show
+                val dialog =
+                    CategoryFilterDialog(this@CategoryActivity) {
+                        //필터데이터로 업데이트
+                    }
+                dialog.setCanceledOnTouchOutside(true)
+                dialog.show()
+                dialog.window?.setLayout(
+                    WindowManager.LayoutParams.MATCH_PARENT,
+                    WindowManager.LayoutParams.MATCH_PARENT
+                )
+                dialog.window?.setBackgroundDrawableResource(R.drawable.bg_filter_dialog)
+                dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
             }
             lySort.setOnClickListener {
                 makeBalloon(currentSortType).showAlignBottom(binding.ivSort)

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
-import com.alexk.bidit.common.util.EditTextWatcher
+import com.alexk.bidit.common.util.PriceEditTextWatcher
 import com.alexk.bidit.common.util.addComma
 import com.alexk.bidit.databinding.DialogBiddingBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -20,7 +20,7 @@ class BiddingBidDialog(private val bid: (Int) -> Unit) :
     private var currentPrice = 0
     private var mustOverPrice = 0
     private val bidPrice by lazy { arguments?.getInt("bidPrice") }
-    private val inputTextWatcher by lazy { EditTextWatcher(binding.editMerchandisePrice) }
+    private val inputTextWatcher by lazy { PriceEditTextWatcher(binding.editMerchandisePrice) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +38,7 @@ class BiddingBidDialog(private val bid: (Int) -> Unit) :
         mustOverPrice = arguments?.getInt("currentPrice")!!
 
         binding.apply {
-            EditTextWatcher(editMerchandisePrice)
+            PriceEditTextWatcher(editMerchandisePrice)
             editMerchandisePrice.setText(addComma(currentPrice))
             tvMustOverBiddingPrice.text = addComma(currentPrice)
         }
