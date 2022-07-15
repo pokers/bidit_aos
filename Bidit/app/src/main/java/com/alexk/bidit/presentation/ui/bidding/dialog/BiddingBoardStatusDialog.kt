@@ -8,11 +8,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.DialogBiddingBoardDeleteBinding
 import com.alexk.bidit.databinding.DialogBiddingStatusBinding
+import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-class BiddingBoardStatusDialog(context: Context, private val status: Int) : Dialog(context) {
+
+class BiddingBoardStatusDialog(
+    context: Context,
+    private val status: Int,
+    private val statusEvent: (Int) -> Unit
+) : Dialog(context) {
 
     private lateinit var binding: DialogBiddingStatusBinding
 
@@ -43,17 +52,24 @@ class BiddingBoardStatusDialog(context: Context, private val status: Int) : Dial
                 2 -> {
                     rbsellingComplete.isChecked = true
                 }
-                //판매 종료
-                3 -> {
-
-                }
             }
         }
     }
 
     private fun initEvent() {
         binding.apply {
-
+            rbReservation.setOnClickListener {
+                statusEvent(0)
+                dismiss()
+            }
+            rbSelling.setOnClickListener {
+                statusEvent(1)
+                dismiss()
+            }
+            rbsellingComplete.setOnClickListener {
+                statusEvent(2)
+                dismiss()
+            }
         }
     }
 }

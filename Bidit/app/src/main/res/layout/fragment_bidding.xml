@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="biddingInfo"
-            type="com.alexk.bidit.GetBiddingInfoQuery.Item" />
+            name="itemInfo"
+            type="com.alexk.bidit.GetItemInfoQuery.GetItem" />
 
         <variable
             name="bidSellingUserInfo"
@@ -26,8 +26,8 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/vp_merchandise_img"
                 android:layout_width="0dp"
-                android:layout_height="300dp"
                 android:background="@color/black"
+                android:layout_height="300dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -68,27 +68,27 @@
 
                 <ImageView
                     android:id="@+id/iv_like"
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:src="@drawable/ic_like" />
 
                 <ImageView
                     android:id="@+id/iv_share"
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginStart="20dp"
                     android:src="@drawable/ic_share" />
 
                 <ImageView
                     android:id="@+id/iv_more_info"
-                    android:layout_gravity="center"
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginStart="20dp"
-                    android:src="@drawable/ic_more_info" />
+                    android:src="@drawable/ic_more_info"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -124,7 +124,7 @@
                     android:includeFontPadding="false"
                     android:textColor="@color/nero"
                     android:textSize="14sp"
-                    app:price="@{biddingInfo.CPrice}" />
+                    app:price="@{itemInfo.CPrice}" />
 
             </LinearLayout>
 
@@ -158,7 +158,7 @@
                     android:includeFontPadding="false"
                     android:textColor="@color/nero"
                     android:textSize="14sp"
-                    app:peopleCount="@{biddingInfo.viewCount}" />
+                    app:peopleCount="@{itemInfo.viewCount}" />
 
             </LinearLayout>
 
@@ -193,7 +193,7 @@
                     android:includeFontPadding="false"
                     android:textColor="@color/nero"
                     android:textSize="14sp"
-                    app:time="@{biddingInfo.dueDate}" />
+                    app:calcDate="@{itemInfo.dueDate}" />
 
             </LinearLayout>
 
@@ -219,7 +219,7 @@
                 android:fontFamily="@font/notosans_kr_medium"
                 android:gravity="start|center"
                 android:includeFontPadding="false"
-                android:text="@{biddingInfo.title}"
+                android:text="@{itemInfo.title}"
                 android:textColor="@color/nero"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -256,6 +256,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_selling_user_img">
@@ -273,15 +274,15 @@
                     android:includeFontPadding="false"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    app:status="@{biddingInfo.status}"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    app:status="@{itemInfo.status}" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_margin"
                     android:layout_marginTop="8dp"
                     android:drawablePadding="8dp"
-                    android:layout_marginStart="@dimen/activity_margin"
                     android:fontFamily="@font/notosans_kr_regular"
                     android:includeFontPadding="false"
                     android:text="@string/content_selling_status"
@@ -363,7 +364,7 @@
                     android:includeFontPadding="false"
                     android:textColor="@color/nero"
                     android:textSize="12sp"
-                    app:price="@{biddingInfo.buyNow}" />
+                    app:price="@{itemInfo.buyNow}" />
 
                 <TextView
                     android:id="@+id/tv_deadline_time"
@@ -374,7 +375,7 @@
                     android:includeFontPadding="false"
                     android:textColor="@color/nero"
                     android:textSize="12sp"
-                    app:time="@{biddingInfo.dueDate}" />
+                    app:date="@{itemInfo.dueDate}" />
 
                 <TextView
                     android:id="@+id/tv_write_tiem"
@@ -385,7 +386,7 @@
                     android:includeFontPadding="false"
                     android:textColor="@color/nero"
                     android:textSize="12sp"
-                    app:time="@{biddingInfo.createdAt}" />
+                    app:date="@{itemInfo.createdAt}" />
 
             </LinearLayout>
 
@@ -408,7 +409,7 @@
                 android:layout_marginEnd="@dimen/activity_margin"
                 android:fontFamily="@font/notosans_kr_regular"
                 android:includeFontPadding="false"
-                android:text="@{biddingInfo.description.description}"
+                android:text="@{itemInfo.description.description}"
                 android:textColor="@color/nero"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"

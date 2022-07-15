@@ -42,7 +42,7 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_merchandise_img"
             app:layout_constraintStart_toStartOf="@id/iv_merchandise_img"
-            app:time="@{merchandiseResponse.node.dueDate}" />
+            app:calcDate="@{merchandiseResponse.node.dueDate}" />
 
         <TextView
             android:id="@+id/tv_current_price_title"

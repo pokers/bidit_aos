@@ -3,6 +3,7 @@ package com.alexk.bidit.presentation.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.alexk.bidit.GlobalApplication
@@ -52,7 +53,8 @@ class LoginActivity : AppCompatActivity() {
             }
             //아니면 인터넷으로
             else {
-                UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
+                Toast.makeText(this, "카카오톡을 설치하고 이용해주세요.", Toast.LENGTH_LONG).show()
+                finishAffinity()
             }
         }
     }

@@ -115,7 +115,7 @@ class SearchResultFragment :
 
     private fun observeMerchandiseList() {
         //fragment는 viewLifeCycleOwner로
-        merchandiseViewModel.keywordItemList.observe(viewLifecycleOwner) { response ->
+        merchandiseViewModel.itemList.observe(viewLifecycleOwner) { response ->
             when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {

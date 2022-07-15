@@ -5,10 +5,9 @@ import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.alexk.bidit.BuildConfig
+import com.alexk.bidit.common.util.KEYWORD
 import org.json.JSONArray
 import com.google.gson.JsonArray as JsonA
-
-const val keyword = "keyword"
 
 class SearchKeywordManager(context: Context) {
     private val prefs: SharedPreferences by lazy {
@@ -28,7 +27,7 @@ class SearchKeywordManager(context: Context) {
 
     //받아온 sp를 ArrayList로 반환
     fun getKeyword(): ArrayList<String> {
-        return decodeJSONArray(prefs.getString(keyword, null))
+        return decodeJSONArray(prefs.getString(KEYWORD, null))
     }
 
     //String으로 받은 sp를 ArrayList로 변환
@@ -54,7 +53,7 @@ class SearchKeywordManager(context: Context) {
         for (data in baseList.indices) {
             jsonArray.put(baseList[data])
         }
-        prefs.edit().putString(keyword, jsonArray.toString()).apply()
+        prefs.edit().putString(KEYWORD, jsonArray.toString()).apply()
     }
 
     fun removeKeyword(baseList: ArrayList<String>) {
@@ -62,10 +61,10 @@ class SearchKeywordManager(context: Context) {
         for (data in baseList.indices) {
             jsonArray.put(data)
         }
-        prefs.edit().putString(keyword, jsonArray.toString()).apply()
+        prefs.edit().putString(KEYWORD, jsonArray.toString()).apply()
     }
 
     fun removeAllKeyword() {
-        prefs.edit().remove(keyword).apply()
+        prefs.edit().remove(KEYWORD).apply()
     }
 }

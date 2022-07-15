@@ -3,6 +3,7 @@ package com.alexk.bidit.common.util
 //SP Value
 const val TOKEN = "Token"
 const val PUSH_TOKEN = "UpdatePushToken"
+const val KEYWORD = "keyword"
 
 //Apollo Error
 const val NotSupportedParameters = "passing first and last are not supported"

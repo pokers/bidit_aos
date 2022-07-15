@@ -54,7 +54,7 @@ class HomeCategoryFragment :
 
     private fun observeMerchandiseList() {
         //fragment는 viewLifeCycleOwner로
-        viewModel.cursorTypeItemList.observe(viewLifecycleOwner) { response ->
+        viewModel.itemList.observe(viewLifecycleOwner) { response ->
             when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {

@@ -4,14 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.common.CommonBidListAdapter
 import com.alexk.bidit.common.adapter.common.CommonMerchandiseListAdapter
-import com.alexk.bidit.common.adapter.merchandise.MerchandiseFilterAdapter
 import com.alexk.bidit.common.util.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentCommonMerchandiseListBinding
 import com.alexk.bidit.di.ViewState
@@ -86,7 +84,7 @@ class MyTradeMerchandiseListFragment :
             }
         }
 
-        merchandiseViewModel.myItemList.observe(viewLifecycleOwner) { response ->
+        merchandiseViewModel.itemList.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
                     Log.d("My List Loading", "Loading GET my item list")

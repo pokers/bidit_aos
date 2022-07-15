@@ -32,8 +32,9 @@ class BiddingCompleteFragment :
     override fun initEvent() {
         binding.apply {
             btnOkay.setOnClickListener {
-                //확인 -> 어디로 가는지?
+                activity?.finish()
             }
+
             btnBidCancle.setOnClickListener {
                 val dialog =
                     BiddingBidCancelDialog(requireContext(), args.bid)

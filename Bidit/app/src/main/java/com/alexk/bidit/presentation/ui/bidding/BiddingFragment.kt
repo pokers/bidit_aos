@@ -7,6 +7,7 @@ import android.view.WindowManager
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexk.bidit.GetBiddingInfoQuery
+import com.alexk.bidit.GetItemInfoQuery
 import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.bidding.BiddingMerchandiseImgPageAdapter
@@ -20,6 +21,7 @@ import com.alexk.bidit.presentation.ui.bidding.dialog.BiddingBidImmediatePurchas
 import com.alexk.bidit.presentation.ui.bidding.dialog.BiddingBoardMoreInfoDialog
 import com.alexk.bidit.presentation.ui.bidding.dialog.BiddingBoardStatusDialog
 import com.alexk.bidit.presentation.viewModel.BiddingViewModel
+import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -27,9 +29,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalCoroutinesApi
 class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_bidding) {
 
-    private val viewModel by viewModels<BiddingViewModel>()
+    private val itemViewModel by viewModels<MerchandiseViewModel>()
+    private val bidViewModel by viewModels<BiddingViewModel>()
     private val itemId by lazy { activity?.intent?.getIntExtra("itemId", 0) }
-    private lateinit var getBiddingInfo: GetBiddingInfoQuery.GetBidding
+    private lateinit var itemInfo: GetItemInfoQuery.GetItem
     private var bidPrice = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,9 +41,10 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
     }
 
     override fun init() {
+        observeItemInfo()
         observeBiddingInfo()
         Log.d("itemId", "$itemId")
-        viewModel.retrieveBiddingInfo(itemId!!)
+        itemViewModel.getItemInfo(itemId!!)
     }
 
     override fun initEvent() {
@@ -67,32 +71,33 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
             //상태변경 Dialog
             tvBiddingStatus.setOnClickListener {
                 val dialog =
-                    BiddingBoardStatusDialog(requireContext(), getBiddingInfo.item?.status!!)
+                    BiddingBoardStatusDialog(requireContext(), itemInfo?.status!!) {
+                        itemViewModel.updateItemStatus(itemId!!, it)
+                    }
                 dialog.setCanceledOnTouchOutside(true)
                 dialog.show()
                 dialog.window?.setLayout(
-                    WindowManager.LayoutParams.MATCH_PARENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT,
                     WindowManager.LayoutParams.WRAP_CONTENT
                 )
-                dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
             }
             btnBidding.setOnClickListener {
                 val biddingFragment = BiddingBidDialog {
                     //고차 함수로 입력한 입찰가 받아옴
                     bidPrice = it
-                    viewModel.doBid(itemId!!, bidPrice)
+                    bidViewModel.doBid(itemId!!, bidPrice)
                 }
 
                 //bidding price
                 biddingFragment.arguments = Bundle().apply {
-                    this.putInt("currentPrice", getBiddingInfo.item?.cPrice!!)
+                    this.putInt("currentPrice", itemInfo?.cPrice!!)
                     this.putInt("bidPrice", 1000)
                 }
                 biddingFragment.show(childFragmentManager, biddingFragment.tag)
             }
             btnImmediatePurchase.setOnClickListener {
                 val dialog =
-                    BiddingBidImmediatePurchaseDialog(requireContext(), getBiddingInfo.item?.buyNow)
+                    BiddingBidImmediatePurchaseDialog(requireContext(), itemInfo?.buyNow!!)
                 dialog.setCanceledOnTouchOutside(true)
                 dialog.show()
                 dialog.window?.setLayout(
@@ -104,18 +109,18 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
         }
     }
 
-    private fun setBiddingInfoUI(getBiddingInfo: GetBiddingInfoQuery.GetBidding?) {
+    private fun setBiddingInfoUI(getItemInfo: GetItemInfoQuery.GetItem) {
         //UI 작업 진행
         binding.apply {
 
-            biddingInfo = getBiddingInfo?.item
-            bidSellingUserInfo = getBiddingInfo?.user
+            itemInfo = getItemInfo
+//            bidSellingUserInfo = getItemInfo
 
             vpMerchandiseImg.apply {
                 adapter =
                     BiddingMerchandiseImgPageAdapter(
                         this@BiddingFragment,
-                        getBiddingInfo?.item?.image
+                        getItemInfo.image
                     )
             }
             ciMerchandiseImg.apply {
@@ -130,7 +135,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
         }
     }
 
-    private fun setMyBiddingInfoUI(getBiddingInfo: GetBiddingInfoQuery.GetBidding?) {
+    private fun setMyBiddingInfoUI(getItemInfo: GetItemInfoQuery.GetItem) {
         //UI 작업 진행
         binding.apply {
 
@@ -140,14 +145,19 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
             btnBidding.visibility = View.GONE
             btnImmediatePurchase.visibility = View.GONE
 
-            biddingInfo = getBiddingInfo?.item
-            bidSellingUserInfo = getBiddingInfo?.user
+            itemInfo = getItemInfo
+//            bidSellingUserInfo = getItemInfo
+
+            if (getItemInfo.status == 3) {
+                binding.tvBiddingStatus.text = "종료"
+                binding.tvBiddingStatus.isClickable = false
+            }
 
             vpMerchandiseImg.apply {
                 adapter =
                     BiddingMerchandiseImgPageAdapter(
                         this@BiddingFragment,
-                        getBiddingInfo?.item?.image
+                        getItemInfo.image
                     )
             }
             ciMerchandiseImg.apply {
@@ -162,41 +172,55 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
         }
     }
 
-    private fun observeBiddingInfo() {
-        //fragment는 viewLifeCycleOwner로
-        viewModel.biddingInfo.observe(viewLifecycleOwner) { response ->
+    private fun observeItemInfo() {
+        itemViewModel.itemInfo.observe(viewLifecycleOwner) { response ->
             when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {
+                    binding.svMain.visibility = View.INVISIBLE
                     Log.d("Bidding Loading", "Loading GET bidding info")
                 }
                 //아이템 가져오기 성공
                 is ViewState.Success -> {
                     Log.d("Bidding Success", "Success GET bidding info")
                     //데이터 연동 작업 필요
-                    val result = response.value?.data?.getBidding
-                    if (result?.isNotEmpty() == true) {
-                        getBiddingInfo = result[0]!!
-                        initEvent()
-                        //내 게시글
-                        if (result[0]?.user?.id == GlobalApplication.id) {
-                            setMyBiddingInfoUI(getBiddingInfo)
-                        }
-
-                        //다른 사람 게시글
-                        else {
-                            setBiddingInfoUI(getBiddingInfo)
-                        }
-                    } else {
-                        Log.d("Bidding Failure", "Success GET bidding info, but not data")
+                    val result = response.value?.data?.getItem
+                    itemInfo = result!!
+                    initEvent()
+                    //내 게시글
+                    if (result.userId == GlobalApplication.id) {
+                        setMyBiddingInfoUI(itemInfo)
                     }
+                    //다른 사람 게시글
+                    else {
+                        setBiddingInfoUI(itemInfo)
+                    }
+                    binding.svMain.visibility = View.VISIBLE
                 }
                 is ViewState.Error -> {
                     Log.d("Bidding Failure", "Fail GET bidding info")
                 }
             }
         }
-        viewModel.bidCompleteInfo.observe(viewLifecycleOwner) { response ->
+        itemViewModel.itemStatus.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    Log.d("Bidding Loading", "Loading GET bidding info")
+                }
+                is ViewState.Success -> {
+                    Log.d("Bidding Success", "Success GET bidding info")
+                    itemViewModel.getItemInfo(itemId!!)
+                }
+                is ViewState.Error -> {
+                    Log.d("Bidding Failure", "Fail GET bidding info")
+                }
+            }
+        }
+    }
+
+    private fun observeBiddingInfo() {
+        //fragment는 viewLifeCycleOwner로
+        bidViewModel.bidCompleteInfo.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
                     Log.d("Bidding Loading", "Loading POST bidding info")

@@ -5,6 +5,7 @@ import com.alexk.bidit.di.ApolloClient
 import com.alexk.bidit.domain.repository.MerchandiseRepository
 import com.alexk.bidit.type.CursorType
 import com.alexk.bidit.type.ItemQueryInput
+import com.alexk.bidit.type.ItemUpdateInput
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Optional
 import javax.inject.Inject
@@ -12,7 +13,7 @@ import javax.inject.Inject
 class MerchandiseRepositoryImpl @Inject constructor(private val apiService: ApolloClient) :
     MerchandiseRepository {
     override suspend fun retrieveItemInfo(id: Int): ApolloResponse<GetItemInfoQuery.Data> {
-        TODO("Not yet implemented")
+        return apiService.provideApolloClient().query(GetItemInfoQuery(getItemId = id)).execute()
     }
 
     override suspend fun retrieveCursorTypeItemList(cursorType: CursorType): ApolloResponse<GetItemListQuery.Data> {
@@ -52,6 +53,19 @@ class MerchandiseRepositoryImpl @Inject constructor(private val apiService: Apol
             GetItemListQuery(
                 itemQueryInfo = Optional.Present(
                     ItemQueryInput(userId = Optional.Present(userId))
+                )
+            )
+        ).execute()
+    }
+
+    override suspend fun updateItemStatus(
+        itemId: Int,
+        status: Int
+    ): ApolloResponse<UpdateItemStatusMutation.Data> {
+        return apiService.provideApolloClient().mutation(
+            UpdateItemStatusMutation(
+                itemId = Optional.Present(itemId), itemStatus = Optional.Present(
+                    ItemUpdateInput(status = Optional.Present(status))
                 )
             )
         ).execute()

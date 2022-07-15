@@ -4,11 +4,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.alexk.bidit.GetBiddingInfoQuery
+import com.alexk.bidit.GetItemInfoQuery
 import com.alexk.bidit.presentation.ui.bidding.BiddingMerchandiseImgFragment
 
 class BiddingMerchandiseImgPageAdapter(
     fragment: Fragment,
-    private val imgList: List<GetBiddingInfoQuery.Image?>?
+    private val imgList: List<GetItemInfoQuery.Image?>?
 ) :
     FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int {

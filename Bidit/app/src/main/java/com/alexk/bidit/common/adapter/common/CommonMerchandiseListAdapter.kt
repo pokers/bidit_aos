@@ -33,7 +33,7 @@ class CommonMerchandiseListAdapter() :
     override fun onBindViewHolder(holder: MerchandiseListHolder, position: Int) {
         with(holder.binding) {
             //ONGOING
-            if (getItem(position).node?.status == 1) {
+            if (getItem(position).node?.status == 1 || getItem(position).node?.status == 0) {
                 merchandiseResponse = getItem(position)
                 root.setOnClickListener {
                     onItemClicked?.invoke(getItem(position).node?.id)

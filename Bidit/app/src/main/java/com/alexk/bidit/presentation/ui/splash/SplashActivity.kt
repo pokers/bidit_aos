@@ -34,8 +34,8 @@ class SplashActivity : AppCompatActivity() {
 
         //현재 카카오 토큰이 존재 -> 토큰 만료 확인
         if (TokenManager(this).getToken().isNotEmpty()) {
-            viewModel.getMyInfo()
             observeToken()
+            viewModel.getMyInfo()
         } else {
             //토큰이 없으면 로그인 페이지로
             val handler = Handler(mainLooper)

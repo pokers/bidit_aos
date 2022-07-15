@@ -84,17 +84,16 @@ object CommonBindingAdapter {
 
     @SuppressLint("SimpleDateFormat")
     @JvmStatic
-    @BindingAdapter("time")
-    fun TextView.changeDateType(date: String?) {
+    @BindingAdapter("calcDate")
+    fun TextView.calcDate(date: String?) {
         //텍스트 날짜 형식으로 변환 필요
         val dateTime = date?.split("T")
         if (dateTime?.size == 2) {
-            var parseData: Date? = null
-            val date = dateTime[0]
+            val yearDate = dateTime[0]
             val time = dateTime[1]
             val simpleDataFormat = SimpleDateFormat("yyyy-MM-ddHH:mm:SS")
             try {
-                parseData = simpleDataFormat.parse(date + time)
+                val parseData = simpleDataFormat.parse(yearDate + time)
                 val currentDate = Calendar.getInstance()
 
                 //밀리초
@@ -115,6 +114,19 @@ object CommonBindingAdapter {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
+    @JvmStatic
+    @BindingAdapter("date")
+    fun TextView.changeDateType(date: String?) {
+        this.text = ""
+        val year = date?.substring(0, 4)
+        val month = date?.substring(5, 7)
+        val day = date?.substring(8, 10)
+        val hour = date?.substring(11, 13)
+        val minute = date?.substring(14, 16)
+        this.text = "${year}년 ${month}월 ${day}일 ${hour}:${minute}"
+    }
+
     @JvmStatic
     @BindingAdapter("status")
     fun TextView.changeStatusType(status: Int?) {
@@ -123,14 +135,17 @@ object CommonBindingAdapter {
             1 -> {
                 "판매중"
             }
-            2 -> {
+            0 -> {
                 "예약중"
             }
-            3 -> {
+            2 -> {
                 "판매완료"
             }
+            3 -> {
+                "판매종료"
+            }
             else -> {
-                "error"
+                ""
             }
         }
         this.text = statusText

@@ -1,6 +1,25 @@
 query getItemInfo($getItemId : Int!){
     getItem(id: $getItemId){
         id
+        status
+        userId
+        categoryId
+        sPrice
+        cPrice
+        buyNow
+        viewCount
+        name
+        title
+        dueDate
+        deliveryType
+        sCondition
+        aCondition
+        createdAt
+        updatedAt
+        deletedAt
+        description {
+            description
+        }
         image {
             url
         }
@@ -32,6 +51,13 @@ query getItemList($itemQueryInfo:ItemQueryInput, $keywordInfo:String, $firstInfo
     }
 }
 
+mutation updateItemStatus($itemId : Int, $itemStatus:ItemUpdateInput, $descrption:String){
+    updateItem(itemId: $itemId, itemUpdate: $itemStatus, description: $descrption){
+        id
+        status
+    }
+}
+
 mutation addItemInfo($itemAdd:ItemAddInput, $description:String, $images:[String]){
     addItem(itemAdd : $itemAdd, description : $description, images:$images){
         userId
@@ -39,3 +65,5 @@ mutation addItemInfo($itemAdd:ItemAddInput, $description:String, $images:[String
         name
     }
 }
+
+
