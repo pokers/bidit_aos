@@ -9,9 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
-import com.alexk.bidit.common.util.AutoCommaEditTextWatcher
-import com.alexk.bidit.common.util.PriceEditTextWatcher
-import com.alexk.bidit.common.util.addComma
+import com.alexk.bidit.common.util.view.EditTextAutoCommaWatcher
 import com.alexk.bidit.databinding.DialogMerchandiseFilterBinding
 
 //취소
@@ -118,16 +116,16 @@ class CategoryFilterDialog(context: Context, private val bid: (Int) -> Unit) : D
             }
 
             editStartMinPrice.apply {
-                addTextChangedListener(AutoCommaEditTextWatcher(this))
+                addTextChangedListener(EditTextAutoCommaWatcher(this))
             }
             editStartMaxPrice.apply {
-                addTextChangedListener(AutoCommaEditTextWatcher(this))
+                addTextChangedListener(EditTextAutoCommaWatcher(this))
             }
             editImmediateMaxPrice.apply {
-                addTextChangedListener(AutoCommaEditTextWatcher(this))
+                addTextChangedListener(EditTextAutoCommaWatcher(this))
             }
             editImmediateMinPrice.apply {
-                addTextChangedListener(AutoCommaEditTextWatcher(this))
+                addTextChangedListener(EditTextAutoCommaWatcher(this))
             }
         }
     }

@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.common.adapter.common.CommonMerchandiseListAdapter
-import com.alexk.bidit.common.util.GridRecyclerViewDeco
+import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentCommonMerchandiseListBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
@@ -77,7 +77,6 @@ class HomeCategoryFragment :
                                 startActivity(intent)
                             }
                         merchandiseAdapter.submitList(result)
-                        binding.rvMerchandiseList.setHasFixedSize(true)
                     }
                 }
                 //서버 연결 실패(만료) -> 재발급 요청

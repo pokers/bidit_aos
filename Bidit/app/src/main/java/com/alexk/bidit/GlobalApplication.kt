@@ -35,8 +35,6 @@ class GlobalApplication : Application() {
         lateinit var instance: GlobalApplication
             private set
 
-        const val baseUrl = "https://wypcpelqdbhlxgrexisgez7vba.appsync-api.ap-northeast-2.amazonaws.com/graphql/"
-
         var id = 0
 
         fun applicationContext(): Context {

@@ -51,6 +51,9 @@ android {
 
         resValue "string", "KAKAO_APP_KEY", properties['kakao_app_key']
         resValue "string", "KAKAO_NATIVE_KEY", properties['kakao_native_key']
+
+        resValue "string", "S3_ACCESS_KEY", properties['s3_access_key']
+        resValue "string", "S3_SECRET_KEY", properties['s3_secret_key']
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -151,6 +154,11 @@ dependencies {
     // https://github.com/hdodenhof/CircleImageView
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+    // s3 image upload
+    implementation 'com.amazonaws:aws-android-sdk-cognito:2.13.5'
+    implementation 'com.amazonaws:aws-android-sdk-s3:2.13.5'
+    implementation "com.android.support:support-annotations:28.0.0"
+    implementation 'com.amazonaws:aws-android-sdk-mobile-client:2.13.5'
 }
 
 kapt {

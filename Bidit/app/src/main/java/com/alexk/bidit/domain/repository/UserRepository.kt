@@ -9,5 +9,5 @@ import com.apollographql.apollo3.api.ApolloResponse
 //인터페이스로 사용할 레포를 선언해준다.
 interface UserRepository {
     suspend fun checkToken() : ApolloResponse<GetMyInfoQuery.Data>
-    suspend fun updatePushToken(): ApolloResponse<UpdatePushTokenMutation.Data>
+    suspend fun updatePushToken(pushToken:String): ApolloResponse<UpdatePushTokenMutation.Data>
 }

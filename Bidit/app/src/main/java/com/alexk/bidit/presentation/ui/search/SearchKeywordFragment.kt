@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.common.CommonMerchandiseListAdapter
 import com.alexk.bidit.common.adapter.search.SearchKeywordListAdapter
-import com.alexk.bidit.common.util.GridRecyclerViewDeco
+import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.data.sharedPreference.SearchKeywordManager
 import com.alexk.bidit.databinding.FragmentSearchKeywordBinding
 import com.alexk.bidit.di.ViewState
@@ -75,14 +75,28 @@ class SearchKeywordFragment :
                         keywordList,
                         onClickDeleteKeyword = { keywordViewModel.deleteKeyword(it) },
                         onClickItem = {
-                            navigate(SearchKeywordFragmentDirections.actionSearchKeywordFragmentToSearchResultFragment(it))
+                            navigate(
+                                SearchKeywordFragmentDirections.actionSearchKeywordFragmentToSearchResultFragment(
+                                    it
+                                )
+                            )
                         }
                     )
             }
 
             rvRecentSearchItemList.apply {
-                layoutManager =
+                val gridLayoutManager =
                     GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+                layoutManager = gridLayoutManager
+                gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return if(position % 2 == 1){
+                            1
+                        } else{
+                            0
+                        }
+                    }
+                }
                 adapter = merchandiseAdapter
                 addItemDecoration(GridRecyclerViewDeco(12, 12, 0, 37))
             }
@@ -182,7 +196,7 @@ class SearchKeywordFragment :
                     //리사이클러뷰 어댑터 연결
                     val result = response.value?.data?.getItemList?.edges
                     if (result?.size == 0) {
-                        Log.d("Empty Merchandise List","No merchandise data")
+                        Log.d("Empty Merchandise List", "No merchandise data")
                         merchandiseAdapter.submitList(emptyList())
                     } else {
                         merchandiseAdapter.onItemClicked =

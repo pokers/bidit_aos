@@ -1,12 +1,8 @@
 package com.alexk.bidit.presentation.ui.selling
 
 import com.alexk.bidit.databinding.ActivitySellingBinding
-import com.alexk.bidit.presentation.ui.home.HomeFragment
 import dagger.hilt.android.AndroidEntryPoint
-import android.os.Bundle
-import androidx.navigation.ui.setupWithNavController
 import com.alexk.bidit.R
-import com.alexk.bidit.databinding.ActivityHomeBinding
 import com.alexk.bidit.presentation.base.BaseActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 

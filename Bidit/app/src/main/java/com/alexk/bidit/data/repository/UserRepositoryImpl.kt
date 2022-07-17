@@ -6,15 +6,24 @@ import com.alexk.bidit.GetMyInfoQuery
 import com.alexk.bidit.UpdatePushTokenMutation
 import com.alexk.bidit.di.ApolloClient
 import com.alexk.bidit.domain.repository.UserRepository
+import com.alexk.bidit.type.PushTokenUpdateInput
 import com.apollographql.apollo3.api.ApolloResponse
+import com.apollographql.apollo3.api.Optional
 import javax.inject.Inject
 
-class UserRepositoryImpl @Inject constructor(private val apiService : ApolloClient) : UserRepository {
+class UserRepositoryImpl @Inject constructor(private val apiService: ApolloClient) :
+    UserRepository {
     override suspend fun checkToken(): ApolloResponse<GetMyInfoQuery.Data> {
         return apiService.provideApolloClient().query(GetMyInfoQuery()).execute()
     }
 
-    override suspend fun updatePushToken(): ApolloResponse<UpdatePushTokenMutation.Data> {
-        return apiService.provideApolloClient().mutation(UpdatePushTokenMutation()).execute()
+    override suspend fun updatePushToken(pushToken: String): ApolloResponse<UpdatePushTokenMutation.Data> {
+        return apiService.provideApolloClient().mutation(
+            UpdatePushTokenMutation(
+                Optional.Present(
+                    PushTokenUpdateInput(Optional.Present(null), Optional.Present(pushToken))
+                )
+            )
+        ).execute()
     }
 }

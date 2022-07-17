@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/navigation_selling_post">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_selling_post"
+    app:startDestination="@id/sellingFragment">
+
+    <fragment
+        android:id="@+id/sellingFragment"
+        android:name="com.alexk.bidit.presentation.ui.selling.SellingFragment"
+        android:label="SellingFragment"
+        tools:layout="@layout/fragment_selling">
+        <argument
+            android:name="category"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_sellingFragment_to_sellingCategoryFragment"
+            app:destination="@id/sellingCategoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sellingCategoryFragment"
+        android:name="com.alexk.bidit.presentation.ui.selling.SellingCategoryFragment"
+        android:label="SellingCategoryFragment"
+        tools:layout="@layout/fragment_selling_category">
+        <action
+            android:id="@+id/action_sellingCategoryFragment_to_sellingFragment"
+            app:destination="@id/sellingFragment" />
+
+    </fragment>
 
 </navigation>

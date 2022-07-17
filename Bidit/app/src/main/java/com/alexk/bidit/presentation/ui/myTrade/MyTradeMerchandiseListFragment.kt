@@ -10,7 +10,7 @@ import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.common.CommonBidListAdapter
 import com.alexk.bidit.common.adapter.common.CommonMerchandiseListAdapter
-import com.alexk.bidit.common.util.GridRecyclerViewDeco
+import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentCommonMerchandiseListBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment

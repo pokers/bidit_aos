@@ -135,8 +135,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_merchandise_list"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_margin"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.0"
             android:layout_marginTop="28dp"
             android:layout_marginEnd="@dimen/activity_margin"
             app:layout_constraintBottom_toBottomOf="parent"

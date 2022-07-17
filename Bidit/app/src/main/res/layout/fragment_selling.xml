@@ -156,22 +156,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_category" />
 
+        <TextView
+            android:id="@+id/tv_start_price_won"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="₩ "
+            android:textColor="@color/nobel"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/div_category" />
+
         <EditText
             android:id="@+id/edit_bidding_start_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_margin"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="@dimen/activity_margin"
             android:background="@color/transparent"
             android:fontFamily="@font/notosans_kr_regular"
             android:hint="@string/content_selling_post_bidding_start_price_hint"
             android:includeFontPadding="false"
+            android:inputType="number"
             android:textColor="@color/black"
             android:textColorHint="@color/nobel"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_start_price_won"
             app:layout_constraintTop_toBottomOf="@id/div_category" />
 
         <View
@@ -186,22 +201,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_bidding_start_price" />
 
+        <TextView
+            android:id="@+id/tv_immediate_price_won"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="₩ "
+            android:textColor="@color/nobel"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/div_bidding_start_price" />
+
         <EditText
             android:id="@+id/edit_bidding_immediate_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_margin"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="@dimen/activity_margin"
             android:background="@color/transparent"
             android:fontFamily="@font/notosans_kr_regular"
             android:hint="@string/content_selling_post_bidding_immediate_price_hint"
             android:includeFontPadding="false"
+            android:inputType="number"
             android:textColor="@color/black"
             android:textColorHint="@color/nobel"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_immediate_price_won"
             app:layout_constraintTop_toBottomOf="@id/div_bidding_start_price" />
 
         <View
@@ -228,10 +258,19 @@
             android:text="@string/content_selling_post_bidding_ending_date_hint"
             android:textColor="@color/nobel"
             android:textSize="14sp"
-            app:drawableEndCompat="@drawable/ic_text_delete"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/div_immediate_purchase_price" />
+
+        <ImageView
+            android:id="@+id/iv_bidding_ending_date_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:src="@drawable/ic_text_delete"
+            app:layout_constraintBottom_toBottomOf="@id/tv_bidding_ending_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_bidding_ending_date" />
 
         <View
             android:id="@+id/div_bidding_ending_date"
@@ -257,10 +296,19 @@
             android:text="@string/content_selling_post_bidding_ending_time_hint"
             android:textColor="@color/nobel"
             android:textSize="14sp"
-            app:drawableEndCompat="@drawable/ic_text_delete"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/div_bidding_ending_date" />
+
+        <ImageView
+            android:id="@+id/iv_bidding_ending_time_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:src="@drawable/ic_text_delete"
+            app:layout_constraintBottom_toBottomOf="@id/tv_bidding_ending_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_bidding_ending_time" />
 
         <View
             android:id="@+id/div_bidding_ending_time"
@@ -300,6 +348,7 @@
             android:background="@drawable/bg_rect_transparent_persian_blue_radius4_stroke0"
             android:fontFamily="@font/notosans_kr_medium"
             android:includeFontPadding="false"
+            android:stateListAnimator="@null"
             android:text="@string/content_selling_post_registration"
             android:textColor="@color/whisper"
             android:textSize="16sp"

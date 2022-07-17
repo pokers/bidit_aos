@@ -36,10 +36,10 @@ class UserViewModel @Inject constructor(private val repository: UserRepository) 
         }
     }
 
-    fun updatePushToken() = viewModelScope.launch {
+    fun updatePushToken(pushToken:String) = viewModelScope.launch {
         _pushToken.postValue(ViewState.Loading())
         try{
-            val response = repository.updatePushToken()
+            val response = repository.updatePushToken(pushToken)
             _pushToken.postValue(ViewState.Success(response))
         }catch (e: ApolloHttpException){
             Log.e("ApolloException", "Failure", e)

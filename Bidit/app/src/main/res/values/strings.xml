@@ -79,8 +79,8 @@
     <string name="content_selling_post_new">새로 등록</string>
     <string name="content_selling_post_required">제목, 카테고리, 가격, 마감 날짜 및 시간, 내용은\n필수적으로 작성해주세요.</string>
     <string name="content_selling_post_title_hint">글 제목</string>
-    <string name="content_selling_post_bidding_start_price_hint">₩ 비딩 시작가</string>
-    <string name="content_selling_post_bidding_immediate_price_hint">₩ 즉시 구매가</string>
+    <string name="content_selling_post_bidding_start_price_hint">비딩 시작가</string>
+    <string name="content_selling_post_bidding_immediate_price_hint">즉시 구매가</string>
     <string name="content_selling_post_bidding_ending_date_hint">경매 마감 날짜</string>
     <string name="content_selling_post_bidding_ending_time_hint">경매 마감 시간</string>
     <string name="content_selling_post_registration">판매글 등록</string>

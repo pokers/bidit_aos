@@ -70,6 +70,7 @@ class LoginActivity : AppCompatActivity() {
                 is ViewState.Success -> {
                     GlobalApplication.id = response.value?.data?.me?.id!!
                     Log.d("login success", "Token: ${TokenManager(this).getToken()}")
+                    viewModel.updatePushToken(TokenManager(this).getPushToken())
                     startActivity(Intent(this, HomeActivity::class.java))
                 }
                 //토큰 재발급?

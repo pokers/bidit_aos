@@ -17,4 +17,8 @@ object ApiModule {
     @Singleton
     @Provides
     fun provideApolloService() = ApolloClient()
+
+    @Singleton
+    @Provides
+    fun provideS3Service() = S3Client()
 }

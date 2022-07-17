@@ -1,4 +1,4 @@
-package com.alexk.bidit.common.util
+package com.alexk.bidit.common.util.view
 
 import android.graphics.Rect
 import android.view.View

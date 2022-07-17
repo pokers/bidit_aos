@@ -13,16 +13,15 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.common.CommonBannerAdapter
-import com.alexk.bidit.common.adapter.common.CommonBannerAutoPageAdapter
 import com.alexk.bidit.common.adapter.home.HomeCategoryPageAdapter
 import com.alexk.bidit.common.adapter.home.category.HomeCategoryListAdapter
-import com.alexk.bidit.common.util.GridRecyclerViewDeco
+import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentHomeBinding
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.home.alarm.HomeAlarmActivity
+import com.alexk.bidit.presentation.ui.selling.SellingActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -85,7 +84,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             }
 
             ciMainBanner.apply {
-                //메모리 릭 발생 -> 커스텀 뷰 or 다른 라이브러리 사용해야함
                 setViewPager(vpMainBanner)
             }
         }
@@ -93,6 +91,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     override fun initEvent() {
         binding.apply {
+
+            btnAddMerchandise.setOnClickListener {
+                startActivity(Intent(requireContext(), SellingActivity::class.java))
+            }
+
             ivAlarm.setOnClickListener {
                 startActivity(Intent(requireContext(), HomeAlarmActivity::class.java))
             }

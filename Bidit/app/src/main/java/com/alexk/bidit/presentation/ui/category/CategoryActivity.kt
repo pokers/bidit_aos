@@ -13,7 +13,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.common.CommonMerchandiseListAdapter
-import com.alexk.bidit.common.util.GridRecyclerViewDeco
+import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.ActivityCategoryBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.presentation.ui.bidding.BiddingActivity

@@ -1,9 +1,16 @@
 package com.alexk.bidit.common.util
 
+import com.alexk.bidit.GlobalApplication
+import com.alexk.bidit.R
+
 //SP Value
 const val TOKEN = "Token"
 const val PUSH_TOKEN = "UpdatePushToken"
 const val KEYWORD = "keyword"
+
+//URL
+const val BASE_URL = "https://wypcpelqdbhlxgrexisgez7vba.appsync-api.ap-northeast-2.amazonaws.com/graphql/"
+const val S3_BUCKET_URL = "bidit-itemimage/mvp_model"
 
 //Apollo Error
 const val NotSupportedParameters = "passing first and last are not supported"
