@@ -77,6 +77,7 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutId
         return binding.root
     }
 
+
     //super 코드를 무조건 해줘야 한다는 어노테이션
     @CallSuper
     override fun onDestroyView() {

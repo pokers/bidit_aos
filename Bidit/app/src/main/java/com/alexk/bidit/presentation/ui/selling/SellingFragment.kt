@@ -4,7 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -18,8 +20,10 @@ import com.alexk.bidit.common.util.view.EditTextAutoCommaWatcher
 import com.alexk.bidit.databinding.FragmentSellingBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.domain.entity.merchandise.MerchandiseImgEntity
+import com.alexk.bidit.domain.entity.selling.SellingTimeEntity
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.selling.dialog.SellingEssentialRequiredItemDialog
+import com.alexk.bidit.presentation.ui.selling.dialog.SellingTimePickerDialog
 import com.alexk.bidit.presentation.viewModel.ItemImgViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -37,6 +41,7 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
     private val itemImgViewModel by viewModels<ItemImgViewModel>()
     private val itemUrlImgList = mutableListOf<MerchandiseImgEntity>()
     private val itemImgAdapter by lazy { SellingItemImgListAdapter() }
+    private val itemTimeIdx by lazy { SellingTimeEntity(0,6,3) }
     private val args: SellingFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,7 +56,6 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
                     val data: Intent? = result.data
-                    //가져온 사진 데이터, 만약 Glide를 사용한다고 하면 load에 uri를 넣어주자.
 
                     //uri
                     val filePath = data?.data
@@ -84,8 +88,47 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
 
     override fun initEvent() {
         binding.apply {
+
+            ivBiddingEndingDateDelete.setOnClickListener {
+                tvBiddingEndingTime.text = ""
+                tvBiddingEndingTime.setTextColor(
+                    ResourcesCompat.getColor(
+                        resources,
+                        R.color.nobel,
+                        null
+                    )
+                )
+                ivBiddingEndingDateDelete.visibility = View.INVISIBLE
+            }
+
+            tvBiddingEndingTime.setOnClickListener {
+                val sellingTimePickerDialog = SellingTimePickerDialog(itemTimeIdx) {
+                    itemTimeIdx.dateIdx = it.dateIdx
+                    itemTimeIdx.hourIdx = it.hourIdx
+                    itemTimeIdx.minuteIdx = it.minuteIdx
+                    val getDate =
+                        "${resources.getStringArray(R.array.category_number_picker_day)[it.dateIdx]} ${
+                            resources.getStringArray(R.array.category_number_picker_hour)[it.hourIdx]
+                        }시 ${resources.getStringArray(R.array.category_number_picker_minute)[it.minuteIdx]}분"
+                    tvBiddingEndingTime.text = getDate
+                    tvBiddingEndingTime.setTextColor(
+                        ResourcesCompat.getColor(
+                            resources,
+                            R.color.nero,
+                            null
+                        )
+                    )
+                    ivBiddingEndingDateDelete.visibility = View.VISIBLE
+                }
+                sellingTimePickerDialog.show(childFragmentManager, sellingTimePickerDialog.tag)
+            }
+
             tvCategory.setOnClickListener {
-                navigate(SellingFragmentDirections.actionSellingFragmentToSellingCategoryFragment())
+                navigate(
+                    SellingFragmentDirections.actionSellingFragmentToSellingCategoryFragment(
+                        tvCategory.text.toString()
+                    )
+                )
             }
 
             editBiddingImmediatePrice.apply {
@@ -135,10 +178,12 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                 is ViewState.Success -> {
                     Log.d("img upload", "Success img upload")
                     itemUrlImgList.add(response.value!!)
-                    itemImgAdapter.submitList(itemUrlImgList)
+                    itemImgAdapter.submitList(itemUrlImgList.toList())
+                    binding.tvImgCount.text = "${itemUrlImgList.size}/10"
                     itemImgAdapter.onItemClicked = {
                         itemUrlImgList.removeAt(it!!)
-                        itemImgAdapter.submitList(itemUrlImgList)
+                        binding.tvImgCount.text = "${itemUrlImgList.size}/10"
+                        itemImgAdapter.submitList(itemUrlImgList.toList())
                     }
                 }
                 else -> {

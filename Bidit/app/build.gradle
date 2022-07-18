@@ -159,6 +159,12 @@ dependencies {
     implementation 'com.amazonaws:aws-android-sdk-s3:2.13.5'
     implementation "com.android.support:support-annotations:28.0.0"
     implementation 'com.amazonaws:aws-android-sdk-mobile-client:2.13.5'
+
+    // https://github.com/ShawnLin013/NumberPicker
+    implementation 'io.github.ShawnLin013:number-picker:2.4.13'
+
+    // https://github.com/kizitonwose/CalendarView
+    implementation 'com.github.kizitonwose:CalendarView:1.0.4'
 }
 
 kapt {

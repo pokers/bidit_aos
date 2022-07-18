@@ -24,6 +24,11 @@
         android:name="com.alexk.bidit.presentation.ui.selling.SellingCategoryFragment"
         android:label="SellingCategoryFragment"
         tools:layout="@layout/fragment_selling_category">
+        <argument
+            android:name="get_category"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
         <action
             android:id="@+id/action_sellingCategoryFragment_to_sellingFragment"
             app:destination="@id/sellingFragment" />

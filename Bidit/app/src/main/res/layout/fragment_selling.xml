@@ -268,6 +268,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/activity_margin"
             android:src="@drawable/ic_text_delete"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/tv_bidding_ending_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_bidding_ending_date" />
@@ -305,6 +306,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/activity_margin"
+            android:visibility="invisible"
             android:src="@drawable/ic_text_delete"
             app:layout_constraintBottom_toBottomOf="@id/tv_bidding_ending_time"
             app:layout_constraintEnd_toEndOf="parent"

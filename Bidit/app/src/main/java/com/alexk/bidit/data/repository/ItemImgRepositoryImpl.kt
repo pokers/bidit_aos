@@ -12,7 +12,6 @@ class ItemImgRepositoryImpl @Inject constructor(private val apiService: S3Client
     ItemImgRepository {
 
     override suspend fun uploadImg(fileDirName: String, file: File): TransferObserver {
-
         val transferUtility = TransferUtility.builder().s3Client(apiService.provideS3Client())
             .context(GlobalApplication.applicationContext()).build()
         TransferNetworkLossHandler.getInstance(GlobalApplication.applicationContext())

@@ -10,5 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <com.kizitonwose.calendarview.CalendarView
+            android:id="@+id/cv_calender"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
