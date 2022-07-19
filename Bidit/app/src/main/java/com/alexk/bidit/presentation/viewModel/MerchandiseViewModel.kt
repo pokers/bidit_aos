@@ -10,6 +10,8 @@ import com.alexk.bidit.domain.repository.MerchandiseRepository
 import com.apollographql.apollo3.api.ApolloResponse
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.type.CursorType
+import com.alexk.bidit.type.ItemAddInput
+import com.alexk.bidit.type.ItemDescription
 import com.apollographql.apollo3.exception.ApolloHttpException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -29,6 +31,20 @@ class MerchandiseViewModel @Inject constructor(private val repository: Merchandi
 
     private val _itemStatus by lazy { MutableLiveData<ViewState<ApolloResponse<UpdateItemStatusMutation.Data>>>() }
     val itemStatus get() = _itemStatus
+
+    private val _addItemStatus by lazy { MutableLiveData<ViewState<ApolloResponse<AddItemInfoMutation.Data>>>() }
+    val addItemStatus get() = _addItemStatus
+
+    fun addItemInfo(inputItem: ItemAddInput, description: String, images: List<String>) =
+        viewModelScope.launch {
+            _addItemStatus.postValue(ViewState.Loading())
+            try {
+                val response = repository.addItemInfo(inputItem, description, images)
+                _addItemStatus.postValue(ViewState.Success(response))
+            } catch (e: ApolloHttpException) {
+                _addItemStatus.postValue(ViewState.Error("Error add item"))
+            }
+        }
 
     fun getItemInfo(id: Int) = viewModelScope.launch {
         _itemInfo.postValue(ViewState.Loading())

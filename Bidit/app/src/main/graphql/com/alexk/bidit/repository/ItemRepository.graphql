@@ -63,7 +63,9 @@ mutation addItemInfo($itemAdd:ItemAddInput, $description:String, $images:[String
         userId
         id
         name
+        title
+        description {
+            description
+        }
     }
 }
-
-

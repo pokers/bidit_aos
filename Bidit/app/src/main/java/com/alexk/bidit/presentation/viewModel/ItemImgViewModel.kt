@@ -39,7 +39,14 @@ class ItemImgViewModel @Inject constructor(private val repository: ItemImgReposi
         response.setTransferListener(object : TransferListener {
             override fun onStateChanged(id: Int, state: TransferState?) {
                 if (state == TransferState.COMPLETED) {
-                    _itemUrl.postValue(ViewState.Success(MerchandiseImgEntity((S3Client().provideS3Client().getResourceUrl(response.bucket, response.key)))))
+                    _itemUrl.postValue(
+                        ViewState.Success(
+                            MerchandiseImgEntity(
+                                (S3Client().provideS3Client()
+                                    .getResourceUrl(response.bucket, response.key))
+                            )
+                        )
+                    )
                 }
             }
 

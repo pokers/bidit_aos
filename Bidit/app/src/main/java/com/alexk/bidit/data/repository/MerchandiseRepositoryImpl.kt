@@ -4,6 +4,7 @@ import com.alexk.bidit.*
 import com.alexk.bidit.di.ApolloClient
 import com.alexk.bidit.domain.repository.MerchandiseRepository
 import com.alexk.bidit.type.CursorType
+import com.alexk.bidit.type.ItemAddInput
 import com.alexk.bidit.type.ItemQueryInput
 import com.alexk.bidit.type.ItemUpdateInput
 import com.apollographql.apollo3.api.ApolloResponse
@@ -67,6 +68,20 @@ class MerchandiseRepositoryImpl @Inject constructor(private val apiService: Apol
                 itemId = Optional.Present(itemId), itemStatus = Optional.Present(
                     ItemUpdateInput(status = Optional.Present(status))
                 )
+            )
+        ).execute()
+    }
+
+    override suspend fun addItemInfo(
+        inputItem: ItemAddInput,
+        description: String,
+        images: List<String>
+    ): ApolloResponse<AddItemInfoMutation.Data> {
+        return apiService.provideApolloClient().mutation(
+            AddItemInfoMutation(
+                itemAdd = Optional.Present(inputItem),
+                description = Optional.Present(description),
+                images = Optional.Present(images)
             )
         ).execute()
     }

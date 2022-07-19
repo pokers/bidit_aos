@@ -2,6 +2,7 @@ package com.alexk.bidit.domain.repository
 
 import com.alexk.bidit.*
 import com.alexk.bidit.type.CursorType
+import com.alexk.bidit.type.ItemAddInput
 import com.apollographql.apollo3.api.ApolloResponse
 
 interface MerchandiseRepository {
@@ -22,4 +23,6 @@ interface MerchandiseRepository {
         itemId: Int,
         status: Int
     ): ApolloResponse<UpdateItemStatusMutation.Data>
+
+    suspend fun addItemInfo(inputItem: ItemAddInput, description: String, images: List<String>):ApolloResponse<AddItemInfoMutation.Data>
 }
