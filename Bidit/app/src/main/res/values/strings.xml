@@ -197,4 +197,16 @@
         <item>50</item>
     </string-array>
 
+    <string-array name="category_sign_out_reason">
+        <item>기록 삭제 목적</item>
+        <item>이용이 불편하고 오류가 많아서</item>
+        <item>신뢰도가 떨어져서</item>
+        <item>찾는 상품이 없어서</item>
+        <item>사용자들이 불친절해서</item>
+        <item>타 플랫폼을 더 사용해서</item>
+        <item>콘텐츠 불만</item>
+        <item>사용빈도가 낮아서</item>
+        <item>기타</item>
+    </string-array>
+
 </resources>

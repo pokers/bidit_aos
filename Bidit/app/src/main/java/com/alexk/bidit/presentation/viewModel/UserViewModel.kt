@@ -4,10 +4,12 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alexk.bidit.DeleteUserInfoMutation
 import com.alexk.bidit.GetMyInfoQuery
 import com.alexk.bidit.UpdatePushTokenMutation
 import com.alexk.bidit.domain.repository.UserRepository
 import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.type.MembershipStatus
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.exception.ApolloHttpException
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,20 +21,42 @@ import javax.inject.Inject
 @HiltViewModel
 class UserViewModel @Inject constructor(private val repository: UserRepository) : ViewModel() {
 
-    private val _id by lazy { MutableLiveData<ViewState<ApolloResponse<GetMyInfoQuery.Data>>>() }
-    val id get() = _id
+    private val _myInfo by lazy { MutableLiveData<ViewState<ApolloResponse<GetMyInfoQuery.Data>>>() }
+    val myInfo get() = _myInfo
 
     private val _pushToken by lazy { MutableLiveData<ViewState<ApolloResponse<UpdatePushTokenMutation.Data>>>() }
     val pushToken get() = _pushToken
 
-    fun getMyInfo() = viewModelScope.launch {
-        _id.postValue(ViewState.Loading())
+    private val _userStatusInfo by lazy { MutableLiveData<ViewState<ApolloResponse<DeleteUserInfoMutation.Data>>>() }
+    val userStatusInfo get() = _userStatusInfo
+
+    fun updateUserState(status : Int) = viewModelScope.launch {
+        _userStatusInfo.postValue(ViewState.Loading())
         try {
-            val response = repository.checkToken()
-            _id.postValue(ViewState.Success(response))
+            when(status){
+                0 -> {
+                    val response = repository.updateUserStatus(MembershipStatus.VALID)
+                    _userStatusInfo.postValue(ViewState.Success(response))
+                }
+                1 ->{
+                    val response = repository.updateUserStatus(MembershipStatus.INVALID)
+                    _userStatusInfo.postValue(ViewState.Success(response))
+                }
+            }
+        }catch (e:ApolloHttpException){
+            Log.e("ApolloException", "Failure", e)
+            _myInfo.postValue(ViewState.Error("update user error"))
+        }
+    }
+
+    fun getMyInfo() = viewModelScope.launch {
+        _myInfo.postValue(ViewState.Loading())
+        try {
+            val response = repository.getMyInfo()
+            _myInfo.postValue(ViewState.Success(response))
         } catch (e: ApolloHttpException) {
             Log.e("ApolloException", "Failure", e)
-            _id.postValue(ViewState.Error("Error fetching id"))
+            _myInfo.postValue(ViewState.Error("Error fetching id"))
         }
     }
 

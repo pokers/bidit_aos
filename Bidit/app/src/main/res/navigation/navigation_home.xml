@@ -7,23 +7,27 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        tools:layout="@layout/fragment_home"
         android:name="com.alexk.bidit.presentation.ui.home.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_searchKeywordFragment"
             app:destination="@id/searchKeywordFragment" />
     </fragment>
     <fragment
         android:id="@+id/myTradeFragment"
-        tools:layout="@layout/fragment_my_trade"
         android:name="com.alexk.bidit.presentation.ui.myTrade.MyTradeFragment"
-        android:label="MyTradeFragment" />
+        android:label="MyTradeFragment"
+        tools:layout="@layout/fragment_my_trade" />
     <fragment
         android:id="@+id/myPageFragment"
-        tools:layout="@layout/fragment_my_page"
         android:name="com.alexk.bidit.presentation.ui.myPage.MyPageFragment"
-        android:label="MyPageFragment" />
+        android:label="MyPageFragment"
+        tools:layout="@layout/fragment_my_page">
+        <action
+            android:id="@+id/action_myPageFragment_to_myPageAccountInfoFragment"
+            app:destination="@id/myPageAccountInfoFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/searchKeywordFragment"
@@ -54,7 +58,13 @@
 
     <fragment
         android:id="@+id/chattingFragment"
-        tools:layout="@layout/fragment_my_page"
         android:name="com.alexk.bidit.presentation.ui.myPage.MyPageFragment"
-        android:label="ChattingFragment" />
+        android:label="ChattingFragment"
+        tools:layout="@layout/fragment_my_page" />
+    <fragment
+        android:id="@+id/myPageAccountInfoFragment"
+        android:name="com.alexk.bidit.presentation.ui.myPage.MyPageAccountInfoFragment"
+        android:label="MyPageAccountInfoFragment"
+        tools:layout="@layout/fragment_my_page_account_info">
+    </fragment>
 </navigation>

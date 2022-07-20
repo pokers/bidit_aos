@@ -33,6 +33,7 @@
         <activity android:name=".presentation.ui.bidding.BiddingActivity" />
         <activity android:name=".presentation.ui.selling.SellingActivity" />
         <activity android:name=".presentation.ui.home.alarm.HomeAlarmActivity" />
+        <activity android:name=".presentation.ui.myPage.MyPageBasicAccountActivity"/>
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">

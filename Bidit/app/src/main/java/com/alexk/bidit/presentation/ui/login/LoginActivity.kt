@@ -49,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
         binding.btnKakaoLogin.setOnClickListener {
             //카카오톡이 있으면 카카오톡으로
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
-                UserApiClient.instance.loginWithKakaoTalk(this, callback = callback)
+                UserApiClient.instance.loginWithKakaoTalk(this, callback = callback, serviceTerms = listOf("service"))
             }
             //아니면 인터넷으로
             else {
@@ -60,24 +60,47 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun observeToken() {
-        viewModel.id.observe(this) { response ->
+        viewModel.myInfo.observe(this) { response ->
             when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {
 
                 }
-                //토큰 받아오기 성공
+                //로그인 성공
                 is ViewState.Success -> {
                     GlobalApplication.id = response.value?.data?.me?.id!!
                     Log.d("login success", "Token: ${TokenManager(this).getToken()}")
                     viewModel.updatePushToken(TokenManager(this).getPushToken())
                     startActivity(Intent(this, HomeActivity::class.java))
                 }
-                //토큰 재발급?
+                //탈퇴는 어떻게?
                 is ViewState.Error -> {
                     //앱 실행 후, 토큰 재발급 시 오류 발생(메시지 추적해야함)
-                    Log.e("error", "get my info error")
-                    viewModel.getMyInfo()
+                    if(response.message == "invalid user"){
+                        viewModel.updateUserState(0)
+                    }
+                }
+            }
+        }
+        viewModel.userStatusInfo.observe(this){response ->
+            when (response) {
+                //서버 연결 대기중
+                is ViewState.Loading -> {
+
+                }
+                //로그인 성공
+                is ViewState.Success -> {
+                    GlobalApplication.id = response.value?.data?.updateMembership?.id!!
+                    Log.d("login success", "Token: ${TokenManager(this).getToken()}")
+                    viewModel.updatePushToken(TokenManager(this).getPushToken())
+                    startActivity(Intent(this, HomeActivity::class.java))
+                }
+                //탈퇴는 어떻게?
+                is ViewState.Error -> {
+                    //앱 실행 후, 토큰 재발급 시 오류 발생(메시지 추적해야함)
+                    if(response.message == "invalid user"){
+                        viewModel.updateUserState(0)
+                    }
                 }
             }
         }

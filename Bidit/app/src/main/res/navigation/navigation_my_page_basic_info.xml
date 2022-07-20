@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_my_page"
+    app:startDestination="@id/myPageAccountInfoFragment2">
+
+    <fragment
+        android:id="@+id/myPageAccountInfoFragment2"
+        android:name="com.alexk.bidit.presentation.ui.myPage.MyPageAccountInfoFragment"
+        android:label="MyPageAccountInfoFragment"
+        tools:layout="@layout/fragment_my_page_account_info">
+        <action
+            android:id="@+id/action_myPageAccountInfoFragment2_to_myPageSignOutFragment"
+            app:destination="@id/myPageSignOutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myPageSignOutFragment"
+        android:name="com.alexk.bidit.presentation.ui.myPage.MyPageSignOutFragment"
+        android:label="MyPageSignOutFragment"
+        tools:layout="@layout/fragment_my_page_sign_out">
+
+        <argument
+            android:name="id"
+            android:defaultValue="-1"
+            app:nullable="false"
+            app:argType="integer"/>
+        <action
+            android:id="@+id/action_myPageSignOutFragment_to_myPageSignOutCompleteFragment"
+            app:destination="@id/myPageSignOutCompleteFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/myPageSignOutCompleteFragment"
+        tools:layout="@layout/fragment_my_page_sign_out_complete"
+        android:name="com.alexk.bidit.presentation.ui.myPage.MyPageSignOutCompleteFragment"
+        android:label="MyPageSignOutCompleteFragment" />
+
+</navigation>

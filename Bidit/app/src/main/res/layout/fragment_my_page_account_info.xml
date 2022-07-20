@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="userBasicInfo"
+            type="com.alexk.bidit.domain.entity.user.UserBasicInfoEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,7 +67,7 @@
             android:layout_marginEnd="@dimen/activity_margin"
             android:fontFamily="@font/notosans_kr_regular"
             android:includeFontPadding="false"
-            android:text="gmail@gamil.com"
+            android:text="@{userBasicInfo.email}"
             android:textColor="@color/nobel"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_email_title"
@@ -104,7 +106,7 @@
             android:layout_marginEnd="@dimen/activity_margin"
             android:fontFamily="@font/notosans_kr_regular"
             android:includeFontPadding="false"
-            android:text="이름"
+            android:text="@{userBasicInfo.name}"
             android:textColor="@color/nobel"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_name_title"
@@ -143,7 +145,7 @@
             android:layout_marginEnd="@dimen/activity_margin"
             android:fontFamily="@font/notosans_kr_regular"
             android:includeFontPadding="false"
-            android:text="010-1111-1111"
+            android:text="@{userBasicInfo.phoneNum}"
             android:textColor="@color/nobel"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_phone_number_title"
@@ -179,7 +181,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/activity_margin"
-            android:src="@drawable/ic_my_page_login_kakao"
+            app:socialType="@{userBasicInfo.socialLogin}"
             app:layout_constraintBottom_toBottomOf="@id/tv_sns_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_sns_title" />

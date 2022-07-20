@@ -8,7 +8,9 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.alexk.bidit.GetBiddingInfoQuery
 import com.alexk.bidit.GetItemListQuery
+import com.alexk.bidit.R
 import com.alexk.bidit.common.util.addComma
+import com.alexk.bidit.type.JoinPath
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 import java.util.*
@@ -156,6 +158,25 @@ object CommonBindingAdapter {
     fun TextView.checkReservation(status: Int?) {
         if (status == 0) {
             this.visibility = View.VISIBLE
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("socialType")
+    fun ImageView.setSocialType(type: JoinPath?) {
+        when(type){
+            JoinPath.GOOGLE -> {
+                Log.d("Not Implements","Login")
+            }
+            JoinPath.KAKAO -> {
+                this.setImageResource(R.drawable.ic_my_page_login_kakao)
+            }
+            JoinPath.APPLE -> {
+                Log.d("Not Implements","Login")
+            }
+            else -> {
+                Log.d("Not Implements","Login")
+            }
         }
     }
 }

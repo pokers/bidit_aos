@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="userInfo"
+            type="com.alexk.bidit.GetMyInfoQuery.Data" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +20,8 @@
             android:layout_marginTop="65dp"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:imageUrl="@{userInfo.me.kakaoAccount.profile_image_url}"/>
 
         <LinearLayout
             android:id="@+id/ly_selling_bidding_count"
@@ -44,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosans_kr_bold"
                     android:includeFontPadding="false"
-                    android:text="300,000"
+                    android:text="11"
                     android:textColor="@color/charcoal"
                     android:textSize="16sp" />
 
@@ -81,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosans_kr_bold"
                     android:includeFontPadding="false"
-                    android:text="300,000"
+                    android:text="11"
                     android:textColor="@color/charcoal"
                     android:textSize="16sp" />
 
@@ -105,7 +108,7 @@
             android:layout_marginTop="12dp"
             android:fontFamily="@font/notosans_kr_bold"
             android:includeFontPadding="false"
-            android:text="닉네임"
+            android:text="@{userInfo.me.kakaoAccount.profile_image_url}"
             android:textColor="@color/charcoal"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/iv_profile_img"
@@ -350,7 +353,6 @@
             android:includeFontPadding="false"
             android:text="알림 설정"
             android:textColor="@color/charcoal"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/div_personal_info_manual" />
 

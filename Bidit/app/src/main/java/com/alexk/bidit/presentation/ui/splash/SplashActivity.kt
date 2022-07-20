@@ -46,7 +46,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun observeToken() {
-        viewModel.id.observe(this) { response ->
+        viewModel.myInfo.observe(this) { response ->
             when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {

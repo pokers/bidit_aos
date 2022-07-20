@@ -353,6 +353,11 @@ type PushToken {
     updatedAt: String
 }
 
+enum MembershipStatus{
+    VALID,
+    INVALID
+}
+
 type User {
     id: Int!
     status: Int!    # 0=VALID, 1=INVALID
@@ -414,6 +419,7 @@ type Mutation {
     updateItem(itemId:Int, itemUpdate:ItemUpdateInput, description:String):Item
     updateItemImage(itemId:Int, itemImageUpdate:ItemImageUpdateInput):Item
     bid(bid:BidInput):Bidding
+    updateMembership(status:MembershipStatus):User
 }
 
 input userUpdateInput{

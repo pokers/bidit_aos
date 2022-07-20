@@ -16,6 +16,17 @@ query getMyInfo{
         id
         nickname
         joinPath
+        email
+        kakaoAccount {
+            name
+            email
+            phone_number
+            nickname
+            profile_image_url
+        }
+        items {
+            totalCount
+        }
     }
 }
 
@@ -27,4 +38,11 @@ mutation postMyInfo{
 
 mutation updatePushToken($pushTokenUpdate : pushTokenUpdateInput){
     updatePushToken(pushTokenUpdate: $pushTokenUpdate)
+}
+
+mutation deleteUserInfo($status:MembershipStatus){
+    updateMembership(status: $status){
+        id
+        status
+    }
 }

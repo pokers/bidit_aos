@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.res.ResourcesCompat
@@ -190,7 +191,8 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                     editPostTitle.text.toString() == "" ||
                     editBiddingImmediatePrice.text.toString() == "" ||
                     tvBiddingEndingDate.text == "" ||
-                    tvBiddingEndingTime.text == ""
+                    tvBiddingEndingTime.text == "" ||
+                    editPostContent.text.toString().length < 10
                 ) {
                     val dialog =
                         SellingEssentialRequiredItemDialog(requireContext())
@@ -200,11 +202,10 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                         WindowManager.LayoutParams.MATCH_PARENT,
                         WindowManager.LayoutParams.WRAP_CONTENT
                     )
-                }
-                else{
+                } else {
                     val imgList = mutableListOf<String>()
 
-                    for(dataIdx in itemUrlImgList.indices){
+                    for (dataIdx in itemUrlImgList.indices) {
                         imgList.add(itemUrlImgList[dataIdx].imgUrl!!)
                     }
 
@@ -263,6 +264,8 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                 }
                 is ViewState.Success -> {
                     Log.d("Add item", "Success")
+                    Toast.makeText(requireContext(), "성공", Toast.LENGTH_LONG).show()
+                    activity?.finish()
                 }
                 else -> {
                     Log.d("Add item", "Error")

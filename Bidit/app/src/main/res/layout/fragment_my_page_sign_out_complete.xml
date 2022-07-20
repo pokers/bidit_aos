@@ -65,6 +65,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_delete_complete" />
 
         <android.widget.Button
+            android:id="@+id/btn_back_to_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/activity_margin"

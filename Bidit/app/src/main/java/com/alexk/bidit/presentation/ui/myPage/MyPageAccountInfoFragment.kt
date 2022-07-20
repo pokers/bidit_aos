@@ -1,45 +1,52 @@
 package com.alexk.bidit.presentation.ui.myPage
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import com.alexk.bidit.R
-import com.alexk.bidit.databinding.FragmentMyPageBinding
+import com.alexk.bidit.databinding.FragmentMyPageAccountInfoBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.domain.entity.user.UserBasicInfoEntity
 import com.alexk.bidit.presentation.base.BaseFragment
+import com.alexk.bidit.presentation.ui.selling.SellingCategoryFragmentArgs
 import com.alexk.bidit.presentation.viewModel.UserViewModel
+import com.alexk.bidit.type.JoinPath
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
-class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
+class MyPageAccountInfoFragment :
+    BaseFragment<FragmentMyPageAccountInfoBinding>(R.layout.fragment_my_page_account_info) {
 
-    private val userViewModel by viewModels<UserViewModel>()
-    private lateinit var userBasicInfo: UserBasicInfoEntity
+    private val userViewModel: UserViewModel by viewModels()
+    private var userId = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeUserInfo()
         init()
         initEvent()
     }
 
     override fun init() {
-        userViewModel.getMyInfo()
-        binding.apply {
-
-        }
+        observeUserInfo()
     }
 
     override fun initEvent() {
         binding.apply {
-            tvAccountInfo.setOnClickListener {
-                val intent = Intent(context, MyPageBasicAccountActivity::class.java)
-                startActivity(intent)
+            tvSignOut.setOnClickListener {
+                navigate(
+                    MyPageAccountInfoFragmentDirections.actionMyPageAccountInfoFragment2ToMyPageSignOutFragment(
+                        userId
+                    )
+                )
+            }
+            ivBack.setOnClickListener {
+
             }
         }
     }
@@ -52,8 +59,14 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
                 }
                 is ViewState.Success -> {
                     Log.d("My Page -> UserInfo", "Success")
-                    val result = response.value?.data
-                    binding.userInfo = result
+                    val result = response.value?.data?.me
+                    userId = result?.id!!
+                    binding.userBasicInfo = UserBasicInfoEntity(
+                        result.kakaoAccount?.email!!,
+                        result.kakaoAccount.name!!,
+                        result.kakaoAccount.phone_number!!,
+                        result.joinPath!!
+                    )
                 }
                 is ViewState.Error -> {
                     Log.d("My Page -> UserInfo", "Error")
@@ -61,4 +74,5 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             }
         }
     }
+
 }
