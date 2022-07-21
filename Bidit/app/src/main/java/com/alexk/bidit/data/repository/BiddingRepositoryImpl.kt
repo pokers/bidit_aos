@@ -1,5 +1,6 @@
 package com.alexk.bidit.data.repository
 
+import com.alexk.bidit.CancelBidMutation
 import com.alexk.bidit.DoBidMutation
 import com.alexk.bidit.GetBiddingInfoQuery
 import com.alexk.bidit.di.ApolloClient
@@ -22,11 +23,15 @@ class BiddingRepositoryImpl @Inject constructor(private val apiService: ApolloCl
         ).execute()
     }
 
-    override suspend fun doBid(itemId: Int, bidPrice: Int): ApolloResponse<DoBidMutation.Data> {
+    override suspend fun controlBid(
+        itemId: Int,
+        bidPrice: Int,
+        status: Int
+    ): ApolloResponse<DoBidMutation.Data> {
         return apiService.provideApolloClient().mutation(
             DoBidMutation(
                 bidInfo = Optional.Present(
-                    BidInput(itemId = itemId, price = bidPrice)
+                    BidInput(status = Optional.Present(status), itemId = itemId, price = bidPrice)
                 )
             )
         ).execute()

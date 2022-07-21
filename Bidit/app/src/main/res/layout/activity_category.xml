@@ -19,6 +19,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+
             <ImageButton
                 android:id="@+id/btn_back"
                 android:layout_width="wrap_content"
@@ -45,6 +46,39 @@
                 app:layout_constraintTop_toTopOf="@id/btn_back" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ly_no_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="gone"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ly_sort">
+
+            <ImageView
+                android:id="@+id/iv_no_keyword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_bidding_complete" />
+
+            <TextView
+                android:id="@+id/tv_no_keyword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/notosans_kr_regular"
+                android:includeFontPadding="false"
+                android:text="@string/content_merchandise_no_list"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ly_sort"

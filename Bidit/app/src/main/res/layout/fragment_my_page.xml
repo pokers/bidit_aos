@@ -29,8 +29,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/button"
-            app:layout_constraintStart_toStartOf="@+id/button"
+            app:layout_constraintEnd_toEndOf="@+id/btn_edit_profile"
+            app:layout_constraintStart_toStartOf="@+id/btn_edit_profile"
             app:layout_constraintTop_toTopOf="@id/iv_profile_img">
 
             <LinearLayout
@@ -117,7 +117,7 @@
 
 
         <android.widget.Button
-            android:id="@+id/button"
+            android:id="@+id/btn_edit_profile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="34dp"
@@ -351,7 +351,7 @@
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/notosans_kr_medium"
             android:includeFontPadding="false"
-            android:text="알림 설정"
+            android:text="서비스 이용약관"
             android:textColor="@color/charcoal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/div_personal_info_manual" />

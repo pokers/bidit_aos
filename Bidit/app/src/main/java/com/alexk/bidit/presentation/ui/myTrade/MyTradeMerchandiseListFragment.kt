@@ -104,7 +104,6 @@ class MyTradeMerchandiseListFragment :
                     } else {
                         Log.d("Empty My List", "Empty GET my item list")
                         merchandiseListAdapter.submitList(emptyList())
-                        binding.lyNoList.visibility = View.VISIBLE
                     }
                 }
                 is ViewState.Error -> {

@@ -57,7 +57,7 @@ class SplashActivity : AppCompatActivity() {
                     Log.d("login success", "Token: ${TokenManager(this).getToken()}")
                     //내 id 기억하기
                     GlobalApplication.id = response.value?.data?.me?.id!!
-                    viewModel.updatePushToken(TokenManager(this).getPushToken())
+                    viewModel.updatePushToken(0, TokenManager(this).getPushToken())
                 }
                 //서버 연결 실패(만료) -> 재발급 요청
                 is ViewState.Error -> {

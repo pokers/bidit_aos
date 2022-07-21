@@ -19,7 +19,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
 
     private val userViewModel by viewModels<UserViewModel>()
-    private lateinit var userBasicInfo: UserBasicInfoEntity
+    private var imgUrl = ""
+    private var nickname = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,6 +42,23 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
                 val intent = Intent(context, MyPageBasicAccountActivity::class.java)
                 startActivity(intent)
             }
+            tvSettingAlarm.setOnClickListener {
+                val intent = Intent(context, MyPageAlarmActivity::class.java)
+                startActivity(intent)
+            }
+            tvPersonalInfoManual.setOnClickListener {
+                startActivity(Intent(context,MyPagePersonalInfoManualActivity::class.java))
+            }
+            tvServiceManual.setOnClickListener {
+                startActivity(Intent(context,MyPageServiceInfoActivity::class.java))
+            }
+            btnEditProfile.setOnClickListener {
+                val intent = Intent(context,MyPageProfileActivity::class.java)
+                //Profile, NickName
+                intent.putExtra("profile",imgUrl)
+                intent.putExtra("nickname",nickname)
+                startActivity(intent)
+            }
         }
     }
 
@@ -52,8 +70,15 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
                 }
                 is ViewState.Success -> {
                     Log.d("My Page -> UserInfo", "Success")
-                    val result = response.value?.data
-                    binding.userInfo = result
+//                    val result = response.value?.data
+//                    if(result?.me?.kakaoAccount == null){
+//                        Log.d("My Page -> KakaoInfo", "No info")
+//                    }
+//                    else{
+//                        nickname = result.me.kakaoAccount.nickname!!
+//                        imgUrl = result.me.kakaoAccount.profile_image_url!!
+//                        binding.userInfo = result
+//                    }
                 }
                 is ViewState.Error -> {
                     Log.d("My Page -> UserInfo", "Error")

@@ -11,17 +11,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/activity_margin"
         android:layout_marginEnd="@dimen/activity_margin"
+        android:layout_marginBottom="@dimen/activity_margin"
         android:background="@color/white">
 
         <TextView
-            android:id="@+id/tv_bid_cancel_title"
-            android:layout_width="0dp"
+            android:id="@+id/tv_bidding_delete_warning_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/notosans_kr_medium"
             android:includeFontPadding="false"
-            android:text="@string/title_bid_cancel"
-            android:gravity="center"
+            android:text="탈퇴한 회원입니다."
             android:textColor="@color/charcoal"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,63 +29,42 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_bid_cancel_content"
-            android:layout_width="0dp"
+            android:id="@+id/tv_bidding_delete_warning_content"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/notosans_kr_medium"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="@string/content_bid_cancel_warning"
+            android:text="비딧은 탈퇴 후 6개월 동안 재가입이 불가능합니다.\n불편을 드려 죄송합니다."
             android:textColor="@color/nobel"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_bid_cancel_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_bidding_delete_warning_title" />
 
         <android.widget.Button
-            android:id="@+id/btn_bid_cancel"
-            android:layout_width="0dp"
+            android:id="@+id/btn_confirm"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="26dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/bg_rect_transparent_red_orange_radius4_stroke0"
+            android:background="@drawable/bg_rect_transparent_persian_blue_radius4_stroke0"
             android:fontFamily="@font/notosans_kr_medium"
             android:includeFontPadding="false"
             android:minHeight="0dp"
             android:paddingTop="10dp"
             android:paddingBottom="9dp"
             android:stateListAnimator="@null"
-            android:text="@string/content_bid_cancel_do"
+            android:text="@string/content_okay"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_bid_cancel_content" />
-
-        <android.widget.Button
-            android:id="@+id/btn_previous_display"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="15dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/bg_rect_transparent_white_smoke_radius4_stroke0"
-            android:fontFamily="@font/notosans_kr_medium"
-            android:includeFontPadding="false"
-            android:minHeight="0dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="9dp"
-            android:stateListAnimator="@null"
-            android:text="@string/content_return_previous_display"
-            android:textColor="@color/nobel"
-            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_bid_cancel" />
+            app:layout_constraintTop_toBottomOf="@id/tv_bidding_delete_warning_content" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

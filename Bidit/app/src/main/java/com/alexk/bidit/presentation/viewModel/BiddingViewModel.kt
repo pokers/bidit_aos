@@ -35,10 +35,10 @@ class BiddingViewModel @Inject constructor(private val repository: BiddingReposi
         }
     }
 
-    fun doBid(itemId :Int, bidPrice:Int) = viewModelScope.launch {
+    fun controlBid(itemId :Int, bidPrice:Int, status:Int) = viewModelScope.launch {
         _bidCompleteInfo.postValue(ViewState.Loading())
         try {
-            val response = repository.doBid(itemId,bidPrice)
+            val response = repository.controlBid(itemId,bidPrice,status)
             _bidCompleteInfo.postValue(ViewState.Success(response))
         } catch (e: ApolloHttpException) {
             Log.e("ApolloException", "Failure", e)

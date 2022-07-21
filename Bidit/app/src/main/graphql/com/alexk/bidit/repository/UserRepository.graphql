@@ -17,6 +17,9 @@ query getMyInfo{
         nickname
         joinPath
         email
+        pushToken {
+            status
+        }
         kakaoAccount {
             name
             email

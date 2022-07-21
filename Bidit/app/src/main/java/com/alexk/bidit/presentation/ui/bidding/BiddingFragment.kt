@@ -6,7 +6,6 @@ import android.view.View
 import android.view.WindowManager
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.alexk.bidit.GetBiddingInfoQuery
 import com.alexk.bidit.GetItemInfoQuery
 import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.R
@@ -16,10 +15,7 @@ import com.alexk.bidit.common.util.ErrorOwnItemBidding
 import com.alexk.bidit.databinding.FragmentBiddingBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
-import com.alexk.bidit.presentation.ui.bidding.dialog.BiddingBidDialog
-import com.alexk.bidit.presentation.ui.bidding.dialog.BiddingBidImmediatePurchaseDialog
-import com.alexk.bidit.presentation.ui.bidding.dialog.BiddingBoardMoreInfoDialog
-import com.alexk.bidit.presentation.ui.bidding.dialog.BiddingBoardStatusDialog
+import com.alexk.bidit.presentation.ui.bidding.dialog.*
 import com.alexk.bidit.presentation.viewModel.BiddingViewModel
 import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -85,7 +81,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                 val biddingFragment = BiddingBidDialog {
                     //고차 함수로 입력한 입찰가 받아옴
                     bidPrice = it
-                    bidViewModel.doBid(itemId!!, bidPrice)
+                    bidViewModel.controlBid(itemId!!, bidPrice,0)
                 }
 
                 //bidding price
@@ -237,7 +233,13 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                             )
                         )
                     } else {
-                        //내가 더 많은 가격을 bid함
+                        val dialog = BiddingBidAlreadyTopBidDialog(requireContext())
+                        dialog.setCanceledOnTouchOutside(true)
+                        dialog.show()
+                        dialog.window?.setLayout(
+                            WindowManager.LayoutParams.MATCH_PARENT,
+                            WindowManager.LayoutParams.WRAP_CONTENT
+                        )
                     }
                 }
                 is ViewState.Error -> {

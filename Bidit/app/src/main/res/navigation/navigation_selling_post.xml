@@ -12,8 +12,8 @@
         tools:layout="@layout/fragment_selling">
         <argument
             android:name="category"
-            android:defaultValue=""
-            app:argType="string"
+            android:defaultValue="-1"
+            app:argType="integer"
             app:nullable="false" />
         <action
             android:id="@+id/action_sellingFragment_to_sellingCategoryFragment"

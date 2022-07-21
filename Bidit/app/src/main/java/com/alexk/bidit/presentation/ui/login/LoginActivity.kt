@@ -70,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
                 is ViewState.Success -> {
                     GlobalApplication.id = response.value?.data?.me?.id!!
                     Log.d("login success", "Token: ${TokenManager(this).getToken()}")
-                    viewModel.updatePushToken(TokenManager(this).getPushToken())
+                    viewModel.updatePushToken(0, TokenManager(this).getPushToken())
                     startActivity(Intent(this, HomeActivity::class.java))
                 }
                 //탈퇴는 어떻게?
@@ -92,7 +92,7 @@ class LoginActivity : AppCompatActivity() {
                 is ViewState.Success -> {
                     GlobalApplication.id = response.value?.data?.updateMembership?.id!!
                     Log.d("login success", "Token: ${TokenManager(this).getToken()}")
-                    viewModel.updatePushToken(TokenManager(this).getPushToken())
+                    viewModel.updatePushToken(0, TokenManager(this).getPushToken())
                     startActivity(Intent(this, HomeActivity::class.java))
                 }
                 //탈퇴는 어떻게?

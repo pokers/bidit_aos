@@ -28,7 +28,6 @@ import com.alexk.bidit.presentation.ui.selling.dialog.SellingTimePickerDialog
 import com.alexk.bidit.presentation.viewModel.ItemImgViewModel
 import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
 import com.alexk.bidit.type.ItemAddInput
-import com.alexk.bidit.type.ItemDetailInput
 import com.apollographql.apollo3.api.Optional
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -48,8 +47,11 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
     private val itemUrlImgList = mutableListOf<MerchandiseImgEntity>()
     private val itemImgAdapter by lazy { SellingItemImgListAdapter() }
     private val itemTimeIdx = SellingTimeEntity(0, 6, 3)
-    private val itemCalendarIdx = SellingCalendarEntity(0, 7, 3)
+    private val itemDateIdx = SellingCalendarEntity(0, 7, 3)
     private val args: SellingFragmentArgs by navArgs()
+    private val categoryList by lazy { resources.getStringArray(R.array.category_home_item) }
+    private var categoryId = -1;
+    private var calcHour = 0;
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -83,11 +85,12 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
             }
 
         binding.apply {
-            if (args.category == "") {
+            if (args.category == -1) {
                 tvCategory.text = "카테고리"
             } else {
                 tvCategory.setTextColor(ResourcesCompat.getColor(resources, R.color.nero, null))
-                tvCategory.text = args.category
+                categoryId = args.category
+                tvCategory.text = categoryList[categoryId]
             }
             rvMerchandiseImgList.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -98,7 +101,7 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
     override fun initEvent() {
         binding.apply {
             tvBiddingEndingDate.setOnClickListener {
-                val sellingDateDialog = SellingCalendarDialog(itemCalendarIdx) {
+                val sellingDateDialog = SellingCalendarDialog(itemDateIdx) {
                     val getDate =
                         "${resources.getStringArray(R.array.category_number_picker_year)[it.yearIdx]}년 ${
                             resources.getStringArray(R.array.category_number_picker_zero_to_twelve)[it.monthIdx]
@@ -111,8 +114,8 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                             null
                         )
                     )
+                    ivBiddingEndingDateDelete.visibility = View.VISIBLE
                 }
-                ivBiddingEndingDateDelete.visibility = View.VISIBLE
                 sellingDateDialog.show(childFragmentManager, sellingDateDialog.tag)
             }
 
@@ -209,15 +212,25 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                         imgList.add(itemUrlImgList[dataIdx].imgUrl!!)
                     }
 
-                    //수정 필요
+                    calcHour = if(itemTimeIdx.dateIdx == 1){
+                        resources.getStringArray(R.array.category_number_picker_one_to_twelve)[itemTimeIdx.hourIdx].toInt() + 12
+                    }else{
+                        resources.getStringArray(R.array.category_number_picker_one_to_twelve)[itemTimeIdx.hourIdx].toInt()
+                    }
+
+                    //로직 확인
                     merchandiseViewModel.addItemInfo(
                         ItemAddInput(
-                            categoryId = 1,
-                            sPrice = 2,
-                            buyNow = Optional.Present(3000),
-                            title = "123",
-                            name = "123",
-                            dueDate = "2022-07-26T23:58:00.000Z",
+                            categoryId = categoryId,
+                            sPrice = editBiddingStartPrice.text.toString().replace(",", "").toInt(),
+                            buyNow = Optional.Present(
+                                editBiddingImmediatePrice.text.toString().replace(",", "").toInt()
+                            ),
+                            title = tvTitle.text.toString(),
+                            name = "Name testing",
+                            dueDate = resources.getStringArray(R.array.category_number_picker_year)[itemDateIdx.yearIdx] +
+                                    "-${resources.getStringArray(R.array.category_number_picker_one_to_twelve)[itemDateIdx.monthIdx]}-" +
+                                    "${resources.getStringArray(R.array.category_number_picker_one_to_thirty_one)[itemDateIdx.dayIdx]}T${calcHour}:${resources.getStringArray(R.array.category_number_zero_to_fifty_10)[itemTimeIdx.minuteIdx]}:00.000Z",
                             deliveryType = 1,
                             sCondition = 1,
                             aCondition = 1,
@@ -264,8 +277,13 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                 }
                 is ViewState.Success -> {
                     Log.d("Add item", "Success")
-                    Toast.makeText(requireContext(), "성공", Toast.LENGTH_LONG).show()
-                    activity?.finish()
+                    if(response.value?.data?.addItem == null){
+                        Log.d("Add item", "Error")
+                    }
+                    else{
+                        Toast.makeText(requireContext(), "상품이 정상적으로 등록됐습니다.", Toast.LENGTH_LONG).show()
+                        activity?.finish()
+                    }
                 }
                 else -> {
                     Log.d("Add item", "Error")

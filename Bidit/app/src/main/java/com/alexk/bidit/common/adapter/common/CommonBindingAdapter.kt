@@ -134,11 +134,11 @@ object CommonBindingAdapter {
     fun TextView.changeStatusType(status: Int?) {
         //텍스트 날짜 형식으로 변환 필요
         val statusText: String = when (status) {
-            1 -> {
-                "판매중"
-            }
             0 -> {
                 "예약중"
+            }
+            1 -> {
+                "판매중"
             }
             2 -> {
                 "판매완료"

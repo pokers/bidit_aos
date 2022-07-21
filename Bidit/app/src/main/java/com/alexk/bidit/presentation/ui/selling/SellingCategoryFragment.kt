@@ -69,7 +69,7 @@ class SellingCategoryFragment() :
             ivBack.setOnClickListener {
                 navigate(
                     SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                        ""
+                        -1
                     )
                 )
             }
@@ -77,84 +77,84 @@ class SellingCategoryFragment() :
             tvIphone.setOnClickListener {
                 navigate(
                     SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                        "아이폰"
+                        0
                     )
                 )
             }
             tvGalaxy.setOnClickListener {
                 navigate(
                     SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                        "갤럭시"
+                        1
                     )
                 )
             }
             tvAnotherPhone.setOnClickListener {
                 navigate(
                     SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                        "기타폰"
+                        2
                     )
                 )
             }
             tvSmartWatch.setOnClickListener {
                 navigate(
                     SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                        "스마트워치"
+                        3
                     )
                 )
             }
             tvNotebook.setOnClickListener {
                 navigate(
                     SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                        "노트북/PC"
+                        4
                     )
                 )
 
                 tvTablet.setOnClickListener {
                     navigate(
                         SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            "태블릿"
+                            5
                         )
                     )
                 }
                 tvMonitor.setOnClickListener {
                     navigate(
                         SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            "티비/모니터"
+                            6
                         )
                     )
                 }
                 tvGame.setOnClickListener {
                     navigate(
                         SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            "게임"
+                            7
                         )
                     )
                 }
                 tvAudio.setOnClickListener {
                     navigate(
                         SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            "음향기기"
+                            8
                         )
                     )
                 }
                 tvCamera.setOnClickListener {
                     navigate(
                         SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            "카메라"
+                            9
                         )
                     )
                 }
                 tvDrone.setOnClickListener {
                     navigate(
                         SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            "드론"
+                            10
                         )
                     )
                 }
                 tvAnother.setOnClickListener {
                     navigate(
                         SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            "기타"
+                            11
                         )
                     )
                 }

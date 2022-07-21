@@ -23,6 +23,12 @@ query getItemInfo($getItemId : Int!){
         image {
             url
         }
+        user {
+            kakaoAccount {
+                nickname
+                profile_image_url
+            }
+        }
     }
 }
 
@@ -60,12 +66,30 @@ mutation updateItemStatus($itemId : Int, $itemStatus:ItemUpdateInput, $descrptio
 
 mutation addItemInfo($itemAdd:ItemAddInput, $description:String, $images:[String]){
     addItem(itemAdd : $itemAdd, description : $description, images:$images){
-        userId
         id
+        status
+        userId
+        sPrice
+        cPrice
+        buyNow
+        viewCount
         name
         title
+        dueDate
+        deliveryType
+        sCondition
+        aCondition
+        createdAt
+        updatedAt
+        deletedAt
         description {
             description
+        }
+        image {
+            url
+        }
+        category {
+            id
         }
     }
 }

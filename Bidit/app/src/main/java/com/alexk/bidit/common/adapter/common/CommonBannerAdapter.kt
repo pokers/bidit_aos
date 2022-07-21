@@ -7,12 +7,12 @@ import com.alexk.bidit.presentation.ui.home.HomeBannerFragment
 import com.alexk.bidit.presentation.ui.home.HomeCategoryFragment
 
 class CommonBannerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
-    override fun getItemCount() = 3
+    override fun getItemCount() = 2
 
     override fun createFragment(position: Int): Fragment {
         val fragment = HomeBannerFragment()
         fragment.arguments = Bundle().apply {
-            this.putInt("bannerPosition", position % 3)
+            this.putInt("bannerPosition", position % 2)
         }
         return fragment
     }

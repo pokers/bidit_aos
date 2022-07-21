@@ -34,3 +34,11 @@ mutation doBid($bidInfo:BidInput){
         }
     }
 }
+
+mutation cancelBid($bidInfo:BidInput){
+    bid(bid:$bidInfo){
+        item {
+            status
+        }
+    }
+}

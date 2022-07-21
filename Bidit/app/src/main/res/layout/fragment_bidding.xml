@@ -10,7 +10,7 @@
 
         <variable
             name="bidSellingUserInfo"
-            type="com.alexk.bidit.GetBiddingInfoQuery.User" />
+            type="com.alexk.bidit.GetItemInfoQuery.KakaoAccount" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -233,7 +233,7 @@
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_oval_transparent_sliver_stroke0_radius0"
-                app:imageUrl="@{bidSellingUserInfo.kakaoAccount.profile_image_url}"
+                app:imageUrl="@{bidSellingUserInfo.profile_image_url}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_merchandise_name" />
 

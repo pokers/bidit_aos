@@ -22,7 +22,7 @@ class SellingCalendarDialog(
 
     private lateinit var binding: DialogSellingCalendarBinding
     private val yearList by lazy { resources.getStringArray(R.array.category_number_picker_year) }
-    private val monthList by lazy { resources.getStringArray(R.array.category_number_picker_zero_to_twelve) }
+    private val monthList by lazy { resources.getStringArray(R.array.category_number_picker_one_to_twelve) }
     private val dayList by lazy { resources.getStringArray(R.array.category_number_picker_one_to_thirty_one) }
 
     override fun onCreateView(
@@ -90,7 +90,7 @@ class SellingCalendarDialog(
             btnOkay.setOnClickListener {
                 val dateInfo = SellingCalendarEntity(
                     npYear.value,
-                    npMonth.value,
+                    npMonth.value+1,
                     npDay.value
                 )
                 sendEvent(dateInfo)

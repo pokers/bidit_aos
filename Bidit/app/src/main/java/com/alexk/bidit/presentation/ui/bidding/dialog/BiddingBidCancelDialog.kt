@@ -1,34 +1,53 @@
 package com.alexk.bidit.presentation.ui.bidding.dialog
+
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.DialogBiddingCancelBinding
+import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.presentation.viewModel.BiddingViewModel
+import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 //취소
-class BiddingBidCancelDialog(context: Context, val bidId : Int) : Dialog(context) {
+@AndroidEntryPoint
+@ExperimentalCoroutinesApi
+class BiddingBidCancelDialog(private val bidId: Int, val price: Int, private val event: (Unit) -> Unit) :
+    DialogFragment(R.layout.dialog_bidding_cancel) {
 
     private lateinit var binding: DialogBiddingCancelBinding
+    private val biddingViewModel by viewModels<BiddingViewModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = DataBindingUtil.inflate(
-            LayoutInflater.from(context),
+            inflater,
             R.layout.dialog_bidding_cancel,
-            null,
+            container,
             false
         )
-        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        setContentView(binding.root)
         init()
         initEvent()
+        return binding.root
     }
 
     private fun init() {
+        observeDeleteStatus()
         binding.apply {
 
         }
@@ -37,10 +56,27 @@ class BiddingBidCancelDialog(context: Context, val bidId : Int) : Dialog(context
     private fun initEvent() {
         binding.apply {
             btnBidCancel.setOnClickListener {
-                dismiss()
+                biddingViewModel.controlBid(bidId,price,1)
             }
             btnPreviousDisplay.setOnClickListener {
-                //chatting activity
+                dismiss()
+            }
+        }
+    }
+
+    private fun observeDeleteStatus() {
+        biddingViewModel.biddingInfo.observe(viewLifecycleOwner){response ->
+            when(response){
+                is ViewState.Loading -> {
+                    Log.d("Loading","Cancel bid")
+                }
+                is ViewState.Success -> {
+                    Log.d("Success","Cancel bid")
+                    event
+                }
+                is ViewState.Error -> {
+                    Log.d("Error","Cancel bid")
+                }
             }
         }
     }

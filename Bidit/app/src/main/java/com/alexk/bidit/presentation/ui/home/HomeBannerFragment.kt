@@ -12,9 +12,8 @@ import com.alexk.bidit.databinding.FragmentCommonMerchandiseListBinding
 class HomeBannerFragment : Fragment() {
 
     private val tempBannerList = listOf(
-        R.drawable.ic_launcher_background,
-        R.drawable.ic_launcher_background,
-        R.drawable.ic_launcher_background,
+        R.drawable.bg_temp_banner1,
+        R.drawable.bg_temp_banner_2,
     )
 
     private lateinit var binding: FragmentCommonBannerBinding

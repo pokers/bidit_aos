@@ -151,6 +151,7 @@
             android:src="@drawable/ic_home_floating_btn"
             android:stateListAnimator="@null"
             app:elevation="0dp"
+            app:borderWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:tint="@color/white" />
