@@ -26,12 +26,12 @@ class TokenManager(context: Context) {
     }
 
     fun getToken(): String {
-        Log.d("token",prefs.getString(TOKEN,"").toString())
+        Log.d("Get token",prefs.getString(TOKEN,"").toString())
         return prefs.getString(TOKEN, "").toString()
     }
 
     fun setToken(value: String) {
-        Log.d("token",value)
+        Log.d("Set token",value)
         prefs.edit().putString(TOKEN, value).apply()
     }
 
@@ -40,12 +40,12 @@ class TokenManager(context: Context) {
     }
 
     fun getPushToken(): String {
-        Log.d("pushToken",prefs.getString(PUSH_TOKEN,"").toString())
+        Log.d("Get pushToken",prefs.getString(PUSH_TOKEN,"").toString())
         return prefs.getString(PUSH_TOKEN, "").toString()
     }
 
     fun setPushToken(value: String) {
-        Log.d("pushToken",value)
+        Log.d("Set pushToken",value)
         prefs.edit().putString(PUSH_TOKEN, value).apply()
     }
 

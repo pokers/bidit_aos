@@ -54,6 +54,8 @@ android {
 
         resValue "string", "S3_ACCESS_KEY", properties['s3_access_key']
         resValue "string", "S3_SECRET_KEY", properties['s3_secret_key']
+
+        resValue "string", "FIRE_BASE_ID", properties['firebase_id']
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

@@ -6,10 +6,6 @@ import android.view.View
 import com.alexk.bidit.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-fun Int.dpToPx(context: Context): Int {
-    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), context.resources.displayMetrics).toInt()
-}
-
 fun addComma(number: Int): String = if (number >= 0) {
     "%,d".format(number)
 } else {

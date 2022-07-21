@@ -48,7 +48,6 @@ class HomeCategoryFragment :
             rvMerchandiseList.adapter = merchandiseAdapter
             rvMerchandiseList.addItemDecoration(GridRecyclerViewDeco(12, 12, 0, 37))
         }
-        viewModel.getSortTypeItemList(sortType!!)
         observeMerchandiseList()
     }
 
@@ -85,6 +84,11 @@ class HomeCategoryFragment :
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getSortTypeItemList(sortType!!)
     }
 
     override fun onDestroyView() {

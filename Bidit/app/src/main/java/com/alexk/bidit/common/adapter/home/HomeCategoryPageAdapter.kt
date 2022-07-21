@@ -15,27 +15,12 @@ class HomeCategoryPageAdapter(
 
     override fun createFragment(position: Int): Fragment {
         //프로모션이나 다른 UI가 나온다면 수정해주세요.
-        return when(position){
+        when(position){
             0 -> {
                 //ending soon
                 val fragment = HomeCategoryFragment()
                 fragment.arguments = Bundle().apply {
                     this.putString("sortType","deadline")
-                }
-                return fragment
-            }
-            1 -> {
-                val fragment = HomeCategoryFragment()
-                fragment.arguments = Bundle().apply {
-                    this.putString("sortType","latestOrder")
-                }
-                return fragment
-            }
-            //2번부터는 임시용
-            2 -> {
-                val fragment = HomeCategoryFragment()
-                fragment.arguments = Bundle().apply {
-                    this.putString("sortType","latestOrder")
                 }
                 return fragment
             }

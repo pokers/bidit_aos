@@ -54,6 +54,7 @@ object CommonBindingAdapter {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @JvmStatic
     @BindingAdapter("price")
     fun TextView.changePriceType(price: Int?) {
@@ -64,6 +65,7 @@ object CommonBindingAdapter {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @JvmStatic
     @BindingAdapter("peopleCount")
     fun TextView.changePeopleCountType(count: Int?) {
@@ -80,11 +82,11 @@ object CommonBindingAdapter {
         if (number == null) {
             this.text = "0"
         } else {
-            this.text = "${addComma(number)}"
+            this.text = addComma(number)
         }
     }
 
-    @SuppressLint("SimpleDateFormat")
+    @SuppressLint("SimpleDateFormat", "SetTextI18n")
     @JvmStatic
     @BindingAdapter("calcDate")
     fun TextView.calcDate(date: String?) {
@@ -116,7 +118,7 @@ object CommonBindingAdapter {
         }
     }
 
-    @SuppressLint("SimpleDateFormat")
+    @SuppressLint("SimpleDateFormat", "SetTextI18n")
     @JvmStatic
     @BindingAdapter("date")
     fun TextView.changeDateType(date: String?) {

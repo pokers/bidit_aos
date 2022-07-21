@@ -20,7 +20,6 @@ import com.alexk.bidit.common.adapter.home.category.HomeCategoryListAdapter
 import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentHomeBinding
 import com.alexk.bidit.presentation.base.BaseFragment
-import com.alexk.bidit.presentation.ui.home.alarm.HomeAlarmActivity
 import com.alexk.bidit.presentation.ui.selling.SellingActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -49,9 +48,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         R.drawable.ic_category_camera,
         R.drawable.ic_category_another_category
     )
-
-    lateinit var mainBannerAutoSlideJob: Job
-    private var bannerPosition = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -97,7 +93,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             }
 
             ivAlarm.setOnClickListener {
-                startActivity(Intent(requireContext(), HomeAlarmActivity::class.java))
+
             }
 
             rvCategory.apply {
@@ -128,26 +124,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     }
                 })
             }
-//            vpMainBanner.apply {
-//                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//                    override fun onPageScrollStateChanged(state: Int) {
-//                        super.onPageScrollStateChanged(state)
-//                        when (state) {
-//                            ViewPager2.SCROLL_STATE_SETTLING -> {
-//
-//                            }
-//                            //멈춤
-//                            ViewPager2.SCROLL_STATE_IDLE -> {
-//                                if (!mainBannerAutoSlideJob.isActive) slideJobCreate()
-//                            }
-//                            //드래그
-//                            ViewPager2.SCROLL_STATE_DRAGGING -> {
-//                                mainBannerAutoSlideJob.cancel()
-//                            }
-//                        }
-//                    }
-//                })
-//            }
             lyDetailCategory.apply {
                 addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                     override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -177,16 +153,4 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         tabTextView.typeface = typeface
     }
 
-
-    private fun slideJobCreate() {
-        mainBannerAutoSlideJob = lifecycleScope.launchWhenResumed {
-            delay(2000)
-            binding.vpMainBanner.setCurrentItem(bannerPosition++, true)
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-//        mainBannerAutoSlideJob.cancel()
-    }
 }

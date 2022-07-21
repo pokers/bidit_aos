@@ -26,7 +26,7 @@ class GlobalApplication : Application() {
         super.onCreate()
         KakaoSdk.init(this,getString(R.string.KAKAO_APP_KEY))
         FirebaseMessaging.getInstance().token.addOnSuccessListener {
-            Log.d("fbToken",it)
+            Log.d("Get Fb Token",it)
             TokenManager(this).setPushToken(it)
         }
     }

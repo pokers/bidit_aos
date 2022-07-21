@@ -19,7 +19,6 @@ import java.io.OutputStream
 class MyPageEditProfileDialog(context: Context) : Dialog(context) {
 
     private lateinit var binding: DialogMyPageProfileMoreInfoBinding
-    private lateinit var resultLauncherActivityInfo : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
