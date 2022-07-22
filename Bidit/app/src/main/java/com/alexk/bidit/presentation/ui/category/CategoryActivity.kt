@@ -33,7 +33,7 @@ class CategoryActivity : AppCompatActivity() {
     private var currentSortType = "latestOrder"
     private val viewModel by viewModels<MerchandiseViewModel>()
     private val merchandiseAdapter by lazy { CommonMerchandiseListAdapter() }
-    private val categoryId by lazy { intent?.getIntExtra("categoryId", 0)?.plus(2) }
+    private val categoryId by lazy { intent?.getIntExtra("categoryId", -1)?.minus(2) }
     private val loadingDialog by lazy { LoadingDialog(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,14 +47,15 @@ class CategoryActivity : AppCompatActivity() {
     private fun init() {
         binding.apply {
             tvCategoryTitle.text =
-                resources.getStringArray(R.array.category_home_item)[categoryId!! - 2]
+                resources.getStringArray(R.array.category_home_item)[categoryId!!]
             rvMerchandiseList.layoutManager =
                 GridLayoutManager(this@CategoryActivity, 2, GridLayoutManager.VERTICAL, false)
             rvMerchandiseList.adapter = merchandiseAdapter
             rvMerchandiseList.addItemDecoration(GridRecyclerViewDeco(12, 12, 0, 37))
         }
-        Log.d("categoryId", categoryId.toString())
-        viewModel.getCategoryItemList(categoryId!!, "latestOrder")
+        Log.d("category","now category idx : $categoryId, category : ${binding.tvCategoryTitle.text}")
+        viewModel.getCategoryItemList(categoryId?.plus(2)!!, "latestOrder")
+        Log.d("category","get category idx : ${categoryId?.plus(2)}")
         observeCategoryItemList()
     }
 
@@ -108,7 +109,7 @@ class CategoryActivity : AppCompatActivity() {
                     currentSortType = "latestOrder"
                     balloon.dismiss()
                     binding.tvListSort.text = getString(R.string.category_latest_order)
-                    viewModel.getCategoryItemList(categoryId!!, currentSortType)
+                    viewModel.getCategoryItemList(categoryId?.plus(2)!!, currentSortType)
                 }
             }
 
@@ -118,7 +119,7 @@ class CategoryActivity : AppCompatActivity() {
                     currentSortType = "deadline"
                     balloon.dismiss()
                     binding.tvListSort.text = getString(R.string.category_deadline_imminent)
-                    viewModel.getCategoryItemList(categoryId!!, currentSortType)
+                    viewModel.getCategoryItemList(categoryId?.plus(2)!!, currentSortType)
                 }
             }
 
@@ -128,7 +129,7 @@ class CategoryActivity : AppCompatActivity() {
                     currentSortType = "popular"
                     balloon.dismiss()
                     binding.tvListSort.text = getString(R.string.category_popular)
-                    viewModel.getCategoryItemList(categoryId!!, currentSortType)
+                    viewModel.getCategoryItemList(categoryId?.plus(2)!!, currentSortType)
                 }
             }
 

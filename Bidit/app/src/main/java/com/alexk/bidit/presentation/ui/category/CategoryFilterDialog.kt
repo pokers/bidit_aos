@@ -18,7 +18,6 @@ class CategoryFilterDialog(context: Context, private val bid: (Int) -> Unit) : D
     private lateinit var binding: DialogMerchandiseFilterBinding
     private var deliveryType = -1
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.inflate(

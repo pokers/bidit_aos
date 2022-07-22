@@ -14,11 +14,14 @@
             android:id="@+id/action_homeFragment_to_searchKeywordFragment"
             app:destination="@id/searchKeywordFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/myTradeFragment"
         android:name="com.alexk.bidit.presentation.ui.myTrade.MyTradeFragment"
         android:label="MyTradeFragment"
-        tools:layout="@layout/fragment_my_trade" />
+        tools:layout="@layout/fragment_my_trade">
+    </fragment>
+
     <fragment
         android:id="@+id/myPageFragment"
         android:name="com.alexk.bidit.presentation.ui.myPage.MyPageFragment"
@@ -42,6 +45,7 @@
             android:id="@+id/action_searchKeywordFragment_to_searchResultFragment"
             app:destination="@id/searchResultFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/searchResultFragment"
         android:name="com.alexk.bidit.presentation.ui.search.SearchResultFragment"
@@ -61,10 +65,11 @@
         android:name="com.alexk.bidit.presentation.ui.myPage.MyPageFragment"
         android:label="ChattingFragment"
         tools:layout="@layout/fragment_my_page" />
+
     <fragment
         android:id="@+id/myPageAccountInfoFragment"
         android:name="com.alexk.bidit.presentation.ui.myPage.MyPageAccountInfoFragment"
         android:label="MyPageAccountInfoFragment"
-        tools:layout="@layout/fragment_my_page_account_info">
-    </fragment>
+        tools:layout="@layout/fragment_my_page_account_info"/>
+
 </navigation>

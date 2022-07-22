@@ -68,7 +68,8 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_current_price_title"
             app:layout_constraintStart_toEndOf="@id/tv_current_price_title"
-            app:price="@{merchandiseResponse.node.CPrice}" />
+            app:sPrice="@{merchandiseResponse.node.SPrice}"
+            app:cPrice="@{merchandiseResponse.node.CPrice}"/>
 
         <TextView
             android:id="@+id/tv_merchandise_content"

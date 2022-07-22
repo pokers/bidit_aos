@@ -40,12 +40,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         R.drawable.ic_category_another_phone,
         R.drawable.ic_category_smart_watch,
         R.drawable.ic_category_labtop,
-        R.drawable.ic_category_drone,
         R.drawable.ic_category_tablet,
         R.drawable.ic_category_monitor,
         R.drawable.ic_category_game,
         R.drawable.ic_category_audio,
         R.drawable.ic_category_camera,
+        R.drawable.ic_category_drone,
         R.drawable.ic_category_another_category
     )
 

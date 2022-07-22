@@ -88,15 +88,6 @@ class SearchKeywordFragment :
                 val gridLayoutManager =
                     GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
                 layoutManager = gridLayoutManager
-                gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                    override fun getSpanSize(position: Int): Int {
-                        return if(position % 2 == 1){
-                            1
-                        } else{
-                            0
-                        }
-                    }
-                }
                 adapter = merchandiseAdapter
                 addItemDecoration(GridRecyclerViewDeco(12, 12, 0, 37))
             }

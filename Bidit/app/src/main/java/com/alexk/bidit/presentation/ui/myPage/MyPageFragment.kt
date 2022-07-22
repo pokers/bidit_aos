@@ -71,16 +71,10 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
                 }
                 is ViewState.Success -> {
                     loadingDialogDismiss()
+                    val result = response.value?.data?.me
+                    binding.tvBiddingCount.text = result?.counting?.buy.toString()
+                    binding.tvSellingCount.text = result?.counting?.sell.toString()
                     Log.d("My Page -> UserInfo", "Success")
-//                    val result = response.value?.data
-//                    if(result?.me?.kakaoAccount == null){
-//                        Log.d("My Page -> KakaoInfo", "No info")
-//                    }
-//                    else{
-//                        nickname = result.me.kakaoAccount.nickname!!
-//                        imgUrl = result.me.kakaoAccount.profile_image_url!!
-//                        binding.userInfo = result
-//                    }
                 }
                 is ViewState.Error -> {
                     loadingDialogDismiss()

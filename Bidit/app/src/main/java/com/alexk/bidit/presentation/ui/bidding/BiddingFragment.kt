@@ -87,7 +87,13 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
 
                 //bidding price
                 biddingFragment.arguments = Bundle().apply {
-                    this.putInt("currentPrice", itemInfo?.cPrice!!)
+
+                    var price = itemInfo?.cPrice
+
+                    if(itemInfo?.cPrice == null){
+                        price = itemInfo?.sPrice
+                    }
+                    this.putInt("currentPrice", price!!)
                     this.putInt("bidPrice", 1000)
                 }
                 biddingFragment.show(childFragmentManager, biddingFragment.tag)

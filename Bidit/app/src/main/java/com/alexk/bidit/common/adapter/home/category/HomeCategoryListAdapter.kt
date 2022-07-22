@@ -46,8 +46,7 @@ class HomeCategoryListAdapter(val context: Context, private val imgList: List<In
             }
             itemView.setOnClickListener {
                 val intent = Intent(context, CategoryActivity::class.java)
-                //0 -> category start idx 2, title idx 0
-                intent.putExtra("categoryId", absoluteAdapterPosition)
+                intent.putExtra("categoryId", absoluteAdapterPosition.plus(2))
                 context.startActivity(intent)
             }
         }

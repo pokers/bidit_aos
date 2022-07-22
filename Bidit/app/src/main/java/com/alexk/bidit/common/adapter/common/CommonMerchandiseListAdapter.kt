@@ -17,7 +17,6 @@ class CommonMerchandiseListAdapter() :
     ) {
 
     var onItemClicked: ((Int?) -> Unit)? = null
-    var emptyList = false
 
     class MerchandiseListHolder(val binding: ItemMerchandiseListBinding) :
         RecyclerView.ViewHolder(binding.root)

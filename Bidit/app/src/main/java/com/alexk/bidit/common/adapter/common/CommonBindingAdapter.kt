@@ -67,12 +67,24 @@ object CommonBindingAdapter {
 
     @SuppressLint("SetTextI18n")
     @JvmStatic
-    @BindingAdapter("price")
-    fun TextView.changePriceType(price: Int?) {
-        if (price == null) {
-            this.text = "0원"
-        } else {
-            this.text = "${addComma(price)}원"
+    @BindingAdapter("sPrice","cPrice")
+    fun TextView.changePriceType(sPrice: Int?, cPrice : Int?) {
+        if (sPrice != null) {
+            if(sPrice > 0 && cPrice == null){
+                this.text = "${addComma(sPrice)}원"
+            }
+            else{
+                this.text = "${addComma(cPrice!!)}원"
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    @JvmStatic
+    @BindingAdapter("buyNow")
+    fun TextView.changeBuyNowPriceType(price: Int?) {
+        if(price != null){
+            this.text = "${addComma(price)}"
         }
     }
 
@@ -84,6 +96,14 @@ object CommonBindingAdapter {
             this.text = "0명"
         } else {
             this.text = "${addComma(count)}명"
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("nickname")
+    fun TextView.changeNickName(nickname : String?) {
+        if(nickname == null){
+            this.text = nickname
         }
     }
 

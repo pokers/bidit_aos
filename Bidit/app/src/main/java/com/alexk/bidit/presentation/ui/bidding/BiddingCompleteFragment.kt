@@ -39,14 +39,15 @@ class BiddingCompleteFragment :
     override fun initEvent() {
         binding.apply {
             btnOkay.setOnClickListener {
-                activity?.finish()
+                activity?.finishAffinity()
+                startActivity(Intent(requireContext(),HomeActivity::class.java))
             }
 
             btnBidCancle.setOnClickListener {
                 val dialog =
                     BiddingBidCancelDialog(args.bid, args.price) {
                         Toast.makeText(requireContext(),"입찰이 취소되었습니다.",Toast.LENGTH_SHORT).show()
-                        activity?.finish()
+                        activity?.finishAffinity()
                         startActivity(Intent(requireContext(),HomeActivity::class.java))
                     }
                 dialog.show(childFragmentManager, tag)

@@ -47,7 +47,7 @@ class SearchKeywordManager(context: Context) {
     fun addKeyword(baseList: ArrayList<String>, value: String) {
         val jsonArray = JSONArray()
         if(baseList.size == 10){
-            baseList.removeAt(29)
+            baseList.removeAt(9)
         }
         jsonArray.put(value)
         for (data in baseList.indices) {

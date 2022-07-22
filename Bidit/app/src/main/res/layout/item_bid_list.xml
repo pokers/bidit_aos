@@ -20,7 +20,7 @@
             android:id="@+id/iv_merchandise_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="center"
+            android:scaleType="centerInside"
             android:src="@drawable/ic_launcher_background"
             app:imageBidUrlList="@{bidResponse.image}"
             app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +67,8 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_current_price_title"
             app:layout_constraintStart_toEndOf="@id/tv_current_price_title"
-            app:price="@{bidResponse.CPrice}" />
+            app:sPrice="@{bidResponse.SPrice}"
+            app:cPrice="@{bidResponse.CPrice}"/>
 
         <TextView
             android:id="@+id/tv_merchandise_content"

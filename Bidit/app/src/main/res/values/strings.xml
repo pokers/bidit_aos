@@ -108,12 +108,12 @@
         <item>기타폰</item>
         <item>스마트워치</item>
         <item>노트북·PC</item>
-        <item>드론</item>
-        <item>태블릿</item>
+        <item>테블릿</item>
         <item>티비·모니터</item>
         <item>게임</item>
         <item>음향기기</item>
         <item>카메라</item>
+        <item>드론</item>
         <item>기타</item>
     </string-array>
 

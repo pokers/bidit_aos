@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.FontRes
 import androidx.core.content.res.ResourcesCompat
+import androidx.navigation.fragment.navArgs
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.home.HomeCategoryPageAdapter
 import com.alexk.bidit.common.adapter.myTrade.MyTradeCategoryPageAdapter

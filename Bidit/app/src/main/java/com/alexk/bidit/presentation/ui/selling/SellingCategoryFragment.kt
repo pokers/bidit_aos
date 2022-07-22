@@ -77,84 +77,84 @@ class SellingCategoryFragment() :
             tvIphone.setOnClickListener {
                 navigate(
                     SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                        0
+                        2
                     )
                 )
             }
             tvGalaxy.setOnClickListener {
                 navigate(
                     SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                        1
+                        3
                     )
                 )
             }
             tvAnotherPhone.setOnClickListener {
                 navigate(
                     SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                        2
+                        4
                     )
                 )
             }
             tvSmartWatch.setOnClickListener {
                 navigate(
                     SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                        3
+                        5
                     )
                 )
             }
             tvNotebook.setOnClickListener {
                 navigate(
                     SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                        4
+                        6
                     )
                 )
 
                 tvTablet.setOnClickListener {
                     navigate(
                         SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            5
+                            7
                         )
                     )
                 }
                 tvMonitor.setOnClickListener {
                     navigate(
                         SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            6
+                            8
                         )
                     )
                 }
                 tvGame.setOnClickListener {
                     navigate(
                         SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            7
+                            9
                         )
                     )
                 }
                 tvAudio.setOnClickListener {
                     navigate(
                         SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            8
+                            10
                         )
                     )
                 }
                 tvCamera.setOnClickListener {
                     navigate(
                         SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            9
+                            11
                         )
                     )
                 }
                 tvDrone.setOnClickListener {
                     navigate(
                         SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            10
+                            12
                         )
                     )
                 }
                 tvAnother.setOnClickListener {
                     navigate(
                         SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            11
+                            13
                         )
                     )
                 }

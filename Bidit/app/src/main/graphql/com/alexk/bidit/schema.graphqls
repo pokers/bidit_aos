@@ -8,6 +8,11 @@ enum AlarmType{
     EVENT
 }
 
+type Counting{
+    buy:Int
+    sell:Int
+}
+
 type UserAlarm{
     id: Int
     status: Int     # 0=enable, 1=disable
@@ -379,6 +384,7 @@ type User {
     pushToken: PushToken
     penalty: Penalty
     userAlarm: UserAlarm
+    counting:Counting
 }
 
 

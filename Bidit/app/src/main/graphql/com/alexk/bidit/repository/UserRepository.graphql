@@ -17,6 +17,10 @@ query getMyInfo{
         nickname
         joinPath
         email
+        counting {
+            buy
+            sell
+        }
         pushToken {
             status
         }

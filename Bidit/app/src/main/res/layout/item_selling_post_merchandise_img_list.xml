@@ -27,6 +27,24 @@
             app:layout_constraintTop_toTopOf="@id/iv_img_delete"
             app:imageUrl="@{itemImgUrl.imgUrl}"/>
 
+        <TextView
+            android:id="@+id/tv_first_img"
+            android:layout_width="0dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:background="@color/black_trans_90"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="@id/iv_merchandise_img"
+            app:layout_constraintEnd_toEndOf="@id/iv_merchandise_img"
+            app:layout_constraintBottom_toBottomOf="@id/iv_merchandise_img"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:includeFontPadding="false"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:text="대표 사진"/>
+
         <ImageView
             android:id="@+id/iv_img_delete"
             android:layout_width="wrap_content"

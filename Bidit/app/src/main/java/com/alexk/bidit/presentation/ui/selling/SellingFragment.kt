@@ -90,7 +90,7 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
             } else {
                 tvCategory.setTextColor(ResourcesCompat.getColor(resources, R.color.nero, null))
                 categoryId = args.category
-                tvCategory.text = categoryList[categoryId]
+                tvCategory.text = categoryList[categoryId - 2]
             }
             rvMerchandiseImgList.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -226,8 +226,8 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                             buyNow = Optional.Present(
                                 editBiddingImmediatePrice.text.toString().replace(",", "").toInt()
                             ),
-                            title = tvTitle.text.toString(),
-                            name = categoryList[categoryId],
+                            title = editPostTitle.text.toString(),
+                            name = categoryList[categoryId - 2],
                             dueDate = resources.getStringArray(R.array.category_number_picker_year)[itemDateIdx.yearIdx] +
                                     "-${resources.getStringArray(R.array.category_number_picker_one_to_twelve)[itemDateIdx.monthIdx]}-" +
                                     "${resources.getStringArray(R.array.category_number_picker_one_to_thirty_one)[itemDateIdx.dayIdx]}T${calcHour}:${resources.getStringArray(R.array.category_number_zero_to_fifty_10)[itemTimeIdx.minuteIdx]}:00.000Z",

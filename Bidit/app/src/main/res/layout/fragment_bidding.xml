@@ -10,7 +10,7 @@
 
         <variable
             name="bidSellingUserInfo"
-            type="com.alexk.bidit.GetItemInfoQuery.KakaoAccount" />
+            type="com.alexk.bidit.GetItemInfoQuery.User" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -124,7 +124,8 @@
                     android:includeFontPadding="false"
                     android:textColor="@color/nero"
                     android:textSize="14sp"
-                    app:price="@{itemInfo.CPrice}" />
+                    app:cPrice="@{itemInfo.CPrice}"
+                    app:sPrice="@{itemInfo.SPrice}"/>
 
             </LinearLayout>
 
@@ -233,7 +234,7 @@
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_oval_transparent_sliver_stroke0_radius0"
-                app:imageUrl="@{bidSellingUserInfo.profile_image_url}"
+                app:imageUrl="@{bidSellingUserInfo.kakaoAccount.profile_image_url}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_merchandise_name" />
 
@@ -244,7 +245,7 @@
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/notosans_kr_medium"
                 android:includeFontPadding="false"
-                android:text="@{bidSellingUserInfo.nickname}"
+                android:text="@{bidSellingUserInfo.kakaoAccount.nickname}"
                 android:textColor="@color/charcoal"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@id/iv_selling_user_img"
@@ -364,7 +365,7 @@
                     android:includeFontPadding="false"
                     android:textColor="@color/nero"
                     android:textSize="12sp"
-                    app:price="@{itemInfo.buyNow}" />
+                    app:buyNow="@{itemInfo.buyNow}" />
 
                 <TextView
                     android:id="@+id/tv_deadline_time"
@@ -446,6 +447,7 @@
                 android:fontFamily="@font/notosans_kr_medium"
                 android:includeFontPadding="false"
                 android:text="@string/content_recent_bidding_user"
+                android:visibility="gone"
                 android:textColor="@color/nobel"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
