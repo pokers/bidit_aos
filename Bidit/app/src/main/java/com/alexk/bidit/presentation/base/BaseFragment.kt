@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
+import com.alexk.bidit.dialog.LoadingDialog
 import com.alexk.bidit.presentation.viewModel.NavigationViewModel
 
 // 프래그먼트 상속 개념
@@ -26,8 +27,20 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutId
     private var _binding: T? = null
     protected val binding: T get() = _binding!!
 
+    private val loadingDialog by lazy { LoadingDialog(requireContext()) }
+
     abstract fun init()
     abstract fun initEvent()
+
+    fun loadingDialogShow(){
+        loadingDialog.show()
+    }
+
+    fun loadingDialogDismiss(){
+        if(loadingDialog.isShowing){
+            loadingDialog.dismiss()
+        }
+    }
 
     //옵저버 패턴
     private fun navigationAction() {

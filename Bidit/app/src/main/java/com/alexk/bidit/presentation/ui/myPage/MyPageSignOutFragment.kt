@@ -78,15 +78,18 @@ class MyPageSignOutFragment :
         userViewModel.userStatusInfo.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
+                    loadingDialogShow()
                     Log.d("Delete user info","Loading")
                 }
                 is ViewState.Success -> {
+                    loadingDialogDismiss()
                     Log.d("Delete user info","Success")
                     TokenManager(requireContext()).removePushToken()
                     TokenManager(requireContext()).removeToken()
                     navigate(MyPageSignOutFragmentDirections.actionMyPageSignOutFragmentToMyPageSignOutCompleteFragment())
                 }
                 is ViewState.Error -> {
+                    loadingDialogDismiss()
                     Log.d("Delete user info","Error")
                 }
             }

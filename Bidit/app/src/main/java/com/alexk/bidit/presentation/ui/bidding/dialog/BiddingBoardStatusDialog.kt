@@ -24,6 +24,7 @@ class BiddingBoardStatusDialog(
 ) : Dialog(context) {
 
     private lateinit var binding: DialogBiddingStatusBinding
+    private var changeStatus = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,13 +44,13 @@ class BiddingBoardStatusDialog(
     private fun init() {
         binding.apply {
             when (status) {
-                0 -> {
-                    rbReservation.isChecked = true
-                }
-                1 -> {
+                0,1 -> {
                     rbSelling.isChecked = true
                 }
                 2 -> {
+                    rbReservation.isChecked = true
+                }
+                3,4 -> {
                     rbsellingComplete.isChecked = true
                 }
             }
@@ -59,15 +60,15 @@ class BiddingBoardStatusDialog(
     private fun initEvent() {
         binding.apply {
             rbReservation.setOnClickListener {
-                statusEvent(0)
-                dismiss()
-            }
-            rbSelling.setOnClickListener {
                 statusEvent(1)
                 dismiss()
             }
-            rbsellingComplete.setOnClickListener {
+            rbSelling.setOnClickListener {
                 statusEvent(2)
+                dismiss()
+            }
+            rbsellingComplete.setOnClickListener {
+                statusEvent(3)
                 dismiss()
             }
         }

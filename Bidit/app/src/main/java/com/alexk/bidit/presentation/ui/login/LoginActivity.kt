@@ -10,6 +10,8 @@ import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.data.sharedPreference.TokenManager
 import com.alexk.bidit.databinding.ActivityLoginBinding
 import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.dialog.LoadingDialog
+import com.alexk.bidit.dialog.SignOutUserDialog
 import com.alexk.bidit.presentation.ui.home.HomeActivity
 import com.alexk.bidit.presentation.viewModel.UserViewModel
 import com.kakao.sdk.auth.model.OAuthToken
@@ -36,6 +38,7 @@ class LoginActivity : AppCompatActivity() {
             Log.d("kakao login", "success")
         }
     }
+    private val loadingDialog by lazy { LoadingDialog(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,10 +67,11 @@ class LoginActivity : AppCompatActivity() {
             when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {
-
+                    loadingDialog.show()
                 }
                 //로그인 성공
                 is ViewState.Success -> {
+                    loadingDialog.dismiss()
                     GlobalApplication.id = response.value?.data?.me?.id!!
                     Log.d("login success", "Token: ${TokenManager(this).getToken()}")
                     viewModel.updatePushToken(0, TokenManager(this).getPushToken())
@@ -75,6 +79,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 //탈퇴는 어떻게?
                 is ViewState.Error -> {
+                    LoadingDialog(this).dismiss()
                     //앱 실행 후, 토큰 재발급 시 오류 발생(메시지 추적해야함)
                     if(response.message == "invalid user"){
                         viewModel.updateUserState(0)
@@ -86,21 +91,42 @@ class LoginActivity : AppCompatActivity() {
             when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {
-
+                    loadingDialog.show()
                 }
                 //로그인 성공
                 is ViewState.Success -> {
+                    loadingDialog.dismiss()
                     GlobalApplication.id = response.value?.data?.updateMembership?.id!!
                     Log.d("login success", "Token: ${TokenManager(this).getToken()}")
                     viewModel.updatePushToken(0, TokenManager(this).getPushToken())
-                    startActivity(Intent(this, HomeActivity::class.java))
                 }
                 //탈퇴는 어떻게?
                 is ViewState.Error -> {
+                    loadingDialog.dismiss()
                     //앱 실행 후, 토큰 재발급 시 오류 발생(메시지 추적해야함)
                     if(response.message == "invalid user"){
-                        viewModel.updateUserState(0)
+                        SignOutUserDialog(this).show()
+                        finishAffinity()
                     }
+                }
+            }
+        }
+
+        viewModel.pushToken.observe(this){response ->
+            when(response){
+                //서버 연결 대기중
+                is ViewState.Loading -> {
+                    LoadingDialog(this).show()
+                }
+                //로그인 성공
+                is ViewState.Success -> {
+                    LoadingDialog(this).dismiss()
+                    Log.d("pushToken Update", "Success - Token: ${TokenManager(this).getPushToken()}")
+                    startActivity(Intent(this, HomeActivity::class.java))
+                }
+
+                is ViewState.Error -> {
+                    LoadingDialog(this).dismiss()
                 }
             }
         }

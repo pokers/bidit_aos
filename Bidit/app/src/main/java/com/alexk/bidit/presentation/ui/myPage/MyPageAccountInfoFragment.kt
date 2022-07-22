@@ -55,9 +55,11 @@ class MyPageAccountInfoFragment :
         userViewModel.myInfo.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
+                    loadingDialogShow()
                     Log.d("My Page -> UserInfo", "Loading")
                 }
                 is ViewState.Success -> {
+                    loadingDialogDismiss()
                     Log.d("My Page -> UserInfo", "Success")
                     val result = response.value?.data?.me
                     userId = result?.id!!
@@ -69,6 +71,7 @@ class MyPageAccountInfoFragment :
                     )
                 }
                 is ViewState.Error -> {
+                    loadingDialogDismiss()
                     Log.d("My Page -> UserInfo", "Error")
                 }
             }

@@ -60,9 +60,11 @@ class MyTradeMerchandiseListFragment :
         biddingViewModel.biddingInfo.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
+                    loadingDialogShow()
                     Log.d("Bid Loading", "Loading GET my bid list")
                 }
                 is ViewState.Success -> {
+                    loadingDialogDismiss()
                     Log.d("Bid Success", "Success GET my bid list")
                     binding.rvMerchandiseList.adapter = bidListAdapter
                     val result = response.value?.data?.getBidding
@@ -79,6 +81,7 @@ class MyTradeMerchandiseListFragment :
                     }
                 }
                 is ViewState.Error -> {
+                    loadingDialogDismiss()
                     Log.d("Bid Error", "Error GET my bid list")
                 }
             }

@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.DialogBiddingCancelBinding
 import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.dialog.LoadingDialog
 import com.alexk.bidit.presentation.viewModel.BiddingViewModel
 import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,6 +30,7 @@ class BiddingBidCancelDialog(private val bidId: Int, val price: Int, private val
 
     private lateinit var binding: DialogBiddingCancelBinding
     private val biddingViewModel by viewModels<BiddingViewModel>()
+    private val loadingDialog by lazy { LoadingDialog(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,13 +71,16 @@ class BiddingBidCancelDialog(private val bidId: Int, val price: Int, private val
             when(response){
                 is ViewState.Loading -> {
                     Log.d("Loading","Cancel bid")
+                    loadingDialog.show()
                 }
                 is ViewState.Success -> {
                     Log.d("Success","Cancel bid")
                     event
+                    loadingDialog.dismiss()
                 }
                 is ViewState.Error -> {
                     Log.d("Error","Cancel bid")
+                    loadingDialog.dismiss()
                 }
             }
         }

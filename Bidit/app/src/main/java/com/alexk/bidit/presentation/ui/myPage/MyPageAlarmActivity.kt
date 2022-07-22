@@ -10,6 +10,7 @@ import com.alexk.bidit.R
 import com.alexk.bidit.data.sharedPreference.TokenManager
 import com.alexk.bidit.databinding.ActivityMyPageAlarmBinding
 import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.dialog.LoadingDialog
 import com.alexk.bidit.presentation.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,6 +21,7 @@ class MyPageAlarmActivity :AppCompatActivity() {
 
     private lateinit var binding : ActivityMyPageAlarmBinding
     private val userViewModel by viewModels<UserViewModel>()
+    private val loadingDialog by lazy { LoadingDialog(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,14 +53,17 @@ class MyPageAlarmActivity :AppCompatActivity() {
         userViewModel.myInfo.observe(this) { response ->
             when(response){
                 is ViewState.Loading -> {
+                    loadingDialog.show()
                     Log.d("PushToken","Loading")
                 }
                 is ViewState.Success -> {
+                    loadingDialog.dismiss()
                     Log.d("PushToken","Success")
                     val result = response.value?.data?.me?.pushToken?.status
                     binding.cbAllPushAlarm.isChecked = result == 0
                 }
                 is ViewState.Error -> {
+                    loadingDialog.dismiss()
                     Log.d("PushToken","Error")
                 }
             }

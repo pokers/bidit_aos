@@ -17,6 +17,7 @@ import com.alexk.bidit.common.adapter.common.CommonMerchandiseListAdapter
 import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.ActivityCategoryBinding
 import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.dialog.LoadingDialog
 import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
 import com.skydoves.balloon.ArrowOrientation
@@ -33,6 +34,7 @@ class CategoryActivity : AppCompatActivity() {
     private val viewModel by viewModels<MerchandiseViewModel>()
     private val merchandiseAdapter by lazy { CommonMerchandiseListAdapter() }
     private val categoryId by lazy { intent?.getIntExtra("categoryId", 0)?.plus(2) }
+    private val loadingDialog by lazy { LoadingDialog(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -170,10 +172,12 @@ class CategoryActivity : AppCompatActivity() {
             when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {
+                    loadingDialog.show()
                     Log.d("Merchandise Loading", "Loading GET merchandise list")
                 }
                 //아이템 가져오기 성공
                 is ViewState.Success -> {
+                    loadingDialog.dismiss()
                     Log.d("Merchandise Success", "Success GET merchandise list")
                     //리사이클러뷰 어댑터 연결
                     val result = response.value?.data?.getItemList?.edges
@@ -191,6 +195,7 @@ class CategoryActivity : AppCompatActivity() {
                 }
                 //서버 연결 실패(만료) -> 재발급 요청
                 is ViewState.Error -> {
+                    loadingDialog.dismiss()
                     merchandiseAdapter.submitList(emptyList())
                     Log.d("Merchandise Failure", "Fail GET merchandise list")
                 }

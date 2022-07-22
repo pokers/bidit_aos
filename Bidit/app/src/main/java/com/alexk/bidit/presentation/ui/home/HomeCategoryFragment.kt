@@ -13,6 +13,7 @@ import com.alexk.bidit.common.adapter.common.CommonMerchandiseListAdapter
 import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentCommonMerchandiseListBinding
 import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.dialog.LoadingDialog
 import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,6 +31,8 @@ class HomeCategoryFragment :
     private val viewModel by viewModels<MerchandiseViewModel>()
 
     private val sortType by lazy { arguments?.getString("sortType") }
+
+    private val loadingDialog by lazy { LoadingDialog(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,10 +60,12 @@ class HomeCategoryFragment :
             when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {
+                    loadingDialog.show()
                     Log.d("Merchandise Loading", "Loading GET merchandise list")
                 }
                 //아이템 가져오기 성공
                 is ViewState.Success -> {
+                    loadingDialog.dismiss()
                     Log.d("Merchandise Success", "Success GET merchandise list")
                     //리사이클러뷰 어댑터 연결
                     val result = response.value?.data?.getItemList?.edges
@@ -79,6 +84,7 @@ class HomeCategoryFragment :
                 }
                 //서버 연결 실패(만료) -> 재발급 요청
                 is ViewState.Error -> {
+                    loadingDialog.dismiss()
                     merchandiseAdapter.submitList(emptyList())
                     Log.d("Merchandise Failure", "Fail GET merchandise list")
                 }

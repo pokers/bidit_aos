@@ -13,10 +13,10 @@
     <application
         android:name=".GlobalApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_app_logo"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_app_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Bidit">
         <activity
@@ -32,7 +32,6 @@
         <activity android:name="com.alexk.bidit.presentation.ui.category.CategoryActivity" />
         <activity android:name=".presentation.ui.bidding.BiddingActivity" />
         <activity android:name=".presentation.ui.selling.SellingActivity" />
-        <activity android:name=".presentation.ui.home.alarm.HomeAlarmActivity" />
         <activity android:name=".presentation.ui.myPage.MyPageBasicAccountActivity"/>
         <activity android:name=".presentation.ui.myPage.MyPagePersonalInfoManualActivity"/>
         <activity android:name=".presentation.ui.myPage.MyPageServiceInfoActivity"/>

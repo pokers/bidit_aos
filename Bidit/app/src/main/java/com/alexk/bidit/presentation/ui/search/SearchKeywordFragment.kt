@@ -188,10 +188,12 @@ class SearchKeywordFragment :
             when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {
+                    loadingDialogShow()
                     Log.d("Merchandise Loading", "Loading GET merchandise list")
                 }
                 //아이템 가져오기 성공
                 is ViewState.Success -> {
+                    loadingDialogDismiss()
                     Log.d("Merchandise Success", "Success GET merchandise list")
                     //리사이클러뷰 어댑터 연결
                     val result = response.value?.data?.getItemList?.edges
@@ -210,6 +212,7 @@ class SearchKeywordFragment :
                 }
                 //서버 연결 실패(만료) -> 재발급 요청
                 is ViewState.Error -> {
+                    loadingDialogDismiss()
                     merchandiseAdapter.submitList(emptyList())
                     Log.d("Merchandise Failure", "Fail GET merchandise list")
                 }

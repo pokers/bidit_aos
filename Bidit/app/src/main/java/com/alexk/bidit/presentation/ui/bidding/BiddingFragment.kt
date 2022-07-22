@@ -14,6 +14,7 @@ import com.alexk.bidit.common.adapter.bidding.BiddingUserAdapter
 import com.alexk.bidit.common.util.ErrorOwnItemBidding
 import com.alexk.bidit.databinding.FragmentBiddingBinding
 import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.dialog.LoadingDialog
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.bidding.dialog.*
 import com.alexk.bidit.presentation.viewModel.BiddingViewModel
@@ -173,11 +174,13 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
             when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {
+                    loadingDialogShow()
                     binding.svMain.visibility = View.INVISIBLE
                     Log.d("Bidding Loading", "Loading GET bidding info")
                 }
                 //아이템 가져오기 성공
                 is ViewState.Success -> {
+                    loadingDialogDismiss()
                     Log.d("Bidding Success", "Success GET bidding info")
                     //데이터 연동 작업 필요
                     val result = response.value?.data?.getItem
@@ -194,6 +197,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                     binding.svMain.visibility = View.VISIBLE
                 }
                 is ViewState.Error -> {
+                    loadingDialogDismiss()
                     Log.d("Bidding Failure", "Fail GET bidding info")
                 }
             }
@@ -201,13 +205,16 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
         itemViewModel.itemStatus.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
+                    loadingDialogShow()
                     Log.d("Bidding Loading", "Loading GET bidding info")
                 }
                 is ViewState.Success -> {
+                    loadingDialogDismiss()
                     Log.d("Bidding Success", "Success GET bidding info")
                     itemViewModel.getItemInfo(itemId!!)
                 }
                 is ViewState.Error -> {
+                    loadingDialogDismiss()
                     Log.d("Bidding Failure", "Fail GET bidding info")
                 }
             }
@@ -219,9 +226,11 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
         bidViewModel.bidCompleteInfo.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
+                    loadingDialogShow()
                     Log.d("Bidding Loading", "Loading POST bidding info")
                 }
                 is ViewState.Success -> {
+                    loadingDialogDismiss()
                     Log.d("Bidding Success", "Success POST bidding info")
                     //성공
                     val result = response.value?.data?.bid
@@ -243,6 +252,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                     }
                 }
                 is ViewState.Error -> {
+                    loadingDialogDismiss()
                     Log.d("Bidding Failure", "Fail POST bidding info")
                 }
             }

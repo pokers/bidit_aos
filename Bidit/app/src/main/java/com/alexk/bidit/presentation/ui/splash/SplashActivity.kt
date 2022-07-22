@@ -11,6 +11,8 @@ import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.data.sharedPreference.TokenManager
 import com.alexk.bidit.databinding.ActivitySplashBinding
 import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.dialog.LoadingDialog
+import com.alexk.bidit.dialog.NotImplDialog
 import com.alexk.bidit.presentation.ui.home.HomeActivity
 import com.alexk.bidit.presentation.ui.login.LoginActivity
 import com.alexk.bidit.presentation.viewModel.UserViewModel
@@ -70,11 +72,11 @@ class SplashActivity : AppCompatActivity() {
             when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {
-
+                    Log.d("pushToken Update", "Loading")
                 }
                 //토큰 확인 성공 -> 홈으로 이동
                 is ViewState.Success -> {
-                    Log.d("pushToken Update", "Token: ${TokenManager(this).getPushToken()}")
+                    Log.d("pushToken Update", "Success - Token: ${TokenManager(this).getPushToken()}")
                     startActivity(Intent(this, HomeActivity::class.java))
                 }
                 //서버 연결 실패(만료) -> 재발급 요청

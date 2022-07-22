@@ -227,7 +227,7 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                                 editBiddingImmediatePrice.text.toString().replace(",", "").toInt()
                             ),
                             title = tvTitle.text.toString(),
-                            name = "Name testing",
+                            name = categoryList[categoryId],
                             dueDate = resources.getStringArray(R.array.category_number_picker_year)[itemDateIdx.yearIdx] +
                                     "-${resources.getStringArray(R.array.category_number_picker_one_to_twelve)[itemDateIdx.monthIdx]}-" +
                                     "${resources.getStringArray(R.array.category_number_picker_one_to_thirty_one)[itemDateIdx.dayIdx]}T${calcHour}:${resources.getStringArray(R.array.category_number_zero_to_fifty_10)[itemTimeIdx.minuteIdx]}:00.000Z",
@@ -235,7 +235,7 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                             sCondition = 1,
                             aCondition = 1,
                         ),
-                        description = "123123",
+                        description = editPostContent.text.toString(),
                         images = imgList
                     )
                 }
@@ -248,9 +248,11 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
         itemImgViewModel.itemUrl.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
+                    loadingDialogShow()
                     Log.d("img upload", "Loading img upload")
                 }
                 is ViewState.Success -> {
+                    loadingDialogDismiss()
                     Log.d("img upload", "Success img upload")
                     itemUrlImgList.add(response.value!!)
                     itemImgAdapter.submitList(itemUrlImgList.toList())
@@ -262,6 +264,7 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                     }
                 }
                 else -> {
+                    loadingDialogDismiss()
                     Log.d("img error", "Error img upload")
                     Log.d("why error", response.message.toString())
                 }
@@ -273,9 +276,11 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
         merchandiseViewModel.addItemStatus.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
+                    loadingDialogShow()
                     Log.d("Add item", "Loading")
                 }
                 is ViewState.Success -> {
+                    loadingDialogDismiss()
                     Log.d("Add item", "Success")
                     if(response.value?.data?.addItem == null){
                         Log.d("Add item", "Error")
@@ -286,6 +291,7 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                     }
                 }
                 else -> {
+                    loadingDialogDismiss()
                     Log.d("Add item", "Error")
                 }
             }

@@ -46,8 +46,8 @@ android {
         applicationId "com.alexk.bidit"
         minSdk 21
         targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.2"
 
         resValue "string", "KAKAO_APP_KEY", properties['kakao_app_key']
         resValue "string", "KAKAO_NATIVE_KEY", properties['kakao_native_key']
@@ -167,6 +167,9 @@ dependencies {
 
     // https://github.com/kizitonwose/CalendarView
     implementation 'com.github.kizitonwose:CalendarView:1.0.4'
+
+    // https://github.com/ybq/Android-SpinKit
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 }
 
 kapt {

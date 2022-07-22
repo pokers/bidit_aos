@@ -66,9 +66,11 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         userViewModel.myInfo.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
+                    loadingDialogShow()
                     Log.d("My Page -> UserInfo", "Loading")
                 }
                 is ViewState.Success -> {
+                    loadingDialogDismiss()
                     Log.d("My Page -> UserInfo", "Success")
 //                    val result = response.value?.data
 //                    if(result?.me?.kakaoAccount == null){
@@ -81,6 +83,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 //                    }
                 }
                 is ViewState.Error -> {
+                    loadingDialogDismiss()
                     Log.d("My Page -> UserInfo", "Error")
                 }
             }

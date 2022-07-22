@@ -5,10 +5,12 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import com.alexk.bidit.GetBiddingInfoQuery
 import com.alexk.bidit.GetItemListQuery
 import com.alexk.bidit.R
+import com.alexk.bidit.common.adapter.common.CommonBindingAdapter.loadImageListUrl
 import com.alexk.bidit.common.util.addComma
 import com.alexk.bidit.type.JoinPath
 import com.bumptech.glide.Glide
@@ -28,6 +30,9 @@ object CommonBindingAdapter {
                 .centerInside()
                 .into(this)
         }
+        else{
+            this.setImageResource(R.drawable.bg_rect_transparent_white_smoke_radius4_stroke0)
+        }
     }
 
     @JvmStatic
@@ -42,6 +47,9 @@ object CommonBindingAdapter {
                 .centerInside()
                 .into(this)
         }
+        else{
+            this.setImageResource(R.drawable.bg_rect_transparent_white_smoke_radius4_stroke0)
+        }
     }
 
     @JvmStatic
@@ -51,6 +59,9 @@ object CommonBindingAdapter {
             Glide.with(this.context)
                 .load(imageUrl)
                 .into(this)
+        }
+        else{
+            this.setImageResource(R.drawable.bg_rect_transparent_white_smoke_radius4_stroke0)
         }
     }
 
@@ -136,16 +147,16 @@ object CommonBindingAdapter {
     fun TextView.changeStatusType(status: Int?) {
         //텍스트 날짜 형식으로 변환 필요
         val statusText: String = when (status) {
-            0 -> {
-                "예약중"
-            }
-            1 -> {
+            0,1 -> {
                 "판매중"
             }
             2 -> {
-                "판매완료"
+                "예약중"
             }
             3 -> {
+                "판매완료"
+            }
+            4 -> {
                 "판매종료"
             }
             else -> {
@@ -158,7 +169,7 @@ object CommonBindingAdapter {
     @JvmStatic
     @BindingAdapter("reservation")
     fun TextView.checkReservation(status: Int?) {
-        if (status == 0) {
+        if (status == 1) {
             this.visibility = View.VISIBLE
         }
     }
