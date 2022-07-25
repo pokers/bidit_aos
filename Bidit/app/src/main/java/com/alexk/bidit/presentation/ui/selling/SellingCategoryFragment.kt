@@ -12,7 +12,8 @@ class SellingCategoryFragment() :
     BaseFragment<FragmentSellingCategoryBinding>(R.layout.fragment_selling_category) {
 
     private val args: SellingCategoryFragmentArgs by navArgs()
-    private val getCategory by lazy { args.getCategory }
+    private val getSellingEntity by lazy {args.sellingData}
+    private val categoryList by lazy { resources.getStringArray(R.array.category_home_item) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -22,42 +23,117 @@ class SellingCategoryFragment() :
 
     override fun init() {
         binding.apply {
+            if(getSellingEntity?.categoryIdx == -1){
+                return
+            }
             when {
-                tvIphone.text == getCategory -> {
-                    tvIphone.setTextColor(ResourcesCompat.getColor(resources,R.color.persian_blue,null))
+                tvIphone.text == categoryList[getSellingEntity?.categoryIdx?.minus(2)!!] -> {
+                    tvIphone.setTextColor(
+                        ResourcesCompat.getColor(
+                            resources,
+                            R.color.persian_blue,
+                            null
+                        )
+                    )
                 }
-                tvGalaxy.text == getCategory -> {
-                    tvGalaxy.setTextColor(ResourcesCompat.getColor(resources,R.color.persian_blue,null))
+                tvGalaxy.text == categoryList[getSellingEntity?.categoryIdx?.minus(2)!!] -> {
+                    tvGalaxy.setTextColor(
+                        ResourcesCompat.getColor(
+                            resources,
+                            R.color.persian_blue,
+                            null
+                        )
+                    )
                 }
-                tvAnotherPhone.text == getCategory -> {
-                    tvAnotherPhone.setTextColor(ResourcesCompat.getColor(resources,R.color.persian_blue,null))
+                tvAnotherPhone.text == categoryList[getSellingEntity?.categoryIdx?.minus(2)!!] -> {
+                    tvAnotherPhone.setTextColor(
+                        ResourcesCompat.getColor(
+                            resources,
+                            R.color.persian_blue,
+                            null
+                        )
+                    )
                 }
-                tvSmartWatch.text == getCategory -> {
-                    tvSmartWatch.setTextColor(ResourcesCompat.getColor(resources,R.color.persian_blue,null))
+                tvSmartWatch.text == categoryList[getSellingEntity?.categoryIdx?.minus(2)!!] -> {
+                    tvSmartWatch.setTextColor(
+                        ResourcesCompat.getColor(
+                            resources,
+                            R.color.persian_blue,
+                            null
+                        )
+                    )
                 }
-                tvNotebook.text == getCategory -> {
-                    tvNotebook.setTextColor(ResourcesCompat.getColor(resources,R.color.persian_blue,null))
+                tvNotebook.text == categoryList[getSellingEntity?.categoryIdx?.minus(2)!!] -> {
+                    tvNotebook.setTextColor(
+                        ResourcesCompat.getColor(
+                            resources,
+                            R.color.persian_blue,
+                            null
+                        )
+                    )
                 }
-                tvTablet.text == getCategory -> {
-                    tvTablet.setTextColor(ResourcesCompat.getColor(resources,R.color.persian_blue,null))
+                tvTablet.text == categoryList[getSellingEntity?.categoryIdx?.minus(2)!!] -> {
+                    tvTablet.setTextColor(
+                        ResourcesCompat.getColor(
+                            resources,
+                            R.color.persian_blue,
+                            null
+                        )
+                    )
                 }
-                tvMonitor.text == getCategory -> {
-                    tvMonitor.setTextColor(ResourcesCompat.getColor(resources,R.color.persian_blue,null))
+                tvMonitor.text == categoryList[getSellingEntity?.categoryIdx?.minus(2)!!] -> {
+                    tvMonitor.setTextColor(
+                        ResourcesCompat.getColor(
+                            resources,
+                            R.color.persian_blue,
+                            null
+                        )
+                    )
                 }
-                tvGame.text == getCategory -> {
-                    tvGame.setTextColor(ResourcesCompat.getColor(resources,R.color.persian_blue,null))
+                tvGame.text == categoryList[getSellingEntity?.categoryIdx?.minus(2)!!] -> {
+                    tvGame.setTextColor(
+                        ResourcesCompat.getColor(
+                            resources,
+                            R.color.persian_blue,
+                            null
+                        )
+                    )
                 }
-                tvAudio.text == getCategory -> {
-                    tvAudio.setTextColor(ResourcesCompat.getColor(resources,R.color.persian_blue,null))
+                tvAudio.text == categoryList[getSellingEntity?.categoryIdx?.minus(2)!!] -> {
+                    tvAudio.setTextColor(
+                        ResourcesCompat.getColor(
+                            resources,
+                            R.color.persian_blue,
+                            null
+                        )
+                    )
                 }
-                tvCamera.text == getCategory -> {
-                    tvCamera.setTextColor(ResourcesCompat.getColor(resources,R.color.persian_blue,null))
+                tvCamera.text == categoryList[getSellingEntity?.categoryIdx?.minus(2)!!] -> {
+                    tvCamera.setTextColor(
+                        ResourcesCompat.getColor(
+                            resources,
+                            R.color.persian_blue,
+                            null
+                        )
+                    )
                 }
-                tvDrone.text == getCategory -> {
-                    tvDrone.setTextColor(ResourcesCompat.getColor(resources,R.color.persian_blue,null))
+                tvDrone.text == categoryList[getSellingEntity?.categoryIdx?.minus(2)!!] -> {
+                    tvDrone.setTextColor(
+                        ResourcesCompat.getColor(
+                            resources,
+                            R.color.persian_blue,
+                            null
+                        )
+                    )
                 }
-                tvAnother.text == getCategory -> {
-                    tvAnother.setTextColor(ResourcesCompat.getColor(resources,R.color.persian_blue,null))
+                tvAnother.text == categoryList[getSellingEntity?.categoryIdx?.minus(2)!!] -> {
+                    tvAnother.setTextColor(
+                        ResourcesCompat.getColor(
+                            resources,
+                            R.color.persian_blue,
+                            null
+                        )
+                    )
                 }
             }
         }
@@ -69,95 +145,107 @@ class SellingCategoryFragment() :
             ivBack.setOnClickListener {
                 navigate(
                     SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                        -1
+                        getSellingEntity
                     )
                 )
             }
 
             tvIphone.setOnClickListener {
+                getSellingEntity?.categoryIdx = 2
                 navigate(
                     SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                        2
+                        getSellingEntity
                     )
                 )
             }
             tvGalaxy.setOnClickListener {
+                getSellingEntity?.categoryIdx = 3
                 navigate(
                     SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                        3
+                        getSellingEntity
                     )
                 )
             }
             tvAnotherPhone.setOnClickListener {
+                getSellingEntity?.categoryIdx = 4
                 navigate(
                     SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                        4
+                        getSellingEntity
                     )
                 )
             }
             tvSmartWatch.setOnClickListener {
+                getSellingEntity?.categoryIdx = 5
                 navigate(
                     SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                        5
+                        getSellingEntity
                     )
                 )
             }
             tvNotebook.setOnClickListener {
+                getSellingEntity?.categoryIdx = 6
                 navigate(
                     SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                        6
+                        getSellingEntity
                     )
                 )
+            }
 
-                tvTablet.setOnClickListener {
-                    navigate(
-                        SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            7
-                        )
+            tvTablet.setOnClickListener {
+                getSellingEntity?.categoryIdx = 7
+                navigate(
+                    SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
+                        getSellingEntity
                     )
-                }
-                tvMonitor.setOnClickListener {
-                    navigate(
-                        SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            8
-                        )
+                )
+            }
+            tvMonitor.setOnClickListener {
+                getSellingEntity?.categoryIdx = 8
+                navigate(
+                    SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
+                        getSellingEntity
                     )
-                }
-                tvGame.setOnClickListener {
-                    navigate(
-                        SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            9
-                        )
+                )
+            }
+            tvGame.setOnClickListener {
+                getSellingEntity?.categoryIdx = 9
+                navigate(
+                    SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
+                        getSellingEntity
                     )
-                }
-                tvAudio.setOnClickListener {
-                    navigate(
-                        SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            10
-                        )
+                )
+            }
+            tvAudio.setOnClickListener {
+                getSellingEntity?.categoryIdx = 10
+                navigate(
+                    SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
+                        getSellingEntity
                     )
-                }
-                tvCamera.setOnClickListener {
-                    navigate(
-                        SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            11
-                        )
+                )
+            }
+            tvCamera.setOnClickListener {
+                getSellingEntity?.categoryIdx = 11
+                navigate(
+                    SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
+                        getSellingEntity
                     )
-                }
-                tvDrone.setOnClickListener {
-                    navigate(
-                        SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            12
-                        )
+                )
+            }
+            tvDrone.setOnClickListener {
+                getSellingEntity?.categoryIdx = 12
+                navigate(
+                    SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
+                        getSellingEntity
                     )
-                }
-                tvAnother.setOnClickListener {
-                    navigate(
-                        SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
-                            13
-                        )
+                )
+            }
+            tvAnother.setOnClickListener {
+                getSellingEntity?.categoryIdx = 13
+                navigate(
+                    SellingCategoryFragmentDirections.actionSellingCategoryFragmentToSellingFragment(
+                        getSellingEntity
                     )
-                }
+                )
             }
         }
     }

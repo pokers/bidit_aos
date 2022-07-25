@@ -14,6 +14,9 @@ plugins {
     //hilt
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
+
+    //parcelize
+    id 'kotlin-parcelize'
 }
 
 Properties properties = new Properties()

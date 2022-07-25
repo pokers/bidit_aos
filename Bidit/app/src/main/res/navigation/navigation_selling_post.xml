@@ -11,10 +11,10 @@
         android:label="SellingFragment"
         tools:layout="@layout/fragment_selling">
         <argument
-            android:name="category"
-            android:defaultValue="-1"
-            app:argType="integer"
-            app:nullable="false" />
+            android:name="save_selling_data"
+            app:argType="com.alexk.bidit.domain.entity.selling.SellingEntity"
+            app:nullable="true"
+            />
         <action
             android:id="@+id/action_sellingFragment_to_sellingCategoryFragment"
             app:destination="@id/sellingCategoryFragment" />
@@ -25,10 +25,10 @@
         android:label="SellingCategoryFragment"
         tools:layout="@layout/fragment_selling_category">
         <argument
-            android:name="get_category"
-            android:defaultValue=""
-            app:argType="string"
-            app:nullable="false" />
+            android:name="selling_data"
+            app:argType="com.alexk.bidit.domain.entity.selling.SellingEntity"
+            app:nullable="true"/>
+
         <action
             android:id="@+id/action_sellingCategoryFragment_to_sellingFragment"
             app:destination="@id/sellingFragment" />

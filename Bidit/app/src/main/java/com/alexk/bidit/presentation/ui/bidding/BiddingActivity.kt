@@ -1,8 +1,10 @@
 package com.alexk.bidit.presentation.ui.bidding
 
+import android.content.Intent
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.ActivitiyBiddingBinding
 import com.alexk.bidit.presentation.base.BaseActivity
+import com.alexk.bidit.presentation.ui.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -15,6 +17,11 @@ class BiddingActivity:BaseActivity<ActivitiyBiddingBinding>(R.layout.activitiy_b
         if (f is BiddingFragment) {
             finish()
             return
+        }
+
+        if(f is BiddingCompleteFragment){
+            finishAffinity()
+            startActivity(Intent(this,HomeActivity::class.java))
         }
 
         if (!navController.navigateUp()) {

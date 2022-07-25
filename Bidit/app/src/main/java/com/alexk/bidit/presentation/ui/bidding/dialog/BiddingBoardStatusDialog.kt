@@ -20,11 +20,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class BiddingBoardStatusDialog(
     context: Context,
     private val status: Int,
+    private val cPrice : Int?,
     private val statusEvent: (Int) -> Unit
 ) : Dialog(context) {
 
     private lateinit var binding: DialogBiddingStatusBinding
-    private var changeStatus = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +60,12 @@ class BiddingBoardStatusDialog(
     private fun initEvent() {
         binding.apply {
             rbReservation.setOnClickListener {
-                statusEvent(1)
+                if(cPrice == null){
+                    statusEvent(0)
+                }
+                else{
+                    statusEvent(1)
+                }
                 dismiss()
             }
             rbSelling.setOnClickListener {

@@ -15,7 +15,7 @@ import com.alexk.bidit.domain.entity.selling.SellingTimeEntity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class SellingCalendarDialog(
-    private val idxValue: SellingCalendarEntity,
+    private var idxValue: SellingCalendarEntity?,
     private val sendEvent: (SellingCalendarEntity) -> Unit
 ) :
     BottomSheetDialogFragment() {
@@ -30,7 +30,8 @@ class SellingCalendarDialog(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_selling_calendar, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.dialog_selling_calendar, container, false)
         init()
         initEvent()
         return binding.root
@@ -39,9 +40,9 @@ class SellingCalendarDialog(
     private fun init() {
         binding.apply {
             npYear.apply {
-                value = idxValue.yearIdx
                 minValue = 0
                 maxValue = yearList.size - 1
+                value = idxValue?.yearIdx!!
                 descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
                 wrapSelectorWheel = false
                 setSelectedTypeface(
@@ -54,9 +55,9 @@ class SellingCalendarDialog(
             }
 
             npMonth.apply {
-                value = idxValue.monthIdx
                 minValue = 0
                 maxValue = monthList.size - 1
+                value = idxValue?.monthIdx!!
                 wrapSelectorWheel = false
                 descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
                 setSelectedTypeface(
@@ -69,9 +70,9 @@ class SellingCalendarDialog(
             }
 
             npDay.apply {
-                value = idxValue.dayIdx
                 minValue = 0
                 maxValue = dayList.size - 1
+                value = idxValue?.monthIdx!!
                 wrapSelectorWheel = false
                 descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
                 setSelectedTypeface(
@@ -90,7 +91,7 @@ class SellingCalendarDialog(
             btnOkay.setOnClickListener {
                 val dateInfo = SellingCalendarEntity(
                     npYear.value,
-                    npMonth.value+1,
+                    npMonth.value,
                     npDay.value
                 )
                 sendEvent(dateInfo)

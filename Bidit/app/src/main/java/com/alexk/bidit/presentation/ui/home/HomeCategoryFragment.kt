@@ -13,7 +13,7 @@ import com.alexk.bidit.common.adapter.common.CommonMerchandiseListAdapter
 import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentCommonMerchandiseListBinding
 import com.alexk.bidit.di.ViewState
-import com.alexk.bidit.dialog.LoadingDialog
+import com.alexk.bidit.common.dialog.LoadingDialog
 import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
 import dagger.hilt.android.AndroidEntryPoint

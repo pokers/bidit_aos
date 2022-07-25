@@ -1,9 +1,5 @@
 package com.alexk.bidit.presentation.ui.bidding.dialog
 
-import android.app.Dialog
-import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,13 +8,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.DialogBiddingCancelBinding
 import com.alexk.bidit.di.ViewState
-import com.alexk.bidit.dialog.LoadingDialog
+import com.alexk.bidit.common.dialog.LoadingDialog
 import com.alexk.bidit.presentation.viewModel.BiddingViewModel
-import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 

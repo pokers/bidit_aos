@@ -20,7 +20,7 @@ class SellingItemImgListAdapter() :
         ItemImgListDiffUtil
     ) {
 
-    var onItemClicked: ((Int?) -> Unit)? = null
+    var onItemClicked: ((MerchandiseImgEntity?) -> Unit)? = null
 
     class SellingItemImgHolder(val binding: ItemSellingPostMerchandiseImgListBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -37,7 +37,7 @@ class SellingItemImgListAdapter() :
         with(holder.binding) {
             itemImgUrl = getItem(position)
             ivImgDelete.setOnClickListener {
-                onItemClicked?.invoke(position)
+                onItemClicked?.invoke(getItem(position))
             }
         }
     }

@@ -2,17 +2,14 @@ package com.alexk.bidit.presentation.ui.myPage
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.CompoundButton
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import com.alexk.bidit.R
 import com.alexk.bidit.data.sharedPreference.TokenManager
 import com.alexk.bidit.databinding.ActivityMyPageAlarmBinding
 import com.alexk.bidit.di.ViewState
-import com.alexk.bidit.dialog.LoadingDialog
+import com.alexk.bidit.common.dialog.LoadingDialog
 import com.alexk.bidit.presentation.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi

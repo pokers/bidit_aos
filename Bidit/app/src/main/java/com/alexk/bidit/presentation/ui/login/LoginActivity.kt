@@ -10,8 +10,8 @@ import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.data.sharedPreference.TokenManager
 import com.alexk.bidit.databinding.ActivityLoginBinding
 import com.alexk.bidit.di.ViewState
-import com.alexk.bidit.dialog.LoadingDialog
-import com.alexk.bidit.dialog.SignOutUserDialog
+import com.alexk.bidit.common.dialog.LoadingDialog
+import com.alexk.bidit.common.dialog.SignOutUserDialog
 import com.alexk.bidit.presentation.ui.home.HomeActivity
 import com.alexk.bidit.presentation.viewModel.UserViewModel
 import com.kakao.sdk.auth.model.OAuthToken

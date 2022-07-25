@@ -14,7 +14,6 @@ import com.alexk.bidit.common.adapter.bidding.BiddingUserAdapter
 import com.alexk.bidit.common.util.ErrorOwnItemBidding
 import com.alexk.bidit.databinding.FragmentBiddingBinding
 import com.alexk.bidit.di.ViewState
-import com.alexk.bidit.dialog.LoadingDialog
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.bidding.dialog.*
 import com.alexk.bidit.presentation.viewModel.BiddingViewModel
@@ -68,7 +67,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
             //상태변경 Dialog
             tvBiddingStatus.setOnClickListener {
                 val dialog =
-                    BiddingBoardStatusDialog(requireContext(), itemInfo?.status!!) {
+                    BiddingBoardStatusDialog(requireContext(), itemInfo?.status!!, this@BiddingFragment.itemInfo.cPrice) {
                         itemViewModel.updateItemStatus(itemId!!, it)
                     }
                 dialog.setCanceledOnTouchOutside(true)

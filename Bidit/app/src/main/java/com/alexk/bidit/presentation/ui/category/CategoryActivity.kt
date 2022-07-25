@@ -17,7 +17,7 @@ import com.alexk.bidit.common.adapter.common.CommonMerchandiseListAdapter
 import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.ActivityCategoryBinding
 import com.alexk.bidit.di.ViewState
-import com.alexk.bidit.dialog.LoadingDialog
+import com.alexk.bidit.common.dialog.LoadingDialog
 import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
 import com.skydoves.balloon.ArrowOrientation
@@ -51,7 +51,7 @@ class CategoryActivity : AppCompatActivity() {
             rvMerchandiseList.layoutManager =
                 GridLayoutManager(this@CategoryActivity, 2, GridLayoutManager.VERTICAL, false)
             rvMerchandiseList.adapter = merchandiseAdapter
-            rvMerchandiseList.addItemDecoration(GridRecyclerViewDeco(12, 12, 0, 37))
+            rvMerchandiseList.addItemDecoration(GridRecyclerViewDeco(24, 24, 0, 37))
         }
         Log.d("category","now category idx : $categoryId, category : ${binding.tvCategoryTitle.text}")
         viewModel.getCategoryItemList(categoryId?.plus(2)!!, "latestOrder")

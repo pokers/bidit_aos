@@ -13,7 +13,7 @@ import com.alexk.bidit.domain.entity.selling.SellingTimeEntity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class SellingTimePickerDialog(
-    private val idxValue: SellingTimeEntity,
+    private var idxValue: SellingTimeEntity?,
     private val sendEvent: (SellingTimeEntity) -> Unit
 ) :
     BottomSheetDialogFragment() {
@@ -35,11 +35,16 @@ class SellingTimePickerDialog(
     }
 
     private fun init() {
+
+        if(idxValue == null){
+            idxValue = SellingTimeEntity(0,9,2)
+        }
+
         binding.apply {
             npAmPm.apply {
-                value = idxValue.hourIdx
                 minValue = 0
                 maxValue = dayTimeList.size - 1
+                value = idxValue?.hourIdx!!
                 descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
                 wrapSelectorWheel = false
                 setSelectedTypeface(
@@ -52,9 +57,9 @@ class SellingTimePickerDialog(
             }
 
             npHour.apply {
-                value = idxValue.hourIdx
                 minValue = 0
                 maxValue = hourList.size - 1
+                value = idxValue?.hourIdx!!
                 wrapSelectorWheel = false
                 descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
                 setSelectedTypeface(
@@ -67,9 +72,9 @@ class SellingTimePickerDialog(
             }
 
             npMinute.apply {
-                value = idxValue.minuteIdx
                 minValue = 0
                 maxValue = minuteList.size - 1
+                value = idxValue?.minuteIdx!!
                 wrapSelectorWheel = false
                 descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
                 setSelectedTypeface(

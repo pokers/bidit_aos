@@ -1,8 +1,7 @@
-package com.alexk.bidit.dialog
+package com.alexk.bidit.common.dialog
 
 import android.app.Dialog
 import android.content.Context
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import com.alexk.bidit.databinding.DialogLoginSignOutUserBinding
 

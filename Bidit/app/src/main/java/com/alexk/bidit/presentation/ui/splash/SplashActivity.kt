@@ -11,8 +11,6 @@ import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.data.sharedPreference.TokenManager
 import com.alexk.bidit.databinding.ActivitySplashBinding
 import com.alexk.bidit.di.ViewState
-import com.alexk.bidit.dialog.LoadingDialog
-import com.alexk.bidit.dialog.NotImplDialog
 import com.alexk.bidit.presentation.ui.home.HomeActivity
 import com.alexk.bidit.presentation.ui.login.LoginActivity
 import com.alexk.bidit.presentation.viewModel.UserViewModel

@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
-import com.alexk.bidit.dialog.LoadingDialog
+import com.alexk.bidit.common.dialog.LoadingDialog
 import com.alexk.bidit.presentation.viewModel.NavigationViewModel
 
 // 프래그먼트 상속 개념

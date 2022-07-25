@@ -15,11 +15,13 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.selling.SellingItemImgListAdapter
+import com.alexk.bidit.common.util.setTextColorWithResourceCompat
 import com.alexk.bidit.common.util.view.EditTextAutoCommaWatcher
 import com.alexk.bidit.databinding.FragmentSellingBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.domain.entity.merchandise.MerchandiseImgEntity
 import com.alexk.bidit.domain.entity.selling.SellingCalendarEntity
+import com.alexk.bidit.domain.entity.selling.SellingEntity
 import com.alexk.bidit.domain.entity.selling.SellingTimeEntity
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.selling.dialog.SellingCalendarDialog
@@ -35,6 +37,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.io.OutputStream
+import java.lang.Exception
 
 
 @AndroidEntryPoint
@@ -44,54 +47,53 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
     private lateinit var resultLauncherActivityInfo: ActivityResultLauncher<Intent>
     private val itemImgViewModel by viewModels<ItemImgViewModel>()
     private val merchandiseViewModel by viewModels<MerchandiseViewModel>()
-    private val itemUrlImgList = mutableListOf<MerchandiseImgEntity>()
+
+    private val itemUrlImgList by lazy {
+        try {
+            args.saveSellingData?.imgUrlList
+        } catch (e: Exception) {
+            mutableListOf()
+        }
+    }
     private val itemImgAdapter by lazy { SellingItemImgListAdapter() }
-    private val itemTimeIdx = SellingTimeEntity(0, 6, 3)
-    private val itemDateIdx = SellingCalendarEntity(0, 7, 3)
+
     private val args: SellingFragmentArgs by navArgs()
+    private val getSellingEntity by lazy {
+        try {
+            args.saveSellingData
+        } catch (e: Exception) {
+            Log.e("args", e.toString())
+            SellingEntity(
+                itemUrlImgList!!, "", -1, "", "",
+                SellingCalendarEntity(-1, -1, -1), SellingTimeEntity
+                    (-1, -1, -1), ""
+            )
+        }
+    }
+
     private val categoryList by lazy { resources.getStringArray(R.array.category_home_item) }
-    private var categoryId = -1;
-    private var calcHour = 0;
+
+    private val yearList by lazy { resources.getStringArray(R.array.category_number_picker_year) }
+    private val monthList by lazy { resources.getStringArray(R.array.category_number_picker_one_to_twelve) }
+    private val dayList by lazy { resources.getStringArray(R.array.category_number_picker_one_to_thirty_one) }
+
+    private val dayNightList by lazy { resources.getStringArray(R.array.category_number_picker_day) }
+    private val hourList by lazy { resources.getStringArray(R.array.category_number_picker_zero_to_twelve) }
+    private val minuteList by lazy { resources.getStringArray(R.array.category_number_zero_to_fifty_10) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         init()
         initEvent()
     }
 
     override fun init() {
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         observeMerchandise()
         observeImgUrl()
-        resultLauncherActivityInfo =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == Activity.RESULT_OK) {
-                    val data: Intent? = result.data
-
-                    //uri
-                    val filePath = data?.data
-                    val inputStream: InputStream? =
-                        requireContext().contentResolver.openInputStream(filePath!!)
-
-                    //file
-                    val file = File.createTempFile("image", filePath.lastPathSegment)
-                    val outStream: OutputStream = FileOutputStream(file)
-                    outStream.write(inputStream!!.readBytes())
-
-                    Log.d("test file path", filePath.lastPathSegment!!)
-
-                    itemImgViewModel.uploadItemImg(filePath.lastPathSegment!! + ".png", file)
-                }
-            }
-
+        setUi(getSellingEntity!!)
+        resultLauncherActivityInfo = initResultLauncher()
         binding.apply {
-            if (args.category == -1) {
-                tvCategory.text = "카테고리"
-            } else {
-                tvCategory.setTextColor(ResourcesCompat.getColor(resources, R.color.nero, null))
-                categoryId = args.category
-                tvCategory.text = categoryList[categoryId - 2]
-            }
             rvMerchandiseImgList.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             rvMerchandiseImgList.adapter = itemImgAdapter
@@ -100,75 +102,54 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
 
     override fun initEvent() {
         binding.apply {
+            ivBiddingEndingDateDelete.setOnClickListener {
+                tvBiddingEndingDate.text = "경매 마감 날짜"
+                tvBiddingEndingDate.setTextColorWithResourceCompat(R.color.nero)
+                ivBiddingEndingDateDelete.visibility = View.INVISIBLE
+            }
+
             tvBiddingEndingDate.setOnClickListener {
-                val sellingDateDialog = SellingCalendarDialog(itemDateIdx) {
-                    val getDate =
-                        "${resources.getStringArray(R.array.category_number_picker_year)[it.yearIdx]}년 ${
-                            resources.getStringArray(R.array.category_number_picker_zero_to_twelve)[it.monthIdx]
-                        }월 ${resources.getStringArray(R.array.category_number_picker_one_to_thirty_one)[it.dayIdx]}일"
-                    tvBiddingEndingDate.text = getDate
-                    tvBiddingEndingDate.setTextColor(
-                        ResourcesCompat.getColor(
-                            resources,
-                            R.color.nero,
-                            null
-                        )
-                    )
+                if(getSellingEntity?.endData?.yearIdx == -1){
+                    getSellingEntity?.endData = SellingCalendarEntity(0,6,3)
+                }
+                val sellingDateDialog = SellingCalendarDialog(getSellingEntity?.endData) {
+                    tvBiddingEndingDate.text = setDateString(it)
+                    tvBiddingEndingDate.setTextColorWithResourceCompat(R.color.nero)
                     ivBiddingEndingDateDelete.visibility = View.VISIBLE
+                    getSellingEntity?.endData = it
                 }
                 sellingDateDialog.show(childFragmentManager, sellingDateDialog.tag)
             }
 
-            ivBiddingEndingDateDelete.setOnClickListener {
-                tvBiddingEndingDate.text = "경매 마감 날짜"
-                tvBiddingEndingDate.setTextColor(
-                    ResourcesCompat.getColor(
-                        resources,
-                        R.color.nobel,
-                        null
-                    )
-                )
-                ivBiddingEndingDateDelete.visibility = View.INVISIBLE
-            }
-
             ivBiddingEndingTimeDelete.setOnClickListener {
                 tvBiddingEndingTime.text = "경매 마감 시간"
-                tvBiddingEndingTime.setTextColor(
-                    ResourcesCompat.getColor(
-                        resources,
-                        R.color.nobel,
-                        null
-                    )
-                )
+                tvBiddingEndingTime.setTextColorWithResourceCompat(R.color.nobel)
                 ivBiddingEndingTimeDelete.visibility = View.INVISIBLE
             }
 
             tvBiddingEndingTime.setOnClickListener {
-                val sellingTimePickerDialog = SellingTimePickerDialog(itemTimeIdx) {
-                    itemTimeIdx.dateIdx = it.dateIdx
-                    itemTimeIdx.hourIdx = it.hourIdx
-                    itemTimeIdx.minuteIdx = it.minuteIdx
-                    val getDate =
-                        "${resources.getStringArray(R.array.category_number_picker_day)[it.dateIdx]} ${
-                            resources.getStringArray(R.array.category_number_picker_zero_to_twelve)[it.hourIdx]
-                        }시 ${resources.getStringArray(R.array.category_number_zero_to_fifty_10)[it.minuteIdx]}분"
-                    tvBiddingEndingTime.text = getDate
-                    tvBiddingEndingTime.setTextColor(
-                        ResourcesCompat.getColor(
-                            resources,
-                            R.color.nero,
-                            null
-                        )
-                    )
+                if(getSellingEntity?.endTime?.minuteIdx == -1){
+                    getSellingEntity?.endTime = SellingTimeEntity(1,6,3)
+                }
+                val sellingTimePickerDialog = SellingTimePickerDialog(getSellingEntity?.endTime) {
+                    tvBiddingEndingTime.text = setTimeString(it)
+                    getSellingEntity?.endTime = it
+                    tvBiddingEndingTime.setTextColorWithResourceCompat(R.color.nero)
                     ivBiddingEndingTimeDelete.visibility = View.VISIBLE
                 }
                 sellingTimePickerDialog.show(childFragmentManager, sellingTimePickerDialog.tag)
             }
 
             tvCategory.setOnClickListener {
+                getSellingEntity?.title = editPostTitle.text.toString()
+                getSellingEntity?.immediatePrice = editBiddingImmediatePrice.text.toString()
+                getSellingEntity?.startPrice = editBiddingStartPrice.text.toString()
+                getSellingEntity?.description = editPostContent.text.toString()
+                getSellingEntity?.imgUrlList = itemUrlImgList!!
+
                 navigate(
                     SellingFragmentDirections.actionSellingFragmentToSellingCategoryFragment(
-                        tvCategory.text.toString()
+                        getSellingEntity
                     )
                 )
             }
@@ -189,48 +170,33 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
             }
 
             btnPostRegistration.setOnClickListener {
-                if (tvCategory.text == "" ||
-                    editBiddingStartPrice.text.toString() == "" ||
-                    editPostTitle.text.toString() == "" ||
-                    editBiddingImmediatePrice.text.toString() == "" ||
-                    tvBiddingEndingDate.text == "" ||
-                    tvBiddingEndingTime.text == "" ||
-                    editPostContent.text.toString().length < 10
-                ) {
+                if (checkSignPost()) {
                     val dialog =
                         SellingEssentialRequiredItemDialog(requireContext())
                     dialog.setCanceledOnTouchOutside(true)
-                    dialog.show()
                     dialog.window?.setLayout(
                         WindowManager.LayoutParams.MATCH_PARENT,
                         WindowManager.LayoutParams.WRAP_CONTENT
                     )
+                    dialog.show()
                 } else {
                     val imgList = mutableListOf<String>()
 
-                    for (dataIdx in itemUrlImgList.indices) {
-                        imgList.add(itemUrlImgList[dataIdx].imgUrl!!)
-                    }
-
-                    calcHour = if(itemTimeIdx.dateIdx == 1){
-                        resources.getStringArray(R.array.category_number_picker_one_to_twelve)[itemTimeIdx.hourIdx].toInt() + 12
-                    }else{
-                        resources.getStringArray(R.array.category_number_picker_one_to_twelve)[itemTimeIdx.hourIdx].toInt()
+                    for (dataIdx in itemUrlImgList?.indices!!) {
+                        imgList.add(itemUrlImgList!![dataIdx].imgUrl!!)
                     }
 
                     //로직 확인
                     merchandiseViewModel.addItemInfo(
                         ItemAddInput(
-                            categoryId = categoryId,
+                            categoryId = getSellingEntity?.categoryIdx!!,
                             sPrice = editBiddingStartPrice.text.toString().replace(",", "").toInt(),
                             buyNow = Optional.Present(
                                 editBiddingImmediatePrice.text.toString().replace(",", "").toInt()
                             ),
                             title = editPostTitle.text.toString(),
-                            name = categoryList[categoryId - 2],
-                            dueDate = resources.getStringArray(R.array.category_number_picker_year)[itemDateIdx.yearIdx] +
-                                    "-${resources.getStringArray(R.array.category_number_picker_one_to_twelve)[itemDateIdx.monthIdx]}-" +
-                                    "${resources.getStringArray(R.array.category_number_picker_one_to_thirty_one)[itemDateIdx.dayIdx]}T${calcHour}:${resources.getStringArray(R.array.category_number_zero_to_fifty_10)[itemTimeIdx.minuteIdx]}:00.000Z",
+                            name = categoryList[getSellingEntity?.categoryIdx?.minus(2)!!],
+                            dueDate = setTimeType(getSellingEntity!!),
                             deliveryType = 1,
                             sCondition = 1,
                             aCondition = 1,
@@ -243,6 +209,114 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
         }
     }
 
+    private fun setTimeType(data: SellingEntity): String {
+        val calcHour = if (data.endTime?.dateIdx == 1) {
+            hourList[data.endTime?.hourIdx!!].toInt().plus(12)
+        } else {
+            hourList[data.endTime?.hourIdx!!].toInt()
+        }
+
+        return yearList[data.endData?.yearIdx!!] +
+                "-${monthList[data.endData?.monthIdx!!]}-" +
+                dayList[data.endData?.dayIdx!!] +
+                "T${calcHour}:${minuteList[data.endTime?.minuteIdx!!]}:00.000Z"
+    }
+
+    private fun checkSignPost(): Boolean {
+        binding.apply {
+            return !(tvCategory.text == "" ||
+                    editBiddingStartPrice.text.toString() == "" ||
+                    editPostTitle.text.toString() == "" ||
+                    editBiddingImmediatePrice.text.toString() == "" ||
+                    tvBiddingEndingDate.text == "" ||
+                    tvBiddingEndingTime.text == "" ||
+                    editPostContent.text.toString().length < 10)
+        }
+    }
+
+    private fun setUi(data: SellingEntity) {
+        binding.apply {
+            data.run {
+                if (imgUrlList.size == 0) {
+                    itemImgAdapter.submitList(emptyList())
+                    tvImgCount.text = "0/10"
+                } else {
+                    itemImgAdapter.submitList(imgUrlList)
+                    tvImgCount.text = "${imgUrlList.size}/10"
+                }
+                editPostTitle.setText(title)
+                editPostContent.setText(description)
+                if (data.categoryIdx != -1) {
+                    tvCategory.text = categoryList[categoryIdx?.minus(2)!!]
+                    tvCategory.setTextColorWithResourceCompat(R.color.nero)
+                }
+                editBiddingStartPrice.setText(startPrice)
+                if (startPrice != "") {
+                    tvStartPriceWon.setTextColor(
+                        ResourcesCompat.getColor(
+                            resources,
+                            R.color.nero,
+                            null
+                        )
+                    )
+                }
+                editBiddingImmediatePrice.setText(immediatePrice)
+                if (immediatePrice != "") {
+                    tvImmediatePriceWon.setTextColor(
+                        ResourcesCompat.getColor(
+                            resources,
+                            R.color.nero,
+                            null
+                        )
+                    )
+                }
+                tvBiddingEndingDate.text = setDateString(endData)
+                tvBiddingEndingTime.text = setTimeString(endTime)
+            }
+        }
+    }
+
+    private fun setDateString(date: SellingCalendarEntity?): String {
+        return if (date?.yearIdx == -1) {
+            binding.tvBiddingEndingDate.setTextColorWithResourceCompat(R.color.nobel)
+            "경매 마감 날짜"
+        } else {
+            binding.tvBiddingEndingDate.setTextColorWithResourceCompat(R.color.nero)
+            "${yearList[date?.yearIdx!!]}년" + " ${monthList[date.monthIdx]}월" + " ${dayList[date.dayIdx]}일"
+        }
+    }
+
+    private fun setTimeString(time: SellingTimeEntity?): String {
+        return if (time?.dateIdx == -1) {
+            binding.tvBiddingEndingTime.setTextColorWithResourceCompat(R.color.nobel)
+            "경매 마감 시간"
+        } else {
+            binding.tvBiddingEndingTime.setTextColorWithResourceCompat(R.color.nero)
+            dayNightList[time?.dateIdx!!] + " ${hourList[time.hourIdx]}시" + " ${minuteList[time.minuteIdx]}분"
+        }
+    }
+
+    private fun initResultLauncher(): ActivityResultLauncher<Intent> {
+        return registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+
+                //uri
+                val filePath = data?.data
+                val inputStream: InputStream? =
+                    requireContext().contentResolver.openInputStream(filePath!!)
+
+                //file
+                val file = File.createTempFile("image", filePath.lastPathSegment)
+                val outStream: OutputStream = FileOutputStream(file)
+                outStream.write(inputStream!!.readBytes())
+
+                Log.d("test file path", filePath.lastPathSegment!!)
+
+                itemImgViewModel.uploadItemImg(filePath.lastPathSegment!! + ".png", file)
+            }
+        }
+    }
 
     private fun observeImgUrl() {
         itemImgViewModel.itemUrl.observe(viewLifecycleOwner) { response ->
@@ -254,13 +328,14 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                 is ViewState.Success -> {
                     loadingDialogDismiss()
                     Log.d("img upload", "Success img upload")
-                    itemUrlImgList.add(response.value!!)
-                    itemImgAdapter.submitList(itemUrlImgList.toList())
-                    binding.tvImgCount.text = "${itemUrlImgList.size}/10"
+                    itemUrlImgList?.add(response.value!!)
+                    itemImgAdapter.submitList(itemUrlImgList?.toList())
+                    binding.tvImgCount.text = "${itemUrlImgList?.size}/10"
                     itemImgAdapter.onItemClicked = {
-                        itemUrlImgList.removeAt(it!!)
-                        binding.tvImgCount.text = "${itemUrlImgList.size}/10"
-                        itemImgAdapter.submitList(itemUrlImgList.toList())
+                        itemUrlImgList?.remove(it!!)
+                        binding.tvImgCount.text = "${itemUrlImgList!!.size}/10"
+                        itemImgAdapter.submitList(null)
+                        itemImgAdapter.submitList(itemUrlImgList?.toList())
                     }
                 }
                 else -> {
@@ -282,11 +357,11 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                 is ViewState.Success -> {
                     loadingDialogDismiss()
                     Log.d("Add item", "Success")
-                    if(response.value?.data?.addItem == null){
+                    if (response.value?.data?.addItem == null) {
                         Log.d("Add item", "Error")
-                    }
-                    else{
-                        Toast.makeText(requireContext(), "상품이 정상적으로 등록됐습니다.", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(requireContext(), "상품이 정상적으로 등록됐습니다.", Toast.LENGTH_LONG)
+                            .show()
                         activity?.finish()
                     }
                 }
