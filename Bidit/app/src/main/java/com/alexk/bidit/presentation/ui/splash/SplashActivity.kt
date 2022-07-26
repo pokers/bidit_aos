@@ -57,7 +57,10 @@ class SplashActivity : AppCompatActivity() {
                     Log.d("login success", "Token: ${TokenManager(this).getToken()}")
                     //내 id 기억하기
                     GlobalApplication.id = response.value?.data?.me?.id!!
-                    viewModel.updatePushToken(0, TokenManager(this).getPushToken())
+                    if(response.value.data?.me?.nickname == null){
+                        viewModel.updateUserInfo("닉네임${GlobalApplication.id}",response.value.data?.me?.kakaoAccount?.profile_image_url)
+                    }
+                    viewModel.updatePushToken(null, TokenManager(this).getPushToken())
                 }
                 //서버 연결 실패(만료) -> 재발급 요청
                 is ViewState.Error -> {
@@ -80,7 +83,26 @@ class SplashActivity : AppCompatActivity() {
                 //서버 연결 실패(만료) -> 재발급 요청
                 is ViewState.Error -> {
                     Log.d("pushToken Update", "failure token")
-                    startActivity(Intent(this, LoginActivity::class.java))
+                }
+            }
+        }
+
+        viewModel.updateUserInfo.observe(this) {response ->
+            when (response) {
+                //서버 연결 대기중
+                is ViewState.Loading -> {
+                    Log.d("User Update", "Loading")
+                }
+                //토큰 확인 성공 -> 홈으로 이동
+                is ViewState.Success -> {
+                    Log.d(
+                        "User Update",
+                        "Success - Nickname: ${response.value?.data?.updateUser?.nickname}"
+                    )
+                }
+                //서버 연결 실패(만료) -> 재발급 요청
+                is ViewState.Error -> {
+                    Log.d("User Update", "failure Update")
                 }
             }
         }

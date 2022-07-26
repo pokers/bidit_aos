@@ -191,6 +191,7 @@ class SearchKeywordFragment :
                     if (result?.size == 0) {
                         Log.d("Empty Merchandise List", "No merchandise data")
                         merchandiseAdapter.submitList(emptyList())
+                        binding.lyNoKeyword.visibility = View.VISIBLE
                     } else {
                         merchandiseAdapter.onItemClicked =
                             {

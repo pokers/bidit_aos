@@ -32,11 +32,13 @@
         <activity android:name="com.alexk.bidit.presentation.ui.category.CategoryActivity" />
         <activity android:name=".presentation.ui.bidding.BiddingActivity" />
         <activity android:name=".presentation.ui.selling.SellingActivity" />
-        <activity android:name=".presentation.ui.myPage.MyPageBasicAccountActivity"/>
-        <activity android:name=".presentation.ui.myPage.MyPagePersonalInfoManualActivity"/>
-        <activity android:name=".presentation.ui.myPage.MyPageServiceInfoActivity"/>
-        <activity android:name=".presentation.ui.myPage.MyPageAlarmActivity"/>
-        <activity android:name=".presentation.ui.myPage.MyPageProfileActivity"/>
+        <activity android:name=".presentation.ui.myPage.MyPageBasicAccountActivity" />
+        <activity android:name=".presentation.ui.myPage.MyPagePersonalInfoManualActivity" />
+        <activity android:name=".presentation.ui.myPage.MyPageServiceInfoActivity" />
+        <activity android:name=".presentation.ui.myPage.MyPageAlarmActivity" />
+        <activity
+            android:name=".presentation.ui.myPage.MyPageProfileActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">

@@ -174,11 +174,11 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                     val dialog =
                         SellingEssentialRequiredItemDialog(requireContext())
                     dialog.setCanceledOnTouchOutside(true)
+                    dialog.show()
                     dialog.window?.setLayout(
                         WindowManager.LayoutParams.MATCH_PARENT,
                         WindowManager.LayoutParams.WRAP_CONTENT
                     )
-                    dialog.show()
                 } else {
                     val imgList = mutableListOf<String>()
 
@@ -224,13 +224,13 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
 
     private fun checkSignPost(): Boolean {
         binding.apply {
-            return !(tvCategory.text == "" ||
+            return tvCategory.text == "" ||
                     editBiddingStartPrice.text.toString() == "" ||
                     editPostTitle.text.toString() == "" ||
                     editBiddingImmediatePrice.text.toString() == "" ||
                     tvBiddingEndingDate.text == "" ||
                     tvBiddingEndingTime.text == "" ||
-                    editPostContent.text.toString().length < 10)
+                    editPostContent.text.toString().length < 10
         }
     }
 
@@ -282,6 +282,7 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
             "경매 마감 날짜"
         } else {
             binding.tvBiddingEndingDate.setTextColorWithResourceCompat(R.color.nero)
+            binding.ivBiddingEndingDateDelete.visibility = View.VISIBLE
             "${yearList[date?.yearIdx!!]}년" + " ${monthList[date.monthIdx]}월" + " ${dayList[date.dayIdx]}일"
         }
     }
@@ -292,6 +293,7 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
             "경매 마감 시간"
         } else {
             binding.tvBiddingEndingTime.setTextColorWithResourceCompat(R.color.nero)
+            binding.ivBiddingEndingTimeDelete.visibility = View.VISIBLE
             dayNightList[time?.dateIdx!!] + " ${hourList[time.hourIdx]}시" + " ${minuteList[time.minuteIdx]}분"
         }
     }

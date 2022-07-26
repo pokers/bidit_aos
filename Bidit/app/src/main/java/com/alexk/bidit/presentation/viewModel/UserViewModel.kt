@@ -7,9 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.alexk.bidit.DeleteUserInfoMutation
 import com.alexk.bidit.GetMyInfoQuery
 import com.alexk.bidit.UpdatePushTokenMutation
+import com.alexk.bidit.UpdateUserInfoMutation
 import com.alexk.bidit.domain.repository.UserRepository
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.type.MembershipStatus
+import com.alexk.bidit.type.User
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.exception.ApolloHttpException
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,6 +31,9 @@ class UserViewModel @Inject constructor(private val repository: UserRepository) 
 
     private val _userStatusInfo by lazy { MutableLiveData<ViewState<ApolloResponse<DeleteUserInfoMutation.Data>>>() }
     val userStatusInfo get() = _userStatusInfo
+
+    private val _updateUserInfo by lazy { MutableLiveData<ViewState<ApolloResponse<UpdateUserInfoMutation.Data>>>() }
+    val updateUserInfo get() = _updateUserInfo
 
     fun updateUserState(status : Int) = viewModelScope.launch {
         _userStatusInfo.postValue(ViewState.Loading())
@@ -60,7 +65,7 @@ class UserViewModel @Inject constructor(private val repository: UserRepository) 
         }
     }
 
-    fun updatePushToken(status:Int, pushToken:String) = viewModelScope.launch {
+    fun updatePushToken(status:Int?, pushToken:String) = viewModelScope.launch {
         _pushToken.postValue(ViewState.Loading())
         try{
             val response = repository.updatePushToken(status, pushToken)
@@ -68,6 +73,17 @@ class UserViewModel @Inject constructor(private val repository: UserRepository) 
         }catch (e: ApolloHttpException){
             Log.e("ApolloException", "Failure", e)
             _pushToken.postValue(ViewState.Error("Error update push token"))
+        }
+    }
+
+    fun updateUserInfo(nickname : String, profileImg : String?) = viewModelScope.launch {
+        _updateUserInfo.postValue(ViewState.Loading())
+        try{
+            val response = repository.updateUserInfo(nickname, profileImg)
+            _updateUserInfo.postValue(ViewState.Success(response))
+        }catch (e: ApolloHttpException){
+            Log.d("UPDATE_USER_INFO","Failure",e)
+            _updateUserInfo.postValue(ViewState.Error("Error update user info"))
         }
     }
 

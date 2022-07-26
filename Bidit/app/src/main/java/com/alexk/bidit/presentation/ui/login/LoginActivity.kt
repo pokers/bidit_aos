@@ -52,7 +52,11 @@ class LoginActivity : AppCompatActivity() {
         binding.btnKakaoLogin.setOnClickListener {
             //카카오톡이 있으면 카카오톡으로
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
-                UserApiClient.instance.loginWithKakaoTalk(this, callback = callback, serviceTerms = listOf("service"))
+                UserApiClient.instance.loginWithKakaoTalk(
+                    this,
+                    callback = callback,
+                    serviceTerms = listOf("service")
+                )
             }
             //아니면 인터넷으로
             else {
@@ -74,46 +78,24 @@ class LoginActivity : AppCompatActivity() {
                     loadingDialog.dismiss()
                     GlobalApplication.id = response.value?.data?.me?.id!!
                     Log.d("login success", "Token: ${TokenManager(this).getToken()}")
-                    viewModel.updatePushToken(0, TokenManager(this).getPushToken())
-                    startActivity(Intent(this, HomeActivity::class.java))
+                    if (response.value.data?.me?.nickname == null) {
+                        viewModel.updateUserInfo("닉네임${GlobalApplication.id}",response.value.data?.me?.kakaoAccount?.profile_image_url)
+                    }
+                    viewModel.updatePushToken(null, TokenManager(this).getPushToken())
                 }
                 //탈퇴는 어떻게?
                 is ViewState.Error -> {
                     LoadingDialog(this).dismiss()
                     //앱 실행 후, 토큰 재발급 시 오류 발생(메시지 추적해야함)
-                    if(response.message == "invalid user"){
+                    if (response.message == "invalid user") {
                         viewModel.updateUserState(0)
                     }
                 }
             }
         }
-        viewModel.userStatusInfo.observe(this){response ->
-            when (response) {
-                //서버 연결 대기중
-                is ViewState.Loading -> {
-                    loadingDialog.show()
-                }
-                //로그인 성공
-                is ViewState.Success -> {
-                    loadingDialog.dismiss()
-                    GlobalApplication.id = response.value?.data?.updateMembership?.id!!
-                    Log.d("login success", "Token: ${TokenManager(this).getToken()}")
-                    viewModel.updatePushToken(0, TokenManager(this).getPushToken())
-                }
-                //탈퇴는 어떻게?
-                is ViewState.Error -> {
-                    loadingDialog.dismiss()
-                    //앱 실행 후, 토큰 재발급 시 오류 발생(메시지 추적해야함)
-                    if(response.message == "invalid user"){
-                        SignOutUserDialog(this).show()
-                        finishAffinity()
-                    }
-                }
-            }
-        }
 
-        viewModel.pushToken.observe(this){response ->
-            when(response){
+        viewModel.pushToken.observe(this) { response ->
+            when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {
                     LoadingDialog(this).show()
@@ -121,12 +103,33 @@ class LoginActivity : AppCompatActivity() {
                 //로그인 성공
                 is ViewState.Success -> {
                     LoadingDialog(this).dismiss()
-                    Log.d("pushToken Update", "Success - Token: ${TokenManager(this).getPushToken()}")
+                    Log.d(
+                        "pushToken Update",
+                        "Success - Token: ${TokenManager(this).getPushToken()}"
+                    )
                     startActivity(Intent(this, HomeActivity::class.java))
                 }
-
                 is ViewState.Error -> {
                     LoadingDialog(this).dismiss()
+                }
+            }
+        }
+        viewModel.updateUserInfo.observe(this) { response ->
+            when (response) {
+                //서버 연결 대기중
+                is ViewState.Loading -> {
+                    Log.d("User Update", "Loading")
+                }
+                //토큰 확인 성공 -> 홈으로 이동
+                is ViewState.Success -> {
+                    Log.d(
+                        "User Update",
+                        "Success - Nickname: ${response.value?.data?.updateUser?.nickname}"
+                    )
+                }
+                //서버 연결 실패(만료) -> 재발급 요청
+                is ViewState.Error -> {
+                    Log.d("User Update", "failure Update")
                 }
             }
         }

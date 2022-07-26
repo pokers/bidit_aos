@@ -30,6 +30,11 @@
         <action
             android:id="@+id/action_myPageFragment_to_myPageAccountInfoFragment"
             app:destination="@id/myPageAccountInfoFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_myTradeFragment"
+            app:destination="@id/myTradeFragment"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

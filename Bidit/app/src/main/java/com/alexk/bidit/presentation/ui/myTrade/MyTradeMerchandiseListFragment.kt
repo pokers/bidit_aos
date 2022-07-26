@@ -68,7 +68,9 @@ class MyTradeMerchandiseListFragment :
                     Log.d("Bid Success", "Success GET my bid list")
                     binding.rvMerchandiseList.adapter = bidListAdapter
                     val result = response.value?.data?.getBidding
+                    result?.filterNotNull()
                     if (result?.isNotEmpty() == true) {
+                        bidListAdapter.submitList(null)
                         bidListAdapter.submitList(result)
                         bidListAdapter.onItemClicked = {
                             val intent = Intent(requireContext(), BiddingActivity::class.java)
@@ -90,13 +92,17 @@ class MyTradeMerchandiseListFragment :
         merchandiseViewModel.itemList.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
+                    loadingDialogShow()
                     Log.d("My List Loading", "Loading GET my item list")
                 }
                 is ViewState.Success -> {
+                    loadingDialogDismiss()
                     binding.rvMerchandiseList.adapter = merchandiseListAdapter
                     val result = response.value?.data?.getItemList?.edges
+                    result?.filterNotNull()
                     if (result?.isNotEmpty() == true) {
                         Log.d("My List Success", "Success GET my item list")
+                        merchandiseListAdapter.submitList(null)
                         merchandiseListAdapter.submitList(result)
                         merchandiseListAdapter.onItemClicked =
                             {
@@ -110,6 +116,7 @@ class MyTradeMerchandiseListFragment :
                     }
                 }
                 is ViewState.Error -> {
+                    loadingDialogDismiss()
                     Log.d("My List Error", "Error GET my item list")
                 }
             }

@@ -25,12 +25,6 @@ query getBiddingInfo($biddingQuery : BiddingQueryInput){
                 description
             }
         }
-        user {
-            nickname
-            kakaoAccount {
-                profile_image_url
-            }
-        }
     }
 }
 mutation doBid($bidInfo:BidInput){

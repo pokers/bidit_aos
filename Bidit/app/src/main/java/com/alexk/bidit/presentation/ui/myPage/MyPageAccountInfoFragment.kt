@@ -34,6 +34,7 @@ class MyPageAccountInfoFragment :
 
     override fun init() {
         observeUserInfo()
+        userViewModel.getMyInfo()
     }
 
     override fun initEvent() {
@@ -64,10 +65,10 @@ class MyPageAccountInfoFragment :
                     val result = response.value?.data?.me
                     userId = result?.id!!
                     binding.userBasicInfo = UserBasicInfoEntity(
-                        result.kakaoAccount?.email!!,
-                        result.kakaoAccount.name!!,
-                        result.kakaoAccount.phone_number!!,
-                        result.joinPath!!
+                        result.kakaoAccount?.email,
+                        result.kakaoAccount?.name,
+                        result.kakaoAccount?.phone_number,
+                        result.joinPath
                     )
                 }
                 is ViewState.Error -> {

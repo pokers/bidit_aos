@@ -191,6 +191,7 @@ class CategoryActivity : AppCompatActivity() {
                             intent.putExtra("itemId", it)
                             startActivity(intent)
                         }
+                        merchandiseAdapter.submitList(null)
                         merchandiseAdapter.submitList(result)
                     }
                 }

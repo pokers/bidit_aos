@@ -12,6 +12,7 @@ import com.alexk.bidit.GetItemListQuery
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.common.CommonBindingAdapter.loadImageListUrl
 import com.alexk.bidit.common.util.addComma
+import com.alexk.bidit.common.util.setTextColorWithResourceCompat
 import com.alexk.bidit.type.JoinPath
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
@@ -61,7 +62,7 @@ object CommonBindingAdapter {
                 .into(this)
         }
         else{
-            this.setImageResource(R.drawable.bg_rect_transparent_white_smoke_radius4_stroke0)
+            this.setImageResource(R.drawable.ic_notification)
         }
     }
 
@@ -102,8 +103,11 @@ object CommonBindingAdapter {
     @JvmStatic
     @BindingAdapter("nickname")
     fun TextView.changeNickName(nickname : String?) {
-        if(nickname == null){
+        if(nickname != null){
             this.text = nickname
+        }
+        else{
+            this.text = ""
         }
     }
 

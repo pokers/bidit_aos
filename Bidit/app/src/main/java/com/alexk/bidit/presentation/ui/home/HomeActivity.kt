@@ -1,6 +1,7 @@
 package com.alexk.bidit.presentation.ui.home
 
 import android.os.Bundle
+import android.widget.AdapterView
 import androidx.navigation.ui.setupWithNavController
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.ActivityHomeBinding

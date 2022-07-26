@@ -11,6 +11,7 @@
         <variable
             name="bidSellingUserInfo"
             type="com.alexk.bidit.GetItemInfoQuery.User" />
+
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -245,7 +246,7 @@
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/notosans_kr_medium"
                 android:includeFontPadding="false"
-                android:text="@{bidSellingUserInfo.kakaoAccount.nickname}"
+                android:text="@{itemInfo.user.nickname}"
                 android:textColor="@color/charcoal"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@id/iv_selling_user_img"

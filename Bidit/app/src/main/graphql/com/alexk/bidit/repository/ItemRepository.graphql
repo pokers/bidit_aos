@@ -24,6 +24,7 @@ query getItemInfo($getItemId : Int!){
             url
         }
         user {
+            nickname
             kakaoAccount {
                 nickname
                 profile_image_url

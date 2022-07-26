@@ -129,6 +129,8 @@ class SearchResultFragment :
                     //리사이클러뷰 어댑터 연결
                     val result = response.value?.data?.getItemList?.edges
                     if (result?.size == 0) {
+                        binding.lyNoResult.visibility = View.VISIBLE
+                        binding.tvNoKeyword.text = "${keyword}에 대한 검색 결과가 없습니다."
                         merchandiseAdapter.submitList(emptyList())
                         Log.d("Empty Merchandise List", "No merchandise data")
                     } else {

@@ -4,8 +4,8 @@ import com.alexk.bidit.type.JoinPath
 import java.io.Serializable
 
 data class UserBasicInfoEntity(
-    val email: String,
-    val name: String,
-    val phoneNum: String,
-    val socialLogin: JoinPath
+    val email: String?,
+    val name: String?,
+    val phoneNum: String?,
+    val socialLogin: JoinPath?
 ):Serializable

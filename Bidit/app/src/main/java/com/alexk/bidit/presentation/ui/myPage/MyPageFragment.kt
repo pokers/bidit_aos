@@ -19,8 +19,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
 
     private val userViewModel by viewModels<UserViewModel>()
-    private var imgUrl = ""
-    private var nickname = ""
+    private var imgUrl :String? = null
+    private var nickname :String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,7 +30,6 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
     }
 
     override fun init() {
-        userViewModel.getMyInfo()
         binding.apply {
 
         }
@@ -38,6 +37,9 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     override fun initEvent() {
         binding.apply {
+            tvSellingList.setOnClickListener {
+                navigate(MyPageFragmentDirections.actionMyPageFragmentToMyTradeFragment())
+            }
             tvAccountInfo.setOnClickListener {
                 val intent = Intent(context, MyPageBasicAccountActivity::class.java)
                 startActivity(intent)
@@ -71,9 +73,9 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
                 }
                 is ViewState.Success -> {
                     loadingDialogDismiss()
-                    val result = response.value?.data?.me
-                    binding.tvBiddingCount.text = result?.counting?.buy.toString()
-                    binding.tvSellingCount.text = result?.counting?.sell.toString()
+                    binding.userInfo = response.value?.data
+                    imgUrl = response.value?.data?.me?.kakaoAccount?.profile_image_url
+                    nickname = response.value?.data?.me?.nickname
                     Log.d("My Page -> UserInfo", "Success")
                 }
                 is ViewState.Error -> {
@@ -82,5 +84,10 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        userViewModel.getMyInfo()
     }
 }

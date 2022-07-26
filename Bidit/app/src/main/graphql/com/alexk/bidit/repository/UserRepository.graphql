@@ -53,3 +53,14 @@ mutation deleteUserInfo($status:MembershipStatus){
         status
     }
 }
+
+mutation updateUserInfo($updateUserInfo : userUpdateInput){
+    updateUser(userUpdate: $updateUserInfo){
+        nickname
+        id
+        birth
+        status
+        deletedAt
+        description
+    }
+}

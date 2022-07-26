@@ -46,10 +46,10 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_profile_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/ic_notification"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ly_appbar" />
@@ -70,6 +70,7 @@
             android:layout_marginStart="@dimen/activity_margin"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="@dimen/activity_margin"
+            android:maxLines="1"
             android:background="@drawable/bg_rect_sliver_transparent_radius4_stroke1"
             android:fontFamily="@font/notosans_kr_regular"
             android:gravity="center_horizontal|center_vertical"
