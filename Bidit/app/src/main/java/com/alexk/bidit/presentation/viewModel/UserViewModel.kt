@@ -4,10 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alexk.bidit.DeleteUserInfoMutation
-import com.alexk.bidit.GetMyInfoQuery
-import com.alexk.bidit.UpdatePushTokenMutation
-import com.alexk.bidit.UpdateUserInfoMutation
+import com.alexk.bidit.*
 import com.alexk.bidit.domain.repository.UserRepository
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.type.MembershipStatus
@@ -34,6 +31,20 @@ class UserViewModel @Inject constructor(private val repository: UserRepository) 
 
     private val _updateUserInfo by lazy { MutableLiveData<ViewState<ApolloResponse<UpdateUserInfoMutation.Data>>>() }
     val updateUserInfo get() = _updateUserInfo
+
+    private val _alarmStatus by lazy { MutableLiveData<ViewState<ApolloResponse<SetUserAlarmMutation.Data>>>() }
+    val alarmStatus get() = _alarmStatus
+
+    fun addAlarm(userId : Int, status : Int) = viewModelScope.launch {
+        _alarmStatus.postValue(ViewState.Loading())
+        try{
+            val response = repository.addAlarm(userId, status)
+            _alarmStatus.postValue(ViewState.Success(response))
+        }catch (e: ApolloHttpException){
+            Log.e("ApolloException", "Failure", e)
+            _alarmStatus.postValue(ViewState.Error("add alarm error"))
+        }
+    }
 
     fun updateUserState(status : Int) = viewModelScope.launch {
         _userStatusInfo.postValue(ViewState.Loading())

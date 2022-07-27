@@ -71,6 +71,7 @@ class LoginActivity : AppCompatActivity() {
             when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {
+                    Log.d("GET_MY_INFO", "LOADING")
                     loadingDialog.show()
                 }
                 //로그인 성공
@@ -85,6 +86,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 //탈퇴는 어떻게?
                 is ViewState.Error -> {
+                    Log.d("GET_MY_INFO", "ERROR")
                     LoadingDialog(this).dismiss()
                     //앱 실행 후, 토큰 재발급 시 오류 발생(메시지 추적해야함)
                     if (response.message == "invalid user") {
@@ -98,6 +100,7 @@ class LoginActivity : AppCompatActivity() {
             when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {
+                    Log.d("UPDATE_PUSH_TOKEN", "LOADING")
                     LoadingDialog(this).show()
                 }
                 //로그인 성공
@@ -110,6 +113,7 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(Intent(this, HomeActivity::class.java))
                 }
                 is ViewState.Error -> {
+                    Log.d("UPDATE_PUSH_TOKEN", "ERROR")
                     LoadingDialog(this).dismiss()
                 }
             }

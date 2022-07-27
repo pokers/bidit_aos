@@ -2,10 +2,7 @@ package com.alexk.bidit.data.repository
 
 
 import android.util.Log
-import com.alexk.bidit.DeleteUserInfoMutation
-import com.alexk.bidit.GetMyInfoQuery
-import com.alexk.bidit.UpdatePushTokenMutation
-import com.alexk.bidit.UpdateUserInfoMutation
+import com.alexk.bidit.*
 import com.alexk.bidit.di.ApolloClient
 import com.alexk.bidit.domain.repository.UserRepository
 import com.alexk.bidit.type.MembershipStatus
@@ -39,7 +36,10 @@ class UserRepositoryImpl @Inject constructor(private val apiService: ApolloClien
             .mutation(DeleteUserInfoMutation(Optional.Present(status))).execute()
     }
 
-    override suspend fun updateUserInfo(nickname: String, profileImg:String?): ApolloResponse<UpdateUserInfoMutation.Data> {
+    override suspend fun updateUserInfo(
+        nickname: String,
+        profileImg: String?
+    ): ApolloResponse<UpdateUserInfoMutation.Data> {
         return apiService.provideApolloClient().mutation(
             UpdateUserInfoMutation(
                 Optional.Present(
@@ -47,6 +47,18 @@ class UserRepositoryImpl @Inject constructor(private val apiService: ApolloClien
                         nickname = Optional.Present(nickname)
                     )
                 )
+            )
+        ).execute()
+    }
+
+    override suspend fun addAlarm(
+        userId: Int,
+        status: Int
+    ): ApolloResponse<SetUserAlarmMutation.Data> {
+        return apiService.provideApolloClient().mutation(
+            SetUserAlarmMutation(
+                userId = Optional.Present(userId),
+                status = Optional.Present(status)
             )
         ).execute()
     }

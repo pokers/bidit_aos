@@ -17,6 +17,19 @@ query getMyInfo{
         nickname
         joinPath
         email
+        pushToken{
+            id
+            status
+            userId
+            token
+            createdAt
+            updatedAt
+        }
+        userAlarm{
+            id
+            status
+            alarmId
+        }
         counting {
             buy
             sell
@@ -63,4 +76,8 @@ mutation updateUserInfo($updateUserInfo : userUpdateInput){
         deletedAt
         description
     }
+}
+
+mutation setUserAlarm($userId:Int, $status:Int){
+    addUserAlarm(userId: $userId,status: $status)
 }

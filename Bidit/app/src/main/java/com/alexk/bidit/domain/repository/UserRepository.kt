@@ -1,9 +1,6 @@
 package com.alexk.bidit.domain.repository
 
-import com.alexk.bidit.DeleteUserInfoMutation
-import com.alexk.bidit.GetMyInfoQuery
-import com.alexk.bidit.UpdatePushTokenMutation
-import com.alexk.bidit.UpdateUserInfoMutation
+import com.alexk.bidit.*
 import com.alexk.bidit.type.MembershipStatus
 import com.alexk.bidit.type.User
 import com.apollographql.apollo.api.Response
@@ -15,4 +12,5 @@ interface UserRepository {
     suspend fun updatePushToken(status : Int?, pushToken:String): ApolloResponse<UpdatePushTokenMutation.Data>
     suspend fun updateUserStatus(status:MembershipStatus):ApolloResponse<DeleteUserInfoMutation.Data>
     suspend fun updateUserInfo(nickname : String, profileImg:String?) : ApolloResponse<UpdateUserInfoMutation.Data>
+    suspend fun addAlarm(userId : Int, status: Int):ApolloResponse<SetUserAlarmMutation.Data>
 }

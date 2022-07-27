@@ -21,6 +21,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
     private val userViewModel by viewModels<UserViewModel>()
     private var imgUrl :String? = null
     private var nickname :String? = null
+    private var userId = -1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,6 +47,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             }
             tvSettingAlarm.setOnClickListener {
                 val intent = Intent(context, MyPageAlarmActivity::class.java)
+                intent.putExtra("userId",userId)
                 startActivity(intent)
             }
             tvPersonalInfoManual.setOnClickListener {
@@ -76,6 +78,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
                     binding.userInfo = response.value?.data
                     imgUrl = response.value?.data?.me?.kakaoAccount?.profile_image_url
                     nickname = response.value?.data?.me?.nickname
+                    userId = response.value?.data?.me?.id!!
                     Log.d("My Page -> UserInfo", "Success")
                 }
                 is ViewState.Error -> {

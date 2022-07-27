@@ -21,6 +21,7 @@ class MyPageAlarmActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMyPageAlarmBinding
     private val userViewModel by viewModels<UserViewModel>()
     private val loadingDialog by lazy { LoadingDialog(this) }
+    private var userId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,10 +41,10 @@ class MyPageAlarmActivity : AppCompatActivity() {
         binding.apply {
             cbAllPushAlarm.setOnCheckedChangeListener { _, isChecked ->
                 if(isChecked){
-                    userViewModel.updatePushToken(0,TokenManager(this@MyPageAlarmActivity).getPushToken())
+                    userViewModel.addAlarm(userId,0)
                 }
                 else{
-                    userViewModel.updatePushToken(1,TokenManager(this@MyPageAlarmActivity).getPushToken())
+                    userViewModel.addAlarm(userId,1)
                 }
             }
         }
@@ -59,8 +60,9 @@ class MyPageAlarmActivity : AppCompatActivity() {
                 is ViewState.Success -> {
                     loadingDialog.dismiss()
                     Log.d("PushToken", "Success")
-                    val result = response.value?.data?.me?.pushToken?.status
-                    binding.cbAllPushAlarm.isChecked = result == 0
+                    val result = response.value?.data?.me?.userAlarm
+                    userId = response.value?.data?.me?.id!!
+                    binding.cbAllPushAlarm.isChecked = result != null
                 }
                 is ViewState.Error -> {
                     loadingDialog.dismiss()
@@ -69,7 +71,7 @@ class MyPageAlarmActivity : AppCompatActivity() {
             }
         }
 
-        userViewModel.pushToken.observe(this) { response ->
+        userViewModel.alarmStatus.observe(this) { response ->
             when (response) {
                 is ViewState.Loading -> {
                     loadingDialog.show()
