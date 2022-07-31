@@ -8,8 +8,10 @@ import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.DialogBiddingBoardDeleteBinding
 import com.alexk.bidit.databinding.DialogBiddingBoardDeleteWarningBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-class BiddingBoardDeleteDialog(context: Context):Dialog(context) {
+class BiddingBoardDeleteDialog(context: Context, private val deleteEvent: (Unit) -> Unit):Dialog(context) {
     private lateinit var binding : DialogBiddingBoardDeleteBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +27,8 @@ class BiddingBoardDeleteDialog(context: Context):Dialog(context) {
                 dismiss()
             }
             btnDelete.setOnClickListener {
-                //게시글 삭제
+                deleteEvent
+                dismiss()
             }
         }
     }

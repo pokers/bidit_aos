@@ -40,6 +40,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         binding.apply {
             tvSellingList.setOnClickListener {
                 navigate(MyPageFragmentDirections.actionMyPageFragmentToMyTradeFragment())
+
             }
             tvAccountInfo.setOnClickListener {
                 val intent = Intent(context, MyPageBasicAccountActivity::class.java)

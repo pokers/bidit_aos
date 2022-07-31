@@ -54,8 +54,7 @@ class LoginActivity : AppCompatActivity() {
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
                 UserApiClient.instance.loginWithKakaoTalk(
                     this,
-                    callback = callback,
-                    serviceTerms = listOf("service")
+                    callback = callback
                 )
             }
             //아니면 인터넷으로

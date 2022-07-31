@@ -62,10 +62,10 @@ class MerchandiseRepositoryImpl @Inject constructor(private val apiService: Apol
     override suspend fun updateItemStatus(
         itemId: Int,
         status: Int
-    ): ApolloResponse<UpdateItemStatusMutation.Data> {
+    ): ApolloResponse<UpdateItemMutation.Data> {
         return apiService.provideApolloClient().mutation(
-            UpdateItemStatusMutation(
-                itemId = Optional.Present(itemId), itemStatus = Optional.Present(
+            UpdateItemMutation(
+                itemId = Optional.Present(itemId), itemUpdate = Optional.Present(
                     ItemUpdateInput(status = Optional.Present(status))
                 )
             )
@@ -84,5 +84,21 @@ class MerchandiseRepositoryImpl @Inject constructor(private val apiService: Apol
                 images = Optional.Present(images)
             )
         ).execute()
+    }
+
+    override suspend fun updateItem(
+        itemId: Int,
+        itemInfo: ItemUpdateInput,
+        description: String
+    ): ApolloResponse<UpdateItemMutation.Data> {
+        return apiService.provideApolloClient().mutation(
+            UpdateItemMutation(
+                itemId = Optional.Present(itemId),
+                itemUpdate = Optional.Present(
+                    ItemUpdateInput()
+                ),
+                descrption = Optional.Present(description)
+            )
+        ).execute();
     }
 }

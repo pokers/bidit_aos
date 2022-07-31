@@ -1,7 +1,6 @@
 package com.alexk.bidit.presentation.viewModel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +10,7 @@ import com.apollographql.apollo3.api.ApolloResponse
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.type.CursorType
 import com.alexk.bidit.type.ItemAddInput
-import com.alexk.bidit.type.ItemDescription
+import com.alexk.bidit.type.ItemUpdateInput
 import com.apollographql.apollo3.exception.ApolloHttpException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -29,8 +28,8 @@ class MerchandiseViewModel @Inject constructor(private val repository: Merchandi
     private val _itemInfo by lazy { MutableLiveData<ViewState<ApolloResponse<GetItemInfoQuery.Data>>>() }
     val itemInfo get() = _itemInfo
 
-    private val _itemStatus by lazy { MutableLiveData<ViewState<ApolloResponse<UpdateItemStatusMutation.Data>>>() }
-    val itemStatus get() = _itemStatus
+    private val _updateItem by lazy { MutableLiveData<ViewState<ApolloResponse<UpdateItemMutation.Data>>>() }
+    val updateItem get() = _updateItem
 
     private val _addItemStatus by lazy { MutableLiveData<ViewState<ApolloResponse<AddItemInfoMutation.Data>>>() }
     val addItemStatus get() = _addItemStatus
@@ -140,13 +139,26 @@ class MerchandiseViewModel @Inject constructor(private val repository: Merchandi
     }
 
     fun updateItemStatus(itemId: Int, status: Int) = viewModelScope.launch {
-        _itemStatus.postValue(ViewState.Loading())
+        _updateItem.postValue(ViewState.Loading())
         try {
             val response = repository.updateItemStatus(itemId, status)
-            _itemStatus.postValue(ViewState.Success(response))
+            _updateItem.postValue(ViewState.Success(response))
         } catch (e: ApolloHttpException) {
             Log.e("ApolloException", "Failure", e)
-            _itemStatus.postValue(ViewState.Error("Error update item status"))
+            _updateItem.postValue(ViewState.Error("Error update item status"))
         }
     }
+
+    fun updateItem(itemId: Int, updateItem: ItemUpdateInput, description: String) =
+        viewModelScope.launch {
+            _updateItem.postValue(ViewState.Loading())
+            try {
+                val response = repository.updateItem(itemId, updateItem, description)
+                _updateItem.postValue(ViewState.Success(response))
+            } catch (e: ApolloHttpException) {
+                Log.e("ApolloException", "Failure", e)
+                _updateItem.postValue(ViewState.Error("Error update item status"))
+            }
+        }
+
 }

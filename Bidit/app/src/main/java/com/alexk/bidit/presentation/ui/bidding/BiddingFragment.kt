@@ -58,7 +58,14 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
             }
             //더 보기
             ivMoreInfo.setOnClickListener {
-                val biddingMoreInfoDialog = BiddingBoardMoreInfoDialog()
+                val biddingMoreInfoDialog = BiddingBoardMoreInfoDialog {
+                    //0 -> 수정, 1 -> 삭제
+                    if (it == 0) {
+                        Log.d("123","123")
+                    } else {
+                        itemViewModel.updateItemStatus(itemId!!,4)
+                    }
+                }
                 biddingMoreInfoDialog.arguments = Bundle().apply {
                     this.putInt("itemId", itemId!!)
                 }
@@ -67,7 +74,11 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
             //상태변경 Dialog
             tvBiddingStatus.setOnClickListener {
                 val dialog =
-                    BiddingBoardStatusDialog(requireContext(), itemInfo?.status!!, this@BiddingFragment.itemInfo.cPrice) {
+                    BiddingBoardStatusDialog(
+                        requireContext(),
+                        itemInfo?.status!!,
+                        this@BiddingFragment.itemInfo.cPrice
+                    ) {
                         itemViewModel.updateItemStatus(itemId!!, it)
                     }
                 dialog.setCanceledOnTouchOutside(true)
@@ -81,7 +92,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                 val biddingFragment = BiddingBidDialog {
                     //고차 함수로 입력한 입찰가 받아옴
                     bidPrice = it
-                    bidViewModel.controlBid(itemId!!, bidPrice,0)
+                    bidViewModel.controlBid(itemId!!, bidPrice, 0)
                 }
 
                 //bidding price
@@ -89,7 +100,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
 
                     var price = itemInfo?.cPrice
 
-                    if(itemInfo?.cPrice == null){
+                    if (itemInfo?.cPrice == null) {
                         price = itemInfo?.sPrice
                     }
                     this.putInt("currentPrice", price!!)
@@ -207,7 +218,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                 }
             }
         }
-        itemViewModel.itemStatus.observe(viewLifecycleOwner) { response ->
+        itemViewModel.updateItem.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
                     loadingDialogShow()
@@ -216,7 +227,12 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                 is ViewState.Success -> {
                     loadingDialogDismiss()
                     Log.d("Bidding Success", "Success GET bidding info")
-                    itemViewModel.getItemInfo(itemId!!)
+                    if(response.value?.data?.updateItem?.status == 4){
+                        activity?.finish()
+                    }
+                    else{
+                        itemViewModel.getItemInfo(itemId!!)
+                    }
                 }
                 is ViewState.Error -> {
                     loadingDialogDismiss()

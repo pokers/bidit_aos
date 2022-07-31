@@ -11,7 +11,10 @@ import com.alexk.bidit.common.util.setDialogTransparentBackground
 import com.alexk.bidit.databinding.DialogBiddingBoardMoreInfoBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class BiddingBoardMoreInfoDialog : BottomSheetDialogFragment() {
+class BiddingBoardMoreInfoDialog(
+    private val updateEvent: (Int) -> Unit
+) :
+    BottomSheetDialogFragment() {
 
     private lateinit var binding: DialogBiddingBoardMoreInfoBinding
     private val itemId by lazy { arguments?.getInt("itemId") }
@@ -45,13 +48,15 @@ class BiddingBoardMoreInfoDialog : BottomSheetDialogFragment() {
             //수정
             btnModify.setOnClickListener {
                 dismiss()
-                //
+                updateEvent(0)
             }
             btnDelete.setOnClickListener {
-                //게시글 삭제
                 dismiss()
+                //게시글 삭제
                 val dialog =
-                    BiddingBoardDeleteDialog(requireContext())
+                    BiddingBoardDeleteDialog(requireContext()) {
+                        updateEvent(1)
+                    }
                 dialog.setCanceledOnTouchOutside(true)
                 dialog.show()
                 dialog.window?.setLayout(

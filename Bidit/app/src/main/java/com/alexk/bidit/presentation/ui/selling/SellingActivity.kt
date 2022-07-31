@@ -9,6 +9,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
 class SellingActivity :BaseActivity<ActivitySellingBinding>(R.layout.activity_selling,R.id.nav_selling_fragment){
+
     override fun init() {
         TODO("Not yet implemented")
     }

@@ -193,7 +193,7 @@ object CommonBindingAdapter {
     @JvmStatic
     @BindingAdapter("reservation")
     fun TextView.checkReservation(status: Int?) {
-        if (status == 1) {
+        if (status == 2) {
             this.visibility = View.VISIBLE
         }
     }

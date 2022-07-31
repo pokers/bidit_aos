@@ -21,6 +21,7 @@ query getItemInfo($getItemId : Int!){
             description
         }
         image {
+            id
             url
         }
         user {
@@ -58,10 +59,39 @@ query getItemList($itemQueryInfo:ItemQueryInput, $keywordInfo:String, $firstInfo
     }
 }
 
-mutation updateItemStatus($itemId : Int, $itemStatus:ItemUpdateInput, $descrption:String){
-    updateItem(itemId: $itemId, itemUpdate: $itemStatus, description: $descrption){
+mutation updateItem($itemId : Int, $itemUpdate:ItemUpdateInput, $descrption:String){
+    updateItem(itemId: $itemId, itemUpdate: $itemUpdate, description: $descrption){
         id
         status
+        userId
+        categoryId
+        sPrice
+        cPrice
+        buyNow
+        viewCount
+        name
+        title
+        dueDate
+        deliveryType
+        sCondition
+        aCondition
+        createdAt
+        updatedAt
+        deletedAt
+        description {
+            description
+        }
+        image {
+            id
+            url
+        }
+        user {
+            nickname
+            kakaoAccount {
+                nickname
+                profile_image_url
+            }
+        }
     }
 }
 
