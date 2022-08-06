@@ -49,8 +49,8 @@ android {
         applicationId "com.alexk.bidit"
         minSdk 21
         targetSdk 32
-        versionCode 6
-        versionName "0.1.6"
+        versionCode 10
+        versionName "0.2.0"
 
         resValue "string", "KAKAO_APP_KEY", properties['kakao_app_key']
         resValue "string", "KAKAO_NATIVE_KEY", properties['kakao_native_key']

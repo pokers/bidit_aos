@@ -28,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
         if (throwable != null) {
             //로그인 실패
             Log.d("kakao login", "fail")
+            Toast.makeText(this,throwable.message,Toast.LENGTH_LONG).show()
         } else {
             UserApiClient.instance.me { _, _ ->
                 val token = oAuthToken?.accessToken
@@ -88,9 +89,8 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("GET_MY_INFO", "ERROR")
                     LoadingDialog(this).dismiss()
                     //앱 실행 후, 토큰 재발급 시 오류 발생(메시지 추적해야함)
-                    if (response.message == "invalid user") {
-                        viewModel.updateUserState(0)
-                    }
+                    Toast.makeText(this,"오류 발생 ${response.value?.errors?.get(0)?.message}",Toast.LENGTH_LONG).show()
+                    viewModel.getMyInfo()
                 }
             }
         }
