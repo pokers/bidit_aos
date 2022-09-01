@@ -3,7 +3,7 @@ package com.alexk.bidit.data.sharedPreference
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKey
+import androidx.security.crypto.MasterKeys
 import com.alexk.bidit.BuildConfig
 import com.alexk.bidit.common.util.KEYWORD
 import org.json.JSONArray
@@ -11,15 +11,11 @@ import com.google.gson.JsonArray as JsonA
 
 class SearchKeywordManager(context: Context) {
     private val prefs: SharedPreferences by lazy {
-        val masterKey =
-            MasterKey.Builder(context, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
-                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-                .build()
-
+        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
         EncryptedSharedPreferences.create(
-            context,
             BuildConfig.APPLICATION_ID,
-            masterKey,
+            masterKeyAlias,
+            context,
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )

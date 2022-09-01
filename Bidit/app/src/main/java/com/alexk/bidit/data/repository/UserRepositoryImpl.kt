@@ -18,6 +18,10 @@ class UserRepositoryImpl @Inject constructor(private val apiService: ApolloClien
         return apiService.provideApolloClient().query(GetMyInfoQuery()).execute()
     }
 
+    override suspend fun addUserInfo(): ApolloResponse<PostMyInfoMutation.Data> {
+        return apiService.provideApolloClient().mutation(PostMyInfoMutation()).execute();
+    }
+
     override suspend fun updatePushToken(
         status: Int?,
         pushToken: String

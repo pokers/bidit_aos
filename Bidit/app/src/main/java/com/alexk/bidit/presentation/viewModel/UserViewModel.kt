@@ -35,6 +35,20 @@ class UserViewModel @Inject constructor(private val repository: UserRepository) 
     private val _alarmStatus by lazy { MutableLiveData<ViewState<ApolloResponse<SetUserAlarmMutation.Data>>>() }
     val alarmStatus get() = _alarmStatus
 
+    private val _addUserInfo by lazy { MutableLiveData<ViewState<ApolloResponse<PostMyInfoMutation.Data>>>() }
+    val addUserInfo get() = _addUserInfo
+
+    fun addUser() = viewModelScope.launch {
+        _addUserInfo.postValue(ViewState.Loading())
+        try{
+            val response = repository.addUserInfo()
+            _addUserInfo.postValue(ViewState.Success(response))
+        }catch (e: ApolloHttpException){
+            Log.e("ApolloException", "Failure", e)
+            _addUserInfo.postValue(ViewState.Error("add alarm error"))
+        }
+    }
+
     fun addAlarm(userId : Int, status : Int) = viewModelScope.launch {
         _alarmStatus.postValue(ViewState.Loading())
         try{
