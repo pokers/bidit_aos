@@ -3,6 +3,8 @@ package com.alexk.bidit.presentation.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +20,7 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import java.lang.RuntimeException
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
@@ -28,7 +31,6 @@ class LoginActivity : AppCompatActivity() {
         if (throwable != null) {
             //로그인 실패
             Log.d("kakao login", "fail")
-            Toast.makeText(this,throwable.message,Toast.LENGTH_LONG).show()
         } else {
             UserApiClient.instance.me { _, _ ->
                 val token = oAuthToken?.accessToken
@@ -67,6 +69,25 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun observeToken() {
+        viewModel.addUserInfo.observe(this){ response ->
+            when (response) {
+                //서버 연결 대기중
+                is ViewState.Loading -> {
+                    Log.d("GET_MY_INFO", "LOADING")
+                    loadingDialog.show()
+                }
+                //로그인 성공
+                is ViewState.Success -> {
+                    loadingDialog.dismiss()
+                    viewModel.getMyInfo()
+                }
+                //탈퇴는 어떻게?
+                is ViewState.Error -> {
+                    throw RuntimeException("Add User Error")
+                }
+            }
+        }
+
         viewModel.myInfo.observe(this) { response ->
             when (response) {
                 //서버 연결 대기중
@@ -77,20 +98,21 @@ class LoginActivity : AppCompatActivity() {
                 //로그인 성공
                 is ViewState.Success -> {
                     loadingDialog.dismiss()
-                    GlobalApplication.id = response.value?.data?.me?.id!!
-                    Log.d("login success", "Token: ${TokenManager(this).getToken()}")
-                    if (response.value.data?.me?.nickname == null) {
-                        viewModel.updateUserInfo("닉네임${GlobalApplication.id}",response.value.data?.me?.kakaoAccount?.profile_image_url)
+                    if(response.value?.data?.me?.id == null){
+                        viewModel.addUser()
                     }
-                    viewModel.updatePushToken(null, TokenManager(this).getPushToken())
+                    else{
+                        GlobalApplication.id = response.value.data?.me?.id!!
+                        Log.d("login success", "Token: ${TokenManager(this).getToken()}")
+                        if (response.value.data?.me?.nickname == null) {
+                            viewModel.updateUserInfo("닉네임${GlobalApplication.id}",response.value.data?.me?.kakaoAccount?.profile_image_url)
+                        }
+                        viewModel.updatePushToken(null, TokenManager(this).getPushToken())
+                    }
                 }
                 //탈퇴는 어떻게?
                 is ViewState.Error -> {
-                    Log.d("GET_MY_INFO", "ERROR")
-                    LoadingDialog(this).dismiss()
-                    //앱 실행 후, 토큰 재발급 시 오류 발생(메시지 추적해야함)
-                    Toast.makeText(this,"오류 발생 ${response.value?.errors?.get(0)?.message}",Toast.LENGTH_LONG).show()
-                    viewModel.getMyInfo()
+                    throw RuntimeException("MyInfo Error")
                 }
             }
         }

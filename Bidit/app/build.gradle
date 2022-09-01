@@ -11,12 +11,15 @@ plugins {
     //apollo
     id("com.apollographql.apollo3").version("3.3.2")
 
+    //parcelize
+    id 'kotlin-parcelize'
+
+    //firebase crashlytics
+    id 'com.google.firebase.crashlytics'
+
     //hilt
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
-
-    //parcelize
-    id 'kotlin-parcelize'
 }
 
 Properties properties = new Properties()
@@ -47,10 +50,10 @@ android {
 
     defaultConfig {
         applicationId "com.alexk.bidit"
-        minSdk 21
+        minSdk 23
         targetSdk 32
-        versionCode 10
-        versionName "0.2.0"
+        versionCode 13
+        versionName "0.2.3"
 
         resValue "string", "KAKAO_APP_KEY", properties['kakao_app_key']
         resValue "string", "KAKAO_NATIVE_KEY", properties['kakao_native_key']
@@ -119,7 +122,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.8.0'
 
     // EncryptedSharedPreferences
-    implementation 'androidx.security:security-crypto:1.1.0-alpha03'
+    implementation 'androidx.security:security-crypto:1.0.0'
 
     // rxJava
     implementation "io.reactivex.rxjava2:rxjava:2.2.7"
@@ -173,6 +176,15 @@ dependencies {
 
     // https://github.com/ybq/Android-SpinKit
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:30.3.0')
+
+    // Declare the dependencies for the Crashlytics and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-analytics'
+
 }
 
 kapt {
