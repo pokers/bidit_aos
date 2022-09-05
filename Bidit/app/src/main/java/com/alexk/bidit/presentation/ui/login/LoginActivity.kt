@@ -18,6 +18,7 @@ import com.alexk.bidit.presentation.ui.home.HomeActivity
 import com.alexk.bidit.presentation.viewModel.UserViewModel
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
+import com.sendbird.android.SendBird
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.lang.RuntimeException
@@ -48,7 +49,10 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initEvent()
-        observeToken()
+        observeAddUserInfo()
+        observeMyInfo()
+        observePushToken()
+        observeUpdateMyInfo()
     }
 
     private fun initEvent() {
@@ -67,9 +71,25 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+    private fun connectToSendBird(userID: String, nickname: String) {
+        SendBird.connect(userID) { _, e ->
+            if (e != null) {
+                Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
+            } else {
+                SendBird.updateCurrentUserInfo(nickname, null) { error ->
+                    if (error != null) {
+                        Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+                    }
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }
+        }
+    }
 
-    private fun observeToken() {
-        viewModel.addUserInfo.observe(this){ response ->
+    private fun observeAddUserInfo(){
+        viewModel.addUserInfo.observe(this) { response ->
             when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {
@@ -87,36 +107,8 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
-
-        viewModel.myInfo.observe(this) { response ->
-            when (response) {
-                //서버 연결 대기중
-                is ViewState.Loading -> {
-                    Log.d("GET_MY_INFO", "LOADING")
-                    loadingDialog.show()
-                }
-                //로그인 성공
-                is ViewState.Success -> {
-                    loadingDialog.dismiss()
-                    if(response.value?.data?.me?.id == null){
-                        viewModel.addUser()
-                    }
-                    else{
-                        GlobalApplication.id = response.value.data?.me?.id!!
-                        Log.d("login success", "Token: ${TokenManager(this).getToken()}")
-                        if (response.value.data?.me?.nickname == null) {
-                            viewModel.updateUserInfo("닉네임${GlobalApplication.id}",response.value.data?.me?.kakaoAccount?.profile_image_url)
-                        }
-                        viewModel.updatePushToken(null, TokenManager(this).getPushToken())
-                    }
-                }
-                //탈퇴는 어떻게?
-                is ViewState.Error -> {
-                    throw RuntimeException("MyInfo Error")
-                }
-            }
-        }
-
+    }
+    private fun observePushToken(){
         viewModel.pushToken.observe(this) { response ->
             when (response) {
                 //서버 연결 대기중
@@ -139,6 +131,8 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+    private fun observeUpdateMyInfo(){
         viewModel.updateUserInfo.observe(this) { response ->
             when (response) {
                 //서버 연결 대기중
@@ -155,6 +149,46 @@ class LoginActivity : AppCompatActivity() {
                 //서버 연결 실패(만료) -> 재발급 요청
                 is ViewState.Error -> {
                     Log.d("User Update", "failure Update")
+                }
+            }
+        }
+    }
+    private fun observeMyInfo() {
+        viewModel.myInfo.observe(this) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    Log.d("GET_MY_INFO", "LOADING")
+                    loadingDialog.show()
+                }
+                is ViewState.Success -> {
+                    loadingDialog.dismiss()
+                    if (response.value?.data?.me?.id == null) {
+                        viewModel.addUser()
+                    } else {
+                        val me = response.value.data?.me
+                        GlobalApplication.instance.setUserId(me?.id!!)
+                        //닉네임이 없다면 default로 넣어주기
+                        if (response.value.data?.me?.nickname == null) {
+                            val defaultNickname = "닉네임${GlobalApplication.instance.getUserId()}"
+                            GlobalApplication.instance.setNickname(defaultNickname)
+                            viewModel.updateUserInfo(
+                                defaultNickname,
+                                me.kakaoAccount?.profile_image_url
+                            )
+                        } else {
+                            GlobalApplication.instance.setNickname(me.nickname!!)
+                        }
+                        viewModel.updatePushToken(null, TokenManager(this).getPushToken())
+                        connectToSendBird(userID = GlobalApplication.instance.getUserId().toString(), nickname = GlobalApplication.instance.getNickname())
+//                        GlobalApplication.instance.initSendbirdSdk(
+//                            userId = GlobalApplication.instance.getUserId().toString(),
+//                            userNickname = GlobalApplication.instance.getNickname(),
+//                            userProfileImg = me.kakaoAccount?.profile_image_url
+//                        )
+                    }
+                }
+                is ViewState.Error -> {
+                    throw RuntimeException("MyInfo Error")
                 }
             }
         }

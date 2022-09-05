@@ -66,10 +66,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/chattingFragment"
-        android:name="com.alexk.bidit.presentation.ui.myPage.MyPageFragment"
+        android:id="@+id/chattingChannelListFragment"
+        android:name="com.alexk.bidit.presentation.ui.chatting.ChattingChannelListFragment"
         android:label="ChattingFragment"
-        tools:layout="@layout/fragment_my_page" />
+        tools:layout="@layout/fragment_chatting_channel" />
 
     <fragment
         android:id="@+id/myPageAccountInfoFragment"

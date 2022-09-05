@@ -31,3 +31,6 @@ const val ErrorDuplicatedItem = "Could not completed due to duplicated item"
 const val ErrorLowPriceBidding = "Could not bid low price than current."
 const val ErrorSameUserBidding = "Could not bid over your price."
 const val ErrorOwnItemBidding = "Not allowed to bid your item."
+
+//sendbird
+const val EXTRA_CHANNEL_URL = "EXTRA_CHANNEL_URL"
