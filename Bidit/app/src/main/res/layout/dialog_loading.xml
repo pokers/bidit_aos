@@ -9,7 +9,7 @@
         android:id="@+id/sp_spin_kit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        style="@style/SpinKitView.Large.Wave"
-        app:SpinKit_Color="@color/white_smoke"/>
+        style="@style/SpinKitView.Wave"
+        app:SpinKit_Color="@color/royal_blue"/>
 
 </LinearLayout>
