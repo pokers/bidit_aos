@@ -203,7 +203,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                     itemInfo = result!!
                     initEvent()
                     //내 게시글
-                    if (result.userId == GlobalApplication.id) {
+                    if (result.userId == GlobalApplication.instance.getUserId()) {
                         setMyBiddingInfoUI(itemInfo)
                     }
                     //다른 사람 게시글

@@ -43,10 +43,10 @@ class MyTradeMerchandiseListFragment :
         binding.rvMerchandiseList.addItemDecoration(GridRecyclerViewDeco(12, 12, 0, 37))
         when (listType) {
             "sold" -> {
-                merchandiseViewModel.getMyItemList(GlobalApplication.id)
+                merchandiseViewModel.getMyItemList(GlobalApplication.instance.getUserId())
             }
             "purchase" -> {
-                biddingViewModel.retrieveBiddingInfo(GlobalApplication.id)
+                biddingViewModel.retrieveBiddingInfo(GlobalApplication.instance.getUserId())
             }
         }
     }
