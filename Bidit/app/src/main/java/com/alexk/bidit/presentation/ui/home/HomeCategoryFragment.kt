@@ -96,11 +96,10 @@ class HomeCategoryFragment :
                 is ViewState.Success -> {
                     loadingDialog.dismiss()
                     Log.d(TAG, "Success GET merchandise list")
-                    //리사이클러뷰 어댑터 연결
                     val result = response.value?.data?.getItemList?.edges
                     if (result?.size == 0 || result == null) {
                         Log.d(TAG, "No merchandise data")
-                        merchandiseAdapter.submitList(emptyList())
+                        nextPage = false
                     } else {
                         //다음페이지가 존재
                         nextPage = response.value.data?.getItemList?.pageInfo?.hasNextPage
