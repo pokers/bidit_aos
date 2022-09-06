@@ -16,7 +16,7 @@ import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.BiddingViewModel
-import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
+import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -28,7 +28,7 @@ class MyTradeMerchandiseListFragment :
     private val listType by lazy { arguments?.getString("listType") }
     private val merchandiseListAdapter by lazy { CommonMerchandiseListAdapter() }
     private val bidListAdapter by lazy { CommonBidListAdapter() }
-    private val merchandiseViewModel by viewModels<MerchandiseViewModel>()
+    private val merchandiseViewModel by viewModels<ItemViewModel>()
     private val biddingViewModel by viewModels<BiddingViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

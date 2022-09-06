@@ -21,7 +21,7 @@ import com.alexk.bidit.databinding.FragmentSearchResultBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
-import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
+import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.overlay.BalloonOverlayRoundRect
@@ -36,7 +36,7 @@ class SearchResultFragment :
     private val args: SearchResultFragmentArgs by navArgs()
     private var keyword = ""
     private var currentSortType = "latestOrder"
-    private val merchandiseViewModel by viewModels<MerchandiseViewModel>()
+    private val merchandiseViewModel by viewModels<ItemViewModel>()
     private val merchandiseAdapter by lazy { CommonMerchandiseListAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

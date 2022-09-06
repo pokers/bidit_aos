@@ -1,6 +1,7 @@
 package com.alexk.bidit.common.adapter.common
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
@@ -30,14 +31,9 @@ class CommonMerchandiseListAdapter() :
     }
 
     override fun onBindViewHolder(holder: MerchandiseListHolder, position: Int) {
-        with(holder.binding) {
-            //ONGOING
-            if (getItem(position).node?.status == 1 || getItem(position).node?.status == 0) {
-                merchandiseResponse = getItem(position)
-                root.setOnClickListener {
-                    onItemClicked?.invoke(getItem(position).node?.id)
-                }
-            }
+        holder.binding.merchandiseResponse = getItem(position)
+        holder.binding.root.setOnClickListener {
+            onItemClicked?.invoke(getItem(position).node?.id)
         }
     }
 

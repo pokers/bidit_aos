@@ -1,7 +1,6 @@
 package com.alexk.bidit.di
 
 import android.os.Looper
-import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.common.util.BASE_URL
 import com.alexk.bidit.data.interceptor.TokenInterceptor
 import com.apollographql.apollo3.ApolloClient
@@ -16,6 +15,7 @@ class ApolloClient {
         val okHttpClient = OkHttpClient
             .Builder()
             .addInterceptor(TokenInterceptor())
+
         return ApolloClient.Builder()
             .serverUrl(BASE_URL)
             .okHttpClient(okHttpClient.build())
