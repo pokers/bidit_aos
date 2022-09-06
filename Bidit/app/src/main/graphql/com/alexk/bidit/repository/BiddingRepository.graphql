@@ -1,5 +1,10 @@
 query getBiddingInfo($biddingQuery : BiddingQueryInput){
     getBidding(biddingQuery: $biddingQuery){
+        id
+        status
+        userId
+        price
+        createdAt
         user{
             id
             nickname

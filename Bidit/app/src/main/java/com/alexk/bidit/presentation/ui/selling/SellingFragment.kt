@@ -19,7 +19,6 @@ import com.alexk.bidit.common.util.setTextColorWithResourceCompat
 import com.alexk.bidit.common.util.view.EditTextAutoCommaWatcher
 import com.alexk.bidit.databinding.FragmentSellingBinding
 import com.alexk.bidit.di.ViewState
-import com.alexk.bidit.domain.entity.merchandise.MerchandiseImgEntity
 import com.alexk.bidit.domain.entity.selling.SellingCalendarEntity
 import com.alexk.bidit.domain.entity.selling.SellingEntity
 import com.alexk.bidit.domain.entity.selling.SellingTimeEntity
@@ -28,7 +27,7 @@ import com.alexk.bidit.presentation.ui.selling.dialog.SellingCalendarDialog
 import com.alexk.bidit.presentation.ui.selling.dialog.SellingEssentialRequiredItemDialog
 import com.alexk.bidit.presentation.ui.selling.dialog.SellingTimePickerDialog
 import com.alexk.bidit.presentation.viewModel.ItemImgViewModel
-import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
+import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import com.alexk.bidit.type.ItemAddInput
 import com.apollographql.apollo3.api.Optional
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,7 +45,7 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
 
     private lateinit var resultLauncherActivityInfo: ActivityResultLauncher<Intent>
     private val itemImgViewModel by viewModels<ItemImgViewModel>()
-    private val merchandiseViewModel by viewModels<MerchandiseViewModel>()
+    private val merchandiseViewModel by viewModels<ItemViewModel>()
 
     private val itemUrlImgList by lazy {
         try {

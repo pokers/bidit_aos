@@ -136,18 +136,18 @@ class SplashActivity : AppCompatActivity() {
             when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {
-                    Log.d("User Update", "Loading")
+                    Log.d("user Update", "Loading")
                 }
                 //토큰 확인 성공 -> 홈으로 이동
                 is ViewState.Success -> {
                     Log.d(
-                        "User Update",
+                        "user Update",
                         "Success - Nickname: ${response.value?.data?.updateUser?.nickname}"
                     )
                 }
                 //서버 연결 실패(만료) -> 재발급 요청
                 is ViewState.Error -> {
-                    Log.d("User Update", "failure Update")
+                    Log.d("user Update", "failure Update")
                 }
             }
         }

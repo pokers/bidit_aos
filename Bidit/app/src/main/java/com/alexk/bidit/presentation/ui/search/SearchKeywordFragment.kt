@@ -19,8 +19,8 @@ import com.alexk.bidit.databinding.FragmentSearchKeywordBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
-import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
-import com.alexk.bidit.presentation.viewModel.SearchKeywordViewModel
+import com.alexk.bidit.presentation.viewModel.ItemViewModel
+import com.alexk.bidit.presentation.viewModel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -29,8 +29,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class SearchKeywordFragment :
     BaseFragment<FragmentSearchKeywordBinding>(R.layout.fragment_search_keyword) {
     // sp에 저장된 검색 리스트를 불러온다.
-    private val keywordViewModel: SearchKeywordViewModel by viewModels()
-    private val merchandiseViewModel by viewModels<MerchandiseViewModel>()
+    private val viewModel: SearchViewModel by viewModels()
+    private val merchandiseViewModel by viewModels<ItemViewModel>()
     private val merchandiseAdapter by lazy { CommonMerchandiseListAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,7 +45,7 @@ class SearchKeywordFragment :
         val keywordListSize = keywordList.size
 
         //뷰모델에 적용시킨다.
-        keywordViewModel.initKeywordList(keywordList)
+        viewModel.initKeywordList(keywordList)
         observeKeywordList()
 
 
@@ -73,7 +73,7 @@ class SearchKeywordFragment :
                     SearchKeywordListAdapter(
                         requireContext(),
                         keywordList,
-                        onClickDeleteKeyword = { keywordViewModel.deleteKeyword(it) },
+                        onClickDeleteKeyword = { viewModel.deleteKeyword(it) },
                         onClickItem = {
                             navigate(
                                 SearchKeywordFragmentDirections.actionSearchKeywordFragmentToSearchResultFragment(
@@ -98,7 +98,7 @@ class SearchKeywordFragment :
         binding.apply {
             tvAllDelete.setOnClickListener {
                 SearchKeywordManager(requireContext()).removeAllKeyword()
-                keywordViewModel.deleteAllKeyword()
+                viewModel.deleteAllKeyword()
             }
             btnBack.setOnClickListener {
 
@@ -114,7 +114,7 @@ class SearchKeywordFragment :
                         binding.editSearch.text.toString()
                     )
                     //바뀐 리스트를 적용해야함
-                    keywordViewModel.initKeywordList(SearchKeywordManager(requireContext()).getKeyword())
+                    viewModel.initKeywordList(SearchKeywordManager(requireContext()).getKeyword())
 
                     //키워드를 번들에 담아서 주고 결과 프래그먼트로 변경
                     navigate(
@@ -156,7 +156,7 @@ class SearchKeywordFragment :
 
     private fun observeKeywordList() {
         //라이브 데이터에 변화가 있으면 실행된다.
-        keywordViewModel.keywordLiveData.observe(viewLifecycleOwner) {
+        viewModel.keywordLiveData.observe(viewLifecycleOwner) {
             //새로 바뀐 리스트를 리사이클러뷰에 적용
             (binding.rvSearchKeywordList.adapter as SearchKeywordListAdapter).setKeyword(it)
             //이 리스트의 크기가 0이라면 데이터 없음을 표시

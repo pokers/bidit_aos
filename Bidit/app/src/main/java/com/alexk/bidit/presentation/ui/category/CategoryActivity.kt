@@ -19,7 +19,7 @@ import com.alexk.bidit.databinding.ActivityCategoryBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.common.dialog.LoadingDialog
 import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
-import com.alexk.bidit.presentation.viewModel.MerchandiseViewModel
+import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.overlay.BalloonOverlayRoundRect
@@ -31,7 +31,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class CategoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCategoryBinding
     private var currentSortType = "latestOrder"
-    private val viewModel by viewModels<MerchandiseViewModel>()
+    private val viewModel by viewModels<ItemViewModel>()
     private val merchandiseAdapter by lazy { CommonMerchandiseListAdapter() }
     private val categoryId by lazy { intent?.getIntExtra("categoryId", -1)?.minus(2) }
     private val loadingDialog by lazy { LoadingDialog(this) }
