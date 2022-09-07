@@ -46,6 +46,21 @@ query getMyInfo{
         }
         items {
             totalCount
+            edges {
+                node {
+                    id
+                    status
+                    sPrice
+                    cPrice
+                    viewCount
+                    title
+                    createdAt
+                    dueDate
+                    image {
+                        url
+                    }
+                }
+            }
         }
     }
 }

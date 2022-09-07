@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexk.bidit.GetItemListQuery
-import com.alexk.bidit.common.adapter.common.CommonMerchandiseListAdapter
+import com.alexk.bidit.common.adapter.common.CommonItemListAdapter
 import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentCommonMerchandiseListBinding
 import com.alexk.bidit.di.ViewState
@@ -29,7 +29,7 @@ class HomeCategoryFragment :
     private var _binding: FragmentCommonMerchandiseListBinding? = null
     private val binding get() = _binding!!
 
-    private val merchandiseAdapter by lazy { CommonMerchandiseListAdapter() }
+    private val merchandiseAdapter by lazy { CommonItemListAdapter() }
     private val viewModel by viewModels<ItemViewModel>()
     private val sortType by lazy { arguments?.getString("sortType") }
     private val loadingDialog by lazy { LoadingDialog(requireContext()) }

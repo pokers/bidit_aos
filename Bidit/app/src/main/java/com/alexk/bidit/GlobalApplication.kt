@@ -32,7 +32,7 @@ class GlobalApplication : Application() {
 
 
     private fun initKakoSdk(){
-        KakaoSdk.init(this,getString(R.string.KAKAO_APP_KEY))
+        KakaoSdk.init(this,getString(R.string.KAKAO_NATIVE_KEY))
     }
 
     private fun initFirebaseSdk(){

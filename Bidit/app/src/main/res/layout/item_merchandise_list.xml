@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="merchandiseResponse"
-            type="com.alexk.bidit.GetItemListQuery.Edge" />
+            name="itemResponse"
+            type="com.alexk.bidit.domain.entity.item.ItemEntity" />
 
     </data>
 
@@ -23,7 +23,7 @@
             android:scaleType="centerInside"
             app:layout_constraintDimensionRatio="4:4"
             android:src="@color/white_smoke"
-            app:imageItemUrlList="@{merchandiseResponse.node.image}"
+            app:imageItemUrlList="@{itemResponse.itemImgList}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +42,7 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_merchandise_img"
             app:layout_constraintStart_toStartOf="@id/iv_merchandise_img"
-            app:calcDate="@{merchandiseResponse.node.dueDate}" />
+            app:calcDate="@{itemResponse.dueDate}" />
 
         <TextView
             android:id="@+id/tv_current_price_title"
@@ -68,8 +68,8 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_current_price_title"
             app:layout_constraintStart_toEndOf="@id/tv_current_price_title"
-            app:sPrice="@{merchandiseResponse.node.SPrice}"
-            app:cPrice="@{merchandiseResponse.node.CPrice}"/>
+            app:sPrice="@{itemResponse.sPrice}"
+            app:cPrice="@{itemResponse.cPrice}"/>
 
         <TextView
             android:id="@+id/tv_merchandise_content"
