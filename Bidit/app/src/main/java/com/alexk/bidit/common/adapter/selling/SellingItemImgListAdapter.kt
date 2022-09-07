@@ -1,26 +1,22 @@
 package com.alexk.bidit.common.adapter.selling
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.alexk.bidit.GetBiddingInfoQuery
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.common.CommonBidListAdapter
-import com.alexk.bidit.databinding.ItemBidListBinding
 import com.alexk.bidit.databinding.ItemSellingPostMerchandiseImgListBinding
-import com.alexk.bidit.domain.entity.merchandise.MerchandiseImgEntity
+import com.alexk.bidit.domain.entity.item.ItemImgEntity
 
 
 class SellingItemImgListAdapter() :
-    ListAdapter<MerchandiseImgEntity, SellingItemImgListAdapter.SellingItemImgHolder>(
+    ListAdapter<ItemImgEntity, SellingItemImgListAdapter.SellingItemImgHolder>(
         ItemImgListDiffUtil
     ) {
 
-    var onItemClicked: ((MerchandiseImgEntity?) -> Unit)? = null
+    var onItemClicked: ((ItemImgEntity?) -> Unit)? = null
 
     class SellingItemImgHolder(val binding: ItemSellingPostMerchandiseImgListBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -43,12 +39,12 @@ class SellingItemImgListAdapter() :
     }
 
     object ItemImgListDiffUtil :
-        DiffUtil.ItemCallback<MerchandiseImgEntity>() {
-        override fun areItemsTheSame(oldItem: MerchandiseImgEntity, newItem: MerchandiseImgEntity): Boolean {
+        DiffUtil.ItemCallback<ItemImgEntity>() {
+        override fun areItemsTheSame(oldItem: ItemImgEntity, newItem: ItemImgEntity): Boolean {
             return oldItem.imgUrl == newItem.imgUrl
         }
 
-        override fun areContentsTheSame(oldItem: MerchandiseImgEntity, newItem: MerchandiseImgEntity): Boolean {
+        override fun areContentsTheSame(oldItem: ItemImgEntity, newItem: ItemImgEntity): Boolean {
             return oldItem == newItem
         }
     }
