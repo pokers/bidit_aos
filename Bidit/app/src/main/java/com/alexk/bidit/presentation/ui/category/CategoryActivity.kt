@@ -18,6 +18,7 @@ import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.ActivityCategoryBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.common.dialog.LoadingDialog
+import com.alexk.bidit.common.util.typeCastItemQueryToItemEntity
 import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import com.skydoves.balloon.ArrowOrientation
@@ -174,15 +175,16 @@ class CategoryActivity : AppCompatActivity() {
                 //서버 연결 대기중
                 is ViewState.Loading -> {
                     loadingDialog.show()
-                    Log.d("Merchandise Loading", "Loading GET merchandise list")
+                    Log.d(TAG, "Loading GET merchandise list")
                 }
                 //아이템 가져오기 성공
                 is ViewState.Success -> {
                     loadingDialog.dismiss()
-                    Log.d("Merchandise Success", "Success GET merchandise list")
+                    Log.d(TAG, "Success GET merchandise list")
                     //리사이클러뷰 어댑터 연결
-                    val result = response.value?.data?.getItemList?.edges
-                    if (result?.size == 0) {
+                    val result = typeCastItemQueryToItemEntity(response.value?.data?.getItemList?.edges)
+                    if (result.size == 0) {
+                        Log.d(TAG, "Empty merchandise list")
                         merchandiseAdapter.submitList(emptyList())
                         binding.lyNoList.visibility = View.VISIBLE
                     } else {
@@ -203,5 +205,8 @@ class CategoryActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+    companion object{
+        private const val TAG = "CategoryActivity..."
     }
 }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.common.CommonItemListAdapter
 import com.alexk.bidit.common.adapter.search.SearchKeywordListAdapter
+import com.alexk.bidit.common.util.typeCastItemQueryToItemEntity
 import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.data.sharedPreference.SearchKeywordManager
 import com.alexk.bidit.databinding.FragmentSearchKeywordBinding
@@ -23,6 +24,7 @@ import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import com.alexk.bidit.presentation.viewModel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import retrofit2.http.GET
 
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
@@ -180,16 +182,16 @@ class SearchKeywordFragment :
                 //서버 연결 대기중
                 is ViewState.Loading -> {
                     loadingDialogShow()
-                    Log.d("Merchandise Loading", "Loading GET merchandise list")
+                    Log.d(TAG, "Loading GET merchandise list")
                 }
                 //아이템 가져오기 성공
                 is ViewState.Success -> {
                     loadingDialogDismiss()
-                    Log.d("Merchandise Success", "Success GET merchandise list")
+                    Log.d(TAG, "Success GET merchandise list")
                     //리사이클러뷰 어댑터 연결
-                    val result = response.value?.data?.getItemList?.edges
-                    if (result?.size == 0) {
-                        Log.d("Empty Merchandise List", "No merchandise data")
+                    val result = typeCastItemQueryToItemEntity(response.value?.data?.getItemList?.edges)
+                    if (result.size == 0) {
+                        Log.d(TAG, "No merchandise data")
                         merchandiseAdapter.submitList(emptyList())
                         binding.lyNoKeyword.visibility = View.VISIBLE
                     } else {
@@ -206,24 +208,13 @@ class SearchKeywordFragment :
                 is ViewState.Error -> {
                     loadingDialogDismiss()
                     merchandiseAdapter.submitList(emptyList())
-                    Log.d("Merchandise Failure", "Fail GET merchandise list")
+                    Log.d(TAG, "Fail GET merchandise list")
                 }
             }
         }
     }
 
-    //1
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
-
-    //2
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
-    //3
-    override fun onDetach() {
-        super.onDetach()
+    companion object{
+        private const val TAG = "SearchKeywordFragment..."
     }
 }
