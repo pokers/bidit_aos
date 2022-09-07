@@ -11,12 +11,12 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexk.bidit.GetItemListQuery
-import com.alexk.bidit.common.adapter.common.CommonMerchandiseListAdapter
+import com.alexk.bidit.common.adapter.common.CommonItemListAdapter
 import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentCommonMerchandiseListBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.common.dialog.LoadingDialog
-import com.alexk.bidit.presentation.ui.item.BiddingActivity
+import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -29,7 +29,7 @@ class HomeCategoryFragment :
     private var _binding: FragmentCommonMerchandiseListBinding? = null
     private val binding get() = _binding!!
 
-    private val merchandiseAdapter by lazy { CommonMerchandiseListAdapter() }
+    private val merchandiseAdapter by lazy { CommonItemListAdapter() }
     private val viewModel by viewModels<ItemViewModel>()
     private val sortType by lazy { arguments?.getString("sortType") }
     private val loadingDialog by lazy { LoadingDialog(requireContext()) }
@@ -96,13 +96,14 @@ class HomeCategoryFragment :
                 is ViewState.Success -> {
                     loadingDialog.dismiss()
                     Log.d(TAG, "Success GET merchandise list")
-                    val result = response.value?.data?.getItemList?.edges
-                    if (result?.size == 0 || result == null) {
+                    val result = typeCastItemQueryToItemEntity(response.value?.data?.getItemList?.edges)
+
+                    if (result.size == 0) {
                         Log.d(TAG, "No merchandise data")
                         nextPage = false
                     } else {
                         //다음페이지가 존재
-                        nextPage = response.value.data?.getItemList?.pageInfo?.hasNextPage
+                        nextPage = response.value?.data?.getItemList?.pageInfo?.hasNextPage
                         if(nextPage == true){
                             lastInfo += 10
                             firstInfo += 10
@@ -114,10 +115,11 @@ class HomeCategoryFragment :
                                 startActivity(intent)
                             }
                         for (idx in result.indices) {
-                            if (result[idx]?.node?.status == 1 || result[idx]?.node?.status == 0)
-                                merchandiseList.add(result[idx]!!)
+                            if (result[idx].status != 1 || result[idx].status != 0) {
+                                result.removeAt(idx)
+                            }
                         }
-                        merchandiseAdapter.submitList(merchandiseList)
+                        merchandiseAdapter.submitList(result)
                     }
                 }
                 //서버 연결 실패(만료) -> 재발급 요청

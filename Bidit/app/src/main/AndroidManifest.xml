@@ -50,7 +50,7 @@
 
                 <data
                     android:host="oauth"
-                    android:scheme="@string/KAKAO_NATIVE_KEY" />
+                    android:scheme="@string/KAKAO_APP_KEY" />
             </intent-filter>
         </activity>
 
