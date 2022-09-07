@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexk.bidit.*
-import com.alexk.bidit.domain.repository.MerchandiseRepository
+import com.alexk.bidit.domain.repository.ItemRepository
 import com.apollographql.apollo3.api.ApolloResponse
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.type.CursorType
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @HiltViewModel
-class MerchandiseViewModel @Inject constructor(private val repository: MerchandiseRepository) :
+class ItemViewModel @Inject constructor(private val repository: ItemRepository) :
     ViewModel() {
 
     private val _itemList by lazy { MutableLiveData<ViewState<ApolloResponse<GetItemListQuery.Data>>>() }
@@ -52,38 +52,37 @@ class MerchandiseViewModel @Inject constructor(private val repository: Merchandi
             _itemInfo.postValue(ViewState.Success(response))
         } catch (e: ApolloHttpException) {
             Log.e("MY_ITEM_LIST", "Error GET item list")
-            this@MerchandiseViewModel._itemInfo.postValue(ViewState.Error("Error fetching ItemInfo"))
+            this@ItemViewModel._itemInfo.postValue(ViewState.Error("Error fetching ItemInfo"))
         }
     }
 
     fun getMyItemList(id: Int) = viewModelScope.launch {
-        this@MerchandiseViewModel._itemList.postValue(ViewState.Loading())
+        this@ItemViewModel._itemList.postValue(ViewState.Loading())
         try {
             val response = repository.retrieveMyItemList(userId = id)
-            this@MerchandiseViewModel._itemList.postValue(ViewState.Success(response))
+            this@ItemViewModel._itemList.postValue(ViewState.Success(response))
         } catch (e: ApolloHttpException) {
             Log.e("MY_ITEM_LIST", "Error GET my list")
-            this@MerchandiseViewModel._itemList.postValue(ViewState.Error("Error fetching ItemList"))
+            this@ItemViewModel._itemList.postValue(ViewState.Error("Error fetching ItemList"))
         }
     }
 
-    fun getSortTypeItemList(sortType: String) = viewModelScope.launch {
-        this@MerchandiseViewModel._itemList.postValue(ViewState.Loading())
+    fun getSortTypeItemList(firstInfo : Int, lastInfo : Int, sortType: String) = viewModelScope.launch {
+        this@ItemViewModel._itemList.postValue(ViewState.Loading())
         try {
             when (sortType) {
                 "latestOrder" -> {
-                    val response = repository.retrieveCursorTypeItemList(CursorType.createdAt)
-                    this@MerchandiseViewModel._itemList.postValue(ViewState.Success(response))
+                    val response = repository.retrieveCursorTypeItemList(firstInfo = firstInfo, lastInfo = lastInfo, cursorType = CursorType.createdAt)
+                    this@ItemViewModel._itemList.postValue(ViewState.Success(response))
                 }
                 "deadline" -> {
-                    this@MerchandiseViewModel._itemList.postValue(ViewState.Loading())
-                    val response = repository.retrieveCursorTypeItemList(CursorType.dueDate)
-                    this@MerchandiseViewModel._itemList.postValue(ViewState.Success(response))
+                    val response = repository.retrieveCursorTypeItemList(firstInfo = firstInfo, lastInfo = lastInfo, cursorType = CursorType.dueDate)
+                    this@ItemViewModel._itemList.postValue(ViewState.Success(response))
                 }
             }
         } catch (e: ApolloHttpException) {
             Log.e("ApolloException", "Failure", e)
-            this@MerchandiseViewModel._itemList.postValue(ViewState.Error("Error fetching ItemList"))
+            this@ItemViewModel._itemList.postValue(ViewState.Error("Error fetching ItemList"))
         }
     }
 
@@ -102,13 +101,13 @@ class MerchandiseViewModel @Inject constructor(private val repository: Merchandi
                 cursorType = CursorType.dueDate
             }
         }
-        this@MerchandiseViewModel._itemList.postValue(ViewState.Loading())
+        this@ItemViewModel._itemList.postValue(ViewState.Loading())
         try {
             val response = repository.retrieveCategoryItemList(categoryId, cursorType!!)
-            this@MerchandiseViewModel._itemList.postValue(ViewState.Success(response))
+            this@ItemViewModel._itemList.postValue(ViewState.Success(response))
         } catch (e: ApolloHttpException) {
             Log.e("ApolloException", "Failure", e)
-            this@MerchandiseViewModel._itemList.postValue(ViewState.Error("Error fetching latestOrderItemList"))
+            this@ItemViewModel._itemList.postValue(ViewState.Error("Error fetching latestOrderItemList"))
         }
     }
 
@@ -128,13 +127,13 @@ class MerchandiseViewModel @Inject constructor(private val repository: Merchandi
             }
         }
 
-        this@MerchandiseViewModel._itemList.postValue(ViewState.Loading())
+        this@ItemViewModel._itemList.postValue(ViewState.Loading())
         try {
             val response = repository.retrieveKeywordItemList(keyword, cursorType!!)
-            this@MerchandiseViewModel._itemList.postValue(ViewState.Success(response))
+            this@ItemViewModel._itemList.postValue(ViewState.Success(response))
         } catch (e: ApolloHttpException) {
             Log.e("ApolloException", "Failure", e)
-            this@MerchandiseViewModel._itemList.postValue(ViewState.Error("Error fetching latestOrderItemList"))
+            this@ItemViewModel._itemList.postValue(ViewState.Error("Error fetching latestOrderItemList"))
         }
     }
 

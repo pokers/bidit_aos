@@ -23,12 +23,12 @@ class TokenManager(context: Context) {
     }
 
     fun getToken(): String {
-        Log.d("Get token",prefs.getString(TOKEN,"").toString())
+        Log.d(TAG, "getToken = ${prefs.getString(TOKEN,"").toString()}")
         return prefs.getString(TOKEN, "").toString()
     }
 
     fun setToken(value: String) {
-        Log.d("Set token",value)
+        Log.d(TAG, "setToken = $value")
         prefs.edit().putString(TOKEN, value).apply()
     }
 
@@ -37,16 +37,19 @@ class TokenManager(context: Context) {
     }
 
     fun getPushToken(): String {
-        Log.d("Get pushToken",prefs.getString(PUSH_TOKEN,"").toString())
+        Log.d(TAG, "getPushToken = ${prefs.getString(TOKEN,"").toString()}")
         return prefs.getString(PUSH_TOKEN, "").toString()
     }
 
     fun setPushToken(value: String) {
-        Log.d("Set pushToken",value)
+        Log.d(TAG, "setPushToken = $value")
         prefs.edit().putString(PUSH_TOKEN, value).apply()
     }
 
     fun removePushToken() {
         prefs.edit().remove(PUSH_TOKEN).apply()
+    }
+    companion object{
+        private const val TAG  = "TokenManager..."
     }
 }

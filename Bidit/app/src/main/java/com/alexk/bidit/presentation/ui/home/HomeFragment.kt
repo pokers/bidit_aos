@@ -57,7 +57,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     override fun init() {
         binding.apply {
-
             rvCategory.apply {
                 layoutManager =
                     GridLayoutManager(requireContext(), 2, GridLayoutManager.HORIZONTAL, false)
@@ -87,7 +86,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     override fun initEvent() {
         binding.apply {
-
             btnAddMerchandise.setOnClickListener {
                 startActivity(Intent(requireContext(), SellingActivity::class.java))
             }
@@ -124,6 +122,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     }
                 })
             }
+
             lyDetailCategory.apply {
                 addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                     override fun onTabSelected(tab: TabLayout.Tab?) {

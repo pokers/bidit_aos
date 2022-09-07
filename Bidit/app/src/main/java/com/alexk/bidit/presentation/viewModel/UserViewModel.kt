@@ -8,7 +8,6 @@ import com.alexk.bidit.*
 import com.alexk.bidit.domain.repository.UserRepository
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.type.MembershipStatus
-import com.alexk.bidit.type.User
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.exception.ApolloHttpException
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class SearchKeywordViewModel:ViewModel() {
+class SearchViewModel:ViewModel() {
     val keywordLiveData = MutableLiveData<ArrayList<String>>()
     private val data = arrayListOf<String>()
 

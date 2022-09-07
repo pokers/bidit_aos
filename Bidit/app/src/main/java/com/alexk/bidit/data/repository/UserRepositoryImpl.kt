@@ -1,7 +1,6 @@
 package com.alexk.bidit.data.repository
 
 
-import android.util.Log
 import com.alexk.bidit.*
 import com.alexk.bidit.di.ApolloClient
 import com.alexk.bidit.domain.repository.UserRepository

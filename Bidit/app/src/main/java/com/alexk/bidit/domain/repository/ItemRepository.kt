@@ -6,9 +6,9 @@ import com.alexk.bidit.type.ItemAddInput
 import com.alexk.bidit.type.ItemUpdateInput
 import com.apollographql.apollo3.api.ApolloResponse
 
-interface MerchandiseRepository {
+interface ItemRepository {
     suspend fun retrieveItemInfo(id: Int): ApolloResponse<GetItemInfoQuery.Data>
-    suspend fun retrieveCursorTypeItemList(cursorType: CursorType): ApolloResponse<GetItemListQuery.Data>
+    suspend fun retrieveCursorTypeItemList(firstInfo : Int, lastInfo : Int, cursorType: CursorType): ApolloResponse<GetItemListQuery.Data>
     suspend fun retrieveCategoryItemList(
         categoryId: Int,
         cursorType: CursorType

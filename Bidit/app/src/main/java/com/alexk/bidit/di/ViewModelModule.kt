@@ -3,11 +3,11 @@ package com.alexk.bidit.di
 import com.alexk.bidit.data.repository.BiddingRepositoryImpl
 import com.alexk.bidit.data.repository.ItemImgRepositoryImpl
 import com.alexk.bidit.data.repository.UserRepositoryImpl
-import com.alexk.bidit.data.repository.MerchandiseRepositoryImpl
+import com.alexk.bidit.data.repository.ItemRepositoryImpl
 import com.alexk.bidit.domain.repository.BiddingRepository
 import com.alexk.bidit.domain.repository.ItemImgRepository
 import com.alexk.bidit.domain.repository.UserRepository
-import com.alexk.bidit.domain.repository.MerchandiseRepository
+import com.alexk.bidit.domain.repository.ItemRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -23,7 +23,7 @@ abstract class ViewModelModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindMerchandiseRepository(repo: MerchandiseRepositoryImpl): MerchandiseRepository
+    abstract fun bindMerchandiseRepository(repo: ItemRepositoryImpl): ItemRepository
 
     @Binds
     @ViewModelScoped

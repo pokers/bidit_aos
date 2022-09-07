@@ -9,7 +9,7 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
 
     //apollo
-    id("com.apollographql.apollo3").version("3.3.2")
+    id("com.apollographql.apollo3").version("3.5.0")
 
     //parcelize
     id 'kotlin-parcelize'
@@ -19,6 +19,7 @@ plugins {
 
     //hilt
     id 'dagger.hilt.android.plugin'
+
     id 'kotlin-kapt'
 }
 
@@ -36,9 +37,6 @@ android {
         disable "Instantiatable"
     }
 
-    apollo {
-        packageName.set("com.alexk.bidit")
-    }
 
     viewBinding {
         enabled = true
@@ -62,6 +60,9 @@ android {
         resValue "string", "S3_SECRET_KEY", properties['s3_secret_key']
 
         resValue "string", "FIRE_BASE_ID", properties['firebase_id']
+
+        resValue "string", "SENDBIRD_APP_ID", properties['sendbird_app_id']
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -88,6 +89,9 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    // sendbird
+    implementation 'com.sendbird.sdk:sendbird-android-sdk:3.0.141'
 
     // https://github.com/square/retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -129,8 +133,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
 
     // apollo
-    implementation("com.apollographql.apollo3:apollo-runtime:3.3.2")
-    implementation "com.apollographql.apollo:apollo-android-support:2.5.2"
+    implementation("com.apollographql.apollo3:apollo-runtime:3.5.0")
 
     //hilt
     implementation 'com.google.dagger:hilt-android:2.42'
@@ -185,6 +188,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.firebase:firebase-analytics'
 
+    implementation "androidx.paging:paging-runtime:$paging_version"
+
+}
+
+apollo {
+    generateKotlinModels.set(true)
+    packageName.set("com.alexk.bidit")
 }
 
 kapt {

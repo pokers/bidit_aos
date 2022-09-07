@@ -1,6 +1,5 @@
 package com.alexk.bidit.data.repository
 
-import com.alexk.bidit.CancelBidMutation
 import com.alexk.bidit.DoBidMutation
 import com.alexk.bidit.GetBiddingInfoQuery
 import com.alexk.bidit.di.ApolloClient
