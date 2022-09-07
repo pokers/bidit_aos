@@ -13,12 +13,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.common.CommonMerchandiseListAdapter
+import com.alexk.bidit.common.adapter.common.CommonItemListAdapter
 import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.ActivityCategoryBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.common.dialog.LoadingDialog
-import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
+import com.alexk.bidit.common.util.typeCastItemQueryToItemEntity
+import com.alexk.bidit.presentation.ui.item.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.Balloon

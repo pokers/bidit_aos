@@ -107,6 +107,7 @@
                 android:paddingStart="6dp"
                 android:paddingEnd="6dp"
                 android:textColor="@color/white"
+                android:text="대기중"
                 android:textSize="12sp"
                 android:visibility="gone"
                 app:reservation="@{itemResponse.status}" />

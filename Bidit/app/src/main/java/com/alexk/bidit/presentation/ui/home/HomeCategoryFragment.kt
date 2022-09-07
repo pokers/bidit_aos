@@ -16,7 +16,9 @@ import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentCommonMerchandiseListBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.common.dialog.LoadingDialog
-import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
+import com.alexk.bidit.common.util.typeCastItemQueryToItemEntity
+import com.alexk.bidit.domain.entity.item.ItemEntity
+import com.alexk.bidit.presentation.ui.item.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -97,6 +99,7 @@ class HomeCategoryFragment :
                     loadingDialog.dismiss()
                     Log.d(TAG, "Success GET merchandise list")
                     val result = typeCastItemQueryToItemEntity(response.value?.data?.getItemList?.edges)
+                    val list = mutableListOf<ItemEntity>()
 
                     if (result.size == 0) {
                         Log.d(TAG, "No merchandise data")
@@ -115,11 +118,11 @@ class HomeCategoryFragment :
                                 startActivity(intent)
                             }
                         for (idx in result.indices) {
-                            if (result[idx].status != 1 || result[idx].status != 0) {
-                                result.removeAt(idx)
+                            if (result[idx].status == 1 || result[idx].status == 0) {
+                                list.add(result[idx])
                             }
                         }
-                        merchandiseAdapter.submitList(result)
+                        merchandiseAdapter.submitList(list)
                     }
                 }
                 //서버 연결 실패(만료) -> 재발급 요청

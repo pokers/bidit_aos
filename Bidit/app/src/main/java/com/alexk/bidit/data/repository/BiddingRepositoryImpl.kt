@@ -2,6 +2,7 @@ package com.alexk.bidit.data.repository
 
 import com.alexk.bidit.DoBidMutation
 import com.alexk.bidit.GetBiddingInfoQuery
+import com.alexk.bidit.GetMyBiddingInfoQuery
 import com.alexk.bidit.di.ApolloClient
 import com.alexk.bidit.domain.repository.BiddingRepository
 import com.alexk.bidit.type.BidInput
@@ -19,6 +20,12 @@ class BiddingRepositoryImpl @Inject constructor(private val apiService: ApolloCl
                     BiddingQueryInput(itemId = Optional.Present(itemId))
                 )
             )
+        ).execute()
+    }
+
+    override suspend fun retrieveMyBiddingInfo(): ApolloResponse<GetMyBiddingInfoQuery.Data> {
+        return apiService.provideApolloClient().query(
+            GetMyBiddingInfoQuery()
         ).execute()
     }
 

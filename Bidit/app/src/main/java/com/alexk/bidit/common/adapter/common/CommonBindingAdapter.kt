@@ -131,8 +131,9 @@ object CommonBindingAdapter {
                     } else {
                         if(hour < 0){
                             this.text = "마감"
+                        }else{
+                            this.text = "${hour * 1000 * 60 * 60}시간 후 마감"
                         }
-                        this.text = "${hour * 1000 * 60 * 60}시간 후 마감"
                     }
                 }
 

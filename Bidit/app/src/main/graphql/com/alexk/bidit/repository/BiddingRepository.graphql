@@ -32,6 +32,42 @@ query getBiddingInfo($biddingQuery : BiddingQueryInput){
         }
     }
 }
+
+query getMyBiddingInfo($biddingQuery : BiddingQueryInput){
+    getMyBidding(biddingQuery: $biddingQuery){
+        id
+        status
+        userId
+        price
+        createdAt
+        user{
+            id
+            nickname
+            kakaoAccount {
+                profile_image_url
+            }
+        }
+        item {
+            status
+            id
+            image {
+                url
+            }
+            name
+            cPrice
+            sPrice
+            dueDate
+            createdAt
+            buyNow
+            title
+            viewCount
+            description {
+                description
+            }
+        }
+    }
+}
+
 mutation doBid($bidInfo:BidInput){
     bid(bid: $bidInfo){
         item{
@@ -47,3 +83,4 @@ mutation cancelBid($bidInfo:BidInput){
         }
     }
 }
+

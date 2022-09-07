@@ -16,6 +16,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.common.CommonItemListAdapter
+import com.alexk.bidit.common.util.typeCastItemQueryToItemEntity
 import com.alexk.bidit.data.sharedPreference.SearchKeywordManager
 import com.alexk.bidit.databinding.FragmentSearchResultBinding
 import com.alexk.bidit.di.ViewState
@@ -127,8 +128,8 @@ class SearchResultFragment :
                     loadingDialogDismiss()
                     Log.d("Merchandise Success", "Success GET merchandise list")
                     //리사이클러뷰 어댑터 연결
-                    val result = response.value?.data?.getItemList?.edges
-                    if (result?.size == 0) {
+                    val result = typeCastItemQueryToItemEntity(response.value?.data?.getItemList?.edges)
+                    if (result.size == 0) {
                         binding.lyNoResult.visibility = View.VISIBLE
                         binding.tvNoKeyword.text = "${keyword}에 대한 검색 결과가 없습니다."
                         merchandiseAdapter.submitList(emptyList())

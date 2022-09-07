@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import com.alexk.bidit.GetBiddingInfoQuery
 import com.alexk.bidit.GetItemListQuery
+import com.alexk.bidit.GetMyBiddingInfoQuery
 import com.alexk.bidit.GetMyInfoQuery
 import com.alexk.bidit.domain.entity.item.ItemEntity
 import com.alexk.bidit.domain.entity.item.ItemImgEntity
@@ -33,7 +34,11 @@ fun TextView.setTextColorWithResourceCompat(id:Int){
 fun typeCastUsersItemToItemEntity(response : List<GetMyInfoQuery.Edge?>?) : MutableList<ItemEntity>{
     val typecastItemList = mutableListOf<ItemEntity>()
 
-    for (idx in response?.indices!!) {
+    if(response == null){
+        return typecastItemList;
+    }
+
+    for (idx in response.indices) {
         val data = response[idx]?.node!!
         val imgList = mutableListOf<ItemImgEntity>()
         for (imgIdx in data.image?.indices!!) {
@@ -58,7 +63,11 @@ fun typeCastUsersItemToItemEntity(response : List<GetMyInfoQuery.Edge?>?) : Muta
 fun typeCastItemQueryToItemEntity(response : List<GetItemListQuery.Edge?>?) : MutableList<ItemEntity>{
     val typecastItemList = mutableListOf<ItemEntity>()
 
-    for (idx in response?.indices!!) {
+    if(response == null){
+        return typecastItemList;
+    }
+
+    for (idx in response.indices) {
         val data = response[idx]?.node
         val imgList = mutableListOf<ItemImgEntity>()
         for (imgIdx in data?.image?.indices!!) {
@@ -84,7 +93,40 @@ fun typeCastItemQueryToItemEntity(response : List<GetItemListQuery.Edge?>?) : Mu
 fun typeCastBiddingItemToItemEntity(response : List<GetBiddingInfoQuery.GetBidding?>?) : MutableList<ItemEntity>{
     val typecastItemList = mutableListOf<ItemEntity>()
 
-    for (idx in response?.indices!!) {
+    if(response == null){
+        return typecastItemList;
+    }
+
+    for (idx in response.indices) {
+        val data = response[idx]?.item
+        val imgList = mutableListOf<ItemImgEntity>()
+        for (imgIdx in data?.image?.indices!!) {
+            imgList.add(ItemImgEntity(data.image[imgIdx]?.url))
+        }
+        val inputData = ItemEntity(
+            id = data.id,
+            status = data.status,
+            sPrice = data.sPrice,
+            cPrice = data.cPrice,
+            viewCount = data.viewCount,
+            title = data.title,
+            createdAt = data.createdAt,
+            dueDate = data.dueDate,
+            itemImgList = imgList
+        )
+        typecastItemList.add(inputData)
+    }
+    return typecastItemList
+}
+
+fun typeCastMyBiddingItemToItemEntity(response : List<GetMyBiddingInfoQuery.GetMyBidding?>?) : MutableList<ItemEntity>{
+    val typecastItemList = mutableListOf<ItemEntity>()
+
+    if(response == null){
+        return typecastItemList;
+    }
+
+    for (idx in response.indices) {
         val data = response[idx]?.item
         val imgList = mutableListOf<ItemImgEntity>()
         for (imgIdx in data?.image?.indices!!) {
