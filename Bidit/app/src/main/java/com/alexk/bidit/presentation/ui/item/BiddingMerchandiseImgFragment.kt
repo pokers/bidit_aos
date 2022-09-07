@@ -1,4 +1,4 @@
-package com.alexk.bidit.presentation.ui.bidding
+package com.alexk.bidit.presentation.ui.item
 
 import android.os.Bundle
 import android.view.LayoutInflater

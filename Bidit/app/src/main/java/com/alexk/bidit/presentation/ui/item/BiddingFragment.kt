@@ -1,4 +1,4 @@
-package com.alexk.bidit.presentation.ui.bidding
+package com.alexk.bidit.presentation.ui.item
 
 import android.os.Bundle
 import android.util.Log
@@ -15,7 +15,7 @@ import com.alexk.bidit.common.util.ErrorOwnItemBidding
 import com.alexk.bidit.databinding.FragmentBiddingBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
-import com.alexk.bidit.presentation.ui.bidding.dialog.*
+import com.alexk.bidit.presentation.ui.item.dialog.*
 import com.alexk.bidit.presentation.viewModel.BiddingViewModel
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import dagger.hilt.android.AndroidEntryPoint

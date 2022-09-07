@@ -1,4 +1,4 @@
-package com.alexk.bidit.presentation.ui.bidding.dialog
+package com.alexk.bidit.presentation.ui.item.dialog
 
 import android.os.Bundle
 import android.util.Log

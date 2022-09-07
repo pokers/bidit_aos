@@ -18,7 +18,7 @@ import com.alexk.bidit.data.sharedPreference.SearchKeywordManager
 import com.alexk.bidit.databinding.FragmentSearchKeywordBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
-import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
+import com.alexk.bidit.presentation.ui.item.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import com.alexk.bidit.presentation.viewModel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint

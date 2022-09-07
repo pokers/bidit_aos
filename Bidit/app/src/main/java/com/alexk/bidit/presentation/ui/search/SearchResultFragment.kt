@@ -20,7 +20,7 @@ import com.alexk.bidit.data.sharedPreference.SearchKeywordManager
 import com.alexk.bidit.databinding.FragmentSearchResultBinding
 import com.alexk.bidit.di.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
-import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
+import com.alexk.bidit.presentation.ui.item.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.Balloon

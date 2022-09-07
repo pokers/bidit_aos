@@ -1,4 +1,4 @@
-package com.alexk.bidit.presentation.ui.bidding.dialog
+package com.alexk.bidit.presentation.ui.item.dialog
 
 import android.app.Dialog
 import android.content.Context
@@ -7,9 +7,6 @@ import android.view.LayoutInflater
 import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.DialogBiddingBoardDeleteBinding
-import com.alexk.bidit.databinding.DialogBiddingBoardDeleteWarningBinding
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class BiddingBoardDeleteDialog(context: Context, private val deleteEvent: (Unit) -> Unit):Dialog(context) {
     private lateinit var binding : DialogBiddingBoardDeleteBinding

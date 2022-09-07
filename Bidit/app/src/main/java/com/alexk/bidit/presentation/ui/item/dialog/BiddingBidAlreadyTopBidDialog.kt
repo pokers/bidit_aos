@@ -1,4 +1,4 @@
-package com.alexk.bidit.presentation.ui.bidding.dialog
+package com.alexk.bidit.presentation.ui.item.dialog
 
 import android.app.Dialog
 import android.content.Context
@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
-import com.alexk.bidit.databinding.DialogBiddingBoardDeleteWarningBinding
 import com.alexk.bidit.databinding.DialogBiddingFailBinding
 
 //판매글 삭제 불가능

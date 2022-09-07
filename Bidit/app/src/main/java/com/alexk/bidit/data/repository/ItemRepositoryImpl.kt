@@ -63,7 +63,8 @@ class ItemRepositoryImpl @Inject constructor(private val apiService: ApolloClien
             GetItemListQuery(
                 itemQueryInfo = Optional.Present(
                     ItemQueryInput(userId = Optional.Present(userId))
-                )
+                ),
+                cursorTypeInfo = Optional.Present(CursorType.dueDate)
             )
         ).execute()
     }

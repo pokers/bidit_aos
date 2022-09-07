@@ -1,16 +1,15 @@
-package com.alexk.bidit.presentation.ui.bidding
+package com.alexk.bidit.presentation.ui.item
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.navigation.fragment.navArgs
 import com.alexk.bidit.R
 import com.alexk.bidit.common.util.addComma
 import com.alexk.bidit.databinding.FragmentBiddingCompleteBinding
 import com.alexk.bidit.presentation.base.BaseFragment
-import com.alexk.bidit.presentation.ui.bidding.dialog.BiddingBidCancelDialog
+import com.alexk.bidit.presentation.ui.item.dialog.BiddingBidCancelDialog
 import com.alexk.bidit.presentation.ui.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi

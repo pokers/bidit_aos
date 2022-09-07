@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/biddingFragment"
-        android:name="com.alexk.bidit.presentation.ui.bidding.BiddingFragment"
+        android:name="com.alexk.bidit.presentation.ui.item.BiddingFragment"
         android:label="BiddingFragment"
         tools:layout="@layout/fragment_bidding" >
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/biddingCompleteFragment"
-        android:name="com.alexk.bidit.presentation.ui.bidding.BiddingCompleteFragment"
+        android:name="com.alexk.bidit.presentation.ui.item.BiddingCompleteFragment"
         android:label="BiddingCompleteFragment"
         tools:layout="@layout/fragment_bidding_complete" >
         <argument
