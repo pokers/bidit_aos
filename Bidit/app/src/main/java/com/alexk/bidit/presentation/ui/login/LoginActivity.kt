@@ -66,8 +66,7 @@ class LoginActivity : AppCompatActivity() {
             }
             //아니면 인터넷으로
             else {
-                Toast.makeText(this, "카카오톡을 설치하고 이용해주세요.", Toast.LENGTH_LONG).show()
-                finishAffinity()
+                UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
             }
         }
     }
