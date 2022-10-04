@@ -69,7 +69,7 @@ class MyPageProfileActivity : AppCompatActivity() {
                     } else {
                         //프로필 변경
                         nickname = editNickname.text.toString()
-                        userViewModel.updateUserInfo(nickname, imgUrl)
+                        userViewModel.updateUserNickNameAndProfileImg(nickname, imgUrl)
                     }
                 }
             }
@@ -85,7 +85,7 @@ class MyPageProfileActivity : AppCompatActivity() {
                 }
                 is ViewState.Success -> {
                     loadingDialog.dismiss()
-                    val result = response.value?.data?.updateUser
+                    val result = response.value
                     Log.d("UPDATE_USER_INFO","Success : ${result?.nickname}")
                     Toast.makeText(this,"닉네임이 변경되었습니다.",Toast.LENGTH_SHORT).show()
                     finish()

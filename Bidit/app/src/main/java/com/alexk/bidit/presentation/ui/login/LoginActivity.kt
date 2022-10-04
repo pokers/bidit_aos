@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil.setContentView
 import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.common.util.sharePreference.UserTokenManager
 import com.alexk.bidit.databinding.ActivityLoginBinding
@@ -71,42 +70,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun observeAddUserInfo() {
-        viewModel.addUserInfo.observe(this) { response ->
-            when (response) {
-                is ViewState.Loading -> {
-                    setLoadingDialog(true)
-                }
-                is ViewState.Success -> {
-                    setLoadingDialog(true)
-                    viewModel.getMyInfo()
-                }
-                is ViewState.Error -> {
-                    throw RuntimeException(ErrorUserNotFound)
-                }
-            }
-        }
-    }
-
-    private fun observeUserPushToken() {
-        viewModel.pushToken.observe(this) { response ->
-            when (response) {
-                is ViewState.Loading -> {
-                    setLoadingDialog(true)
-                }
-                //if push token update successful, start home activity
-                is ViewState.Success -> {
-                    setLoadingDialog(true)
-                    startActivity(Intent(this, HomeActivity::class.java))
-                }
-                is ViewState.Error -> {
-                    setLoadingDialog(false)
-                    throw RuntimeException(ErrorInvalidToken)
-                }
-            }
-        }
-    }
-
     private fun setDefaultUserNickName(userId: Int) {
         val defaultNickname = "닉네임$userId"
         GlobalApplication.userNickname = defaultNickname
@@ -118,7 +81,7 @@ class LoginActivity : AppCompatActivity() {
         //닉네임이 없다면 default로 넣어주기
         if (userResponse.nickname == null) {
             setDefaultUserNickName(userResponse.id!!)
-            viewModel.updateUserInfo(
+            viewModel.updateUserNickNameAndProfileImg(
                 GlobalApplication.userNickname,
                 userResponse.kakaoAccount?.profileImageUrl
             )
@@ -136,6 +99,7 @@ class LoginActivity : AppCompatActivity() {
                 is ViewState.Success -> {
                     setLoadingDialog(false)
                     val userResponse = response.value
+                    //first login -> required add user
                     if (userResponse?.id == null) {
                         viewModel.addUser()
                     } else {
@@ -146,6 +110,44 @@ class LoginActivity : AppCompatActivity() {
                 is ViewState.Error -> {
                     setLoadingDialog(false)
                     throw RuntimeException(ErrorUserNotFound)
+                }
+            }
+        }
+    }
+
+    private fun observeAddUserInfo() {
+        viewModel.addUserInfo.observe(this) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    setLoadingDialog(true)
+                }
+                //if user login first time, have to require addUser
+                is ViewState.Success -> {
+                    setLoadingDialog(false)
+                    viewModel.getMyInfo()
+                }
+                is ViewState.Error -> {
+                    setLoadingDialog(false)
+                    throw RuntimeException(ErrorUserNotFound)
+                }
+            }
+        }
+    }
+
+    private fun observeUserPushToken() {
+        viewModel.pushToken.observe(this) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    setLoadingDialog(true)
+                }
+                //if push token update successful, start home activity
+                is ViewState.Success -> {
+                    setLoadingDialog(false)
+                    startActivity(Intent(this, HomeActivity::class.java))
+                }
+                is ViewState.Error -> {
+                    setLoadingDialog(false)
+                    throw RuntimeException(ErrorInvalidToken)
                 }
             }
         }
