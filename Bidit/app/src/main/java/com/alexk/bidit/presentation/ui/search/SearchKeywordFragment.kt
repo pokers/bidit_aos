@@ -15,16 +15,15 @@ import com.alexk.bidit.common.adapter.common.CommonItemListAdapter
 import com.alexk.bidit.common.adapter.search.SearchKeywordListAdapter
 import com.alexk.bidit.common.util.typeCastItemQueryToItemEntity
 import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
-import com.alexk.bidit.data.sharedPreference.SearchKeywordManager
+import com.alexk.bidit.common.util.sharePreference.SearchKeywordManager
 import com.alexk.bidit.databinding.FragmentSearchKeywordBinding
-import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.item.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import com.alexk.bidit.presentation.viewModel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import retrofit2.http.GET
 
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
@@ -43,7 +42,7 @@ class SearchKeywordFragment :
 
     override fun init() {
         //sp에 저장된 키워드
-        val keywordList = SearchKeywordManager(requireContext()).getKeyword()
+        val keywordList = SearchKeywordManager.getKeyword()
         val keywordListSize = keywordList.size
 
         //뷰모델에 적용시킨다.
@@ -99,7 +98,7 @@ class SearchKeywordFragment :
     override fun initEvent() {
         binding.apply {
             tvAllDelete.setOnClickListener {
-                SearchKeywordManager(requireContext()).removeAllKeyword()
+                SearchKeywordManager.removeAllKeyword()
                 viewModel.deleteAllKeyword()
             }
             btnBack.setOnClickListener {
@@ -111,12 +110,12 @@ class SearchKeywordFragment :
             editSearch.setOnEditorActionListener { view, imeOption, _ ->
                 if (imeOption == EditorInfo.IME_ACTION_SEARCH && view?.text?.toString() != "") {
                     //sp에 추가 -> 베이스는 원래가지고 있는 리스트
-                    SearchKeywordManager(requireContext()).addKeyword(
+                    SearchKeywordManager.addKeyword(
                         (binding.rvSearchKeywordList.adapter as SearchKeywordListAdapter).keywordList,
                         binding.editSearch.text.toString()
                     )
                     //바뀐 리스트를 적용해야함
-                    viewModel.initKeywordList(SearchKeywordManager(requireContext()).getKeyword())
+                    viewModel.initKeywordList(SearchKeywordManager.getKeyword())
 
                     //키워드를 번들에 담아서 주고 결과 프래그먼트로 변경
                     navigate(

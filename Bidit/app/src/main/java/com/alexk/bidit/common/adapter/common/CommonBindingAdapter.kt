@@ -5,15 +5,10 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
-import com.alexk.bidit.GetBiddingInfoQuery
-import com.alexk.bidit.GetItemListQuery
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.common.CommonBindingAdapter.loadImageListUrl
 import com.alexk.bidit.common.util.addComma
-import com.alexk.bidit.common.util.setTextColorWithResourceCompat
-import com.alexk.bidit.domain.entity.item.ItemImgEntity
+import com.alexk.bidit.domain.entity.item.img.ItemImgEntity
 import com.alexk.bidit.type.JoinPath
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat

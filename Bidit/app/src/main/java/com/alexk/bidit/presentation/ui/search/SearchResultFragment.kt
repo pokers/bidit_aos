@@ -17,9 +17,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.common.CommonItemListAdapter
 import com.alexk.bidit.common.util.typeCastItemQueryToItemEntity
-import com.alexk.bidit.data.sharedPreference.SearchKeywordManager
+import com.alexk.bidit.common.util.sharePreference.SearchKeywordManager
 import com.alexk.bidit.databinding.FragmentSearchResultBinding
-import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.item.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
@@ -95,8 +95,8 @@ class SearchResultFragment :
                 //텍스트가 있어야하고 검색버튼을 누르면?
                 if (imeOption == EditorInfo.IME_ACTION_SEARCH && view?.text?.toString() != "") {
                     //sp에 추가 -> 베이스는 원래가지고 있는 리스트
-                    SearchKeywordManager(requireContext()).addKeyword(
-                        SearchKeywordManager(requireContext()).getKeyword(),
+                    SearchKeywordManager.addKeyword(
+                        SearchKeywordManager.getKeyword(),
                         binding.editSearch.text.toString()
                     )
                     merchandiseViewModel.getKeywordItemList(keyword, currentSortType)

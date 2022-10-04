@@ -1,7 +1,6 @@
 package com.alexk.bidit.presentation.ui.splash
 
 import android.annotation.SuppressLint
-import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -10,12 +9,18 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.alexk.bidit.GlobalApplication
-import com.alexk.bidit.data.sharedPreference.TokenManager
+import com.alexk.bidit.common.util.ErrorInvalidToken
+import com.alexk.bidit.common.util.ErrorUserNotFound
+import com.alexk.bidit.common.util.setLoadingDialog
+import com.alexk.bidit.common.util.sharePreference.UserTokenManager
 import com.alexk.bidit.databinding.ActivitySplashBinding
-import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.common.util.view.ViewState
+import com.alexk.bidit.domain.entity.user.UserBasicEntity
 import com.alexk.bidit.presentation.ui.home.HomeActivity
 import com.alexk.bidit.presentation.ui.login.LoginActivity
 import com.alexk.bidit.presentation.viewModel.UserViewModel
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.user.UserApiClient
 import com.sendbird.android.SendBird
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,123 +38,75 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        checkKakaoTokenExpired()
+    }
 
-        //현재 카카오 토큰이 존재 -> 토큰 만료 확인
-        if (TokenManager(this).getToken().isNotEmpty()) {
-            observeMyInfo()
-            observePushToken()
-            observeUpdateMyInfo()
-            viewModel.getMyInfo()
+    //check kakao token expired
+    private fun checkKakaoTokenExpired() {
+        if (UserTokenManager.getToken().isNotEmpty()) {
+            startObserveUserInfo()
         } else {
-            //토큰이 없으면 로그인 페이지로
-            val handler = Handler(mainLooper)
-            handler.postDelayed({
-                startActivity(Intent(this, LoginActivity::class.java))
-            }, 500)
+            startLoginActivity()
         }
     }
 
-    private fun connectToSendBird(userID: String, nickname: String) {
-        SendBird.connect(userID) { _, e ->
-            if (e != null) {
-                Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
-            } else {
-                SendBird.updateCurrentUserInfo(nickname, null) { error ->
-                    if (error != null) {
-                        Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
-                    }
-                    val intent = Intent(this, HomeActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-            }
-        }
+    private fun startObserveUserInfo() {
+        observeMyInfo()
+        observePushToken()
+        viewModel.getMyInfo()
     }
 
-    private fun observeMyInfo(){
+    private fun startLoginActivity() {
+        val handler = Handler(mainLooper)
+        handler.postDelayed({
+            startActivity(Intent(this, LoginActivity::class.java))
+        }, 500)
+    }
+
+    private fun observeMyInfo() {
         viewModel.myInfo.observe(this) { response ->
             when (response) {
-                //서버 연결 대기중
                 is ViewState.Loading -> {
-
+                    setLoadingDialog(true)
                 }
-                //토큰 확인 성공 -> 홈으로 이동
                 is ViewState.Success -> {
-                    val me = response.value?.data?.me
-                    GlobalApplication.instance.setUserId(me?.id!!)
-                    if (response.value.data?.me?.nickname == null) {
-                        //닉네임이 없다면 default 닉네임으로 수정
-                        val defaultNickname = "닉네임${me.id}"
-                        GlobalApplication.instance.setNickname(defaultNickname)
-                        viewModel.updateUserInfo(
-                            nickname = defaultNickname,
-                            profileImg = me.kakaoAccount?.profile_image_url
-                        )
-                    }
-                    //기존 정보 있음
-                    else{
-                        GlobalApplication.instance.setNickname(me.nickname!!)
-                    }
-                    //푸쉬 토큰 상시 업데이트
-                    viewModel.updatePushToken(null, TokenManager(this).getPushToken())
-                    connectToSendBird(GlobalApplication.instance.getUserId().toString(), GlobalApplication.instance.getNickname())
-                    //센드버드 init
-//                    GlobalApplication.instance.initSendbirdSdk(
-//                        userId = GlobalApplication.instance.getUserId().toString(),
-//                        userNickname = GlobalApplication.instance.getNickname(),
-//                        userProfileImg = me.kakaoAccount?.profile_image_url
-//                    )
+                    setLoadingDialog(false)
+                    setUserInfo(userResponse = response.value!!)
+                    viewModel.updatePushToken(null, UserTokenManager.getPushToken())
                 }
-                //서버 연결 실패(만료) -> 재발급 요청
                 is ViewState.Error -> {
-                    Log.d("login failure", "expire token")
-                    startActivity(Intent(this, LoginActivity::class.java))
+                    setLoadingDialog(false)
+                    throw RuntimeException(ErrorUserNotFound)
                 }
             }
         }
     }
 
-    private fun observePushToken(){
+    private fun setUserInfo(userResponse: UserBasicEntity) {
+        GlobalApplication.userId = userResponse.id!!
+        GlobalApplication.userNickname = userResponse.nickname!!
+    }
+
+    private fun observePushToken() {
         viewModel.pushToken.observe(this) { response ->
             when (response) {
-                //서버 연결 대기중
                 is ViewState.Loading -> {
-                    Log.d("pushToken Update", "Loading")
+                    setLoadingDialog(true)
                 }
-                //토큰 확인 성공 -> 홈으로 이동
+                //if push token update successful, start home activity
                 is ViewState.Success -> {
-                    Log.d(
-                        "pushToken Update",
-                        "Success - Token: ${TokenManager(this).getPushToken()}"
-                    )
+                    setLoadingDialog(true)
                     startActivity(Intent(this, HomeActivity::class.java))
                 }
-                //서버 연결 실패(만료) -> 재발급 요청
                 is ViewState.Error -> {
-                    Log.d("pushToken Update", "failure token")
+                    setLoadingDialog(false)
+                    throw RuntimeException(ErrorInvalidToken)
                 }
             }
         }
     }
-    private fun observeUpdateMyInfo() {
-        viewModel.updateUserInfo.observe(this) { response ->
-            when (response) {
-                //서버 연결 대기중
-                is ViewState.Loading -> {
-                    Log.d("user Update", "Loading")
-                }
-                //토큰 확인 성공 -> 홈으로 이동
-                is ViewState.Success -> {
-                    Log.d(
-                        "user Update",
-                        "Success - Nickname: ${response.value?.data?.updateUser?.nickname}"
-                    )
-                }
-                //서버 연결 실패(만료) -> 재발급 요청
-                is ViewState.Error -> {
-                    Log.d("user Update", "failure Update")
-                }
-            }
-        }
+
+    companion object {
+        private const val TAG = "SplashActivity..."
     }
 }

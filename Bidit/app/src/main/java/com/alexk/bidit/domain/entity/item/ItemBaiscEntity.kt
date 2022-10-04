@@ -1,11 +1,12 @@
 package com.alexk.bidit.domain.entity.item
 
 import android.os.Parcelable
+import com.alexk.bidit.domain.entity.item.img.ItemImgEntity
 import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 
 @Parcelize
-data class ItemEntity(
+data class ItemBaiscEntity(
     var id: Int?,
     var status: Int?,
     var sPrice : Int?,

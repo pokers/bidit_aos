@@ -1,7 +1,7 @@
 package com.alexk.bidit.domain.entity.selling
 
 import android.os.Parcelable
-import com.alexk.bidit.domain.entity.item.ItemImgEntity
+import com.alexk.bidit.domain.entity.item.img.ItemImgEntity
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

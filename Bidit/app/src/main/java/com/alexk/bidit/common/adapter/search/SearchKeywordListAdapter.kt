@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alexk.bidit.R
-import com.alexk.bidit.data.sharedPreference.SearchKeywordManager
+import com.alexk.bidit.common.util.sharePreference.SearchKeywordManager
 import com.alexk.bidit.databinding.ItemSearchRecentKeywordListBinding
 
 class SearchKeywordListAdapter(
@@ -27,7 +27,7 @@ class SearchKeywordListAdapter(
                 //해당 키워드를 삭제
                 keywordList.remove(keyword)
                 //삭제된 리스트를 적용
-                SearchKeywordManager(context).removeKeyword(keywordList)
+                SearchKeywordManager.removeKeyword(keywordList)
                 onClickDeleteKeyword.invoke(keyword)
             }
             binding.tvSearchKeyword.setOnClickListener {

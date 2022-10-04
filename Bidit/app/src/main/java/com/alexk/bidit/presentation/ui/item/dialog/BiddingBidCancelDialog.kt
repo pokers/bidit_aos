@@ -10,7 +10,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.DialogBiddingCancelBinding
-import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.common.dialog.LoadingDialog
 import com.alexk.bidit.presentation.viewModel.BiddingViewModel
 import dagger.hilt.android.AndroidEntryPoint

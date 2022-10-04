@@ -1,14 +1,13 @@
 package com.alexk.bidit.presentation.viewModel
 
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexk.bidit.DoBidMutation
 import com.alexk.bidit.GetBiddingInfoQuery
 import com.alexk.bidit.GetMyBiddingInfoQuery
-import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.domain.repository.BiddingRepository
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.exception.ApolloHttpException
@@ -28,6 +27,7 @@ class BiddingViewModel @Inject constructor(private val repository: BiddingReposi
 
     private val _myBiddingInfo by lazy { MutableLiveData<ViewState<ApolloResponse<GetMyBiddingInfoQuery.Data>>>() }
     val myBiddingInfo get() = _myBiddingInfo
+
 
     fun getMyBiddingInfo() = viewModelScope.launch {
         _myBiddingInfo.postValue(ViewState.Loading())

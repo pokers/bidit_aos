@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Window
+import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.databinding.DialogLoadingBinding
 
 class LoadingDialog(context: Context) :Dialog(context){
@@ -23,7 +24,11 @@ class LoadingDialog(context: Context) :Dialog(context){
         window!!.setDimAmount(0.2f)
     }
 
-    override fun show() {
-        if(!this.isShowing) super.show()
+    companion object{
+        private var loadingDialog : Dialog? = null
+        fun getLoadingDialogInstance(context: Context) : Dialog?{
+            if(loadingDialog == null) loadingDialog = LoadingDialog(context)
+            return loadingDialog
+        }
     }
 }

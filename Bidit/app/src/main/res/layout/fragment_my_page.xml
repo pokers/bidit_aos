@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="userInfo"
-            type="com.alexk.bidit.GetMyInfoQuery.Data" />
+            name="userBasicEntity"
+            type="com.alexk.bidit.domain.entity.user.UserBasicEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,7 @@
             android:layout_marginStart="44dp"
             android:layout_marginTop="65dp"
             android:src="@drawable/ic_notification"
-            app:imageUrl="@{userInfo.me.kakaoAccount.profile_image_url}"
+            app:imageUrl="@{userBasicEntity.kakaoAccount.profileImageUrl}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,7 +46,7 @@
                     android:id="@+id/tv_selling_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:number="@{userInfo.me.counting.sell}"
+                    app:number="@{userBasicEntity.itemCount.sell}"
                     android:fontFamily="@font/notosans_kr_bold"
                     android:includeFontPadding="false"
                     android:textColor="@color/charcoal"
@@ -83,7 +83,7 @@
                     android:id="@+id/tv_bidding_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:number="@{userInfo.me.counting.buy}"
+                    app:number="@{userBasicEntity.itemCount.buy}"
                     android:fontFamily="@font/notosans_kr_bold"
                     android:includeFontPadding="false"
                     android:textColor="@color/charcoal"
@@ -114,7 +114,7 @@
             app:layout_constraintEnd_toEndOf="@id/iv_profile_img"
             app:layout_constraintStart_toStartOf="@id/iv_profile_img"
             app:layout_constraintTop_toBottomOf="@id/iv_profile_img"
-            app:nickname="@{userInfo.me.nickname}" />
+            app:nickname="@{userBasicEntity.nickname}" />
 
 
         <android.widget.Button

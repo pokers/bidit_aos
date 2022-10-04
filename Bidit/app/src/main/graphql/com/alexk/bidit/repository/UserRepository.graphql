@@ -34,9 +34,6 @@ query getMyInfo{
             buy
             sell
         }
-        pushToken {
-            status
-        }
         kakaoAccount {
             name
             email

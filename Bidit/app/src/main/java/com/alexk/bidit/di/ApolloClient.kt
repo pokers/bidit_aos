@@ -2,7 +2,7 @@ package com.alexk.bidit.di
 
 import android.os.Looper
 import com.alexk.bidit.common.util.BASE_URL
-import com.alexk.bidit.data.interceptor.TokenInterceptor
+import com.alexk.bidit.common.util.interceptor.TokenInterceptor
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.network.okHttpClient
 import okhttp3.OkHttpClient

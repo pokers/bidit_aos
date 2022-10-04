@@ -6,15 +6,13 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.common.CommonItemListAdapter
-import com.alexk.bidit.common.util.typeCastBiddingItemToItemEntity
 import com.alexk.bidit.common.util.typeCastMyBiddingItemToItemEntity
 import com.alexk.bidit.common.util.typeCastUsersItemToItemEntity
 import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentCommonMerchandiseListBinding
-import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.item.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.BiddingViewModel
@@ -61,6 +59,8 @@ class MyTradeItemListFragment :
     }
 
 
+    //view model을 초기화하는건데 왜 다른것 까지 해야하나?
+    //메소드를 만들어서 따로 관리를 해주자 -> 네이밍도 신경써주기
     private fun initUserViewModel() {
         userViewModel.myInfo.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -70,11 +70,11 @@ class MyTradeItemListFragment :
                 }
                 is ViewState.Success -> {
                     loadingDialogDismiss()
-                    val result = response.value?.data?.me?.items?.edges
-                    if(result?.isEmpty() == true){
+                    val result = response.value?.itemConnection
+                    if(result?.itemEdge?.isEmpty() == true){
                         binding.lyNoList.visibility = View.VISIBLE
                     }
-                    itemListAdapter.submitList(typeCastUsersItemToItemEntity(result))
+                    itemListAdapter.submitList(emptyList())
                     itemListAdapter.onItemClicked = {
                         val intent = Intent(requireContext(), BiddingActivity::class.java)
                         intent.putExtra("itemId", it)

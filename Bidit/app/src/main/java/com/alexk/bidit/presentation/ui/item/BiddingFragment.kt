@@ -13,7 +13,7 @@ import com.alexk.bidit.common.adapter.bidding.BiddingMerchandiseImgPageAdapter
 import com.alexk.bidit.common.adapter.bidding.BiddingUserAdapter
 import com.alexk.bidit.common.util.ErrorOwnItemBidding
 import com.alexk.bidit.databinding.FragmentBiddingBinding
-import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.item.dialog.*
 import com.alexk.bidit.presentation.viewModel.BiddingViewModel
@@ -203,7 +203,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                     itemInfo = result!!
                     initEvent()
                     //내 게시글
-                    if (result.userId == GlobalApplication.instance.getUserId()) {
+                    if (result.userId == GlobalApplication.userId) {
                         setMyBiddingInfoUI(itemInfo)
                     }
                     //다른 사람 게시글

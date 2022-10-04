@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexk.bidit.*
 import com.alexk.bidit.domain.repository.UserRepository
-import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.common.util.view.ViewState
+import com.alexk.bidit.domain.entity.user.UserBasicEntity
 import com.alexk.bidit.type.MembershipStatus
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.exception.ApolloHttpException
@@ -19,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class UserViewModel @Inject constructor(private val repository: UserRepository) : ViewModel() {
 
-    private val _myInfo by lazy { MutableLiveData<ViewState<ApolloResponse<GetMyInfoQuery.Data>>>() }
+    private val _myInfo by lazy { MutableLiveData<ViewState<UserBasicEntity>>() }
     val myInfo get() = _myInfo
 
     private val _pushToken by lazy { MutableLiveData<ViewState<ApolloResponse<UpdatePushTokenMutation.Data>>>() }
@@ -42,8 +43,8 @@ class UserViewModel @Inject constructor(private val repository: UserRepository) 
         try{
             val response = repository.addUserInfo()
             _addUserInfo.postValue(ViewState.Success(response))
-        }catch (e: ApolloHttpException){
-            Log.e("ApolloException", "Failure", e)
+        }catch (e: Exception){
+            Log.e(TAG, "addUser: ${e.message}")
             _addUserInfo.postValue(ViewState.Error("add alarm error"))
         }
     }
@@ -110,5 +111,7 @@ class UserViewModel @Inject constructor(private val repository: UserRepository) 
             _updateUserInfo.postValue(ViewState.Error("Error update user info"))
         }
     }
-
+    companion object{
+        private const val TAG = "UserViewModel..."
+    }
 }

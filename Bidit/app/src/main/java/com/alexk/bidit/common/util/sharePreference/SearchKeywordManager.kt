@@ -1,21 +1,23 @@
-package com.alexk.bidit.data.sharedPreference
+package com.alexk.bidit.common.util.sharePreference
 
-import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.alexk.bidit.BuildConfig
+import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.common.util.KEYWORD
 import org.json.JSONArray
-import com.google.gson.JsonArray as JsonA
 
-class SearchKeywordManager(context: Context) {
+object SearchKeywordManager {
+
+    private const val TAG = "SearchKeywordManager..."
+
     private val prefs: SharedPreferences by lazy {
-        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
         EncryptedSharedPreferences.create(
             BuildConfig.APPLICATION_ID,
             masterKeyAlias,
-            context,
+            GlobalApplication.applicationContext(),
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
@@ -27,7 +29,7 @@ class SearchKeywordManager(context: Context) {
     }
 
     //String으로 받은 sp를 ArrayList로 변환
-    fun decodeJSONArray(json: String?): ArrayList<String> {
+    private fun decodeJSONArray(json: String?): ArrayList<String> {
         val keywordList = arrayListOf<String>()
 
         if (json != null) {
@@ -36,7 +38,7 @@ class SearchKeywordManager(context: Context) {
                 keywordList.add(jsonArray.optString(idx))
             }
         }
-        return keywordList;
+        return keywordList
     }
 
     //sp에 추가

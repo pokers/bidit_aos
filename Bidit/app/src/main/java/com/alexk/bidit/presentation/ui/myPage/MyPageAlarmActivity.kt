@@ -6,9 +6,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
-import com.alexk.bidit.data.sharedPreference.TokenManager
 import com.alexk.bidit.databinding.ActivityMyPageAlarmBinding
-import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.common.dialog.LoadingDialog
 import com.alexk.bidit.presentation.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,8 +59,8 @@ class MyPageAlarmActivity : AppCompatActivity() {
                 is ViewState.Success -> {
                     loadingDialog.dismiss()
                     Log.d("PushToken", "Success")
-                    val result = response.value?.data?.me?.userAlarm
-                    userId = response.value?.data?.me?.id!!
+                    val result = response.value?.alarm
+                    userId = response.value?.id!!
                     binding.cbAllPushAlarm.isChecked = result != null
                 }
                 is ViewState.Error -> {
