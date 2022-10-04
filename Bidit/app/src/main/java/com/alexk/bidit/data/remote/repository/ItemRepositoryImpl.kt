@@ -1,4 +1,4 @@
-package com.alexk.bidit.data.repository
+package com.alexk.bidit.data.remote.repository
 
 import com.alexk.bidit.*
 import com.alexk.bidit.di.ApolloClient

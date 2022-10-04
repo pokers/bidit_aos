@@ -1,4 +1,4 @@
-package com.alexk.bidit.domain.entity.item
+package com.alexk.bidit.domain.entity.item.img
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

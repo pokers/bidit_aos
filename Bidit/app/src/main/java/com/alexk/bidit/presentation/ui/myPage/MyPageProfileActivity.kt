@@ -2,10 +2,7 @@ package com.alexk.bidit.presentation.ui.myPage
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
 import com.alexk.bidit.common.dialog.LoadingDialog
 import com.alexk.bidit.databinding.ActivityMyPageProfileModifyBinding
-import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.presentation.ui.myPage.dialog.MyPageEditProfileDialog
 import com.alexk.bidit.presentation.viewModel.UserViewModel
 import com.bumptech.glide.Glide
@@ -72,7 +69,7 @@ class MyPageProfileActivity : AppCompatActivity() {
                     } else {
                         //프로필 변경
                         nickname = editNickname.text.toString()
-                        userViewModel.updateUserInfo(nickname, imgUrl)
+                        userViewModel.updateUserNickNameAndProfileImg(nickname, imgUrl)
                     }
                 }
             }
@@ -88,7 +85,7 @@ class MyPageProfileActivity : AppCompatActivity() {
                 }
                 is ViewState.Success -> {
                     loadingDialog.dismiss()
-                    val result = response.value?.data?.updateUser
+                    val result = response.value
                     Log.d("UPDATE_USER_INFO","Success : ${result?.nickname}")
                     Toast.makeText(this,"닉네임이 변경되었습니다.",Toast.LENGTH_SHORT).show()
                     finish()

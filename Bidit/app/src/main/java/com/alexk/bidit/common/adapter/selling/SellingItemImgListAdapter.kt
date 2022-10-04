@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.ItemSellingPostMerchandiseImgListBinding
-import com.alexk.bidit.domain.entity.item.ItemImgEntity
+import com.alexk.bidit.domain.entity.item.img.ItemImgEntity
 
 
 class SellingItemImgListAdapter() :

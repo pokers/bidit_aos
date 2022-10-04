@@ -4,16 +4,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.navigation.fragment.navArgs
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.FragmentMyPageAccountInfoBinding
-import com.alexk.bidit.di.ViewState
-import com.alexk.bidit.domain.entity.user.UserBasicInfoEntity
+import com.alexk.bidit.common.util.view.ViewState
+import com.alexk.bidit.domain.entity.user.UserBasicEntity
 import com.alexk.bidit.presentation.base.BaseFragment
-import com.alexk.bidit.presentation.ui.selling.SellingCategoryFragmentArgs
 import com.alexk.bidit.presentation.viewModel.UserViewModel
-import com.alexk.bidit.type.JoinPath
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -62,14 +58,9 @@ class MyPageAccountInfoFragment :
                 is ViewState.Success -> {
                     loadingDialogDismiss()
                     Log.d("My Page -> UserInfo", "Success")
-                    val result = response.value?.data?.me
+                    val result = response.value
                     userId = result?.id!!
-                    binding.userBasicInfo = UserBasicInfoEntity(
-                        result.kakaoAccount?.email,
-                        result.kakaoAccount?.name,
-                        result.kakaoAccount?.phone_number,
-                        result.joinPath
-                    )
+                    binding.userBasicInfo = result
                 }
                 is ViewState.Error -> {
                     loadingDialogDismiss()

@@ -16,7 +16,7 @@ import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.common.CommonItemListAdapter
 import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.ActivityCategoryBinding
-import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.common.dialog.LoadingDialog
 import com.alexk.bidit.common.util.typeCastItemQueryToItemEntity
 import com.alexk.bidit.presentation.ui.item.BiddingActivity

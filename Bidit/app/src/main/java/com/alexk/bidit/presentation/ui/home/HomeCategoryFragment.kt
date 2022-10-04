@@ -14,10 +14,10 @@ import com.alexk.bidit.GetItemListQuery
 import com.alexk.bidit.common.adapter.common.CommonItemListAdapter
 import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentCommonMerchandiseListBinding
-import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.common.dialog.LoadingDialog
 import com.alexk.bidit.common.util.typeCastItemQueryToItemEntity
-import com.alexk.bidit.domain.entity.item.ItemEntity
+import com.alexk.bidit.domain.entity.item.ItemBaiscEntity
 import com.alexk.bidit.presentation.ui.item.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -99,7 +99,7 @@ class HomeCategoryFragment :
                     loadingDialog.dismiss()
                     Log.d(TAG, "Success GET merchandise list")
                     val result = typeCastItemQueryToItemEntity(response.value?.data?.getItemList?.edges)
-                    val list = mutableListOf<ItemEntity>()
+                    val list = mutableListOf<ItemBaiscEntity>()
 
                     if (result.size == 0) {
                         Log.d(TAG, "No merchandise data")

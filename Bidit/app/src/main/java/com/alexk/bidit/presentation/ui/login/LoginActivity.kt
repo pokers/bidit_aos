@@ -3,193 +3,157 @@ package com.alexk.bidit.presentation.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.alexk.bidit.GlobalApplication
-import com.alexk.bidit.data.sharedPreference.TokenManager
+import com.alexk.bidit.common.util.sharePreference.UserTokenManager
 import com.alexk.bidit.databinding.ActivityLoginBinding
-import com.alexk.bidit.di.ViewState
-import com.alexk.bidit.common.dialog.LoadingDialog
-import com.alexk.bidit.common.dialog.SignOutUserDialog
+import com.alexk.bidit.common.util.view.ViewState
+import com.alexk.bidit.common.util.ErrorInvalidToken
+import com.alexk.bidit.common.util.ErrorUserNotFound
+import com.alexk.bidit.common.util.setLoadingDialog
+import com.alexk.bidit.domain.entity.user.UserBasicEntity
 import com.alexk.bidit.presentation.ui.home.HomeActivity
 import com.alexk.bidit.presentation.viewModel.UserViewModel
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
-import com.sendbird.android.SendBird
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import java.lang.RuntimeException
+import kotlin.RuntimeException
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val viewModel by viewModels<UserViewModel>()
-    private val callback: (OAuthToken?, Throwable?) -> Unit = { oAuthToken, throwable ->
-        if (throwable != null) {
-            //로그인 실패
-            Log.d("kakao login", "fail")
-        } else {
-            UserApiClient.instance.me { _, _ ->
-                val token = oAuthToken?.accessToken
-                //뷰모델로 카카오 로그인 성공 처리
-                TokenManager(this).setToken(token!!)
-                viewModel.getMyInfo()
-            }
-            Log.d("kakao login", "success")
-        }
-    }
-    private val loadingDialog by lazy { LoadingDialog(this) }
+    private val kakaoLoginAccessCallback = initKakaoLoginCallback()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initEvent()
+
+        initKakaoLoginButton()
+
         observeAddUserInfo()
-        observeMyInfo()
-        observePushToken()
-        observeUpdateMyInfo()
+        observeUserInfo()
+        observeUserPushToken()
     }
 
-    private fun initEvent() {
+    private fun initKakaoLoginCallback(): (OAuthToken?, Throwable?) -> Unit =
+        { oAuthToken, throwable ->
+            if (throwable != null) {
+                Log.e(TAG, "initKakaoLoginCallback: ${throwable.message}")
+            } else {
+                Log.d(TAG, "initKakaoLoginCallback: login success")
+                UserApiClient.instance.me { _, _ ->
+                    UserTokenManager.setToken(oAuthToken?.accessToken!!)
+                    viewModel.getMyInfo()
+                }
+            }
+        }
+
+    private fun initKakaoLoginButton() {
         binding.btnKakaoLogin.setOnClickListener {
-            //카카오톡이 있으면 카카오톡으로
+            //if kakao talk login available...
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
                 UserApiClient.instance.loginWithKakaoTalk(
                     this,
-                    callback = callback
+                    callback = kakaoLoginAccessCallback
                 )
-            }
-            //아니면 인터넷으로
-            else {
-                UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
+            } else {
+                UserApiClient.instance.loginWithKakaoAccount(
+                    this,
+                    callback = kakaoLoginAccessCallback
+                )
             }
         }
     }
-    private fun connectToSendBird(userID: String, nickname: String) {
-        SendBird.connect(userID) { _, e ->
-            if (e != null) {
-                Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
-            } else {
-                SendBird.updateCurrentUserInfo(nickname, null) { error ->
-                    if (error != null) {
-                        Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
+
+    private fun setDefaultUserNickName(userId: Int) {
+        val defaultNickname = "닉네임$userId"
+        GlobalApplication.userNickname = defaultNickname
+    }
+
+    private fun setUserInfoFisrtTime(userResponse: UserBasicEntity) {
+        GlobalApplication.userId = userResponse.id!!
+
+        //닉네임이 없다면 default로 넣어주기
+        if (userResponse.nickname == null) {
+            setDefaultUserNickName(userResponse.id!!)
+            viewModel.updateUserNickNameAndProfileImg(
+                GlobalApplication.userNickname,
+                userResponse.kakaoAccount?.profileImageUrl
+            )
+        } else {
+            GlobalApplication.userNickname = userResponse.nickname!!
+        }
+    }
+
+    private fun observeUserInfo() {
+        viewModel.myInfo.observe(this) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    setLoadingDialog(true)
+                }
+                is ViewState.Success -> {
+                    setLoadingDialog(false)
+                    val userResponse = response.value
+                    //first login -> required add user
+                    if (userResponse?.id == null) {
+                        viewModel.addUser()
+                    } else {
+                        setUserInfoFisrtTime(userResponse = userResponse)
+                        viewModel.updatePushToken(null, UserTokenManager.getPushToken())
                     }
-                    val intent = Intent(this, HomeActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                }
+                is ViewState.Error -> {
+                    setLoadingDialog(false)
+                    throw RuntimeException(ErrorUserNotFound)
                 }
             }
         }
     }
 
-    private fun observeAddUserInfo(){
+    private fun observeAddUserInfo() {
         viewModel.addUserInfo.observe(this) { response ->
             when (response) {
-                //서버 연결 대기중
                 is ViewState.Loading -> {
-                    Log.d("GET_MY_INFO", "LOADING")
-                    loadingDialog.show()
+                    setLoadingDialog(true)
                 }
-                //로그인 성공
+                //if user login first time, have to require addUser
                 is ViewState.Success -> {
-                    loadingDialog.dismiss()
+                    setLoadingDialog(false)
                     viewModel.getMyInfo()
                 }
-                //탈퇴는 어떻게?
                 is ViewState.Error -> {
-                    throw RuntimeException("Add user Error")
+                    setLoadingDialog(false)
+                    throw RuntimeException(ErrorUserNotFound)
                 }
             }
         }
     }
-    private fun observePushToken(){
+
+    private fun observeUserPushToken() {
         viewModel.pushToken.observe(this) { response ->
             when (response) {
-                //서버 연결 대기중
                 is ViewState.Loading -> {
-                    Log.d("UPDATE_PUSH_TOKEN", "LOADING")
-                    LoadingDialog(this).show()
+                    setLoadingDialog(true)
                 }
-                //로그인 성공
+                //if push token update successful, start home activity
                 is ViewState.Success -> {
-                    LoadingDialog(this).dismiss()
-                    Log.d(
-                        "pushToken Update",
-                        "Success - Token: ${TokenManager(this).getPushToken()}"
-                    )
+                    setLoadingDialog(false)
                     startActivity(Intent(this, HomeActivity::class.java))
                 }
                 is ViewState.Error -> {
-                    Log.d("UPDATE_PUSH_TOKEN", "ERROR")
-                    LoadingDialog(this).dismiss()
+                    setLoadingDialog(false)
+                    throw RuntimeException(ErrorInvalidToken)
                 }
             }
         }
     }
-    private fun observeUpdateMyInfo(){
-        viewModel.updateUserInfo.observe(this) { response ->
-            when (response) {
-                //서버 연결 대기중
-                is ViewState.Loading -> {
-                    Log.d("user Update", "Loading")
-                }
-                //토큰 확인 성공 -> 홈으로 이동
-                is ViewState.Success -> {
-                    Log.d(
-                        "user Update",
-                        "Success - Nickname: ${response.value?.data?.updateUser?.nickname}"
-                    )
-                }
-                //서버 연결 실패(만료) -> 재발급 요청
-                is ViewState.Error -> {
-                    Log.d("user Update", "failure Update")
-                }
-            }
-        }
-    }
-    private fun observeMyInfo() {
-        viewModel.myInfo.observe(this) { response ->
-            when (response) {
-                is ViewState.Loading -> {
-                    Log.d("GET_MY_INFO", "LOADING")
-                    loadingDialog.show()
-                }
-                is ViewState.Success -> {
-                    loadingDialog.dismiss()
-                    if (response.value?.data?.me?.id == null) {
-                        viewModel.addUser()
-                    } else {
-                        val me = response.value.data?.me
-                        GlobalApplication.instance.setUserId(me?.id!!)
-                        //닉네임이 없다면 default로 넣어주기
-                        if (response.value.data?.me?.nickname == null) {
-                            val defaultNickname = "닉네임${GlobalApplication.instance.getUserId()}"
-                            GlobalApplication.instance.setNickname(defaultNickname)
-                            viewModel.updateUserInfo(
-                                defaultNickname,
-                                me.kakaoAccount?.profile_image_url
-                            )
-                        } else {
-                            GlobalApplication.instance.setNickname(me.nickname!!)
-                        }
-                        viewModel.updatePushToken(null, TokenManager(this).getPushToken())
-                        connectToSendBird(userID = GlobalApplication.instance.getUserId().toString(), nickname = GlobalApplication.instance.getNickname())
-//                        GlobalApplication.instance.initSendbirdSdk(
-//                            userId = GlobalApplication.instance.getUserId().toString(),
-//                            userNickname = GlobalApplication.instance.getNickname(),
-//                            userProfileImg = me.kakaoAccount?.profile_image_url
-//                        )
-                    }
-                }
-                is ViewState.Error -> {
-                    throw RuntimeException("MyInfo Error")
-                }
-            }
-        }
+
+    companion object {
+        private const val TAG = "LoginActivity..."
     }
 }

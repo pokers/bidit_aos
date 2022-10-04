@@ -1,23 +1,17 @@
 plugins {
     id 'com.android.application'
 
-    //fireBase
     id 'com.google.gms.google-services'
     id 'org.jetbrains.kotlin.android'
 
-    //direction 생성
     id 'androidx.navigation.safeargs.kotlin'
 
-    //apollo
     id("com.apollographql.apollo3").version("3.5.0")
 
-    //parcelize
     id 'kotlin-parcelize'
 
-    //firebase crashlytics
     id 'com.google.firebase.crashlytics'
 
-    //hilt
     id 'dagger.hilt.android.plugin'
 
     id 'kotlin-kapt'
@@ -84,50 +78,60 @@ android {
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.android.material)
     implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.junit)
-    androidTestImplementation(libs.androidx.test.espresso)
-    implementation(libs.sendbird.sdk)
-    implementation(libs.retrofit2)
-    implementation(libs.okhttp3.logging.interceptor)
-    implementation(libs.retrofit2.converter.gson)
-    implementation(libs.amarjain07.StickyScrollView)
-    implementation(libs.glide)
-    kapt(libs.glide.compiler)
-    implementation(libs.hannesa2.SlidingUpPanel)
-    implementation(libs.relex.circleindicator)
+    implementation(libs.android.material)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.navigation.common)
     implementation(libs.androidx.navigation.dynamic.features.fragment)
-    androidTestImplementation(libs.androidx.navigation.testing)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.lifecycle.extensions)
     implementation(libs.androidx.security.crypto)
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.junit)
+    androidTestImplementation(libs.androidx.test.espresso)
+
+    implementation(libs.sendbird.sdk)
+
+    implementation(libs.retrofit2)
+    implementation(libs.okhttp3.logging.interceptor)
+    implementation(libs.retrofit2.converter.gson)
+
+    implementation(libs.amarjain07.StickyScrollView)
+    implementation(libs.hannesa2.SlidingUpPanel)
+    implementation(libs.relex.circleindicator)
+    implementation(libs.skydoves.balloon)
+    implementation(libs.hdodenhof.circleimageview)
+    implementation(libs.shawnlin013.numberpicker)
+    implementation(libs.kizitonwose.calendarview)
+    implementation(libs.ybq.spinkit)
+
+    implementation(libs.glide)
+    kapt(libs.glide.compiler)
+
     implementation(libs.apollographql.apollo)
+
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.compiler)
     kaptAndroidTest(libs.dagger.hilt.compiler)
     androidTestImplementation(libs.dagger.hilt.testing)
     testImplementation(libs.dagger.hilt.testing)
     kaptTest(libs.dagger.hilt.compiler)
+
     implementation(libs.kakao.sdk.user)
+
     implementation platform(libs.firebase.bom)
     implementation(libs.firebase.analytics.ktx)
     implementation(libs.firebase.messaging)
-    implementation(libs.skydoves.balloon)
-    implementation(libs.hdodenhof.circleimageview)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
+
     implementation(libs.amazonaws.android.sdk.cognito)
     implementation(libs.amazonaws.android.sdk.s3)
     implementation(libs.amazonaws.android.sdk.mobile.client)
+
     implementation(libs.android.support.annotations)
-    implementation(libs.shawnlin013.numberpicker)
-    implementation(libs.kizitonwose.calendarview)
-    implementation(libs.ybq.spinkit)
-    implementation(libs.firebase.crashlytics)
-    implementation(libs.firebase.analytics)
 }
 
 apollo {

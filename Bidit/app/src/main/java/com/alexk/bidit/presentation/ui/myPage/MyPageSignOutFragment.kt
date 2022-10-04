@@ -7,9 +7,9 @@ import android.view.WindowManager
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import com.alexk.bidit.R
-import com.alexk.bidit.data.sharedPreference.TokenManager
+import com.alexk.bidit.common.util.sharePreference.UserTokenManager
 import com.alexk.bidit.databinding.FragmentMyPageSignOutBinding
-import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.myPage.dialog.MyPageSignOutReasonDialog
 import com.alexk.bidit.presentation.viewModel.UserViewModel
@@ -84,8 +84,8 @@ class MyPageSignOutFragment :
                 is ViewState.Success -> {
                     loadingDialogDismiss()
                     Log.d("Delete user info","Success")
-                    TokenManager(requireContext()).removePushToken()
-                    TokenManager(requireContext()).removeToken()
+                    UserTokenManager.removePushToken()
+                    UserTokenManager.removeToken()
                     navigate(MyPageSignOutFragmentDirections.actionMyPageSignOutFragmentToMyPageSignOutCompleteFragment())
                 }
                 is ViewState.Error -> {
