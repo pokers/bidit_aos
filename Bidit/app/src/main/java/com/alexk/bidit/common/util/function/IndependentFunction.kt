@@ -9,7 +9,7 @@ import com.alexk.bidit.GetItemListQuery
 import com.alexk.bidit.GetMyBiddingInfoQuery
 import com.alexk.bidit.GetMyInfoQuery
 import com.alexk.bidit.common.dialog.LoadingDialog
-import com.alexk.bidit.domain.entity.item.ItemBaiscEntity
+import com.alexk.bidit.domain.entity.item.ItemBasicEntity
 import com.alexk.bidit.domain.entity.item.img.ItemImgEntity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -32,8 +32,8 @@ fun TextView.setTextColorWithResourceCompat(id:Int){
     this.setTextColor(ResourcesCompat.getColor(resources,id,null))
 }
 
-fun typeCastUsersItemToItemEntity(response : List<GetMyInfoQuery.Edge?>?) : MutableList<ItemBaiscEntity>{
-    val typecastItemList = mutableListOf<ItemBaiscEntity>()
+fun typeCastUsersItemToItemEntity(response : List<GetMyInfoQuery.Edge?>?) : MutableList<ItemBasicEntity>{
+    val typecastItemList = mutableListOf<ItemBasicEntity>()
 
     if(response == null){
         return typecastItemList;
@@ -45,7 +45,7 @@ fun typeCastUsersItemToItemEntity(response : List<GetMyInfoQuery.Edge?>?) : Muta
         for (imgIdx in data.image?.indices!!) {
             imgList.add(ItemImgEntity(data.image[imgIdx]?.url))
         }
-        val inputData = ItemBaiscEntity(
+        val inputData = ItemBasicEntity(
             id = data.id,
             status = data.status,
             sPrice = data.sPrice,
@@ -61,11 +61,11 @@ fun typeCastUsersItemToItemEntity(response : List<GetMyInfoQuery.Edge?>?) : Muta
     return typecastItemList
 }
 
-fun typeCastItemQueryToItemEntity(response : List<GetItemListQuery.Edge?>?) : MutableList<ItemBaiscEntity>{
-    val typecastItemList = mutableListOf<ItemBaiscEntity>()
+fun typeCastItemQueryToItemEntity(response : List<GetItemListQuery.Edge?>?) : MutableList<ItemBasicEntity>{
+    val typecastItemList = mutableListOf<ItemBasicEntity>()
 
     if(response == null){
-        return typecastItemList;
+        return typecastItemList
     }
 
     for (idx in response.indices) {
@@ -74,7 +74,7 @@ fun typeCastItemQueryToItemEntity(response : List<GetItemListQuery.Edge?>?) : Mu
         for (imgIdx in data?.image?.indices!!) {
             imgList.add(ItemImgEntity(data.image[imgIdx]?.url))
         }
-        val inputData = ItemBaiscEntity(
+        val inputData = ItemBasicEntity(
             id = data.id,
             status = data.status,
             sPrice = data.sPrice,
@@ -91,8 +91,8 @@ fun typeCastItemQueryToItemEntity(response : List<GetItemListQuery.Edge?>?) : Mu
 }
 
 
-fun typeCastBiddingItemToItemEntity(response : List<GetBiddingInfoQuery.GetBidding?>?) : MutableList<ItemBaiscEntity>{
-    val typecastItemList = mutableListOf<ItemBaiscEntity>()
+fun typeCastBiddingItemToItemEntity(response : List<GetBiddingInfoQuery.GetBidding?>?) : MutableList<ItemBasicEntity>{
+    val typecastItemList = mutableListOf<ItemBasicEntity>()
 
     if(response == null){
         return typecastItemList;
@@ -104,7 +104,7 @@ fun typeCastBiddingItemToItemEntity(response : List<GetBiddingInfoQuery.GetBiddi
         for (imgIdx in data?.image?.indices!!) {
             imgList.add(ItemImgEntity(data.image[imgIdx]?.url))
         }
-        val inputData = ItemBaiscEntity(
+        val inputData = ItemBasicEntity(
             id = data.id,
             status = data.status,
             sPrice = data.sPrice,
@@ -120,8 +120,8 @@ fun typeCastBiddingItemToItemEntity(response : List<GetBiddingInfoQuery.GetBiddi
     return typecastItemList
 }
 
-fun typeCastMyBiddingItemToItemEntity(response : List<GetMyBiddingInfoQuery.GetMyBidding?>?) : MutableList<ItemBaiscEntity>{
-    val typecastItemList = mutableListOf<ItemBaiscEntity>()
+fun typeCastMyBiddingItemToItemEntity(response : List<GetMyBiddingInfoQuery.GetMyBidding?>?) : MutableList<ItemBasicEntity>{
+    val typecastItemList = mutableListOf<ItemBasicEntity>()
 
     if(response == null){
         return typecastItemList;
@@ -133,7 +133,7 @@ fun typeCastMyBiddingItemToItemEntity(response : List<GetMyBiddingInfoQuery.GetM
         for (imgIdx in data?.image?.indices!!) {
             imgList.add(ItemImgEntity(data.image[imgIdx]?.url))
         }
-        val inputData = ItemBaiscEntity(
+        val inputData = ItemBasicEntity(
             id = data.id,
             status = data.status,
             sPrice = data.sPrice,

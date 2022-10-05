@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.common.CommonItemListAdapter
 import com.alexk.bidit.common.adapter.search.SearchKeywordListAdapter
+import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.typeCastItemQueryToItemEntity
 import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.common.util.sharePreference.SearchKeywordManager
@@ -22,6 +23,7 @@ import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.item.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import com.alexk.bidit.presentation.viewModel.SearchViewModel
+import com.alexk.bidit.type.CursorType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -40,7 +42,7 @@ class SearchKeywordFragment :
         initEvent()
     }
 
-    override fun init() {
+    private fun init() {
         //sp에 저장된 키워드
         val keywordList = SearchKeywordManager.getKeyword()
         val keywordListSize = keywordList.size
@@ -62,7 +64,7 @@ class SearchKeywordFragment :
             }
             //데이터가 존재 할때만 리스트를 가져온다
             else {
-                merchandiseViewModel.getKeywordItemList(keywordList[0], "latestOrder")
+                merchandiseViewModel.getKeywordItemList(keywordList[0], CursorType.createdAt)
                 observeMerchandiseList()
             }
 
@@ -95,7 +97,7 @@ class SearchKeywordFragment :
         }
     }
 
-    override fun initEvent() {
+    private fun initEvent() {
         binding.apply {
             tvAllDelete.setOnClickListener {
                 SearchKeywordManager.removeAllKeyword()
@@ -180,32 +182,32 @@ class SearchKeywordFragment :
             when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {
-                    loadingDialogShow()
+                    context?.setLoadingDialog(true)
                     Log.d(TAG, "Loading GET merchandise list")
                 }
                 //아이템 가져오기 성공
                 is ViewState.Success -> {
-                    loadingDialogDismiss()
-                    Log.d(TAG, "Success GET merchandise list")
-                    //리사이클러뷰 어댑터 연결
-                    val result = typeCastItemQueryToItemEntity(response.value?.data?.getItemList?.edges)
-                    if (result.size == 0) {
-                        Log.d(TAG, "No merchandise data")
-                        merchandiseAdapter.submitList(emptyList())
-                        binding.lyNoKeyword.visibility = View.VISIBLE
-                    } else {
-                        merchandiseAdapter.onItemClicked =
-                            {
-                                val intent = Intent(requireContext(), BiddingActivity::class.java)
-                                intent.putExtra("itemId", it)
-                                startActivity(intent)
-                            }
-                        merchandiseAdapter.submitList(result)
-                    }
+                    context?.setLoadingDialog(false)
+//                    Log.d(TAG, "Success GET merchandise list")
+//                    //리사이클러뷰 어댑터 연결
+//                    val result = typeCastItemQueryToItemEntity(response.value?.data?.getItemList?.edges)
+//                    if (result.size == 0) {
+//                        Log.d(TAG, "No merchandise data")
+//                        merchandiseAdapter.submitList(emptyList())
+//                        binding.lyNoKeyword.visibility = View.VISIBLE
+//                    } else {
+//                        merchandiseAdapter.onItemClicked =
+//                            {
+//                                val intent = Intent(requireContext(), BiddingActivity::class.java)
+//                                intent.putExtra("itemId", it)
+//                                startActivity(intent)
+//                            }
+//                        merchandiseAdapter.submitList(result)
+//                    }
                 }
                 //서버 연결 실패(만료) -> 재발급 요청
                 is ViewState.Error -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     merchandiseAdapter.submitList(emptyList())
                     Log.d(TAG, "Fail GET merchandise list")
                 }

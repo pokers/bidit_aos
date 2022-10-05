@@ -21,6 +21,7 @@ import com.alexk.bidit.common.dialog.LoadingDialog
 import com.alexk.bidit.common.util.typeCastItemQueryToItemEntity
 import com.alexk.bidit.presentation.ui.item.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
+import com.alexk.bidit.type.CursorType
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.overlay.BalloonOverlayRoundRect
@@ -55,7 +56,7 @@ class CategoryActivity : AppCompatActivity() {
             rvMerchandiseList.addItemDecoration(GridRecyclerViewDeco(24, 24, 0, 37))
         }
         Log.d("category","now category idx : $categoryId, category : ${binding.tvCategoryTitle.text}")
-        viewModel.getCategoryItemList(categoryId?.plus(2)!!, "latestOrder")
+        viewModel.getCategoryItemList(categoryId?.plus(2)!!, CursorType.createdAt)
         Log.d("category","get category idx : ${categoryId?.plus(2)}")
         observeCategoryItemList()
     }
@@ -110,7 +111,7 @@ class CategoryActivity : AppCompatActivity() {
                     currentSortType = "latestOrder"
                     balloon.dismiss()
                     binding.tvListSort.text = getString(R.string.category_latest_order)
-                    viewModel.getCategoryItemList(categoryId?.plus(2)!!, currentSortType)
+                    viewModel.getCategoryItemList(categoryId?.plus(2)!!, CursorType.createdAt)
                 }
             }
 
@@ -120,7 +121,7 @@ class CategoryActivity : AppCompatActivity() {
                     currentSortType = "deadline"
                     balloon.dismiss()
                     binding.tvListSort.text = getString(R.string.category_deadline_imminent)
-                    viewModel.getCategoryItemList(categoryId?.plus(2)!!, currentSortType)
+                    viewModel.getCategoryItemList(categoryId?.plus(2)!!, CursorType.dueDate)
                 }
             }
 
@@ -130,7 +131,7 @@ class CategoryActivity : AppCompatActivity() {
                     currentSortType = "popular"
                     balloon.dismiss()
                     binding.tvListSort.text = getString(R.string.category_popular)
-                    viewModel.getCategoryItemList(categoryId?.plus(2)!!, currentSortType)
+                    viewModel.getCategoryItemList(categoryId?.plus(2)!!, CursorType.createdAt)
                 }
             }
 
@@ -180,22 +181,22 @@ class CategoryActivity : AppCompatActivity() {
                 //아이템 가져오기 성공
                 is ViewState.Success -> {
                     loadingDialog.dismiss()
-                    Log.d(TAG, "Success GET merchandise list")
-                    //리사이클러뷰 어댑터 연결
-                    val result = typeCastItemQueryToItemEntity(response.value?.data?.getItemList?.edges)
-                    if (result.size == 0) {
-                        Log.d(TAG, "Empty merchandise list")
-                        merchandiseAdapter.submitList(emptyList())
-                        binding.lyNoList.visibility = View.VISIBLE
-                    } else {
-                        merchandiseAdapter.onItemClicked = {
-                            val intent = Intent(this, BiddingActivity::class.java)
-                            intent.putExtra("itemId", it)
-                            startActivity(intent)
-                        }
-                        merchandiseAdapter.submitList(null)
-                        merchandiseAdapter.submitList(result)
-                    }
+//                    Log.d(TAG, "Success GET merchandise list")
+//                    //리사이클러뷰 어댑터 연결
+//                    val result = typeCastItemQueryToItemEntity(response.value?.data?.getItemList?.edges)
+//                    if (result.size == 0) {
+//                        Log.d(TAG, "Empty merchandise list")
+//                        merchandiseAdapter.submitList(emptyList())
+//                        binding.lyNoList.visibility = View.VISIBLE
+//                    } else {
+//                        merchandiseAdapter.onItemClicked = {
+//                            val intent = Intent(this, BiddingActivity::class.java)
+//                            intent.putExtra("itemId", it)
+//                            startActivity(intent)
+//                        }
+//                        merchandiseAdapter.submitList(null)
+//                        merchandiseAdapter.submitList(result)
+//                    }
                 }
                 //서버 연결 실패(만료) -> 재발급 요청
                 is ViewState.Error -> {

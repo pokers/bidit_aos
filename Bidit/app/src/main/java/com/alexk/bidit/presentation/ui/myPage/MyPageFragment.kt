@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.alexk.bidit.R
+import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.databinding.FragmentMyPageBinding
 import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
@@ -25,17 +26,10 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeUserInfo()
-        init()
         initEvent()
     }
 
-    override fun init() {
-        binding.apply {
-
-        }
-    }
-
-    override fun initEvent() {
+    private fun initEvent() {
         binding.apply {
             tvSellingList.setOnClickListener {
                 navigate(MyPageFragmentDirections.actionMyPageFragmentToMyTradeFragment())
@@ -70,11 +64,11 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         userViewModel.myInfo.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
-                    loadingDialogShow()
+                    context?.setLoadingDialog(true)
                     Log.d("My Page -> UserInfo", "Loading")
                 }
                 is ViewState.Success -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     val result = response.value
 
                     binding.userBasicEntity = result
@@ -84,7 +78,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
                     Log.d("My Page -> UserInfo", "Success")
                 }
                 is ViewState.Error -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     Log.d("My Page -> UserInfo", "Error")
                 }
             }

@@ -45,9 +45,6 @@ query getItemList($itemQueryInfo:ItemQueryInput, $keywordInfo:String, $firstInfo
             endCursor
             hasPrevPage
         }
-        pageInfo {
-            hasNextPage
-        }
         edges {
             node {
                 id

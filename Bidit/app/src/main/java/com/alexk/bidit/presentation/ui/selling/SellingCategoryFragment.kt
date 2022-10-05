@@ -21,7 +21,7 @@ class SellingCategoryFragment() :
         initEvent()
     }
 
-    override fun init() {
+    private fun init() {
         binding.apply {
             if(getSellingEntity?.categoryIdx == -1){
                 return
@@ -139,7 +139,7 @@ class SellingCategoryFragment() :
         }
     }
 
-    override fun initEvent() {
+    private fun initEvent() {
         binding.apply {
 
             ivBack.setOnClickListener {

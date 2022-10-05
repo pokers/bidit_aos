@@ -19,12 +19,7 @@ class MyPageSignOutCompleteFragment:BaseFragment<FragmentMyPageSignOutCompleteBi
         super.onViewCreated(view, savedInstanceState)
         initEvent()
     }
-
-    override fun init() {
-
-    }
-
-    override fun initEvent() {
+    private fun initEvent() {
         binding.btnBackToLogin.setOnClickListener {
             activity?.finishAffinity()
             startActivity(Intent(context, SplashActivity::class.java))

@@ -27,22 +27,6 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutId
     private var _binding: T? = null
     protected val binding: T get() = _binding!!
 
-    private val loadingDialog by lazy { LoadingDialog(requireContext()) }
-
-    abstract fun init()
-    abstract fun initEvent()
-
-    fun loadingDialogShow(){
-        loadingDialog.show()
-    }
-
-    fun loadingDialogDismiss(){
-        if(loadingDialog.isShowing){
-            loadingDialog.dismiss()
-        }
-    }
-
-    //옵저버 패턴
     private fun navigationAction() {
         navigationViewModel.apply {
             navDirectionAction.observe(viewLifecycleOwner) {
@@ -90,8 +74,6 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutId
         return binding.root
     }
 
-
-    //super 코드를 무조건 해줘야 한다는 어노테이션
     @CallSuper
     override fun onDestroyView() {
         super.onDestroyView()

@@ -23,7 +23,7 @@ class ChattingChannelListFragment :
         initChannelList()
     }
 
-    override fun init() {
+    private fun init() {
         binding.apply {
             rvGroupChannels.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -51,7 +51,7 @@ class ChattingChannelListFragment :
         }
     }
 
-    override fun initEvent() {
+    private fun initEvent() {
         binding.btnGroupChannelCreate.setOnClickListener {
             startActivity(Intent(requireContext(), ChattingCreateActivity::class.java))
         }
