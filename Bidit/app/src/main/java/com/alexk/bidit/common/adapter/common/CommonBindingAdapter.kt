@@ -5,14 +5,10 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
-import com.alexk.bidit.GetBiddingInfoQuery
-import com.alexk.bidit.GetItemListQuery
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.common.CommonBindingAdapter.loadImageListUrl
 import com.alexk.bidit.common.util.addComma
-import com.alexk.bidit.common.util.setTextColorWithResourceCompat
+import com.alexk.bidit.domain.entity.item.img.ItemImgEntity
 import com.alexk.bidit.type.JoinPath
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
@@ -22,27 +18,10 @@ object CommonBindingAdapter {
     @JvmStatic
     @BindingAdapter("imageItemUrlList")
     fun ImageView.loadImageListUrl(
-        imageUrlList: List<GetItemListQuery.Image?>?
+        imageUrlList: MutableList<ItemImgEntity>
     ) {
-        if (!imageUrlList.isNullOrEmpty()) {
-            val img = imageUrlList[0]?.url
-            Glide.with(this.context)
-                .load(img)
-                .centerInside()
-                .into(this)
-        }
-        else{
-            this.setImageResource(R.drawable.bg_rect_transparent_white_smoke_radius4_stroke0)
-        }
-    }
-
-    @JvmStatic
-    @BindingAdapter("imageBidUrlList")
-    fun ImageView.loadBidImageList(
-        imageUrlList: List<GetBiddingInfoQuery.Image?>?
-    ) {
-        if (!imageUrlList.isNullOrEmpty()) {
-            val img = imageUrlList[0]?.url
+        if (!imageUrlList.isEmpty()) {
+            val img = imageUrlList[0].imgUrl
             Glide.with(this.context)
                 .load(img)
                 .centerInside()
@@ -138,12 +117,18 @@ object CommonBindingAdapter {
                 //밀리초
                 val calcDate = (parseData?.time?.minus(currentDate.time.time))
 
+                //시간으로 나눈다.
                 val hour = calcDate?.div((60 * 60 * 24 * 1000))
+
                 if (hour != null) {
                     if (hour > 0) {
                         this.text = "${hour}일 후 마감"
                     } else {
-                        this.text = "${hour * 1000 * 60 * 60}시간 후 마감"
+                        if(hour < 0){
+                            this.text = "마감"
+                        }else{
+                            this.text = "${hour * 1000 * 60 * 60}시간 후 마감"
+                        }
                     }
                 }
 

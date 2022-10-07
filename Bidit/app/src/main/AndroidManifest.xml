@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.alexk.bidit">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -30,7 +29,7 @@
         <activity android:name=".presentation.ui.home.HomeActivity" />
         <activity android:name=".presentation.ui.login.LoginActivity" />
         <activity android:name="com.alexk.bidit.presentation.ui.category.CategoryActivity" />
-        <activity android:name=".presentation.ui.bidding.BiddingActivity" />
+        <activity android:name=".presentation.ui.item.BiddingActivity" />
         <activity android:name=".presentation.ui.selling.SellingActivity" />
         <activity android:name=".presentation.ui.myPage.MyPageBasicAccountActivity" />
         <activity android:name=".presentation.ui.myPage.MyPagePersonalInfoManualActivity" />
@@ -50,7 +49,7 @@
 
                 <data
                     android:host="oauth"
-                    android:scheme="@string/KAKAO_NATIVE_KEY" />
+                    android:scheme="@string/KAKAO_APP_KEY" />
             </intent-filter>
         </activity>
 

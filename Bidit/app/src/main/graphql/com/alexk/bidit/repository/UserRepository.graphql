@@ -34,9 +34,6 @@ query getMyInfo{
             buy
             sell
         }
-        pushToken {
-            status
-        }
         kakaoAccount {
             name
             email
@@ -46,6 +43,21 @@ query getMyInfo{
         }
         items {
             totalCount
+            edges {
+                node {
+                    id
+                    status
+                    sPrice
+                    cPrice
+                    viewCount
+                    title
+                    createdAt
+                    dueDate
+                    image {
+                        url
+                    }
+                }
+            }
         }
     }
 }
@@ -60,7 +72,7 @@ mutation updatePushToken($pushTokenUpdate : pushTokenUpdateInput){
     updatePushToken(pushTokenUpdate: $pushTokenUpdate)
 }
 
-mutation deleteUserInfo($status:MembershipStatus){
+mutation updateUserStatus($status:MembershipStatus){
     updateMembership(status: $status){
         id
         status

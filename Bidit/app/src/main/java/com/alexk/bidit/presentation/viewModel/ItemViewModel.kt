@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.alexk.bidit.*
 import com.alexk.bidit.domain.repository.ItemRepository
 import com.apollographql.apollo3.api.ApolloResponse
-import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.type.CursorType
 import com.alexk.bidit.type.ItemAddInput
 import com.alexk.bidit.type.ItemUpdateInput

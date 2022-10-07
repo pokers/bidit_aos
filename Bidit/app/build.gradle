@@ -1,23 +1,17 @@
 plugins {
     id 'com.android.application'
 
-    //fireBase
     id 'com.google.gms.google-services'
     id 'org.jetbrains.kotlin.android'
 
-    //direction 생성
     id 'androidx.navigation.safeargs.kotlin'
 
-    //apollo
     id("com.apollographql.apollo3").version("3.5.0")
 
-    //parcelize
     id 'kotlin-parcelize'
 
-    //firebase crashlytics
     id 'com.google.firebase.crashlytics'
 
-    //hilt
     id 'dagger.hilt.android.plugin'
 
     id 'kotlin-kapt'
@@ -28,15 +22,11 @@ properties.load(project.rootProject.file('local.properties').newDataInputStream(
 
 android {
     compileSdk 32
-
     packagingOptions {
-        exclude 'META-INF/gradle/incremental.annotation.processors'
+        resources {
+            excludes += ['META-INF/gradle/incremental.annotation.processors']
+        }
     }
-
-    lintOptions {
-        disable "Instantiatable"
-    }
-
 
     viewBinding {
         enabled = true
@@ -72,124 +62,76 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    namespace 'com.alexk.bidit'
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'com.google.android.material:material:1.6.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.android.material)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.navigation.common)
+    implementation(libs.androidx.navigation.dynamic.features.fragment)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.lifecycle.extensions)
+    implementation(libs.androidx.security.crypto)
 
-    // sendbird
-    implementation 'com.sendbird.sdk:sendbird-android-sdk:3.0.141'
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.test.junit)
+    androidTestImplementation(libs.androidx.test.espresso)
 
-    // https://github.com/square/retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    implementation(libs.sendbird.sdk)
 
-    // https://github.com/square/retrofit/tree/master/retrofit-converters/gson
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation(libs.retrofit2)
+    implementation(libs.okhttp3.logging.interceptor)
+    implementation(libs.retrofit2.converter.gson)
 
-    // https://github.com/amarjain07/StickyScrollView
-    implementation 'com.github.amarjain07:StickyScrollView:1.0.3'
+    implementation(libs.amarjain07.StickyScrollView)
+    implementation(libs.hannesa2.SlidingUpPanel)
+    implementation(libs.relex.circleindicator)
+    implementation(libs.skydoves.balloon)
+    implementation(libs.hdodenhof.circleimageview)
+    implementation(libs.shawnlin013.numberpicker)
+    implementation(libs.kizitonwose.calendarview)
+    implementation(libs.ybq.spinkit)
 
-    // https://github.com/bumptech/glide
-    implementation 'com.github.bumptech.glide:glide:4.13.0'
-    kapt 'com.github.bumptech.glide:compiler:4.13.0'
+    implementation(libs.glide)
+    kapt(libs.glide.compiler)
 
-    // https://github.com/hannesa2/AndroidSlidingUpPanel
-    implementation 'com.github.hannesa2:AndroidSlidingUpPanel:4.2.1'
+    implementation(libs.apollographql.apollo)
 
-    // https://github.com/ongakuer/CircleIndicator
-    implementation 'me.relex:circleindicator:2.1.6'
+    implementation(libs.dagger.hilt)
+    kapt(libs.dagger.hilt.compiler)
+    kaptAndroidTest(libs.dagger.hilt.compiler)
+    androidTestImplementation(libs.dagger.hilt.testing)
+    testImplementation(libs.dagger.hilt.testing)
+    kaptTest(libs.dagger.hilt.compiler)
 
-    // Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:2.5.0"
-    implementation "androidx.navigation:navigation-ui-ktx:2.5.0"
-    implementation 'androidx.navigation:navigation-common:2.5.0'
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.5.0"
-    androidTestImplementation "androidx.navigation:navigation-testing:2.5.0"
+    implementation(libs.kakao.sdk.user)
 
-    // LifeCycle
-    implementation 'androidx.fragment:fragment-ktx:1.5.0'
-    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation platform(libs.firebase.bom)
+    implementation(libs.firebase.analytics.ktx)
+    implementation(libs.firebase.messaging)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
 
-    // EncryptedSharedPreferences
-    implementation 'androidx.security:security-crypto:1.0.0'
+    implementation(libs.amazonaws.android.sdk.cognito)
+    implementation(libs.amazonaws.android.sdk.s3)
+    implementation(libs.amazonaws.android.sdk.mobile.client)
 
-    // rxJava
-    implementation "io.reactivex.rxjava2:rxjava:2.2.7"
-    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
-
-    // apollo
-    implementation("com.apollographql.apollo3:apollo-runtime:3.5.0")
-
-    //hilt
-    implementation 'com.google.dagger:hilt-android:2.42'
-    kapt 'com.google.dagger:hilt-compiler:2.42'
-
-    //hilt instrument tests
-    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.42'
-    kaptAndroidTest 'com.google.dagger:hilt-compiler:2.42'
-
-    //hilt local unit tests
-    testImplementation 'com.google.dagger:hilt-android-testing:2.42'
-    kaptTest 'com.google.dagger:hilt-compiler:2.42'
-
-    // https://github.com/hannesa2/AndroidSlidingUpPanel
-    implementation 'com.github.hannesa2:AndroidSlidingUpPanel:4.2.1'
-
-    // kakao
-    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.0'
-    implementation "com.kakao.sdk:v2-user:2.5.0"
-
-    // firebase
-    implementation platform('com.google.firebase:firebase-bom:30.2.0')
-    implementation 'com.google.firebase:firebase-analytics-ktx'
-    implementation 'com.google.firebase:firebase-messaging:23.0.6'
-
-    // balloon
-    implementation "com.github.skydoves:balloon:1.4.6"
-
-    // https://github.com/hdodenhof/CircleImageView
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
-
-    // s3 image upload
-    implementation 'com.amazonaws:aws-android-sdk-cognito:2.13.5'
-    implementation 'com.amazonaws:aws-android-sdk-s3:2.13.5'
-    implementation "com.android.support:support-annotations:28.0.0"
-    implementation 'com.amazonaws:aws-android-sdk-mobile-client:2.13.5'
-
-    // https://github.com/ShawnLin013/NumberPicker
-    implementation 'io.github.ShawnLin013:number-picker:2.4.13'
-
-    // https://github.com/kizitonwose/CalendarView
-    implementation 'com.github.kizitonwose:CalendarView:1.0.4'
-
-    // https://github.com/ybq/Android-SpinKit
-    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
-
-    // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:30.3.0')
-
-    // Declare the dependencies for the Crashlytics and Analytics libraries
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation 'com.google.firebase:firebase-crashlytics'
-    implementation 'com.google.firebase:firebase-analytics'
-
-    implementation "androidx.paging:paging-runtime:$paging_version"
-
+    implementation(libs.android.support.annotations)
 }
 
 apollo {

@@ -18,7 +18,7 @@ import com.alexk.bidit.common.adapter.selling.SellingItemImgListAdapter
 import com.alexk.bidit.common.util.setTextColorWithResourceCompat
 import com.alexk.bidit.common.util.view.EditTextAutoCommaWatcher
 import com.alexk.bidit.databinding.FragmentSellingBinding
-import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.domain.entity.selling.SellingCalendarEntity
 import com.alexk.bidit.domain.entity.selling.SellingEntity
 import com.alexk.bidit.domain.entity.selling.SellingTimeEntity

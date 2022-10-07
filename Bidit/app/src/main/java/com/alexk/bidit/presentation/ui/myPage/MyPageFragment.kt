@@ -7,8 +7,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.FragmentMyPageBinding
-import com.alexk.bidit.di.ViewState
-import com.alexk.bidit.domain.entity.user.UserBasicInfoEntity
+import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -76,10 +75,12 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
                 }
                 is ViewState.Success -> {
                     loadingDialogDismiss()
-                    binding.userInfo = response.value?.data
-                    imgUrl = response.value?.data?.me?.kakaoAccount?.profile_image_url
-                    nickname = response.value?.data?.me?.nickname
-                    userId = response.value?.data?.me?.id!!
+                    val result = response.value
+
+                    binding.userBasicEntity = result
+                    imgUrl = result?.kakaoAccount?.profileImageUrl
+                    nickname = result?.nickname
+                    userId = result?.id!!
                     Log.d("My Page -> UserInfo", "Success")
                 }
                 is ViewState.Error -> {

@@ -1,12 +1,12 @@
 package com.alexk.bidit.domain.entity.selling
 
 import android.os.Parcelable
-import com.alexk.bidit.domain.entity.merchandise.MerchandiseImgEntity
+import com.alexk.bidit.domain.entity.item.img.ItemImgEntity
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class SellingEntity(
-    var imgUrlList: MutableList<MerchandiseImgEntity>,
+    var imgUrlList: MutableList<ItemImgEntity>,
     var title: String?,
     var categoryIdx: Int?,
     var startPrice: String?,

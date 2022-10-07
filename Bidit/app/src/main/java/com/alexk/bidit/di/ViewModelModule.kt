@@ -1,9 +1,9 @@
 package com.alexk.bidit.di
 
-import com.alexk.bidit.data.repository.BiddingRepositoryImpl
-import com.alexk.bidit.data.repository.ItemImgRepositoryImpl
-import com.alexk.bidit.data.repository.UserRepositoryImpl
-import com.alexk.bidit.data.repository.ItemRepositoryImpl
+import com.alexk.bidit.data.remote.repository.BiddingRepositoryImpl
+import com.alexk.bidit.data.remote.repository.ItemImgRepositoryImpl
+import com.alexk.bidit.data.remote.repository.UserRepositoryImpl
+import com.alexk.bidit.data.remote.repository.ItemRepositoryImpl
 import com.alexk.bidit.domain.repository.BiddingRepository
 import com.alexk.bidit.domain.repository.ItemImgRepository
 import com.alexk.bidit.domain.repository.UserRepository

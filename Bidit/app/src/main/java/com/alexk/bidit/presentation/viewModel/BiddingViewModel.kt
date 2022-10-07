@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexk.bidit.DoBidMutation
 import com.alexk.bidit.GetBiddingInfoQuery
-import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.GetMyBiddingInfoQuery
+import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.domain.repository.BiddingRepository
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.exception.ApolloHttpException
@@ -23,6 +24,21 @@ class BiddingViewModel @Inject constructor(private val repository: BiddingReposi
 
     private val _bidCompleteInfo by lazy { MutableLiveData<ViewState<ApolloResponse<DoBidMutation.Data>>>() }
     val bidCompleteInfo get() = _bidCompleteInfo
+
+    private val _myBiddingInfo by lazy { MutableLiveData<ViewState<ApolloResponse<GetMyBiddingInfoQuery.Data>>>() }
+    val myBiddingInfo get() = _myBiddingInfo
+
+
+    fun getMyBiddingInfo() = viewModelScope.launch {
+        _myBiddingInfo.postValue(ViewState.Loading())
+        try {
+            val response = repository.retrieveMyBiddingInfo()
+            _myBiddingInfo.postValue(ViewState.Success(response))
+        } catch (e: ApolloHttpException) {
+            Log.e("ApolloException", "Failure", e)
+            _myBiddingInfo.postValue(ViewState.Error("Error get my bidding info"))
+        }
+    }
 
     fun retrieveBiddingInfo(id : Int) = viewModelScope.launch {
         _biddingInfo.postValue(ViewState.Loading())

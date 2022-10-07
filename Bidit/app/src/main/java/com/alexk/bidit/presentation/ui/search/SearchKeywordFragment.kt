@@ -11,14 +11,15 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.common.CommonMerchandiseListAdapter
+import com.alexk.bidit.common.adapter.common.CommonItemListAdapter
 import com.alexk.bidit.common.adapter.search.SearchKeywordListAdapter
+import com.alexk.bidit.common.util.typeCastItemQueryToItemEntity
 import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
-import com.alexk.bidit.data.sharedPreference.SearchKeywordManager
+import com.alexk.bidit.common.util.sharePreference.SearchKeywordManager
 import com.alexk.bidit.databinding.FragmentSearchKeywordBinding
-import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
-import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
+import com.alexk.bidit.presentation.ui.item.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import com.alexk.bidit.presentation.viewModel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +32,7 @@ class SearchKeywordFragment :
     // sp에 저장된 검색 리스트를 불러온다.
     private val viewModel: SearchViewModel by viewModels()
     private val merchandiseViewModel by viewModels<ItemViewModel>()
-    private val merchandiseAdapter by lazy { CommonMerchandiseListAdapter() }
+    private val merchandiseAdapter by lazy { CommonItemListAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,7 +42,7 @@ class SearchKeywordFragment :
 
     override fun init() {
         //sp에 저장된 키워드
-        val keywordList = SearchKeywordManager(requireContext()).getKeyword()
+        val keywordList = SearchKeywordManager.getKeyword()
         val keywordListSize = keywordList.size
 
         //뷰모델에 적용시킨다.
@@ -97,7 +98,7 @@ class SearchKeywordFragment :
     override fun initEvent() {
         binding.apply {
             tvAllDelete.setOnClickListener {
-                SearchKeywordManager(requireContext()).removeAllKeyword()
+                SearchKeywordManager.removeAllKeyword()
                 viewModel.deleteAllKeyword()
             }
             btnBack.setOnClickListener {
@@ -109,12 +110,12 @@ class SearchKeywordFragment :
             editSearch.setOnEditorActionListener { view, imeOption, _ ->
                 if (imeOption == EditorInfo.IME_ACTION_SEARCH && view?.text?.toString() != "") {
                     //sp에 추가 -> 베이스는 원래가지고 있는 리스트
-                    SearchKeywordManager(requireContext()).addKeyword(
+                    SearchKeywordManager.addKeyword(
                         (binding.rvSearchKeywordList.adapter as SearchKeywordListAdapter).keywordList,
                         binding.editSearch.text.toString()
                     )
                     //바뀐 리스트를 적용해야함
-                    viewModel.initKeywordList(SearchKeywordManager(requireContext()).getKeyword())
+                    viewModel.initKeywordList(SearchKeywordManager.getKeyword())
 
                     //키워드를 번들에 담아서 주고 결과 프래그먼트로 변경
                     navigate(
@@ -180,16 +181,16 @@ class SearchKeywordFragment :
                 //서버 연결 대기중
                 is ViewState.Loading -> {
                     loadingDialogShow()
-                    Log.d("Merchandise Loading", "Loading GET merchandise list")
+                    Log.d(TAG, "Loading GET merchandise list")
                 }
                 //아이템 가져오기 성공
                 is ViewState.Success -> {
                     loadingDialogDismiss()
-                    Log.d("Merchandise Success", "Success GET merchandise list")
+                    Log.d(TAG, "Success GET merchandise list")
                     //리사이클러뷰 어댑터 연결
-                    val result = response.value?.data?.getItemList?.edges
-                    if (result?.size == 0) {
-                        Log.d("Empty Merchandise List", "No merchandise data")
+                    val result = typeCastItemQueryToItemEntity(response.value?.data?.getItemList?.edges)
+                    if (result.size == 0) {
+                        Log.d(TAG, "No merchandise data")
                         merchandiseAdapter.submitList(emptyList())
                         binding.lyNoKeyword.visibility = View.VISIBLE
                     } else {
@@ -206,24 +207,13 @@ class SearchKeywordFragment :
                 is ViewState.Error -> {
                     loadingDialogDismiss()
                     merchandiseAdapter.submitList(emptyList())
-                    Log.d("Merchandise Failure", "Fail GET merchandise list")
+                    Log.d(TAG, "Fail GET merchandise list")
                 }
             }
         }
     }
 
-    //1
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
-
-    //2
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
-    //3
-    override fun onDetach() {
-        super.onDetach()
+    companion object{
+        private const val TAG = "SearchKeywordFragment..."
     }
 }

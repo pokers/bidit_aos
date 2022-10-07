@@ -13,12 +13,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.common.CommonMerchandiseListAdapter
+import com.alexk.bidit.common.adapter.common.CommonItemListAdapter
 import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.ActivityCategoryBinding
-import com.alexk.bidit.di.ViewState
+import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.common.dialog.LoadingDialog
-import com.alexk.bidit.presentation.ui.bidding.BiddingActivity
+import com.alexk.bidit.common.util.typeCastItemQueryToItemEntity
+import com.alexk.bidit.presentation.ui.item.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.Balloon
@@ -32,7 +33,7 @@ class CategoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCategoryBinding
     private var currentSortType = "latestOrder"
     private val viewModel by viewModels<ItemViewModel>()
-    private val merchandiseAdapter by lazy { CommonMerchandiseListAdapter() }
+    private val merchandiseAdapter by lazy { CommonItemListAdapter() }
     private val categoryId by lazy { intent?.getIntExtra("categoryId", -1)?.minus(2) }
     private val loadingDialog by lazy { LoadingDialog(this) }
 
@@ -174,15 +175,16 @@ class CategoryActivity : AppCompatActivity() {
                 //서버 연결 대기중
                 is ViewState.Loading -> {
                     loadingDialog.show()
-                    Log.d("Merchandise Loading", "Loading GET merchandise list")
+                    Log.d(TAG, "Loading GET merchandise list")
                 }
                 //아이템 가져오기 성공
                 is ViewState.Success -> {
                     loadingDialog.dismiss()
-                    Log.d("Merchandise Success", "Success GET merchandise list")
+                    Log.d(TAG, "Success GET merchandise list")
                     //리사이클러뷰 어댑터 연결
-                    val result = response.value?.data?.getItemList?.edges
-                    if (result?.size == 0) {
+                    val result = typeCastItemQueryToItemEntity(response.value?.data?.getItemList?.edges)
+                    if (result.size == 0) {
+                        Log.d(TAG, "Empty merchandise list")
                         merchandiseAdapter.submitList(emptyList())
                         binding.lyNoList.visibility = View.VISIBLE
                     } else {
@@ -203,5 +205,8 @@ class CategoryActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+    companion object{
+        private const val TAG = "CategoryActivity..."
     }
 }
