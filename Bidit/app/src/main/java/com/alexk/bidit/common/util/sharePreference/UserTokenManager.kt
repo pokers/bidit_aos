@@ -15,10 +15,11 @@ object UserTokenManager {
 
     private val prefs: SharedPreferences by lazy {
         val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+
         EncryptedSharedPreferences.create(
             BuildConfig.APPLICATION_ID,
             masterKeyAlias,
-            GlobalApplication.applicationContext(),
+            GlobalApplication.instance.applicationContext,
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
