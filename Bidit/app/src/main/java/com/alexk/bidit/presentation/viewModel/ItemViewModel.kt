@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexk.bidit.*
+import com.alexk.bidit.common.util.value.SortType
 import com.alexk.bidit.domain.repository.ItemRepository
 import com.apollographql.apollo3.api.ApolloResponse
 import com.alexk.bidit.common.util.view.ViewState
