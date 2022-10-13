@@ -1,4 +1,4 @@
-package com.alexk.bidit.common.util
+package com.alexk.bidit.common.util.hashKey
 
 import android.content.pm.PackageManager
 import android.os.Build

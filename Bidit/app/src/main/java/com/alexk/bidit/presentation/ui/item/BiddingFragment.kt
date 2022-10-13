@@ -12,6 +12,8 @@ import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.bidding.BiddingMerchandiseImgPageAdapter
 import com.alexk.bidit.common.adapter.bidding.BiddingUserAdapter
 import com.alexk.bidit.common.util.ErrorOwnItemBidding
+import com.alexk.bidit.common.util.setLoadingDialog
+import com.alexk.bidit.common.util.value.ITEM_ID
 import com.alexk.bidit.databinding.FragmentBiddingBinding
 import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
@@ -27,7 +29,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
 
     private val itemViewModel by viewModels<ItemViewModel>()
     private val bidViewModel by viewModels<BiddingViewModel>()
-    private val itemId by lazy { activity?.intent?.getIntExtra("itemId", 0) }
+    private val itemId by lazy { activity?.intent?.getIntExtra(ITEM_ID, 0) }
     private lateinit var itemInfo: GetItemInfoQuery.GetItem
     private var bidPrice = 0
 
@@ -36,14 +38,13 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
         init()
     }
 
-    override fun init() {
+    private fun init() {
         observeItemInfo()
         observeBiddingInfo()
-        Log.d("itemId", "$itemId")
         itemViewModel.getItemInfo(itemId!!)
     }
 
-    override fun initEvent() {
+    private fun initEvent() {
         binding.apply {
             ivBack.setOnClickListener {
                 activity?.finish()
@@ -190,30 +191,30 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
             when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {
-                    loadingDialogShow()
+                    context?.setLoadingDialog(true)
                     binding.svMain.visibility = View.INVISIBLE
                     Log.d("bidding Loading", "Loading GET bidding info")
                 }
                 //아이템 가져오기 성공
                 is ViewState.Success -> {
-                    loadingDialogDismiss()
-                    Log.d("bidding Success", "Success GET bidding info")
-                    //데이터 연동 작업 필요
-                    val result = response.value?.data?.getItem
-                    itemInfo = result!!
-                    initEvent()
-                    //내 게시글
-                    if (result.userId == GlobalApplication.userId) {
-                        setMyBiddingInfoUI(itemInfo)
-                    }
-                    //다른 사람 게시글
-                    else {
-                        setBiddingInfoUI(itemInfo)
-                    }
-                    binding.svMain.visibility = View.VISIBLE
+                    context?.setLoadingDialog(false)
+//                    Log.d("bidding Success", "Success GET bidding info")
+//                    //데이터 연동 작업 필요
+//                    val result = response.value?.data?.getItem
+//                    itemInfo = result!!
+//                    initEvent()
+//                    //내 게시글
+//                    if (result.userId == GlobalApplication.userId) {
+//                        setMyBiddingInfoUI(itemInfo)
+//                    }
+//                    //다른 사람 게시글
+//                    else {
+//                        setBiddingInfoUI(itemInfo)
+//                    }
+//                    binding.svMain.visibility = View.VISIBLE
                 }
                 is ViewState.Error -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     Log.d("bidding Failure", "Fail GET bidding info")
                 }
             }
@@ -221,11 +222,11 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
         itemViewModel.updateItem.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
-                    loadingDialogShow()
+                    context?.setLoadingDialog(true)
                     Log.d("bidding Loading", "Loading GET bidding info")
                 }
                 is ViewState.Success -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     Log.d("bidding Success", "Success GET bidding info")
                     if(response.value?.data?.updateItem?.status == 4){
                         activity?.finish()
@@ -235,7 +236,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                     }
                 }
                 is ViewState.Error -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     Log.d("bidding Failure", "Fail GET bidding info")
                 }
             }
@@ -247,11 +248,11 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
         bidViewModel.bidCompleteInfo.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
-                    loadingDialogShow()
+                    context?.setLoadingDialog(true)
                     Log.d("bidding Loading", "Loading POST bidding info")
                 }
                 is ViewState.Success -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     Log.d("bidding Success", "Success POST bidding info")
                     //성공
                     val result = response.value?.data?.bid
@@ -273,7 +274,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                     }
                 }
                 is ViewState.Error -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     Log.d("bidding Failure", "Fail POST bidding info")
                 }
             }

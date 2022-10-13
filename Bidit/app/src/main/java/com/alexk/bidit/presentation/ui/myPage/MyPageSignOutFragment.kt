@@ -7,6 +7,7 @@ import android.view.WindowManager
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import com.alexk.bidit.R
+import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.sharePreference.UserTokenManager
 import com.alexk.bidit.databinding.FragmentMyPageSignOutBinding
 import com.alexk.bidit.common.util.view.ViewState
@@ -32,14 +33,14 @@ class MyPageSignOutFragment :
         initEvent()
     }
 
-    override fun init() {
+    private fun init() {
         observeUserInfo()
         binding.apply {
 
         }
     }
 
-    override fun initEvent() {
+    private fun initEvent() {
         binding.apply {
             btnSignOut.setOnClickListener {
                 userViewModel.updateUserState(1)
@@ -78,18 +79,18 @@ class MyPageSignOutFragment :
         userViewModel.userStatusInfo.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
-                    loadingDialogShow()
+                    context?.setLoadingDialog(true)
                     Log.d("Delete user info","Loading")
                 }
                 is ViewState.Success -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     Log.d("Delete user info","Success")
                     UserTokenManager.removePushToken()
                     UserTokenManager.removeToken()
                     navigate(MyPageSignOutFragmentDirections.actionMyPageSignOutFragmentToMyPageSignOutCompleteFragment())
                 }
                 is ViewState.Error -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     Log.d("Delete user info","Error")
                 }
             }

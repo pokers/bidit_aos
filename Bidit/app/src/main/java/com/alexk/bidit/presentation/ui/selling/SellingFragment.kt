@@ -15,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.selling.SellingItemImgListAdapter
+import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.setTextColorWithResourceCompat
 import com.alexk.bidit.common.util.view.EditTextAutoCommaWatcher
 import com.alexk.bidit.databinding.FragmentSellingBinding
@@ -87,7 +88,7 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
         initEvent()
     }
 
-    override fun init() {
+    private fun init() {
         observeMerchandise()
         observeImgUrl()
         setUi(getSellingEntity!!)
@@ -99,7 +100,7 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
         }
     }
 
-    override fun initEvent() {
+    private fun initEvent() {
         binding.apply {
             ivBiddingEndingDateDelete.setOnClickListener {
                 tvBiddingEndingDate.text = "경매 마감 날짜"
@@ -323,11 +324,11 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
         itemImgViewModel.itemUrl.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
-                    loadingDialogShow()
+                    context?.setLoadingDialog(true)
                     Log.d("img upload", "Loading img upload")
                 }
                 is ViewState.Success -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     Log.d("img upload", "Success img upload")
                     itemUrlImgList?.add(response.value!!)
                     itemImgAdapter.submitList(itemUrlImgList?.toList())
@@ -340,7 +341,7 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                     }
                 }
                 else -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     Log.d("img error", "Error img upload")
                     Log.d("why error", response.message.toString())
                 }
@@ -352,11 +353,11 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
         merchandiseViewModel.addItemStatus.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
-                    loadingDialogShow()
+                    context?.setLoadingDialog(true)
                     Log.d("Add item", "Loading")
                 }
                 is ViewState.Success -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     Log.d("Add item", "Success")
                     if (response.value?.data?.addItem == null) {
                         Log.d("Add item", "Error")
@@ -367,7 +368,7 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                     }
                 }
                 else -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     Log.d("Add item", "Error")
                 }
             }

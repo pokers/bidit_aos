@@ -22,9 +22,6 @@ abstract class BaseActivity<B : ViewDataBinding>(
     lateinit var navController: NavController
     protected lateinit var binding: B
 
-    abstract fun init()
-    abstract fun initEvent()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutId)

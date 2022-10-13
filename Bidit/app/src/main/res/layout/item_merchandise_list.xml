@@ -6,7 +6,7 @@
 
         <variable
             name="itemResponse"
-            type="com.alexk.bidit.domain.entity.item.ItemBaiscEntity" />
+            type="com.alexk.bidit.domain.entity.item.ItemBasicEntity" />
 
     </data>
 

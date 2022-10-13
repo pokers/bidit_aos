@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.ItemMerchandiseListBinding
-import com.alexk.bidit.domain.entity.item.ItemBaiscEntity
+import com.alexk.bidit.domain.entity.item.ItemBasicEntity
 
 
 class CommonItemListAdapter() :
-    ListAdapter<ItemBaiscEntity, CommonItemListAdapter.MerchandiseListHolder>(
+    ListAdapter<ItemBasicEntity, CommonItemListAdapter.MerchandiseListHolder>(
         MerchandiseListDiffUtil
     ) {
 
@@ -37,17 +37,17 @@ class CommonItemListAdapter() :
     }
 
     object MerchandiseListDiffUtil :
-        DiffUtil.ItemCallback<ItemBaiscEntity>() {
+        DiffUtil.ItemCallback<ItemBasicEntity>() {
         override fun areItemsTheSame(
-            oldItem: ItemBaiscEntity,
-            newItem: ItemBaiscEntity
+            oldItem: ItemBasicEntity,
+            newItem: ItemBasicEntity
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: ItemBaiscEntity,
-            newItem: ItemBaiscEntity
+            oldItem: ItemBasicEntity,
+            newItem: ItemBasicEntity
         ): Boolean {
             return oldItem == newItem
         }

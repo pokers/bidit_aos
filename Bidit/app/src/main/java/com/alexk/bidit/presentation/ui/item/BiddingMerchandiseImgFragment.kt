@@ -7,19 +7,19 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.alexk.bidit.R
-import com.alexk.bidit.databinding.FragmentCommonBannerBinding
+import com.alexk.bidit.databinding.FragmentBiddingBannerBinding
 import com.bumptech.glide.Glide
 
 class BiddingMerchandiseImgFragment(private val imgUrl: String?) : Fragment() {
 
-    lateinit var binding: FragmentCommonBannerBinding
+    lateinit var binding: FragmentBiddingBannerBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_common_banner, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bidding_banner, container, false)
         return binding.root
     }
 

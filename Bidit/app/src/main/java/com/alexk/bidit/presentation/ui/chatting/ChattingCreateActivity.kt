@@ -51,7 +51,7 @@ class ChattingCreateActivity : AppCompatActivity() {
     private fun loadUsers() {
         val userListQuery = SendBird.createApplicationUserListQuery()
 
-        userListQuery.next() { list, e ->
+        userListQuery.next() { _, e ->
             if (e != null) {
                 Log.e(TAG, e.message.toString())
             } else {

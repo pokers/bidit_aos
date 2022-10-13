@@ -28,12 +28,4 @@ class BiddingActivity:BaseActivity<ActivitiyBiddingBinding>(R.layout.activitiy_b
             super.onBackPressed()
         }
     }
-
-    override fun init() {
-        TODO("Not yet implemented")
-    }
-
-    override fun initEvent() {
-        TODO("Not yet implemented")
-    }
 }

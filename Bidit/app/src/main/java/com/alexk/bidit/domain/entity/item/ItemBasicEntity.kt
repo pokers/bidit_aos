@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 
 @Parcelize
-data class ItemBaiscEntity(
+data class ItemBasicEntity(
     var id: Int?,
     var status: Int?,
     var sPrice : Int?,
@@ -15,5 +15,5 @@ data class ItemBaiscEntity(
     var title : String?,
     var createdAt : String?,
     var dueDate :String?,
-    var itemImgList : MutableList<ItemImgEntity>
+    var itemImgList : List<ItemImgEntity>
 ):Parcelable, Serializable

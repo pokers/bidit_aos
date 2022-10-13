@@ -15,8 +15,7 @@ class HomeActivity :
     BaseActivity<ActivityHomeBinding>(R.layout.activity_home, R.id.nav_home_fragment) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        init()
-        initEvent()
+        setBottomNavigation()
     }
 
     override fun onBackPressed() {
@@ -31,13 +30,9 @@ class HomeActivity :
         }
     }
 
-    override fun init() {
+    private fun setBottomNavigation() {
         binding.apply {
             navHomeBottom.setupWithNavController(navController)
         }
-    }
-
-    override fun initEvent() {
-
     }
 }

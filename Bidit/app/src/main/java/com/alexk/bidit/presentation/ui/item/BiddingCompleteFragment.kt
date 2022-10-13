@@ -27,7 +27,7 @@ class BiddingCompleteFragment :
         initEvent()
     }
 
-    override fun init() {
+    private fun init() {
         //입찰 성공을 알려줌
         binding.apply {
             //가격
@@ -35,7 +35,7 @@ class BiddingCompleteFragment :
         }
     }
 
-    override fun initEvent() {
+    private fun initEvent() {
         binding.apply {
             btnOkay.setOnClickListener {
                 activity?.finishAffinity()
