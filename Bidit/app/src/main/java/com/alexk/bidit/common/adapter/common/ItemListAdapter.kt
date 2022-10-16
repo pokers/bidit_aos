@@ -11,25 +11,25 @@ import com.alexk.bidit.databinding.ItemMerchandiseListBinding
 import com.alexk.bidit.domain.entity.item.ItemBasicEntity
 
 
-class CommonItemListAdapter() :
-    ListAdapter<ItemBasicEntity, CommonItemListAdapter.MerchandiseListHolder>(
+class ItemListAdapter :
+    ListAdapter<ItemBasicEntity, ItemListAdapter.ItemListHolder>(
         MerchandiseListDiffUtil
     ) {
 
     var onItemClicked: ((Int?) -> Unit)? = null
 
-    class MerchandiseListHolder(val binding: ItemMerchandiseListBinding) :
+    class ItemListHolder(val binding: ItemMerchandiseListBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MerchandiseListHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemListHolder {
         val view = DataBindingUtil.inflate<ItemMerchandiseListBinding>(
             LayoutInflater.from(parent.context),
             R.layout.item_merchandise_list, parent, false
         )
-        return MerchandiseListHolder(view)
+        return ItemListHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MerchandiseListHolder, position: Int) {
+    override fun onBindViewHolder(holder: ItemListHolder, position: Int) {
         holder.binding.itemResponse = getItem(position)
         holder.binding.root.setOnClickListener {
             onItemClicked?.invoke(getItem(position).id)

@@ -7,7 +7,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.common.CommonItemListAdapter
+import com.alexk.bidit.common.adapter.common.ItemListAdapter
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.typeCastMyBiddingItemToItemEntity
 import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
@@ -27,7 +27,7 @@ class MyTradeItemListFragment :
 
     private val listType by lazy { arguments?.getString("listType") }
 
-    private val itemListAdapter by lazy { CommonItemListAdapter() }
+    private val itemListAdapter by lazy { ItemListAdapter() }
 
     private val userViewModel by viewModels<UserViewModel>()
     private val biddingViewModel by viewModels<BiddingViewModel>()

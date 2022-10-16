@@ -97,9 +97,6 @@
     <string-array name="category_detail_merchandise">
         <item>Ending Soon</item>
         <item>최신순</item>
-        <item>프로모션</item>
-        <item>인기매물순</item>
-        <item>인기매물순</item>
     </string-array>
 
     <string-array name="category_home_item">

@@ -128,11 +128,10 @@
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/vp_merchandise_list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/activity_margin"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="@dimen/activity_margin"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/div_detail_category" />
@@ -151,8 +150,8 @@
             android:backgroundTint="@color/persian_blue"
             android:src="@drawable/ic_home_floating_btn"
             android:stateListAnimator="@null"
-            app:elevation="0dp"
             app:borderWidth="0dp"
+            app:elevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:tint="@color/white" />
