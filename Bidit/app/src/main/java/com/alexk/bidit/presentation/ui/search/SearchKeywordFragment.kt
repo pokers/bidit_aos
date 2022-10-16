@@ -1,6 +1,5 @@
 package com.alexk.bidit.presentation.ui.search
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,16 +10,14 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.common.CommonItemListAdapter
+import com.alexk.bidit.common.adapter.common.ItemListAdapter
 import com.alexk.bidit.common.adapter.search.SearchKeywordListAdapter
 import com.alexk.bidit.common.util.setLoadingDialog
-import com.alexk.bidit.common.util.typeCastItemQueryToItemEntity
 import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.common.util.sharePreference.SearchKeywordManager
 import com.alexk.bidit.databinding.FragmentSearchKeywordBinding
 import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
-import com.alexk.bidit.presentation.ui.item.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import com.alexk.bidit.presentation.viewModel.SearchViewModel
 import com.alexk.bidit.type.CursorType
@@ -34,7 +31,7 @@ class SearchKeywordFragment :
     // sp에 저장된 검색 리스트를 불러온다.
     private val viewModel: SearchViewModel by viewModels()
     private val merchandiseViewModel by viewModels<ItemViewModel>()
-    private val merchandiseAdapter by lazy { CommonItemListAdapter() }
+    private val merchandiseAdapter by lazy { ItemListAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

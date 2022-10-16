@@ -3,9 +3,7 @@ package com.alexk.bidit.common.adapter.home
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.alexk.bidit.common.util.value.HOME_BANNER_POSITION
-import com.alexk.bidit.common.util.value.ITEM_SORT_TYPE
-import com.alexk.bidit.presentation.ui.home.banner.HomeBannerFragment
+import com.alexk.bidit.common.util.value.ITEM_CATEGORY_TYPE
 import com.alexk.bidit.presentation.ui.home.category.HomeCategoryFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -23,14 +21,14 @@ class HomeCategoryPageAdapter(
             0 -> {
                 fragment.apply {
                     arguments = Bundle().apply {
-                        this.putString(ITEM_SORT_TYPE, "DEADLINE")
+                        this.putString(ITEM_CATEGORY_TYPE, "DEADLINE")
                     }
                 }
             }
             else -> {
                 fragment.apply {
                     arguments = Bundle().apply {
-                        this.putString(ITEM_SORT_TYPE, "LATEST_ORDER")
+                        this.putString(ITEM_CATEGORY_TYPE, "LATEST_ORDER")
                     }
                 }
             }
@@ -39,6 +37,6 @@ class HomeCategoryPageAdapter(
     }
 
     companion object {
-        private const val PAGE_COUNT = 5
+        private const val PAGE_COUNT = 2
     }
 }

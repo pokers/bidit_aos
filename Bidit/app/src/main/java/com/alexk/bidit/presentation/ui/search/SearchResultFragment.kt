@@ -1,6 +1,5 @@
 package com.alexk.bidit.presentation.ui.search
 
-import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
 import android.text.Editable
@@ -15,14 +14,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.common.CommonItemListAdapter
+import com.alexk.bidit.common.adapter.common.ItemListAdapter
 import com.alexk.bidit.common.util.setLoadingDialog
-import com.alexk.bidit.common.util.typeCastItemQueryToItemEntity
 import com.alexk.bidit.common.util.sharePreference.SearchKeywordManager
 import com.alexk.bidit.databinding.FragmentSearchResultBinding
 import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
-import com.alexk.bidit.presentation.ui.item.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import com.alexk.bidit.type.CursorType
 import com.skydoves.balloon.ArrowOrientation
@@ -40,7 +37,7 @@ class SearchResultFragment :
     private var keyword = ""
     private var currentSortType = "latestOrder"
     private val merchandiseViewModel by viewModels<ItemViewModel>()
-    private val merchandiseAdapter by lazy { CommonItemListAdapter() }
+    private val merchandiseAdapter by lazy { ItemListAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

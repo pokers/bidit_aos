@@ -101,6 +101,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         initBannerIndicator()
     }
 
+    private fun initBannerIndicator() {
+        binding.ciMainBanner.apply {
+            setViewPager(binding.vpMainBanner)
+        }
+    }
+
     private fun initItemListPage() {
         binding.vpMerchandiseList.apply {
             adapter = HomeCategoryPageAdapter(this@HomeFragment)
@@ -113,12 +119,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         TabLayoutMediator(binding.lyDetailCategory, binding.vpMerchandiseList) { tab, position ->
             tab.text = categoryList[position]
         }.attach()
-    }
-
-    private fun initBannerIndicator() {
-        binding.ciMainBanner.apply {
-            setViewPager(binding.vpMainBanner)
-        }
     }
 
     private fun addItemButtonEvent() {
