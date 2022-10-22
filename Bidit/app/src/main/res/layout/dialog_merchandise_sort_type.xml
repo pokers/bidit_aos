@@ -5,47 +5,41 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="30dp">
 
-    <TextView
-        android:id="@+id/tv_sort_popular"
+    <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:fontFamily="@font/notosans_kr_medium"
-        android:includeFontPadding="false"
-        android:text="@string/category_popular"
-        android:textColor="@color/nobel"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_sort_deadline_imminent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:fontFamily="@font/notosans_kr_medium"
-        android:includeFontPadding="false"
-        android:text="@string/category_deadline_imminent"
-        android:textColor="@color/nobel"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_sort_popular" />
-
-    <TextView
-        android:id="@+id/tv_sort_latest_order"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:fontFamily="@font/notosans_kr_medium"
-        android:includeFontPadding="false"
-        android:text="@string/category_latest_order"
-        android:textColor="@color/nobel"
-        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_sort_deadline_imminent" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <RadioButton
+            android:id="@+id/tv_sort_latest_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:button="@null"
+            android:fontFamily="@font/notosans_kr_bold"
+            android:includeFontPadding="false"
+            android:minHeight="0dp"
+            android:text="@string/category_latest_order"
+            android:textColor="@drawable/sc_color_nero_nobel"
+            android:textSize="12sp" />
+
+        <RadioButton
+            android:id="@+id/tv_sort_deadline_imminent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:button="@null"
+            android:includeFontPadding="false"
+            android:minHeight="0dp"
+            android:text="@string/category_deadline_imminent"
+            android:textColor="@drawable/sc_color_nero_nobel"
+            android:textSize="12sp" />
+
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

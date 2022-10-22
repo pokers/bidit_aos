@@ -192,16 +192,6 @@ class SearchResultFragment :
                 }
             }
 
-        val popularTextView =
-            balloon.getContentView().findViewById<TextView>(R.id.tv_sort_popular).apply {
-                setOnClickListener {
-                    currentSortType = "popular"
-                    balloon.dismiss()
-                    binding.tvListSort.text = getString(R.string.category_popular)
-                    merchandiseViewModel.getKeywordItemList(keyword, CursorType.dueDate)
-                }
-            }
-
         //sortType에 따른 글자 변화
         when (sortType) {
             "latestOrder" -> {
@@ -213,17 +203,6 @@ class SearchResultFragment :
                 deadlineTextView.typeface =
                     ResourcesCompat.getFont(requireContext(), R.font.notosans_kr_bold)
                 deadlineTextView.setTextColor(
-                    ResourcesCompat.getColor(
-                        resources,
-                        R.color.nero,
-                        null
-                    )
-                )
-            }
-            "popular" -> {
-                popularTextView.typeface =
-                    ResourcesCompat.getFont(requireContext(), R.font.notosans_kr_bold)
-                popularTextView.setTextColor(
                     ResourcesCompat.getColor(
                         resources,
                         R.color.nero,

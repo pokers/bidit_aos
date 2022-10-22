@@ -11,6 +11,7 @@ data class ItemBasicEntity(
     var status: Int?,
     var sPrice : Int?,
     var cPrice : Int?,
+    var buyNow : Int?,
     var viewCount : Int?,
     var title : String?,
     var createdAt : String?,

@@ -8,6 +8,7 @@ import com.alexk.bidit.*
 import com.alexk.bidit.domain.repository.ItemRepository
 import com.apollographql.apollo3.api.ApolloResponse
 import com.alexk.bidit.common.util.view.ViewState
+import com.alexk.bidit.domain.entity.item.category.ItemCategoryRequestEntity
 import com.alexk.bidit.domain.entity.item.connection.ItemConnectionEntity
 import com.alexk.bidit.type.CursorType
 import com.alexk.bidit.type.ItemAddInput
@@ -85,7 +86,6 @@ class ItemViewModel @Inject constructor(private val repository: ItemRepository) 
     }
 
     fun getKeywordItemList(keyword: String, cursorType: CursorType) = viewModelScope.launch {
-
         this@ItemViewModel._itemList.postValue(ViewState.Loading())
         try {
             val response = repository.retrieveKeywordItemList(keyword, cursorType)
@@ -103,6 +103,16 @@ class ItemViewModel @Inject constructor(private val repository: ItemRepository) 
             _updateItem.postValue(ViewState.Success(response))
         } catch (e: ApolloHttpException) {
             Log.e("ApolloException", "Failure", e)
+            _updateItem.postValue(ViewState.Error("Error update item status"))
+        }
+    }
+
+    fun getCategoryFilterItemList(itemCategoryRequest: ItemCategoryRequestEntity) = viewModelScope.launch {
+        _itemList.postValue(ViewState.Loading())
+        try{
+            val response = repository.retrieveItemCategoryFilterList(itemCategoryRequest)
+            _itemList.postValue(ViewState.Success(response))
+        } catch (e: ApolloHttpException) {
             _updateItem.postValue(ViewState.Error("Error update item status"))
         }
     }

@@ -2,6 +2,7 @@ package com.alexk.bidit.domain.repository
 
 import com.alexk.bidit.*
 import com.alexk.bidit.domain.entity.item.ItemBasicEntity
+import com.alexk.bidit.domain.entity.item.category.ItemCategoryRequestEntity
 import com.alexk.bidit.domain.entity.item.connection.ItemConnectionEntity
 import com.alexk.bidit.type.CursorType
 import com.alexk.bidit.type.ItemAddInput
@@ -39,4 +40,6 @@ interface ItemRepository {
         itemInfo: ItemUpdateInput,
         description: String
     ): ApolloResponse<UpdateItemMutation.Data>
+
+    suspend fun retrieveItemCategoryFilterList(itemCategoryRequest: ItemCategoryRequestEntity):ItemConnectionEntity
 }

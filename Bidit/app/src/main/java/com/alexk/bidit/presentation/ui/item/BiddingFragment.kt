@@ -257,12 +257,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                     //성공
                     val result = response.value?.data?.bid
                     if (result != null && response.value.errors?.get(0)?.message != ErrorOwnItemBidding) {
-                        navigate(
-                            BiddingFragmentDirections.actionBiddingFragmentToBiddingCompleteFragment(
-                                bidPrice,
-                                itemId!!
-                            )
-                        )
+                        navigate(BiddingFragmentDirections.actionBiddingFragmentToBiddingCompleteFragment(bidPrice, itemId!!))
                     } else {
                         val dialog = BiddingBidAlreadyTopBidDialog(requireContext())
                         dialog.setCanceledOnTouchOutside(true)

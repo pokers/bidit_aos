@@ -142,6 +142,7 @@ class HomeCategoryFragment :
         }
     }
 
+
     companion object {
         private const val GET_ITEM_COUNT = 10
     }

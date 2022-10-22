@@ -60,8 +60,7 @@ class UserViewModel @Inject constructor(private val repository: UserRepository) 
             val response = repository.getMyInfo()
             _myInfo.postValue(ViewState.Success(response))
         } catch (e: ApolloHttpException) {
-            Log.e(TAG, "getMyInfo: ${e.message}")
-            _myInfo.postValue(ViewState.Error(ErrorUserNotFound))
+            _pushToken.postValue(ViewState.Error(ErrorInvalidToken))
         }
     }
 
@@ -107,16 +106,17 @@ class UserViewModel @Inject constructor(private val repository: UserRepository) 
     }
 
 
-    fun updateUserNickNameAndProfileImg(nickname: String, profileImg: String?) = viewModelScope.launch {
-        _updateUserInfo.postValue(ViewState.Loading())
-        try {
-            val response = repository.updateUserInfo(nickname, profileImg)
-            _updateUserInfo.postValue(ViewState.Success(response))
-        } catch (e: ApolloHttpException) {
-            Log.d("UPDATE_USER_INFO", "Failure", e)
-            _updateUserInfo.postValue(ViewState.Error("Error update user info"))
+    fun updateUserNickNameAndProfileImg(nickname: String, profileImg: String?) =
+        viewModelScope.launch {
+            _updateUserInfo.postValue(ViewState.Loading())
+            try {
+                val response = repository.updateUserInfo(nickname, profileImg)
+                _updateUserInfo.postValue(ViewState.Success(response))
+            } catch (e: ApolloHttpException) {
+                Log.d("UPDATE_USER_INFO", "Failure", e)
+                _updateUserInfo.postValue(ViewState.Error("Error update user info"))
+            }
         }
-    }
 
     companion object {
         private const val TAG = "UserViewModel..."

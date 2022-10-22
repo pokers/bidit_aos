@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.common.ItemListAdapter
 import com.alexk.bidit.common.util.setLoadingDialog
-import com.alexk.bidit.common.util.typeCastMyBiddingItemToItemEntity
 import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentCommonMerchandiseListBinding
 import com.alexk.bidit.common.util.view.ViewState
@@ -103,7 +102,7 @@ class MyTradeItemListFragment :
                     if(result?.isEmpty() == true){
                         binding.lyNoList.visibility = View.VISIBLE
                     }
-                    itemListAdapter.submitList(typeCastMyBiddingItemToItemEntity(result))
+//                    itemListAdapter.submitList(typeCastMyBiddingItemToItemEntity(result))
 
                     itemListAdapter.onItemClicked = {
                         val intent = Intent(requireContext(), BiddingActivity::class.java)

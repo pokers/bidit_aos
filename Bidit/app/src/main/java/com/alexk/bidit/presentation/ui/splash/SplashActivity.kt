@@ -13,13 +13,16 @@ import com.alexk.bidit.common.util.ErrorInvalidToken
 import com.alexk.bidit.common.util.ErrorUserNotFound
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.sharePreference.UserTokenManager
+import com.alexk.bidit.common.util.showLongToastMessage
 import com.alexk.bidit.databinding.ActivitySplashBinding
 import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.domain.entity.user.UserBasicEntity
 import com.alexk.bidit.presentation.ui.home.HomeActivity
 import com.alexk.bidit.presentation.ui.login.LoginActivity
 import com.alexk.bidit.presentation.viewModel.UserViewModel
+import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.common.model.KakaoSdkError
 import com.kakao.sdk.user.UserApiClient
 import com.sendbird.android.SendBird
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,7 +44,6 @@ class SplashActivity : AppCompatActivity() {
         checkKakaoTokenExpired()
     }
 
-    //check kakao token expired
     private fun checkKakaoTokenExpired() {
         if (UserTokenManager.getToken().isNotEmpty()) {
             startObserveUserInfo()
@@ -81,6 +83,7 @@ class SplashActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun setUserInfo(userResponse: UserBasicEntity) {
         GlobalApplication.userId = userResponse.id!!

@@ -100,6 +100,7 @@
     </string-array>
 
     <string-array name="category_home_item">
+        <item>디지털</item>
         <item>아이폰</item>
         <item>갤럭시</item>
         <item>기타폰</item>
