@@ -51,6 +51,7 @@ query getItemList($itemQueryInfo:ItemQueryInput, $keywordInfo:String, $firstInfo
                 status
                 sPrice
                 cPrice
+                buyNow
                 viewCount
                 title
                 createdAt

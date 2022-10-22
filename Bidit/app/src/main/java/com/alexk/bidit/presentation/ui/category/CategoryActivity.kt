@@ -1,9 +1,12 @@
 package com.alexk.bidit.presentation.ui.category
 
+import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.WindowManager
+import android.widget.RadioButton
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -15,12 +18,16 @@ import com.alexk.bidit.common.adapter.common.ItemListAdapter
 import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.ActivityCategoryBinding
 import com.alexk.bidit.common.util.view.ViewState
-import com.alexk.bidit.common.dialog.LoadingDialog
+import com.alexk.bidit.common.util.setLoadingDialog
+import com.alexk.bidit.common.util.value.CATEGORY_ID
+import com.alexk.bidit.presentation.ui.category.filter.CategoryFilterDialog
+import com.alexk.bidit.presentation.ui.item.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import com.alexk.bidit.type.CursorType
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.overlay.BalloonOverlayRoundRect
+import com.skydoves.balloon.showAlignBottom
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -28,62 +35,76 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalCoroutinesApi
 class CategoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCategoryBinding
-    private var currentSortType = "latestOrder"
-    private val viewModel by viewModels<ItemViewModel>()
-    private val merchandiseAdapter by lazy { ItemListAdapter() }
-    private val categoryId by lazy { intent?.getIntExtra("categoryId", -1)?.minus(2) }
-    private val loadingDialog by lazy { LoadingDialog(this) }
+    private val itemViewModel by viewModels<ItemViewModel>()
+    private val itemListAdapter by lazy { ItemListAdapter() }
+    private val itemCursorTypeBalloon by lazy { makeBalloon() }
+    private val categoryId by lazy { intent?.getIntExtra(CATEGORY_ID, -1)!! }
+    private var currentCursorType = CursorType.createdAt
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCategoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        init()
-        initEvent()
-    }
 
-    private fun init() {
-        binding.apply {
-            tvCategoryTitle.text =
-                resources.getStringArray(R.array.category_home_item)[categoryId!!]
-            rvMerchandiseList.layoutManager =
-                GridLayoutManager(this@CategoryActivity, 2, GridLayoutManager.VERTICAL, false)
-            rvMerchandiseList.adapter = merchandiseAdapter
-            rvMerchandiseList.addItemDecoration(GridRecyclerViewDeco(24, 24, 0, 37))
-        }
-        Log.d("category","now category idx : $categoryId, category : ${binding.tvCategoryTitle.text}")
-        viewModel.getCategoryItemList(categoryId?.plus(2)!!, CursorType.createdAt)
-        Log.d("category","get category idx : ${categoryId?.plus(2)}")
+        initTitle()
+        initItemList()
+
+        addButtonEvent()
+        addBalloonEvent(itemCursorTypeBalloon)
         observeCategoryItemList()
     }
 
-    private fun initEvent() {
+    private fun initTitle() {
+        binding.apply {
+            tvCategoryTitle.text =
+                resources.getStringArray(R.array.category_home_item)[categoryId]
+            rvMerchandiseList.addItemDecoration(GridRecyclerViewDeco(24, 24, 0, 37))
+        }
+    }
+
+    private fun initItemList() {
+        binding.rvMerchandiseList.apply {
+            layoutManager =
+                GridLayoutManager(this@CategoryActivity, 2, GridLayoutManager.HORIZONTAL, false)
+            adapter = itemListAdapter
+        }
+        getItemList()
+    }
+
+    private fun getItemList() {
+        itemViewModel.getCategoryItemList(categoryId, CursorType.createdAt)
+    }
+
+    private fun showCategoryDialog() {
+        val dialog =
+            CategoryFilterDialog(this@CategoryActivity, categoryId, currentCursorType) {
+                itemViewModel.getCategoryFilterItemList(it)
+            }
+        dialog.setCanceledOnTouchOutside(true)
+        dialog.show()
+        dialog.window?.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.MATCH_PARENT
+        )
+        dialog.window?.setBackgroundDrawableResource(R.drawable.bg_filter_dialog)
+    }
+
+    private fun addButtonEvent() {
         binding.apply {
             btnBack.setOnClickListener {
                 finish()
             }
             btnFilter.setOnClickListener {
-                val dialog =
-                    CategoryFilterDialog(this@CategoryActivity) {
-                        //필터데이터로 업데이트
-                    }
-                dialog.setCanceledOnTouchOutside(true)
-                dialog.show()
-                dialog.window?.setLayout(
-                    WindowManager.LayoutParams.MATCH_PARENT,
-                    WindowManager.LayoutParams.MATCH_PARENT
-                )
-                dialog.window?.setBackgroundDrawableResource(R.drawable.bg_filter_dialog)
-                dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+                showCategoryDialog()
             }
             lySort.setOnClickListener {
-                makeBalloon(currentSortType).showAlignBottom(binding.ivSort)
+                binding.ivSort.showAlignBottom(itemCursorTypeBalloon)
             }
         }
     }
 
-    private fun makeBalloon(sortType: String): Balloon {
-        val balloon = Balloon.Builder(this)
+    private fun makeBalloon(): Balloon {
+        return Balloon.Builder(this)
             .setLayout(R.layout.dialog_merchandise_sort_type)
             .setArrowSize(10)
             .setArrowOrientation(ArrowOrientation.TOP)
@@ -99,111 +120,71 @@ class CategoryActivity : AppCompatActivity() {
             .setBackgroundColor(ContextCompat.getColor(this, R.color.white))
             .setLifecycleOwner(this)
             .build()
+    }
 
+    private fun addBalloonEvent(balloon: Balloon) {
         //정렬 방법 선택
-        val latestTextView =
-            balloon.getContentView().findViewById<TextView>(R.id.tv_sort_latest_order).apply {
-                setOnClickListener {
-                    currentSortType = "latestOrder"
-                    balloon.dismiss()
+        balloon.getContentView().findViewById<RadioButton>(R.id.tv_sort_latest_order).apply {
+            setOnCheckedChangeListener { _, isChecked ->
+                balloon.dismiss()
+                if (isChecked) {
                     binding.tvListSort.text = getString(R.string.category_latest_order)
-                    viewModel.getCategoryItemList(categoryId?.plus(2)!!, CursorType.createdAt)
+                    currentCursorType = CursorType.createdAt
+                    itemViewModel.getCategoryItemList(categoryId, currentCursorType)
+                    typeface =
+                        ResourcesCompat.getFont(this@CategoryActivity, R.font.notosans_kr_bold)
+                } else {
+                    typeface =
+                        ResourcesCompat.getFont(this@CategoryActivity, R.font.notosans_kr_medium)
                 }
-            }
-
-        val deadlineTextView =
-            balloon.getContentView().findViewById<TextView>(R.id.tv_sort_deadline_imminent).apply {
-                setOnClickListener {
-                    currentSortType = "deadline"
-                    balloon.dismiss()
-                    binding.tvListSort.text = getString(R.string.category_deadline_imminent)
-                    viewModel.getCategoryItemList(categoryId?.plus(2)!!, CursorType.dueDate)
-                }
-            }
-
-        val popularTextView =
-            balloon.getContentView().findViewById<TextView>(R.id.tv_sort_popular).apply {
-                setOnClickListener {
-                    currentSortType = "popular"
-                    balloon.dismiss()
-                    binding.tvListSort.text = getString(R.string.category_popular)
-                    viewModel.getCategoryItemList(categoryId?.plus(2)!!, CursorType.createdAt)
-                }
-            }
-
-        //sortType에 따른 글자 변화
-        when (sortType) {
-            "latestOrder" -> {
-                latestTextView.typeface =
-                    ResourcesCompat.getFont(this@CategoryActivity, R.font.notosans_kr_bold)
-                latestTextView.setTextColor(ResourcesCompat.getColor(resources, R.color.nero, null))
-            }
-            "deadline" -> {
-                deadlineTextView.typeface =
-                    ResourcesCompat.getFont(this@CategoryActivity, R.font.notosans_kr_bold)
-                deadlineTextView.setTextColor(
-                    ResourcesCompat.getColor(
-                        resources,
-                        R.color.nero,
-                        null
-                    )
-                )
-            }
-            "popular" -> {
-                popularTextView.typeface =
-                    ResourcesCompat.getFont(this@CategoryActivity, R.font.notosans_kr_bold)
-                popularTextView.setTextColor(
-                    ResourcesCompat.getColor(
-                        resources,
-                        R.color.nero,
-                        null
-                    )
-                )
             }
         }
+        balloon.getContentView().findViewById<RadioButton>(R.id.tv_sort_deadline_imminent).apply {
+            setOnCheckedChangeListener { _, isChecked ->
+                balloon.dismiss()
+                if (isChecked) {
+                    binding.tvListSort.text = getString(R.string.category_deadline_imminent)
+                    currentCursorType = CursorType.dueDate
+                    itemViewModel.getCategoryItemList(categoryId, currentCursorType)
+                    typeface =
+                        ResourcesCompat.getFont(this@CategoryActivity, R.font.notosans_kr_bold)
+                } else {
+                    typeface =
+                        ResourcesCompat.getFont(this@CategoryActivity, R.font.notosans_kr_medium)
+                }
+            }
+        }
+    }
 
-        return balloon
+    private fun setNoItemListLayout() {
+        itemListAdapter.submitList(emptyList())
+        binding.lyNoList.visibility = View.VISIBLE
     }
 
     private fun observeCategoryItemList() {
-        //fragment는 viewLifeCycleOwner로
-        viewModel.itemList.observe(this) { response ->
+        itemViewModel.itemList.observe(this) { response ->
             when (response) {
-                //서버 연결 대기중
                 is ViewState.Loading -> {
-                    loadingDialog.show()
-                    Log.d(TAG, "Loading GET merchandise list")
+                    setLoadingDialog(true)
                 }
-                //아이템 가져오기 성공
                 is ViewState.Success -> {
-                    loadingDialog.dismiss()
-//                    Log.d(TAG, "Success GET merchandise list")
-//                    //리사이클러뷰 어댑터 연결
-//                    val result = typeCastItemQueryToItemEntity(response.value?.data?.getItemList?.edges)
-//                    if (result.size == 0) {
-//                        Log.d(TAG, "Empty merchandise list")
-//                        merchandiseAdapter.submitList(emptyList())
-//                        binding.lyNoList.visibility = View.VISIBLE
-//                    } else {
-//                        merchandiseAdapter.onItemClicked = {
-//                            val intent = Intent(this, BiddingActivity::class.java)
-//                            intent.putExtra("itemId", it)
-//                            startActivity(intent)
-//                        }
-//                        merchandiseAdapter.submitList(null)
-//                        merchandiseAdapter.submitList(result)
-//                    }
+                    setLoadingDialog(false)
+                    val result = response.value
+                    if (result?.itemList?.isEmpty() == true) {
+                        setNoItemListLayout()
+                    } else {
+                        itemListAdapter.submitList(result?.itemList)
+                    }
                 }
-                //서버 연결 실패(만료) -> 재발급 요청
                 is ViewState.Error -> {
-                    loadingDialog.dismiss()
-                    merchandiseAdapter.submitList(emptyList())
-                    Log.d("Merchandise Failure", "Fail GET merchandise list")
+                    setLoadingDialog(false)
+                    itemListAdapter.submitList(emptyList())
                 }
             }
         }
     }
-    companion object{
+
+    companion object {
         private const val TAG = "CategoryActivity..."
     }
 }

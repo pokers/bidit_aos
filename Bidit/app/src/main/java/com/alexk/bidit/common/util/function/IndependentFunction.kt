@@ -3,6 +3,7 @@ package com.alexk.bidit.common.util
 import android.content.Context
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import com.alexk.bidit.GetBiddingInfoQuery
 import com.alexk.bidit.GetItemListQuery
@@ -32,125 +33,11 @@ fun TextView.setTextColorWithResourceCompat(id:Int){
     this.setTextColor(ResourcesCompat.getColor(resources,id,null))
 }
 
-fun typeCastUsersItemToItemEntity(response : List<GetMyInfoQuery.Edge?>?) : MutableList<ItemBasicEntity>{
-    val typecastItemList = mutableListOf<ItemBasicEntity>()
-
-    if(response == null){
-        return typecastItemList;
-    }
-
-    for (idx in response.indices) {
-        val data = response[idx]?.node!!
-        val imgList = mutableListOf<ItemImgEntity>()
-        for (imgIdx in data.image?.indices!!) {
-            imgList.add(ItemImgEntity(data.image[imgIdx]?.url))
-        }
-        val inputData = ItemBasicEntity(
-            id = data.id,
-            status = data.status,
-            sPrice = data.sPrice,
-            cPrice = data.cPrice,
-            viewCount = data.viewCount,
-            title = data.title,
-            createdAt = data.createdAt,
-            dueDate = data.dueDate,
-            itemImgList = imgList
-        )
-        typecastItemList.add(inputData)
-    }
-    return typecastItemList
-}
-
-fun typeCastItemQueryToItemEntity(response : List<GetItemListQuery.Edge?>?) : MutableList<ItemBasicEntity>{
-    val typecastItemList = mutableListOf<ItemBasicEntity>()
-
-    if(response == null){
-        return typecastItemList
-    }
-
-    for (idx in response.indices) {
-        val data = response[idx]?.node
-        val imgList = mutableListOf<ItemImgEntity>()
-        for (imgIdx in data?.image?.indices!!) {
-            imgList.add(ItemImgEntity(data.image[imgIdx]?.url))
-        }
-        val inputData = ItemBasicEntity(
-            id = data.id,
-            status = data.status,
-            sPrice = data.sPrice,
-            cPrice = data.cPrice,
-            viewCount = data.viewCount,
-            title = data.title,
-            createdAt = data.createdAt,
-            dueDate = data.dueDate,
-            itemImgList = imgList
-        )
-        typecastItemList.add(inputData)
-    }
-    return typecastItemList
-}
-
-
-fun typeCastBiddingItemToItemEntity(response : List<GetBiddingInfoQuery.GetBidding?>?) : MutableList<ItemBasicEntity>{
-    val typecastItemList = mutableListOf<ItemBasicEntity>()
-
-    if(response == null){
-        return typecastItemList;
-    }
-
-    for (idx in response.indices) {
-        val data = response[idx]?.item
-        val imgList = mutableListOf<ItemImgEntity>()
-        for (imgIdx in data?.image?.indices!!) {
-            imgList.add(ItemImgEntity(data.image[imgIdx]?.url))
-        }
-        val inputData = ItemBasicEntity(
-            id = data.id,
-            status = data.status,
-            sPrice = data.sPrice,
-            cPrice = data.cPrice,
-            viewCount = data.viewCount,
-            title = data.title,
-            createdAt = data.createdAt,
-            dueDate = data.dueDate,
-            itemImgList = imgList
-        )
-        typecastItemList.add(inputData)
-    }
-    return typecastItemList
-}
-
-fun typeCastMyBiddingItemToItemEntity(response : List<GetMyBiddingInfoQuery.GetMyBidding?>?) : MutableList<ItemBasicEntity>{
-    val typecastItemList = mutableListOf<ItemBasicEntity>()
-
-    if(response == null){
-        return typecastItemList;
-    }
-
-    for (idx in response.indices) {
-        val data = response[idx]?.item
-        val imgList = mutableListOf<ItemImgEntity>()
-        for (imgIdx in data?.image?.indices!!) {
-            imgList.add(ItemImgEntity(data.image[imgIdx]?.url))
-        }
-        val inputData = ItemBasicEntity(
-            id = data.id,
-            status = data.status,
-            sPrice = data.sPrice,
-            cPrice = data.cPrice,
-            viewCount = data.viewCount,
-            title = data.title,
-            createdAt = data.createdAt,
-            dueDate = data.dueDate,
-            itemImgList = imgList
-        )
-        typecastItemList.add(inputData)
-    }
-    return typecastItemList
-}
-
-
 fun Context.setLoadingDialog(flag : Boolean){
     if(flag) LoadingDialog.getLoadingDialogInstance(this)?.show()
     else  LoadingDialog.getLoadingDialogInstance(this)?.dismiss()
+}
+
+fun Context.showLongToastMessage(message : String){
+    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }

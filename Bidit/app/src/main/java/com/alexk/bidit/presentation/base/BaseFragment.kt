@@ -48,7 +48,6 @@ abstract class BaseFragment<T : ViewDataBinding>(@LayoutRes private val layoutId
         navigationViewModel.popBackStack.postValue(true)
     }
 
-
     fun navigate(direction: NavDirections) {
         navigationViewModel.navDirectionAction.postValue(direction)
     }

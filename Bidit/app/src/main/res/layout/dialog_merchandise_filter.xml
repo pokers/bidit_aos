@@ -56,7 +56,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_filter_title" />
 
-            <RadioGroup
+            <LinearLayout
                 android:id="@+id/rg_trade_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_trade_type_title">
 
-                <RadioButton
+                <CheckBox
                     android:id="@+id/btn_parcel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -83,9 +83,12 @@
                     android:paddingBottom="11dp"
                     android:text="@string/content_parcel"
                     android:textColor="@drawable/sc_color_persian_blue_sliver"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_trade_type_title"/>
 
-                <RadioButton
+                <CheckBox
                     android:id="@+id/btn_direct_purchase"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -103,7 +106,7 @@
                     android:textColor="@drawable/sc_color_persian_blue_sliver"
                     android:textSize="12sp" />
 
-            </RadioGroup>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_using_date_title"

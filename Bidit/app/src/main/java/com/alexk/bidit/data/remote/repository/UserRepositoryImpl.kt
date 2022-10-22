@@ -1,5 +1,6 @@
 package com.alexk.bidit.data.remote.repository
 
+import android.util.Log
 import com.alexk.bidit.*
 import com.alexk.bidit.common.util.ErrorCouldNotAdd
 import com.alexk.bidit.common.util.ErrorInvalidToken

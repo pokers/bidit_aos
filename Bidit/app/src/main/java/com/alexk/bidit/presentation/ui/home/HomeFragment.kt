@@ -3,6 +3,7 @@ package com.alexk.bidit.presentation.ui.home
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -11,6 +12,7 @@ import androidx.annotation.FontRes
 import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.home.HomeCategoryPageAdapter
@@ -65,32 +67,44 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             )
             addItemDecoration(GridRecyclerViewDeco(0, 80, 40, 0))
         }
-        addItemCategoryScrollBar()
+        addItemCategoryScrollBar(isRecyclerScrollable(binding.rvCategory))
     }
 
-    private fun addItemCategoryScrollBar() {
-        binding.rvCategory.apply {
-            addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                @RequiresApi(Build.VERSION_CODES.N)
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    //리사이클러뷰 전체 길이
-                    val range = computeHorizontalScrollRange()
-                    //dpi
-                    val density = resources.displayMetrics.density
-                    //최대 거리(thumb /2)
-                    val maxEndX =
-                        range - resources.displayMetrics.widthPixels + (20 * density) + 12
+    private fun isRecyclerScrollable(recyclerView : RecyclerView): Boolean {
+        val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+        val adapter = recyclerView.adapter
+        return if (adapter == null) false else layoutManager.findLastCompletelyVisibleItemPosition() < adapter.itemCount - 1
+    }
 
-                    //슬라이딩 거리
-                    categoryScrollBarEndX += dx
+    private fun addItemCategoryScrollBar(isRecyclerScrollable: Boolean) {
+        binding.apply {
+            if(isRecyclerScrollable){
+                rvCategory.apply {
+                    addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                        @RequiresApi(Build.VERSION_CODES.N)
+                        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                            super.onScrolled(recyclerView, dx, dy)
+                            //리사이클러뷰 전체 길이
+                            val range = computeHorizontalScrollRange()
+                            //dpi
+                            val density = resources.displayMetrics.density
+                            //최대 거리(thumb /2)
+                            val maxEndX =
+                                range - resources.displayMetrics.widthPixels + (20 * density) + 12
 
-                    val proportion = categoryScrollBarEndX.div(maxEndX)
-                    val transMaxRange =
-                        binding.lyCategoryScrollBar.width - binding.viewSlipFront.width
-                    binding.viewSlipFront.translationX = transMaxRange * proportion
+                            //슬라이딩 거리
+                            categoryScrollBarEndX += dx
+
+                            val proportion = categoryScrollBarEndX.div(maxEndX)
+                            val transMaxRange =
+                                binding.lyCategoryScrollBar.width - binding.viewSlipFront.width
+                            binding.viewSlipFront.translationX = transMaxRange * proportion
+                        }
+                    })
                 }
-            })
+            }else{
+                lyCategoryScrollBar.visibility = View.GONE
+            }
         }
     }
 
@@ -153,5 +167,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         val tabTextView = linearLayout.getChildAt(1) as TextView
         val typeface = ResourcesCompat.getFont(requireContext(), fontFamilyRes)
         tabTextView.typeface = typeface
+    }
+
+    companion object{
+        private const val TAG = "HomeFragment..."
     }
 }
