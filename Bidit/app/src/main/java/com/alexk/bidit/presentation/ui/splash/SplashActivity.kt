@@ -41,12 +41,12 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        checkKakaoTokenExpired()
+        checkFirstLogin()
     }
 
-    private fun checkKakaoTokenExpired() {
+    private fun checkFirstLogin() {
         if (UserTokenManager.getToken().isNotEmpty()) {
-            startObserveUserInfo()
+            checkKakaoTokenExpired()
         } else {
             startLoginActivity()
         }
@@ -84,6 +84,29 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
+
+    private fun checkKakaoTokenExpired(){
+        if (AuthApiClient.instance.hasToken()) {
+            UserApiClient.instance.accessTokenInfo { _, error ->
+                if (error != null) {
+                    if (error is KakaoSdkError && error.isInvalidTokenError()) {
+                        startLoginActivity()
+                    }
+                    else {
+                        showLongToastMessage("카카오 로그인에 실패했습니다.")
+                        UserTokenManager.removeToken()
+                        UserTokenManager.removePushToken()
+                    }
+                }
+                else {
+                    startObserveUserInfo()
+                }
+            }
+        }
+        else {
+            startLoginActivity()
+        }
+    }
 
     private fun setUserInfo(userResponse: UserBasicEntity) {
         GlobalApplication.userId = userResponse.id!!
