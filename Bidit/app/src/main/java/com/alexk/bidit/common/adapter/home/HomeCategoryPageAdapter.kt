@@ -16,24 +16,22 @@ class HomeCategoryPageAdapter(
 
     override fun createFragment(position: Int): Fragment {
         //프로모션이나 다른 UI가 나온다면 수정해주세요.
-        val fragment = HomeCategoryFragment()
-        when (position) {
+        return when (position) {
             0 -> {
-                fragment.apply {
+                HomeCategoryFragment().apply {
                     arguments = Bundle().apply {
                         this.putString(ITEM_CATEGORY_TYPE, "DEADLINE")
                     }
                 }
             }
             else -> {
-                fragment.apply {
+                HomeCategoryFragment().apply {
                     arguments = Bundle().apply {
                         this.putString(ITEM_CATEGORY_TYPE, "LATEST_ORDER")
                     }
                 }
             }
         }
-        return fragment
     }
 
     companion object {

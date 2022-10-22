@@ -12,9 +12,9 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.common.ItemListAdapter
-import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
+import com.alexk.bidit.common.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.ActivityCategoryBinding
-import com.alexk.bidit.common.util.view.ViewState
+import com.alexk.bidit.common.util.value.ViewState
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.value.CATEGORY_ID
 import com.alexk.bidit.presentation.ui.category.filter.CategoryFilterDialog
@@ -61,7 +61,7 @@ class CategoryActivity : AppCompatActivity() {
     private fun initItemList() {
         binding.rvMerchandiseList.apply {
             layoutManager =
-                GridLayoutManager(this@CategoryActivity, 2, GridLayoutManager.HORIZONTAL, false)
+                GridLayoutManager(this@CategoryActivity, 2, GridLayoutManager.VERTICAL, false)
             adapter = itemListAdapter
         }
         getItemList()

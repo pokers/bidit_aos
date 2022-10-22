@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.DialogBiddingFailBinding
 
-//판매글 삭제 불가능
 class BiddingBidAlreadyTopBidDialog(context: Context) : Dialog(context) {
     private lateinit var binding: DialogBiddingFailBinding
 
@@ -21,21 +20,13 @@ class BiddingBidAlreadyTopBidDialog(context: Context) : Dialog(context) {
             false
         )
         setContentView(binding.root)
-        init()
-        initEvent()
+
+        initCloseButtonEvent()
     }
 
-    private fun init() {
-        binding.apply {
-
-        }
-    }
-
-    private fun initEvent() {
-        binding.apply {
-            btnConfirm.setOnClickListener {
-                dismiss()
-            }
+    private fun initCloseButtonEvent() {
+        binding.btnConfirm.setOnClickListener {
+            dismiss()
         }
     }
 }

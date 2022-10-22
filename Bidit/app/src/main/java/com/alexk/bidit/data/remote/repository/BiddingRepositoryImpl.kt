@@ -1,19 +1,18 @@
 package com.alexk.bidit.data.remote.repository
 
-import com.alexk.bidit.DoBidMutation
+import com.alexk.bidit.ControlBidMutation
 import com.alexk.bidit.GetBiddingInfoQuery
 import com.alexk.bidit.GetMyBiddingInfoQuery
+import com.alexk.bidit.common.util.value.BidStatus
 import com.alexk.bidit.di.ApolloClient
+import com.alexk.bidit.domain.entity.bid.BidBasicEntity
 import com.alexk.bidit.domain.repository.BiddingRepository
 import com.alexk.bidit.type.BidInput
 import com.alexk.bidit.type.BiddingQueryInput
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Optional
+import com.apollographql.apollo3.exception.ApolloException
 import javax.inject.Inject
-
-// 데이터를 받는 곳
-// 앱 내에서 쓸 데이터 format을 만든다. 그거를 뷰모델로 전달
-
 
 
 class BiddingRepositoryImpl @Inject constructor(private val apiService: ApolloClient) :
@@ -38,13 +37,27 @@ class BiddingRepositoryImpl @Inject constructor(private val apiService: ApolloCl
         itemId: Int,
         bidPrice: Int,
         status: Int
-    ): ApolloResponse<DoBidMutation.Data> {
-        return apiService.provideApolloClient().mutation(
-            DoBidMutation(
-                bidInfo = Optional.Present(
-                    BidInput(status = Optional.Present(status), itemId = itemId, price = bidPrice)
+    ): BidStatus {
+        val bidStatus: BidStatus
+        try {
+            apiService.provideApolloClient().mutation(
+                ControlBidMutation(
+                    bidInfo = Optional.Present(
+                        BidInput(
+                            status = Optional.Present(status),
+                            itemId = itemId,
+                            price = bidPrice
+                        )
+                    )
                 )
-            )
-        ).execute()
+            ).execute().data?.bid
+            bidStatus = when (status) {
+                0 -> BidStatus.INVALID
+                else -> BidStatus.INVALID
+            }
+        } catch (e: ApolloException) {
+            throw ApolloException(e.message)
+        }
+        return bidStatus
     }
 }

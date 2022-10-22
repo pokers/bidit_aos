@@ -7,20 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
-import com.alexk.bidit.common.util.view.EditTextPriceWatcher
+import com.alexk.bidit.common.view.EditTextPriceWatcher
 import com.alexk.bidit.common.util.addComma
+import com.alexk.bidit.common.util.parsePriceTypeToInt
+import com.alexk.bidit.common.util.value.BID_PRICE
+import com.alexk.bidit.common.util.value.CURRENT_BID_PRICE
 import com.alexk.bidit.databinding.DialogBiddingBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-//고차함수 (매개변수는 Int, 반환은 Unit(없음))
 class BiddingBidDialog(private val bid: (Int) -> Unit) :
     BottomSheetDialogFragment() {
 
     private lateinit var binding: DialogBiddingBinding
+
     private var currentPrice = 0
     private var mustOverPrice = 0
-    private val bidPrice by lazy { arguments?.getInt("bidPrice") }
-    private val inputTextWatcher by lazy { EditTextPriceWatcher(binding.editMerchandisePrice) }
+    private val bidPrice by lazy { arguments?.getInt(BID_PRICE) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,42 +30,34 @@ class BiddingBidDialog(private val bid: (Int) -> Unit) :
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.dialog_bidding, container, false)
-        init()
-        initEvent()
         return binding.root
     }
 
-    fun init() {
-        currentPrice = arguments?.getInt("currentPrice")!!
-        mustOverPrice = arguments?.getInt("currentPrice")!!
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initPrice()
+
+        addBidButtonEvent()
+        addCancelButtonEvent()
+        addBidPriceControlButtonEvent()
+    }
+
+    private fun initPrice() {
+        currentPrice = arguments?.getInt(CURRENT_BID_PRICE)!!
+        mustOverPrice = arguments?.getInt(CURRENT_BID_PRICE)!!
 
         binding.apply {
-            EditTextPriceWatcher(editMerchandisePrice)
-            editMerchandisePrice.setText(addComma(currentPrice))
-            tvMustOverBiddingPrice.text = addComma(currentPrice)
+            editMerchandisePrice.apply {
+                setText(addComma(currentPrice))
+                addTextChangedListener(EditTextPriceWatcher(this))
+            }
         }
     }
 
-    fun initEvent() {
+    private fun validateBidPrice() = currentPrice <= mustOverPrice
+
+    private fun addBidPriceControlButtonEvent() {
         binding.apply {
-            editMerchandisePrice.addTextChangedListener(inputTextWatcher)
-
-            btnBidding.setOnClickListener {
-
-                currentPrice = inputTextWatcher.getInputPrice()
-                Log.d("currentPrice","$currentPrice")
-
-                if (currentPrice <= mustOverPrice) {
-                    tvErrorMessage.visibility = View.VISIBLE
-                } else {
-                    //고차 함수 사용(홈 화면 이동)
-                    bid(currentPrice)
-                    dismiss()
-                }
-            }
-            btnCancel.setOnClickListener {
-                dismiss()
-            }
             btnBiddingMinus.setOnClickListener {
                 currentPrice -= bidPrice!!
                 editMerchandisePrice.setText(addComma(currentPrice))
@@ -74,4 +68,25 @@ class BiddingBidDialog(private val bid: (Int) -> Unit) :
             }
         }
     }
+
+    private fun addCancelButtonEvent() {
+        binding.btnCancel.setOnClickListener {
+            dismiss()
+        }
+    }
+
+    private fun addBidButtonEvent() {
+        binding.btnBidding.setOnClickListener {
+            currentPrice = parsePriceTypeToInt(binding.editMerchandisePrice.text.toString())
+            if (validateBidPrice()) {
+                bid(currentPrice)
+                dismiss()
+            } else {
+                binding.tvMustOverBiddingPrice.text = addComma(mustOverPrice)
+                binding.tvErrorMessage.visibility = View.VISIBLE
+            }
+        }
+    }
+
+
 }

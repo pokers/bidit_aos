@@ -21,10 +21,10 @@
         android:label="BiddingCompleteFragment"
         tools:layout="@layout/fragment_bidding_complete" >
         <argument
-            android:name="price"
+            android:name="bid_price"
             app:argType="integer" />
         <argument
-            android:name="bid"
+            android:name="bid_item_id"
             app:argType="integer" />
     </fragment>
 </navigation>

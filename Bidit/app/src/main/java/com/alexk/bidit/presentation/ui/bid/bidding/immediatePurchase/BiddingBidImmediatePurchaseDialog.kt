@@ -3,11 +3,11 @@ package com.alexk.bidit.presentation.ui.bid.bidding.immediatePurchase
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
 import com.alexk.bidit.common.util.addComma
+import com.alexk.bidit.common.util.showLongToastMessage
 import com.alexk.bidit.databinding.DialogSellingImmediatePurchaseBinding
 
 class BiddingBidImmediatePurchaseDialog(context: Context, private val price: Int?) : Dialog(context) {
@@ -23,24 +23,22 @@ class BiddingBidImmediatePurchaseDialog(context: Context, private val price: Int
             false
         )
         setContentView(binding.root)
-        init()
-        initEvent()
+
+        initPriceText()
+        addButtonEvent()
     }
 
-    private fun init() {
-        binding.apply {
-            Log.d("price","$price")
-            tvMerchandisePrice.text = addComma(price!!)
-        }
+    private fun initPriceText() {
+        binding.tvMerchandisePrice.text = addComma(price!!)
     }
 
-    private fun initEvent() {
+    private fun addButtonEvent() {
         binding.apply {
             btnCancel.setOnClickListener {
                 dismiss()
             }
             btnChat.setOnClickListener {
-                //chatting activity
+                context.showLongToastMessage("채팅 개발 중")
             }
         }
     }

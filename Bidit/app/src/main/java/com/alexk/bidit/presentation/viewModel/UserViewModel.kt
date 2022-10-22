@@ -8,9 +8,8 @@ import com.alexk.bidit.*
 import com.alexk.bidit.common.util.ErrorCouldNotAdd
 import com.alexk.bidit.common.util.ErrorInvalidToken
 import com.alexk.bidit.common.util.ErrorNotMatchedArticle
-import com.alexk.bidit.common.util.ErrorUserNotFound
 import com.alexk.bidit.domain.repository.UserRepository
-import com.alexk.bidit.common.util.view.ViewState
+import com.alexk.bidit.common.util.value.ViewState
 import com.alexk.bidit.domain.entity.user.UserBasicEntity
 import com.alexk.bidit.type.MembershipStatus
 import com.apollographql.apollo3.api.ApolloResponse

@@ -1,9 +1,8 @@
 package com.alexk.bidit.domain.repository
 
-import com.alexk.bidit.CancelBidMutation
-import com.alexk.bidit.DoBidMutation
 import com.alexk.bidit.GetBiddingInfoQuery
 import com.alexk.bidit.GetMyBiddingInfoQuery
+import com.alexk.bidit.common.util.value.BidStatus
 import com.apollographql.apollo3.api.ApolloResponse
 
 interface BiddingRepository {
@@ -13,5 +12,5 @@ interface BiddingRepository {
         itemId: Int,
         bidPrice: Int,
         status: Int
-    ): ApolloResponse<DoBidMutation.Data>
+    ): BidStatus
 }

@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.alexk.bidit.*
 import com.alexk.bidit.domain.repository.ItemRepository
 import com.apollographql.apollo3.api.ApolloResponse
-import com.alexk.bidit.common.util.view.ViewState
+import com.alexk.bidit.common.util.value.ViewState
 import com.alexk.bidit.domain.entity.item.ItemBasicEntity
 import com.alexk.bidit.domain.entity.item.category.ItemCategoryRequestEntity
 import com.alexk.bidit.domain.entity.item.connection.ItemConnectionEntity

@@ -10,13 +10,11 @@ import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.bidding.BiddingMerchandiseImgPageAdapter
 import com.alexk.bidit.common.adapter.bidding.BiddingUserAdapter
-import com.alexk.bidit.common.util.ErrorOwnItemBidding
+import com.alexk.bidit.common.util.ErrorLowPriceBidding
 import com.alexk.bidit.common.util.setLoadingDialog
-import com.alexk.bidit.common.util.value.ITEM_ID
-import com.alexk.bidit.common.util.value.ItemStatus
-import com.alexk.bidit.common.util.value.PostProcessType
+import com.alexk.bidit.common.util.showLongToastMessage
+import com.alexk.bidit.common.util.value.*
 import com.alexk.bidit.databinding.FragmentBiddingBinding
-import com.alexk.bidit.common.util.view.ViewState
 import com.alexk.bidit.domain.entity.item.ItemBasicEntity
 import com.alexk.bidit.domain.entity.item.img.ItemImgEntity
 import com.alexk.bidit.presentation.base.BaseFragment
@@ -28,7 +26,6 @@ import com.alexk.bidit.presentation.ui.bid.seller.status.BiddingItemStatusDialog
 import com.alexk.bidit.presentation.ui.home.HomeActivity
 import com.alexk.bidit.presentation.viewModel.BiddingViewModel
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
-import com.sendbird.android.constant.StringSet.s
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -53,7 +50,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
 
     private fun init() {
         observeItemInfo()
-        observeBiddingInfo()
+        observeAfterBiddInfo()
         observePostInfo()
         itemViewModel.getItemInfo(itemId!!)
     }
@@ -118,19 +115,17 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
         }
     }
 
-    private fun showBiddingDialog() {
-        val biddingDialog = BiddingBidDialog {
-            bidPrice = it
-            bidViewModel.controlBid(itemId!!, bidPrice, 0)
-        }
+    private fun setCurrentBidPrice(): Int {
+        return itemInfo.cPrice ?: itemInfo.sPrice!!
+    }
 
+    private fun showBiddingDialog() {
+        val biddingDialog = BiddingBidDialog { bidPrice ->
+            bidViewModel.controlBid(itemId!!, bidPrice, BidStatus.VALID)
+        }
         biddingDialog.arguments = Bundle().apply {
-            var price = itemInfo?.cPrice
-            if (itemInfo?.cPrice == null) {
-                price = itemInfo?.sPrice
-            }
-            this.putInt("currentPrice", price!!)
-            this.putInt("bidPrice", 1000)
+            this.putInt(CURRENT_BID_PRICE, setCurrentBidPrice())
+            this.putInt(BID_PRICE, 1000)
         }
         biddingDialog.show(childFragmentManager, biddingDialog.tag)
     }
@@ -166,6 +161,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
         binding.apply {
             this.itemInfo = itemInfo
             initBiddingList()
+            svMain.visibility = View.VISIBLE
         }
     }
 
@@ -208,6 +204,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                 binding.tvBiddingStatus.text = "종료"
                 binding.tvBiddingStatus.isClickable = false
             }
+            svMain.visibility = View.VISIBLE
         }
     }
 
@@ -235,7 +232,6 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                 is ViewState.Loading -> {
                     requireContext().setLoadingDialog(true)
                 }
-                //아이템 가져오기 성공
                 is ViewState.Success -> {
                     requireContext().setLoadingDialog(false)
                     val result = response.value
@@ -246,7 +242,6 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                     } else {
                         setBiddingInfoUI(itemInfo)
                     }
-                    binding.svMain.visibility = View.VISIBLE
                 }
                 is ViewState.Error -> {
                     requireContext().setLoadingDialog(false)
@@ -255,7 +250,17 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
         }
     }
 
-    private fun observeBiddingInfo() {
+    private fun showAlreadyTopBidDialog() {
+        val dialog = BiddingBidAlreadyTopBidDialog(requireContext())
+        dialog.setCanceledOnTouchOutside(true)
+        dialog.show()
+        dialog.window?.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
+    }
+
+    private fun observeAfterBiddInfo() {
         bidViewModel.bidCompleteInfo.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
@@ -263,26 +268,27 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                 }
                 is ViewState.Success -> {
                     requireContext().setLoadingDialog(false)
-                    val result = response.value?.data?.bid
-                    if (result != null && response.value.errors?.get(0)?.message != ErrorOwnItemBidding) {
-                        navigate(
-                            BiddingFragmentDirections.actionBiddingFragmentToBiddingCompleteFragment(
-                                bidPrice,
-                                itemId!!
+                    when (response.value as BidStatus) {
+                        BidStatus.VALID -> {
+                            navigate(
+                                BiddingFragmentDirections.actionBiddingFragmentToBiddingCompleteFragment(
+                                    bidPrice,
+                                    itemId!!
+                                )
                             )
-                        )
-                    } else {
-                        val dialog = BiddingBidAlreadyTopBidDialog(requireContext())
-                        dialog.setCanceledOnTouchOutside(true)
-                        dialog.show()
-                        dialog.window?.setLayout(
-                            WindowManager.LayoutParams.MATCH_PARENT,
-                            WindowManager.LayoutParams.WRAP_CONTENT
-                        )
+                        }
+                        BidStatus.INVALID -> {
+                            activity?.finishAffinity()
+                            requireContext().showLongToastMessage("입찰이 취소되었습니다.")
+                            startActivity(Intent(requireContext(), HomeActivity::class.java))
+                        }
                     }
                 }
                 is ViewState.Error -> {
                     requireContext().setLoadingDialog(false)
+                    if (response.message == ErrorLowPriceBidding) {
+                        showAlreadyTopBidDialog()
+                    }
                 }
             }
         }

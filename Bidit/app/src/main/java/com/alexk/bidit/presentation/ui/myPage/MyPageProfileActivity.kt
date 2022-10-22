@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
 import com.alexk.bidit.common.dialog.LoadingDialog
 import com.alexk.bidit.databinding.ActivityMyPageProfileModifyBinding
-import com.alexk.bidit.common.util.view.ViewState
+import com.alexk.bidit.common.util.value.ViewState
 import com.alexk.bidit.presentation.ui.myPage.dialog.MyPageEditProfileDialog
 import com.alexk.bidit.presentation.viewModel.UserViewModel
 import com.bumptech.glide.Glide

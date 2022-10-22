@@ -1,4 +1,4 @@
-package com.alexk.bidit.common.util.view
+package com.alexk.bidit.common.view
 
 import android.text.Editable
 import android.text.Selection
@@ -11,12 +11,7 @@ import java.lang.NumberFormatException
 
 class EditTextPriceWatcher(private val editText: EditText) : TextWatcher {
 
-    var inputText = ""
-    var price = try {
-        editText.text.toString().replace(",", "").toInt()
-    } catch (e: NumberFormatException) {
-        0
-    }
+    private var inputText = ""
 
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -25,8 +20,7 @@ class EditTextPriceWatcher(private val editText: EditText) : TextWatcher {
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         if (!TextUtils.isEmpty(s.toString()) && s.toString() != inputText
         ) {
-            price = s?.toString()?.replace(",", "")?.toInt()!!
-            inputText = addComma(price)
+            inputText = addComma(s?.toString()?.replace(",", "")?.toInt()!!)
             editText.setText(inputText)
             val editable = editText.text
             Selection.setSelection(editable, inputText.length)
@@ -37,5 +31,4 @@ class EditTextPriceWatcher(private val editText: EditText) : TextWatcher {
 
     }
 
-    fun getInputPrice(): Int = price
 }
