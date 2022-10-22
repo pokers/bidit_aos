@@ -1,4 +1,4 @@
-package com.alexk.bidit.presentation.ui.item
+package com.alexk.bidit.presentation.ui.bid.img
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.alexk.bidit.R
+import com.alexk.bidit.common.util.value.ITEM_IMG_URL
 import com.alexk.bidit.databinding.FragmentBiddingBannerBinding
 import com.bumptech.glide.Glide
 
-class BiddingMerchandiseImgFragment(private val imgUrl: String?) : Fragment() {
+class BiddingMerchandiseImgFragment : Fragment() {
 
     lateinit var binding: FragmentBiddingBannerBinding
 
@@ -25,8 +26,14 @@ class BiddingMerchandiseImgFragment(private val imgUrl: String?) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val imgUrl = arguments?.getString(ITEM_IMG_URL)
+        setItemImg(imgUrl!!)
+    }
+
+    private fun setItemImg(url : String){
         Glide.with(requireContext())
-            .load(imgUrl)
+            .load(url)
             .into(binding.ivBanner)
     }
 }

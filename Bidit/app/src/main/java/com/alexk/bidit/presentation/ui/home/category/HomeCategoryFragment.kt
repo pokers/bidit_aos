@@ -16,7 +16,7 @@ import com.alexk.bidit.common.util.value.ITEM_ID
 import com.alexk.bidit.common.util.value.ITEM_CATEGORY_TYPE
 import com.alexk.bidit.domain.entity.item.ItemBasicEntity
 import com.alexk.bidit.presentation.base.BaseFragment
-import com.alexk.bidit.presentation.ui.item.BiddingActivity
+import com.alexk.bidit.presentation.ui.bid.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import com.alexk.bidit.type.CursorType
 import dagger.hilt.android.AndroidEntryPoint
@@ -96,26 +96,24 @@ class HomeCategoryFragment :
     }
 
     private fun addItemClickEvent() {
-        itemListAdapter.onItemClicked =
-            {
+        itemListAdapter.onItemClicked = {
                 val intent = Intent(requireContext(), BiddingActivity::class.java)
                 intent.putExtra(ITEM_ID, it)
                 startActivity(intent)
             }
     }
 
-
     private fun setNoItemListLayout() {
         itemListAdapter.submitList(emptyList())
         binding.lyNoList.visibility = View.VISIBLE
     }
 
-    private fun setPagingFeature(nextPageAvailable: Boolean, itemList: List<ItemBasicEntity>) {
+    private fun addItemToList(nextPageAvailable: Boolean, itemList: List<ItemBasicEntity>) {
         hasNextPage = nextPageAvailable
         if (nextPageAvailable) {
             setNextPageCount()
-            addItemClickEvent()
         }
+        addItemClickEvent()
         itemListAdapter.submitList(itemList)
     }
 
@@ -131,7 +129,7 @@ class HomeCategoryFragment :
                     if (result?.itemList?.isEmpty() == true) {
                         setNoItemListLayout()
                     } else {
-                        setPagingFeature(result?.itemPageInfo?.hasNextPage!!, result.itemList!!)
+                        addItemToList(result?.itemPageInfo?.hasNextPage!!, result.itemList!!)
                     }
                 }
                 is ViewState.Error -> {

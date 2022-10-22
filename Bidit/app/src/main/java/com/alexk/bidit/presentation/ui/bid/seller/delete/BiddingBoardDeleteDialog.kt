@@ -1,4 +1,4 @@
-package com.alexk.bidit.presentation.ui.item.dialog
+package com.alexk.bidit.presentation.ui.bid.seller.delete
 
 import android.app.Dialog
 import android.content.Context

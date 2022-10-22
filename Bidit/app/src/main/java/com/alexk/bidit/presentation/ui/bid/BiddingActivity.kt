@@ -1,9 +1,12 @@
-package com.alexk.bidit.presentation.ui.item
+package com.alexk.bidit.presentation.ui.bid
 
 import android.content.Intent
+import android.os.Bundle
+import android.os.PersistableBundle
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.ActivitiyBiddingBinding
 import com.alexk.bidit.presentation.base.BaseActivity
+import com.alexk.bidit.presentation.ui.bid.complete.BiddingCompleteFragment
 import com.alexk.bidit.presentation.ui.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi

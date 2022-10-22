@@ -1,22 +1,24 @@
-package com.alexk.bidit.presentation.ui.item.dialog
+package com.alexk.bidit.presentation.ui.bid.bidding.immediatePurchase
 
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
-import com.alexk.bidit.databinding.DialogBiddingFailBinding
+import com.alexk.bidit.common.util.addComma
+import com.alexk.bidit.databinding.DialogSellingImmediatePurchaseBinding
 
-//판매글 삭제 불가능
-class BiddingBidAlreadyTopBidDialog(context: Context) : Dialog(context) {
-    private lateinit var binding: DialogBiddingFailBinding
+class BiddingBidImmediatePurchaseDialog(context: Context, private val price: Int?) : Dialog(context) {
+
+    private lateinit var binding: DialogSellingImmediatePurchaseBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.inflate(
             LayoutInflater.from(context),
-            R.layout.dialog_bidding_fail,
+            R.layout.dialog_selling_immediate_purchase,
             null,
             false
         )
@@ -27,14 +29,18 @@ class BiddingBidAlreadyTopBidDialog(context: Context) : Dialog(context) {
 
     private fun init() {
         binding.apply {
-
+            Log.d("price","$price")
+            tvMerchandisePrice.text = addComma(price!!)
         }
     }
 
     private fun initEvent() {
         binding.apply {
-            btnConfirm.setOnClickListener {
+            btnCancel.setOnClickListener {
                 dismiss()
+            }
+            btnChat.setOnClickListener {
+                //chatting activity
             }
         }
     }

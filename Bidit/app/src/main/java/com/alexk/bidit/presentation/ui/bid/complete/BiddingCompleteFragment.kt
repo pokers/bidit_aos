@@ -1,4 +1,4 @@
-package com.alexk.bidit.presentation.ui.item
+package com.alexk.bidit.presentation.ui.bid.complete
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,7 @@ import com.alexk.bidit.R
 import com.alexk.bidit.common.util.addComma
 import com.alexk.bidit.databinding.FragmentBiddingCompleteBinding
 import com.alexk.bidit.presentation.base.BaseFragment
-import com.alexk.bidit.presentation.ui.item.dialog.BiddingBidCancelDialog
+import com.alexk.bidit.presentation.ui.bid.cancelPayment.BiddingBidCancelDialog
 import com.alexk.bidit.presentation.ui.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi

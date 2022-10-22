@@ -10,7 +10,7 @@ import com.alexk.bidit.type.ItemUpdateInput
 import com.apollographql.apollo3.api.ApolloResponse
 
 interface ItemRepository {
-    suspend fun retrieveItemInfo(id: Int): ApolloResponse<GetItemInfoQuery.Data>
+    suspend fun retrieveItemInfo(id: Int): ItemBasicEntity
     suspend fun retrieveCursorTypeItemList(firstInfo : Int, lastInfo : Int, cursorType: CursorType): ItemConnectionEntity
     suspend fun retrieveCategoryItemList(
         categoryId: Int,

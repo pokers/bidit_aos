@@ -32,7 +32,6 @@ class GlobalApplication : Application() {
 
     private fun initFirebaseSdk(){
         FirebaseMessaging.getInstance().token.addOnSuccessListener {
-            Log.d("Get Fb Token",it)
             UserTokenManager.setPushToken(it)
         }
     }
