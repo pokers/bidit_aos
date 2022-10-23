@@ -93,6 +93,7 @@ dependencies {
     androidTestImplementation(libs.androidx.test.espresso)
 
     implementation(libs.sendbird.sdk)
+    implementation(libs.google.gson)
 
     implementation(libs.retrofit2)
     implementation(libs.okhttp3.logging.interceptor)

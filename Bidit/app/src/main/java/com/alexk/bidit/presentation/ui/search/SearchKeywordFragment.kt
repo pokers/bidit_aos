@@ -13,10 +13,10 @@ import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.common.ItemListAdapter
 import com.alexk.bidit.common.adapter.search.SearchKeywordListAdapter
 import com.alexk.bidit.common.util.setLoadingDialog
-import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
+import com.alexk.bidit.common.view.GridRecyclerViewDeco
 import com.alexk.bidit.common.util.sharePreference.SearchKeywordManager
 import com.alexk.bidit.databinding.FragmentSearchKeywordBinding
-import com.alexk.bidit.common.util.view.ViewState
+import com.alexk.bidit.common.util.value.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import com.alexk.bidit.presentation.viewModel.SearchViewModel

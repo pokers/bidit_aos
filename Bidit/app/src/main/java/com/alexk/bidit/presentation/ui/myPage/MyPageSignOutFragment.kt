@@ -10,7 +10,7 @@ import com.alexk.bidit.R
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.sharePreference.UserTokenManager
 import com.alexk.bidit.databinding.FragmentMyPageSignOutBinding
-import com.alexk.bidit.common.util.view.ViewState
+import com.alexk.bidit.common.util.value.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.myPage.dialog.MyPageSignOutReasonDialog
 import com.alexk.bidit.presentation.viewModel.UserViewModel
@@ -86,7 +86,7 @@ class MyPageSignOutFragment :
                     context?.setLoadingDialog(false)
                     Log.d("Delete user info","Success")
                     UserTokenManager.removePushToken()
-                    UserTokenManager.removeToken()
+                    UserTokenManager.removeKakaoToken()
                     navigate(MyPageSignOutFragmentDirections.actionMyPageSignOutFragmentToMyPageSignOutCompleteFragment())
                 }
                 is ViewState.Error -> {

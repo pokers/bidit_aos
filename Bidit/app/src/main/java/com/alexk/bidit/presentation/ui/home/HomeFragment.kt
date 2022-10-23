@@ -18,7 +18,7 @@ import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.home.HomeCategoryPageAdapter
 import com.alexk.bidit.common.adapter.home.banner.HomeBannerFragmentAdapter
 import com.alexk.bidit.common.adapter.home.category.HomeCategoryListAdapter
-import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
+import com.alexk.bidit.common.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentHomeBinding
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.selling.SellingActivity

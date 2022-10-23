@@ -1,4 +1,4 @@
-package com.alexk.bidit.common.adapter.common
+package com.alexk.bidit.common.adapter
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -26,8 +26,7 @@ object CommonBindingAdapter {
                 .load(img)
                 .centerInside()
                 .into(this)
-        }
-        else{
+        } else {
             this.setImageResource(R.drawable.bg_rect_transparent_white_smoke_radius4_stroke0)
         }
     }
@@ -39,21 +38,19 @@ object CommonBindingAdapter {
             Glide.with(this.context)
                 .load(imageUrl)
                 .into(this)
-        }
-        else{
+        } else {
             this.setImageResource(R.drawable.ic_notification)
         }
     }
 
     @SuppressLint("SetTextI18n")
     @JvmStatic
-    @BindingAdapter("sPrice","cPrice")
-    fun TextView.changePriceType(sPrice: Int?, cPrice : Int?) {
+    @BindingAdapter("sPrice", "cPrice")
+    fun TextView.changePriceType(sPrice: Int?, cPrice: Int?) {
         if (sPrice != null) {
-            if(sPrice > 0 && cPrice == null){
+            if (sPrice > 0 && cPrice == null) {
                 this.text = "${addComma(sPrice)}원"
-            }
-            else{
+            } else {
                 this.text = "${addComma(cPrice!!)}원"
             }
         }
@@ -63,7 +60,7 @@ object CommonBindingAdapter {
     @JvmStatic
     @BindingAdapter("buyNow")
     fun TextView.changeBuyNowPriceType(price: Int?) {
-        if(price != null){
+        if (price != null) {
             this.text = "${addComma(price)}"
         }
     }
@@ -81,11 +78,10 @@ object CommonBindingAdapter {
 
     @JvmStatic
     @BindingAdapter("nickname")
-    fun TextView.changeNickName(nickname : String?) {
-        if(nickname != null){
+    fun TextView.changeNickName(nickname: String?) {
+        if (nickname != null) {
             this.text = nickname
-        }
-        else{
+        } else {
             this.text = ""
         }
     }
@@ -124,9 +120,9 @@ object CommonBindingAdapter {
                     if (hour > 0) {
                         this.text = "${hour}일 후 마감"
                     } else {
-                        if(hour < 0){
+                        if (hour < 0) {
                             this.text = "마감"
-                        }else{
+                        } else {
                             this.text = "${hour * 1000 * 60 * 60}시간 후 마감"
                         }
                     }
@@ -142,13 +138,16 @@ object CommonBindingAdapter {
     @JvmStatic
     @BindingAdapter("date")
     fun TextView.changeDateType(date: String?) {
-        this.text = ""
-        val year = date?.substring(0, 4)
-        val month = date?.substring(5, 7)
-        val day = date?.substring(8, 10)
-        val hour = date?.substring(11, 13)
-        val minute = date?.substring(14, 16)
-        this.text = "${year}년 ${month}월 ${day}일 ${hour}:${minute}"
+        if (date == null) {
+            this.text = ""
+        } else {
+            val year = date.substring(0, 4)
+            val month = date.substring(5, 7)
+            val day = date.substring(8, 10)
+            val hour = date.substring(11, 13)
+            val minute = date.substring(14, 16)
+            this.text = "${year}년 ${month}월 ${day}일 ${hour}:${minute}"
+        }
     }
 
     @JvmStatic
@@ -156,7 +155,7 @@ object CommonBindingAdapter {
     fun TextView.changeStatusType(status: Int?) {
         //텍스트 날짜 형식으로 변환 필요
         val statusText: String = when (status) {
-            0,1 -> {
+            0, 1 -> {
                 "판매중"
             }
             2 -> {
@@ -186,18 +185,18 @@ object CommonBindingAdapter {
     @JvmStatic
     @BindingAdapter("socialType")
     fun ImageView.setSocialType(type: JoinPath?) {
-        when(type){
+        when (type) {
             JoinPath.GOOGLE -> {
-                Log.d("Not Implements","Login")
+                Log.d("Not Implements", "Login")
             }
             JoinPath.KAKAO -> {
                 this.setImageResource(R.drawable.ic_my_page_login_kakao)
             }
             JoinPath.APPLE -> {
-                Log.d("Not Implements","Login")
+                Log.d("Not Implements", "Login")
             }
             else -> {
-                Log.d("Not Implements","Login")
+                Log.d("Not Implements", "Login")
             }
         }
     }

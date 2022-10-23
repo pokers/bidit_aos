@@ -68,19 +68,10 @@ query getMyBiddingInfo($biddingQuery : BiddingQueryInput){
     }
 }
 
-mutation doBid($bidInfo:BidInput){
+mutation controlBid($bidInfo:BidInput){
     bid(bid: $bidInfo){
-        item{
-            id
-        }
+        status
     }
 }
 
-mutation cancelBid($bidInfo:BidInput){
-    bid(bid:$bidInfo){
-        item {
-            status
-        }
-    }
-}
 

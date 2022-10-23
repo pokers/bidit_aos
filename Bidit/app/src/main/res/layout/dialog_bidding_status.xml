@@ -74,6 +74,24 @@
                 android:textColor="@color/charcoal"
                 android:textSize="14sp" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/whisper" />
+
+            <RadioButton
+                android:id="@+id/rbselling_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:drawableRight="@drawable/sc_btn_radio"
+                android:fontFamily="@font/notosans_kr_medium"
+                android:includeFontPadding="false"
+                android:padding="16dp"
+                android:text="@string/content_selling_cancel"
+                android:textColor="@color/charcoal"
+                android:textSize="14sp" />
+
         </RadioGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.alexk.bidit.common.util.view
+package com.alexk.bidit.common.util.value
 
 //서버 통신 상태
 sealed class ViewState<T>(

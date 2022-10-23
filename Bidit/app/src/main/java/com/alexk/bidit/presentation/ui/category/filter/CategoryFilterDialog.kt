@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
-import com.alexk.bidit.common.util.view.EditTextAutoCommaWatcher
+import com.alexk.bidit.common.view.EditTextAutoCommaWatcher
 import com.alexk.bidit.databinding.DialogMerchandiseFilterBinding
 import com.alexk.bidit.domain.entity.item.category.ItemCategoryRequestEntity
 import com.alexk.bidit.type.CursorType
@@ -88,7 +88,7 @@ class CategoryFilterDialog(
             if (validateImmediatePrice() && validateStartPrice() && validateStartMonth()) {
                 bid(
                     ItemCategoryRequestEntity(
-                        deliveryType,
+                        getDeliveryType(),
                         minUsingTime,
                         maxUsingTime,
                         minStartPrice,

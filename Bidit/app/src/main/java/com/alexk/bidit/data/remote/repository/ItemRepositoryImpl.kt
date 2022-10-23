@@ -10,6 +10,8 @@ import com.alexk.bidit.domain.entity.item.connection.ItemConnectionEntity
 import com.alexk.bidit.domain.entity.item.connection.ItemEdgeEntity
 import com.alexk.bidit.domain.entity.item.connection.ItemPageInfoEntity
 import com.alexk.bidit.domain.entity.item.img.ItemImgEntity
+import com.alexk.bidit.domain.entity.user.UserBasicEntity
+import com.alexk.bidit.domain.entity.user.socialLogin.UserKakaoLoginEntity
 import com.alexk.bidit.domain.repository.ItemRepository
 import com.alexk.bidit.type.CursorType
 import com.alexk.bidit.type.ItemAddInput
@@ -23,8 +25,54 @@ import javax.inject.Inject
 
 class ItemRepositoryImpl @Inject constructor(private val apiService: ApolloClient) :
     ItemRepository {
-    override suspend fun retrieveItemInfo(id: Int): ApolloResponse<GetItemInfoQuery.Data> {
-        return apiService.provideApolloClient().query(GetItemInfoQuery(getItemId = id)).execute()
+    override suspend fun retrieveItemInfo(id: Int): ItemBasicEntity {
+        val itemInfo = ItemBasicEntity()
+
+        fun typeCastItemImgList(getItemImageList: List<GetItemInfoQuery.Image?>?): List<ItemImgEntity> {
+            val itemImgList = mutableListOf<ItemImgEntity>()
+            getItemImageList?.forEach {
+                itemImgList.add(ItemImgEntity(it?.url))
+            }
+            return itemImgList.toList()
+        }
+
+        fun typeCastItemUserInfo(info: GetItemInfoQuery.User): UserBasicEntity {
+            val userInfo = UserBasicEntity()
+            userInfo.apply {
+                this.id = info.id
+                this.nickname = info.nickname
+                this.kakaoAccount = info.kakaoAccount?.let {
+                    UserKakaoLoginEntity(
+                        nickName = it.nickname,
+                        profileImageUrl = it.profile_image_url
+                    )
+                }
+            }
+            return userInfo
+        }
+
+        try {
+            val response = apiService.provideApolloClient().query(GetItemInfoQuery(getItemId = id))
+                .execute().data?.getItem
+
+            itemInfo.apply {
+                this.id = response?.id
+                this.status = response?.status
+                this.sPrice = response?.sPrice
+                this.cPrice = response?.cPrice
+                this.buyNow = response?.buyNow
+                this.viewCount = response?.viewCount
+                this.title = response?.title
+                this.createdAt = response?.createdAt
+                this.dueDate = response?.dueDate
+                this.description = response?.description?.description
+                this.itemUserInfo = typeCastItemUserInfo(response?.user!!)
+                this.itemImgList = typeCastItemImgList(response.image)
+            }
+        } catch (e: ApolloException) {
+            throw ApolloException(ErrorItemNotFound)
+        }
+        return itemInfo
     }
 
     override suspend fun retrieveCursorTypeItemList(
@@ -74,6 +122,8 @@ class ItemRepositoryImpl @Inject constructor(private val apiService: ApolloClien
                         itemInfo?.title,
                         itemInfo?.createdAt,
                         itemInfo?.dueDate,
+                        null,
+                        null,
                         imgList
                     )
 
@@ -134,6 +184,8 @@ class ItemRepositoryImpl @Inject constructor(private val apiService: ApolloClien
                         itemInfo?.title,
                         itemInfo?.createdAt,
                         itemInfo?.dueDate,
+                        null,
+                        null,
                         imgList
                     )
                 )
@@ -190,6 +242,8 @@ class ItemRepositoryImpl @Inject constructor(private val apiService: ApolloClien
                         itemInfo?.title,
                         itemInfo?.createdAt,
                         itemInfo?.dueDate,
+                        null,
+                        null,
                         imgList
                     )
                 )
@@ -235,17 +289,19 @@ class ItemRepositoryImpl @Inject constructor(private val apiService: ApolloClien
                 val itemInfo = it?.node
                 val imgList = typeCastItemImgList(itemInfo?.image)
                 itemList.add(
-                        ItemBasicEntity(
-                            itemInfo?.id,
-                            itemInfo?.status,
-                            itemInfo?.sPrice,
-                            itemInfo?.cPrice,
-                            itemInfo?.buyNow,
-                            itemInfo?.viewCount,
-                            itemInfo?.title,
-                            itemInfo?.createdAt,
-                            itemInfo?.dueDate,
-                            imgList
+                    ItemBasicEntity(
+                        itemInfo?.id,
+                        itemInfo?.status,
+                        itemInfo?.sPrice,
+                        itemInfo?.cPrice,
+                        itemInfo?.buyNow,
+                        itemInfo?.viewCount,
+                        itemInfo?.title,
+                        itemInfo?.createdAt,
+                        itemInfo?.dueDate,
+                        null,
+                        null,
+                        imgList
                     )
                 )
             }
@@ -318,10 +374,12 @@ class ItemRepositoryImpl @Inject constructor(private val apiService: ApolloClien
             val response = apiService.provideApolloClient().query(
                 GetItemListQuery(
                     itemQueryInfo = Optional.Present(
-                        ItemQueryInput(categoryId = Optional.Present(itemCategoryRequest.categoryId),
-                        deliveryType = Optional.Present(itemCategoryRequest.deliveryType),
-                        sCondition = Optional.Present(itemCategoryRequest.minUsingTime),
-                        aCondition = Optional.Present(itemCategoryRequest.maxUsingTime))
+                        ItemQueryInput(
+                            categoryId = Optional.Present(itemCategoryRequest.categoryId),
+                            deliveryType = Optional.Present(itemCategoryRequest.deliveryType),
+                            sCondition = Optional.Present(itemCategoryRequest.minUsingTime),
+                            aCondition = Optional.Present(itemCategoryRequest.maxUsingTime)
+                        )
                     ),
                     cursorTypeInfo = Optional.Present(itemCategoryRequest.cursorType)
                 )
@@ -347,6 +405,8 @@ class ItemRepositoryImpl @Inject constructor(private val apiService: ApolloClien
                         itemInfo?.title,
                         itemInfo?.createdAt,
                         itemInfo?.dueDate,
+                        null,
+                        null,
                         imgList
                     )
                 )
@@ -354,9 +414,11 @@ class ItemRepositoryImpl @Inject constructor(private val apiService: ApolloClien
             itemConnectionInfo.itemPageInfo = itemPageInfo
             itemConnectionInfo.totalCount = totalItemCount
             itemConnectionInfo.itemList =
-                itemList.filter { (it.status == 0 || it.status == 1)
-                        && (it.sPrice!! >= itemCategoryRequest.minStartPrice && it.sPrice!! <= itemCategoryRequest.maxStartPrice)
-                        && (it.buyNow!! >= itemCategoryRequest.minImmediatePrice && it.buyNow!! <= itemCategoryRequest.maxImmediatePrice)}
+                itemList.filter {
+                    (it.status == 0 || it.status == 1)
+                            && (it.sPrice!! >= itemCategoryRequest.minStartPrice && it.sPrice!! <= itemCategoryRequest.maxStartPrice)
+                            && (it.buyNow!! >= itemCategoryRequest.minImmediatePrice && it.buyNow!! <= itemCategoryRequest.maxImmediatePrice)
+                }
 
         } catch (e: ApolloException) {
             throw ApolloException(ErrorItemNotFound)

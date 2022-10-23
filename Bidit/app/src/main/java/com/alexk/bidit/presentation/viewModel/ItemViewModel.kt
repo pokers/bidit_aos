@@ -7,7 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.alexk.bidit.*
 import com.alexk.bidit.domain.repository.ItemRepository
 import com.apollographql.apollo3.api.ApolloResponse
-import com.alexk.bidit.common.util.view.ViewState
+import com.alexk.bidit.common.util.value.ViewState
+import com.alexk.bidit.domain.entity.item.ItemBasicEntity
 import com.alexk.bidit.domain.entity.item.category.ItemCategoryRequestEntity
 import com.alexk.bidit.domain.entity.item.connection.ItemConnectionEntity
 import com.alexk.bidit.type.CursorType
@@ -26,7 +27,7 @@ class ItemViewModel @Inject constructor(private val repository: ItemRepository) 
     private val _itemList by lazy { MutableLiveData<ViewState<ItemConnectionEntity>>() }
     val itemList get() = _itemList
 
-    private val _itemInfo by lazy { MutableLiveData<ViewState<ApolloResponse<GetItemInfoQuery.Data>>>() }
+    private val _itemInfo by lazy { MutableLiveData<ViewState<ItemBasicEntity>>() }
     val itemInfo get() = _itemInfo
 
     private val _updateItem by lazy { MutableLiveData<ViewState<ApolloResponse<UpdateItemMutation.Data>>>() }

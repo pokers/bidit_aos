@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexk.bidit.di.S3Client
-import com.alexk.bidit.common.util.view.ViewState
+import com.alexk.bidit.common.util.value.ViewState
 import com.alexk.bidit.domain.entity.item.img.ItemImgEntity
 import com.alexk.bidit.domain.repository.ItemImgRepository
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener

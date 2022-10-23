@@ -37,6 +37,9 @@ apollo_graphql_version = "3.5.0"
 # kakao
 kakao_sdk_version = "2.5.0"
 
+# gson
+gson_version = "2.9.1"
+
 # sendbird
 sendbird_sdk_version = "3.0.141"
 
@@ -58,12 +61,14 @@ shawnlin013_number_picker_version = "2.4.13"
 kizitonwose_calendarview_version = "1.0.4"
 ybq-spinkit_version = "1.4.0"
 
+
 [libraries]
 kotlin-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin_gradle_plugin_version" }
 gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle_version" }
 navigation-safe-args-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation_safe_args_version" }
 hilt-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt_version" }
 google-service = { module = "com.google.gms:google-services", version.ref = "google_service_version" }
+google-gson = {module ="com.google.code.gson:gson", version.ref = "gson_version"}
 firebase-crashlytics-gradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebase_crashlytics_gradle_version" }
 
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx_core_ktx_version" }
@@ -110,6 +115,8 @@ kizitonwose-calendarview = { module = "com.github.kizitonwose:CalendarView", ver
 ybq-spinkit = { module = "com.github.ybq:Android-SpinKit", version.ref = "ybq-spinkit_version" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics"}
+
+
 
 [bundles]
 navigation = ["androidx-navigation-fragment-ktx","androidx-navigation-ui-ktx","androidx-navigation-common","androidx-navigation-dynamic-features-fragment","androidx-navigation-testing"]

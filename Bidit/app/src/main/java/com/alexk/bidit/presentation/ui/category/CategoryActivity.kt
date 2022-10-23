@@ -1,13 +1,10 @@
 package com.alexk.bidit.presentation.ui.category
 
-import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.RadioButton
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -15,13 +12,12 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.common.ItemListAdapter
-import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
+import com.alexk.bidit.common.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.ActivityCategoryBinding
-import com.alexk.bidit.common.util.view.ViewState
+import com.alexk.bidit.common.util.value.ViewState
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.value.CATEGORY_ID
 import com.alexk.bidit.presentation.ui.category.filter.CategoryFilterDialog
-import com.alexk.bidit.presentation.ui.item.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import com.alexk.bidit.type.CursorType
 import com.skydoves.balloon.ArrowOrientation
@@ -65,7 +61,7 @@ class CategoryActivity : AppCompatActivity() {
     private fun initItemList() {
         binding.rvMerchandiseList.apply {
             layoutManager =
-                GridLayoutManager(this@CategoryActivity, 2, GridLayoutManager.HORIZONTAL, false)
+                GridLayoutManager(this@CategoryActivity, 2, GridLayoutManager.VERTICAL, false)
             adapter = itemListAdapter
         }
         getItemList()

@@ -1,4 +1,4 @@
-package com.alexk.bidit.presentation.ui.item.dialog
+package com.alexk.bidit.presentation.ui.bid.seller
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,16 +8,13 @@ import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
 import com.alexk.bidit.common.util.setDialogTransparentBackground
+import com.alexk.bidit.common.util.value.PostProcessType
 import com.alexk.bidit.databinding.DialogBiddingBoardMoreInfoBinding
+import com.alexk.bidit.presentation.ui.bid.seller.delete.BiddingBoardDeleteDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class BiddingBoardMoreInfoDialog(
-    private val updateEvent: (Int) -> Unit
-) :
-    BottomSheetDialogFragment() {
-
+class BiddingBoardMoreInfoDialog(private val updateEvent: (PostProcessType) -> Unit) : BottomSheetDialogFragment() {
     private lateinit var binding: DialogBiddingBoardMoreInfoBinding
-    private val itemId by lazy { arguments?.getInt("itemId") }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,32 +27,34 @@ class BiddingBoardMoreInfoDialog(
             container,
             false
         )
-        initEvent()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initButtonEvent()
         setDialogTransparentBackground()
     }
 
-    private fun initEvent() {
+    private fun setOptionMenuEvent(){
+
+    }
+
+    private fun initButtonEvent() {
         binding.apply {
-            //닫기
             btnClose.setOnClickListener {
                 dismiss()
             }
-            //수정
             btnModify.setOnClickListener {
                 dismiss()
-                updateEvent(0)
+                updateEvent(PostProcessType.MODIFY)
             }
             btnDelete.setOnClickListener {
                 dismiss()
                 //게시글 삭제
                 val dialog =
                     BiddingBoardDeleteDialog(requireContext()) {
-                        updateEvent(1)
+                        updateEvent(PostProcessType.DELETE)
                     }
                 dialog.setCanceledOnTouchOutside(true)
                 dialog.show()

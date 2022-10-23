@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.alexk.bidit.GlobalApplication
@@ -15,7 +14,7 @@ import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.sharePreference.UserTokenManager
 import com.alexk.bidit.common.util.showLongToastMessage
 import com.alexk.bidit.databinding.ActivitySplashBinding
-import com.alexk.bidit.common.util.view.ViewState
+import com.alexk.bidit.common.util.value.ViewState
 import com.alexk.bidit.domain.entity.user.UserBasicEntity
 import com.alexk.bidit.presentation.ui.home.HomeActivity
 import com.alexk.bidit.presentation.ui.login.LoginActivity
@@ -24,7 +23,6 @@ import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.KakaoSdkError
 import com.kakao.sdk.user.UserApiClient
-import com.sendbird.android.SendBird
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -45,7 +43,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun checkFirstLogin() {
-        if (UserTokenManager.getToken().isNotEmpty()) {
+        if (UserTokenManager.getKakaoAccessToken() != null) {
             checkKakaoTokenExpired()
         } else {
             startLoginActivity()
@@ -94,12 +92,12 @@ class SplashActivity : AppCompatActivity() {
                     }
                     else {
                         showLongToastMessage("카카오 로그인에 실패했습니다.")
-                        UserTokenManager.removeToken()
+                        UserTokenManager.removeKakaoToken()
                         UserTokenManager.removePushToken()
                     }
                 }
                 else {
-                    startObserveUserInfo()
+                    AuthApiClient.instance.refreshAccessToken(oldToken = UserTokenManager.getKakaoToken()!!, callback = refreshKakaoTokenCallback())
                 }
             }
         }
@@ -107,6 +105,18 @@ class SplashActivity : AppCompatActivity() {
             startLoginActivity()
         }
     }
+
+    private fun refreshKakaoTokenCallback(): (OAuthToken?, Throwable?) -> Unit =
+        { oAuthToken, throwable ->
+            if (throwable != null) {
+                Log.e(TAG, "refreshKakaoTokenCallback: ${throwable.message}")
+            } else {
+                UserApiClient.instance.me { _, _ ->
+                    UserTokenManager.setKakaoToken(oAuthToken!!)
+                    startObserveUserInfo()
+                }
+            }
+        }
 
     private fun setUserInfo(userResponse: UserBasicEntity) {
         GlobalApplication.userId = userResponse.id!!
@@ -130,5 +140,8 @@ class SplashActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+    companion object{
+        private const val TAG = "SplashActivity"
     }
 }
