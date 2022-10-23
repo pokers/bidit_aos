@@ -30,9 +30,11 @@ object UserTokenManager {
         )
     }
 
+    private val gsonBuilder = GsonBuilder().create()
+
     fun getKakaoToken(): OAuthToken? {
         val getOAuthToken = prefs.getString(TOKEN, "")
-        return GsonBuilder().create().fromJson(getOAuthToken, OAuthToken::class.java) ?: null
+        return gsonBuilder.fromJson(getOAuthToken, OAuthToken::class.java) ?: null
     }
 
     fun getKakaoAccessToken(): String? {
@@ -41,7 +43,7 @@ object UserTokenManager {
 
     fun setKakaoToken(oAuthToken: OAuthToken) {
         prefs.edit()
-            .putString(TOKEN, GsonBuilder().create().toJson(oAuthToken, OAuthToken::class.java))
+            .putString(TOKEN,gsonBuilder.toJson(oAuthToken, OAuthToken::class.java))
             .apply()
     }
 

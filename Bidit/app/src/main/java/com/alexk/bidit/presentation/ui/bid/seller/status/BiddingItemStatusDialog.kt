@@ -38,7 +38,11 @@ class BiddingItemStatusDialog(
 
     private fun selectRadioButtonByStatus() {
         when (status) {
-            ItemStatus.REGISTED, ItemStatus.ONGOING -> {
+            ItemStatus.REGISTED -> {
+                binding.rbSelling.isChecked = true
+            }
+            ItemStatus.ONGOING -> {
+                binding.rbsellingCancel.isEnabled = false
                 binding.rbSelling.isChecked = true
             }
             ItemStatus.SOLD -> {
@@ -54,7 +58,7 @@ class BiddingItemStatusDialog(
     private fun addStatusChangeEvent() {
         binding.apply {
             rgStatus.setOnCheckedChangeListener { _, checkedId ->
-                when(checkedId){
+                when (checkedId) {
                     R.id.rb_selling -> {
                         if (cPrice == null) {
                             statusEvent(ItemStatus.REGISTED)

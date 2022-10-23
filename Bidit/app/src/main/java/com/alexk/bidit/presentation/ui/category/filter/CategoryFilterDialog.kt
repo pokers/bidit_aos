@@ -88,7 +88,7 @@ class CategoryFilterDialog(
             if (validateImmediatePrice() && validateStartPrice() && validateStartMonth()) {
                 bid(
                     ItemCategoryRequestEntity(
-                        deliveryType,
+                        getDeliveryType(),
                         minUsingTime,
                         maxUsingTime,
                         minStartPrice,

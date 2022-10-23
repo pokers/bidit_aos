@@ -268,20 +268,14 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                 }
                 is ViewState.Success -> {
                     requireContext().setLoadingDialog(false)
-                    when (response.value as BidStatus) {
-                        BidStatus.VALID -> {
-                            navigate(
-                                BiddingFragmentDirections.actionBiddingFragmentToBiddingCompleteFragment(
-                                    bidPrice,
-                                    itemId!!
-                                )
+                    //if bid success, reutn bidStatus.VALID
+                    if (response.value is BidStatus) {
+                        navigate(
+                            BiddingFragmentDirections.actionBiddingFragmentToBiddingCompleteFragment(
+                                bidPrice,
+                                itemId!!
                             )
-                        }
-                        BidStatus.INVALID -> {
-                            activity?.finishAffinity()
-                            requireContext().showLongToastMessage("입찰이 취소되었습니다.")
-                            startActivity(Intent(requireContext(), HomeActivity::class.java))
-                        }
+                        )
                     }
                 }
                 is ViewState.Error -> {
