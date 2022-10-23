@@ -6,12 +6,12 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class SellingEntity(
-    var imgUrlList: MutableList<ItemImgEntity>,
-    var title: String?,
-    var categoryIdx: Int?,
-    var startPrice: String?,
-    var immediatePrice: String?,
-    var endData: SellingCalendarEntity?,
-    var endTime: SellingTimeEntity?,
-    var description : String?
+    var imgUrlList: MutableList<ItemImgEntity>? = null,
+    var title: String? = null,
+    var categoryIdx: Int? = null,
+    var startPrice: String? = null,
+    var immediatePrice: String? = null,
+    var endDate: SellingCalendarEntity? = null,
+    var endTime: SellingTimeEntity? = null,
+    var description : String? = null
 ):Parcelable

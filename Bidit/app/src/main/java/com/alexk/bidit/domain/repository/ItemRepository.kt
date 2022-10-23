@@ -28,7 +28,7 @@ interface ItemRepository {
         inputItem: ItemAddInput,
         description: String,
         images: List<String>
-    ): ApolloResponse<AddItemInfoMutation.Data>
+    ): ItemBasicEntity
 
     suspend fun updateItemStatus(
         itemId: Int,

@@ -20,32 +20,25 @@ import javax.inject.Inject
 @HiltViewModel
 class ItemImgViewModel @Inject constructor(private val repository: ItemImgRepository) :
     ViewModel() {
-    private val _itemUrl by lazy { MutableLiveData<ViewState<ItemImgEntity>>() }
-    val itemUrl get() = _itemUrl
+    private val _itemImgUrl by lazy { MutableLiveData<ViewState<ItemImgEntity>>() }
+    val itemImgUrl get() = _itemImgUrl
 
     fun uploadItemImg(fileDirName: String, file: File) = viewModelScope.launch {
-        _itemUrl.postValue(ViewState.Loading())
+        _itemImgUrl.postValue(ViewState.Loading())
         val response = repository.uploadImg(fileDirName, file)
         response.setTransferListener(object : TransferListener {
             override fun onStateChanged(id: Int, state: TransferState?) {
                 if (state == TransferState.COMPLETED) {
-                    _itemUrl.postValue(
-                        ViewState.Success(
-                            ItemImgEntity(
-                                (S3Client().provideS3Client()
-                                    .getResourceUrl(response.bucket, response.key))
-                            )
-                        )
-                    )
+                    _itemImgUrl.postValue(ViewState.Success(ItemImgEntity((S3Client().provideS3Client().getResourceUrl(response.bucket, response.key)))))
                 }
             }
 
             override fun onProgressChanged(id: Int, bytesCurrent: Long, bytesTotal: Long) {
-                _itemUrl.postValue(ViewState.Loading())
+                _itemImgUrl.postValue(ViewState.Loading())
             }
 
             override fun onError(id: Int, ex: Exception?) {
-                _itemUrl.postValue(ViewState.Error("Error img upload"))
+                _itemImgUrl.postValue(ViewState.Error("Error img upload"))
             }
         })
     }

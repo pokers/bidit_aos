@@ -23,19 +23,13 @@ class SellingEssentialRequiredItemDialog(context: Context) : Dialog(context) {
             false
         )
         setContentView(binding.root)
-        init()
-        initEvent()
+
+        addBackButtonEvent()
     }
 
-    private fun init() {
-        binding.apply {
-
-        }
-    }
-
-    private fun initEvent() {
-        binding.apply {
-            btnConfirm.setOnClickListener {
+    private fun addBackButtonEvent() {
+        binding.btnConfirm.apply {
+            setOnClickListener {
                 dismiss()
             }
         }
