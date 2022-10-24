@@ -28,10 +28,8 @@ class SellingEssentialRequiredItemDialog(context: Context) : Dialog(context) {
     }
 
     private fun addBackButtonEvent() {
-        binding.btnConfirm.apply {
-            setOnClickListener {
-                dismiss()
-            }
+        binding.btnConfirm.setOnClickListener {
+            dismiss()
         }
     }
 }

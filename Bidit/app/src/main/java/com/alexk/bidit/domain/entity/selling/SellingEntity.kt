@@ -14,4 +14,4 @@ data class SellingEntity(
     var endDate: SellingCalendarEntity? = null,
     var endTime: SellingTimeEntity? = null,
     var description : String? = null
-):Parcelable
+):Parcelable, java.io.Serializable

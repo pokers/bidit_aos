@@ -1,6 +1,7 @@
 package com.alexk.bidit.presentation.ui.selling.category
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
@@ -20,11 +21,11 @@ import com.alexk.bidit.presentation.ui.selling.SellingFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
-class SellingCategoryFragment() :
+class SellingCategoryFragment :
     BaseFragment<FragmentSellingCategoryBinding>(R.layout.fragment_selling_category) {
 
     private val args : SellingCategoryFragmentArgs by navArgs()
-    private val categoryIdx = args.categoryIndexValue
+    private val categoryIdx by lazy { args.categoryIndexValue }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.DialogSellingCalendarBinding
 import com.alexk.bidit.domain.entity.selling.SellingCalendarEntity
+import com.alexk.bidit.presentation.ui.selling.SellingActivity.Companion.SELLING_INFO
 import com.alexk.bidit.presentation.ui.selling.SellingFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -50,7 +51,7 @@ class SellingCalendarDialog(
     }
 
     private fun checkPreviousDateData() {
-        with(SellingFragment.SELLING_INFO.endDate) {
+        with(SELLING_INFO.endDate) {
             if (this == null) {
                 getCurrentDate()
             } else {
@@ -142,7 +143,7 @@ class SellingCalendarDialog(
 
     private fun addEndingDateRegistButton() {
         binding.btnOkay.setOnClickListener {
-            SellingFragment.SELLING_INFO.apply {
+            SELLING_INFO.apply {
                 this.endDate = SellingCalendarEntity(binding.npYear.value, binding.npMonth.value, binding.npDay.value)
             }
             sendEvent.invoke()

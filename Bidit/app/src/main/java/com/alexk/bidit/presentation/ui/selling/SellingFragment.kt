@@ -15,14 +15,15 @@ import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.selling.SellingItemImgListAdapter
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.setTextColorWithResourceCompat
+import com.alexk.bidit.common.util.showLongToastMessage
 import com.alexk.bidit.common.util.value.SELLING_ITEM_CATEGORY_IDX
 import com.alexk.bidit.common.util.value.SELLING_ITEM_CATEGORY_LISTENER_KEY
 import com.alexk.bidit.common.view.EditTextAutoCommaWatcher
 import com.alexk.bidit.databinding.FragmentSellingBinding
-import com.alexk.bidit.common.util.value.ViewState
+import com.alexk.bidit.common.view.ViewState
 import com.alexk.bidit.domain.entity.item.img.ItemImgEntity
-import com.alexk.bidit.domain.entity.selling.SellingEntity
 import com.alexk.bidit.presentation.base.BaseFragment
+import com.alexk.bidit.presentation.ui.selling.SellingActivity.Companion.SELLING_INFO
 import com.alexk.bidit.presentation.ui.selling.calendar.SellingCalendarDialog
 import com.alexk.bidit.presentation.ui.selling.dialog.SellingEssentialRequiredItemDialog
 import com.alexk.bidit.presentation.ui.selling.time.SellingTimePickerDialog
@@ -46,9 +47,7 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
     private val merchandiseViewModel by viewModels<ItemViewModel>()
 
     private val resultLauncherActivityInfo: ActivityResultLauncher<Intent> = initResultLauncher()
-
-    private val itemImgAdapter by lazy { SellingItemImgListAdapter() }
-    private val itemUrlImgList = mutableListOf<ItemImgEntity>()
+    private lateinit var itemImgAdapter: SellingItemImgListAdapter
 
     private val categoryList by lazy { resources.getStringArray(R.array.category_home_item) }
     private val yearList by lazy { resources.getStringArray(R.array.category_number_picker_year) }
@@ -58,13 +57,32 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
     private val hourList by lazy { resources.getStringArray(R.array.category_number_picker_zero_to_twelve) }
     private val minuteList by lazy { resources.getStringArray(R.array.category_number_zero_to_fifty_10) }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        startObserveViewModel()
+        initUiSetting()
+        initButtonEvent()
+    }
+
+    private fun initUiSetting() {
         setAdjustPanMode()
         setCategoryReigstCallback()
-        observeRegistMerchandise()
-        observeImgUrl()
         initItemImgListAdapter()
+
+        restoreData()
+    }
+
+    private fun restoreData(){
+        if (SELLING_INFO.endTime != null) setEndingTime()
+        if (SELLING_INFO.endDate != null) setEndingDate()
+        if (SELLING_INFO.imgUrlList?.size != 0) {
+            binding.tvImgCount.text = "${SELLING_INFO.imgUrlList?.size}/10"
+            itemImgAdapter.submitList(SELLING_INFO.imgUrlList?.toList())
+        }
+    }
+
+    private fun initButtonEvent() {
         addEndingDateRemoveButtonEvent()
         addEndingDateRegistButton()
         addEndTimeRemoveButtonEvent()
@@ -76,11 +94,18 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
         addRemoveItemImgEvent()
     }
 
+    private fun startObserveViewModel() {
+        observeRegistMerchandise()
+        observeImgUrl()
+    }
+
     private fun setAdjustPanMode() {
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
     }
 
     private fun initItemImgListAdapter() {
+        itemImgAdapter = SellingItemImgListAdapter()
+
         binding.rvMerchandiseImgList.apply {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -92,8 +117,9 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
         binding.run {
             ivBiddingEndingDateDelete.setOnClickListener {
                 tvBiddingEndingDate.text = "경매 마감 날짜"
-                tvBiddingEndingDate.setTextColorWithResourceCompat(R.color.nero)
+                tvBiddingEndingDate.setTextColorWithResourceCompat(R.color.nobel)
                 ivBiddingEndingDateDelete.visibility = View.INVISIBLE
+                SELLING_INFO.endDate = null
             }
         }
     }
@@ -119,15 +145,16 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
 
     private fun setEndingDate() {
         binding.apply {
-            tvBiddingEndingDate.text = setEndDateToString()
+            setEndingateToString()
             tvBiddingEndingDate.setTextColorWithResourceCompat(R.color.nero)
             ivBiddingEndingDateDelete.visibility = View.VISIBLE
         }
     }
 
-    private fun setEndDateToString(): String {
+    private fun setEndingateToString() {
         with(SELLING_INFO.endDate) {
-            return "${yearList[this?.yearIdx!!]}년" + " ${monthList[this.monthIdx]}월" + " ${dayList[this.dayIdx]}일"
+            binding.tvBiddingEndingDate.text =
+                "${yearList[this?.yearIdx!!]}년" + " ${monthList[this.monthIdx]}월" + " ${dayList[this.dayIdx]}일"
         }
     }
 
@@ -138,6 +165,7 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                 tvBiddingEndingTime.text = "경매 마감 시간"
                 tvBiddingEndingTime.setTextColorWithResourceCompat(R.color.nobel)
                 ivBiddingEndingTimeDelete.visibility = View.INVISIBLE
+                SELLING_INFO.endTime = null
             }
         }
     }
@@ -150,22 +178,23 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
 
     private fun showEndTimeDialog() {
         val sellingTimePickerDialog = SellingTimePickerDialog {
-            setEndTime()
+            setEndingTime()
         }
         sellingTimePickerDialog.show(childFragmentManager, sellingTimePickerDialog.tag)
     }
 
-    private fun setEndTime() {
+    private fun setEndingTime() {
         binding.run {
-            tvBiddingEndingTime.text = setTimeToString()
+            setTimeToString()
             tvBiddingEndingTime.setTextColorWithResourceCompat(R.color.nero)
             ivBiddingEndingTimeDelete.visibility = View.VISIBLE
         }
     }
 
-    private fun setTimeToString(): String {
+    private fun setTimeToString() {
         with(SELLING_INFO.endTime) {
-            return dayNightList[this?.dateIdx!!] + " ${hourList[this.hourIdx]}시" + " ${minuteList[this.minuteIdx]}분"
+            binding.tvBiddingEndingTime.text =
+                dayNightList[this?.dateIdx!!] + " ${hourList[this.hourIdx]}시" + " ${minuteList[this.minuteIdx]}분"
         }
     }
 
@@ -176,13 +205,22 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
     }
 
     private fun setCategory(idx: Int) {
-        binding.tvCategory.text = categoryList[idx]
+        binding.tvCategory.apply {
+            text = categoryList[idx]
+            setTextColorWithResourceCompat(R.color.nero)
+        }
         SELLING_INFO.categoryIdx = idx
+        if (SELLING_INFO.endDate != null) setEndingTime()
+        if (SELLING_INFO.endTime != null) setEndingDate()
     }
 
     private fun addCategoryRegistButtonEvent() {
         binding.tvCategory.setOnClickListener {
-            navigate(SellingFragmentDirections.actionSellingFragmentToSellingCategoryFragment())
+            navigate(
+                SellingFragmentDirections.actionSellingFragmentToSellingCategoryFragment(
+                    SELLING_INFO.categoryIdx ?: -1
+                )
+            )
         }
     }
 
@@ -203,7 +241,11 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
 
     private fun addImageAddButtonEvent() {
         binding.ivMerchandiseImg.setOnClickListener {
-            resultLauncherActivityInfo.launch(getImageResource())
+            if (SELLING_INFO.imgUrlList?.size == 10) {
+                requireContext().showLongToastMessage("사진은 최대 10개까지 가능합니다.")
+            } else {
+                resultLauncherActivityInfo.launch(getImageResource())
+            }
         }
     }
 
@@ -220,7 +262,7 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
 
     private fun addItemPost() {
         val imgList = mutableListOf<String>()
-        itemUrlImgList.forEach { imgList.add(it.imgUrl!!) }
+        SELLING_INFO.imgUrlList?.forEach { imgList.add(it.imgUrl!!) }
 
         //view model을 여기서
         merchandiseViewModel.addItemInfo(
@@ -233,9 +275,9 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                 title = binding.editPostTitle.text.toString(),
                 name = categoryList[SELLING_INFO.categoryIdx!!],
                 dueDate = setTimeType(),
-                deliveryType = 1,
-                sCondition = 1,
-                aCondition = 1,
+                deliveryType = 2,
+                sCondition = 0,
+                aCondition = 10000,
             ),
             description = binding.editPostContent.text.toString(),
             images = imgList
@@ -296,22 +338,23 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                 outStream.write(inputStream!!.readBytes())
 
                 itemImgViewModel.uploadItemImg(filePath.lastPathSegment!! + ".png", file)
+                restoreData()
             }
         }
     }
 
     private fun addItemImgList(itemUrl: ItemImgEntity) {
-        itemUrlImgList.add(itemUrl)
-        itemImgAdapter.submitList(itemUrlImgList.toList())
-        binding.tvImgCount.text = "${itemUrlImgList.size}/10"
+        SELLING_INFO.imgUrlList?.add(itemUrl)
+        itemImgAdapter.submitList(SELLING_INFO.imgUrlList?.toList())
+        binding.tvImgCount.text = "${SELLING_INFO.imgUrlList?.size}/10"
     }
 
     private fun addRemoveItemImgEvent() {
         itemImgAdapter.onItemClicked = {
-            itemUrlImgList.remove(it!!)
-            binding.tvImgCount.text = "${itemUrlImgList.size}/10"
+            SELLING_INFO.imgUrlList?.remove(it!!)
+            binding.tvImgCount.text = "${SELLING_INFO.imgUrlList?.size}/10"
             itemImgAdapter.submitList(null)
-            itemImgAdapter.submitList(itemUrlImgList.toList())
+            itemImgAdapter.submitList(SELLING_INFO.imgUrlList?.toList())
         }
     }
 
@@ -321,7 +364,7 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
     }
 
     private fun observeImgUrl() {
-        itemImgViewModel.itemImgUrl.observe(viewLifecycleOwner) { response ->
+        itemImgViewModel.itemImgUrl?.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
                     context?.setLoadingDialog(true)
@@ -329,8 +372,9 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                 is ViewState.Success -> {
                     context?.setLoadingDialog(false)
                     addItemImgList(response.value!!)
+                    itemImgViewModel.itemImgUrl?.value = null
                 }
-                else -> {
+                is ViewState.Error -> {
                     context?.setLoadingDialog(false)
                 }
             }
@@ -350,6 +394,7 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
                 is ViewState.Error -> {
                     context?.setLoadingDialog(false)
                 }
+                else -> {}
             }
         }
     }
@@ -359,9 +404,5 @@ class SellingFragment : BaseFragment<FragmentSellingBinding>(R.layout.fragment_s
             action = Intent.ACTION_OPEN_DOCUMENT
             type = "image/*"
         }
-    }
-
-    companion object {
-        val SELLING_INFO = SellingEntity()
     }
 }

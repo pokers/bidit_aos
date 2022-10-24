@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import com.alexk.bidit.R
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.databinding.FragmentMyPageAccountInfoBinding
-import com.alexk.bidit.common.util.value.ViewState
+import com.alexk.bidit.common.view.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint

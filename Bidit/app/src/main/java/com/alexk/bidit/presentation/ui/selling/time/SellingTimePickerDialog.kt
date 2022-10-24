@@ -10,10 +10,12 @@ import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.DialogSellingTimeBinding
 import com.alexk.bidit.domain.entity.selling.SellingTimeEntity
+import com.alexk.bidit.presentation.ui.selling.SellingActivity.Companion.SELLING_INFO
 import com.alexk.bidit.presentation.ui.selling.SellingFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.*
+import kotlin.math.roundToInt
 
 @ExperimentalCoroutinesApi
 class SellingTimePickerDialog(
@@ -54,7 +56,7 @@ class SellingTimePickerDialog(
     }
 
     private fun checkPreviousDateData() {
-        with(SellingFragment.SELLING_INFO.endTime) {
+        with(SELLING_INFO.endTime) {
             if (this == null) {
                 getCurrentDateIndex()
             } else {
@@ -79,11 +81,11 @@ class SellingTimePickerDialog(
         }
 
         val currentMinute = if (calendar.get(Calendar.MINUTE) > 9) {
-            calendar.get(Calendar.MINUTE).toString()
+            val minute = calendar.get(Calendar.MINUTE).toDouble() / 10
+            minute.roundToInt()
         } else {
-            "0" + calendar.get(Calendar.MINUTE)
+            "00"
         }
-
         getHourIdx = hourList.indexOf(currentHour)
         getMinuteIdx = minuteList.indexOf(currentMinute)
     }
@@ -141,8 +143,13 @@ class SellingTimePickerDialog(
 
     private fun initRegistTimeButtonEvent() {
         binding.btnOkay.setOnClickListener {
-            val dateInfo = SellingTimeEntity(binding.npAmPm.value, binding.npHour.value, binding.npMinute.value)
-            SellingFragment.SELLING_INFO.endTime = dateInfo
+            SELLING_INFO.apply {
+                endTime = SellingTimeEntity(
+                    binding.npAmPm.value,
+                    binding.npHour.value,
+                    binding.npMinute.value
+                )
+            }
             sendTime()
             dismiss()
         }
