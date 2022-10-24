@@ -11,7 +11,7 @@ import com.alexk.bidit.common.adapter.common.ItemListAdapter
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentCommonMerchandiseListBinding
-import com.alexk.bidit.common.util.value.ViewState
+import com.alexk.bidit.common.view.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.bid.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.BiddingViewModel

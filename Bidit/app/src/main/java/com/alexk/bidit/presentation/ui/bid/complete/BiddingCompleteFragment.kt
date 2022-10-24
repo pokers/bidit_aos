@@ -10,7 +10,7 @@ import com.alexk.bidit.R
 import com.alexk.bidit.common.util.addComma
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.value.BidStatus
-import com.alexk.bidit.common.util.value.ViewState
+import com.alexk.bidit.common.view.ViewState
 import com.alexk.bidit.databinding.FragmentBiddingCompleteBinding
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.bid.cancelPayment.BiddingBidCancelDialog

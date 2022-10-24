@@ -14,7 +14,7 @@ import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.sharePreference.UserTokenManager
 import com.alexk.bidit.common.util.showLongToastMessage
 import com.alexk.bidit.databinding.ActivitySplashBinding
-import com.alexk.bidit.common.util.value.ViewState
+import com.alexk.bidit.common.view.ViewState
 import com.alexk.bidit.domain.entity.user.UserBasicEntity
 import com.alexk.bidit.presentation.ui.home.HomeActivity
 import com.alexk.bidit.presentation.ui.login.LoginActivity

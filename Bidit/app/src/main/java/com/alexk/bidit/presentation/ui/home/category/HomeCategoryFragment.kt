@@ -3,7 +3,6 @@ package com.alexk.bidit.presentation.ui.home.category
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.ViewCompat.canScrollVertically
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +10,7 @@ import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.common.ItemListAdapter
 import com.alexk.bidit.common.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentCommonMerchandiseListBinding
-import com.alexk.bidit.common.util.value.ViewState
+import com.alexk.bidit.common.view.ViewState
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.value.ITEM_ID
 import com.alexk.bidit.common.util.value.ITEM_CATEGORY_TYPE

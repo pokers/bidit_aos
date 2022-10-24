@@ -333,14 +333,23 @@ class ItemRepositoryImpl @Inject constructor(private val apiService: ApolloClien
         inputItem: ItemAddInput,
         description: String,
         images: List<String>
-    ): ApolloResponse<AddItemInfoMutation.Data> {
-        return apiService.provideApolloClient().mutation(
-            AddItemInfoMutation(
-                itemAdd = Optional.Present(inputItem),
-                description = Optional.Present(description),
-                images = Optional.Present(images)
-            )
-        ).execute()
+    ): ItemBasicEntity {
+        val itemBasicEntity = ItemBasicEntity()
+        try {
+            val response = apiService.provideApolloClient().mutation(
+                AddItemInfoMutation(
+                    itemAdd = Optional.Present(inputItem),
+                    description = Optional.Present(description),
+                    images = Optional.Present(images)
+                )
+            ).execute().data?.addItem
+
+            itemBasicEntity.id = response?.id
+        } catch (e: ApolloException) {
+            e.printStackTrace()
+        }
+
+        return itemBasicEntity
     }
 
     override suspend fun updateItem(

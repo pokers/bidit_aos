@@ -14,7 +14,7 @@ import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.common.ItemListAdapter
 import com.alexk.bidit.common.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.ActivityCategoryBinding
-import com.alexk.bidit.common.util.value.ViewState
+import com.alexk.bidit.common.view.ViewState
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.value.CATEGORY_ID
 import com.alexk.bidit.presentation.ui.category.filter.CategoryFilterDialog
