@@ -10,14 +10,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalCoroutinesApi
 class SellingActivity :BaseActivity<ActivitySellingBinding>(R.layout.activity_selling,R.id.nav_selling_fragment){
 
-    override fun init() {
-        TODO("Not yet implemented")
-    }
-
-    override fun initEvent() {
-        TODO("Not yet implemented")
-    }
-
     override fun onBackPressed() {
         val f = getCurrentFragment()
         if (f is SellingFragment) {

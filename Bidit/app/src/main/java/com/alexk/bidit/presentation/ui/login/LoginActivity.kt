@@ -8,8 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.common.util.sharePreference.UserTokenManager
 import com.alexk.bidit.databinding.ActivityLoginBinding
-import com.alexk.bidit.common.util.view.ViewState
-import com.alexk.bidit.common.util.ErrorInvalidToken
+import com.alexk.bidit.common.util.value.ViewState
 import com.alexk.bidit.common.util.ErrorUserNotFound
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.domain.entity.user.UserBasicEntity
@@ -47,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 Log.d(TAG, "initKakaoLoginCallback: login success")
                 UserApiClient.instance.me { _, _ ->
-                    UserTokenManager.setToken(oAuthToken?.accessToken!!)
+                    UserTokenManager.setKakaoToken(oAuthToken!!)
                     viewModel.getMyInfo()
                 }
             }
@@ -147,7 +146,6 @@ class LoginActivity : AppCompatActivity() {
                 }
                 is ViewState.Error -> {
                     setLoadingDialog(false)
-                    throw RuntimeException(ErrorInvalidToken)
                 }
             }
         }

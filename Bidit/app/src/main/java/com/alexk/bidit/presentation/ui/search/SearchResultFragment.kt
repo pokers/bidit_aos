@@ -1,6 +1,5 @@
 package com.alexk.bidit.presentation.ui.search
 
-import android.content.Intent
 import android.graphics.Point
 import android.os.Bundle
 import android.text.Editable
@@ -15,14 +14,14 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.common.CommonItemListAdapter
-import com.alexk.bidit.common.util.typeCastItemQueryToItemEntity
+import com.alexk.bidit.common.adapter.common.ItemListAdapter
+import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.sharePreference.SearchKeywordManager
 import com.alexk.bidit.databinding.FragmentSearchResultBinding
-import com.alexk.bidit.common.util.view.ViewState
+import com.alexk.bidit.common.util.value.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
-import com.alexk.bidit.presentation.ui.item.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
+import com.alexk.bidit.type.CursorType
 import com.skydoves.balloon.ArrowOrientation
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.overlay.BalloonOverlayRoundRect
@@ -38,7 +37,7 @@ class SearchResultFragment :
     private var keyword = ""
     private var currentSortType = "latestOrder"
     private val merchandiseViewModel by viewModels<ItemViewModel>()
-    private val merchandiseAdapter by lazy { CommonItemListAdapter() }
+    private val merchandiseAdapter by lazy { ItemListAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,12 +45,12 @@ class SearchResultFragment :
         initEvent()
     }
 
-    override fun init() {
+    private fun init() {
         //키워드 가져오기
         keyword = args.keyword!!
 
         observeMerchandiseList()
-        merchandiseViewModel.getKeywordItemList(keyword, currentSortType)
+        merchandiseViewModel.getKeywordItemList(keyword, CursorType.createdAt)
 
         binding.apply {
             editSearch.setText(keyword)
@@ -65,7 +64,7 @@ class SearchResultFragment :
         }
     }
 
-    override fun initEvent() {
+    private fun initEvent() {
         binding.apply {
             editSearch.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
@@ -99,7 +98,7 @@ class SearchResultFragment :
                         SearchKeywordManager.getKeyword(),
                         binding.editSearch.text.toString()
                     )
-                    merchandiseViewModel.getKeywordItemList(keyword, currentSortType)
+                    merchandiseViewModel.getKeywordItemList(keyword, CursorType.createdAt)
                 }
                 true
             }
@@ -120,33 +119,33 @@ class SearchResultFragment :
             when (response) {
                 //서버 연결 대기중
                 is ViewState.Loading -> {
-                    loadingDialogShow()
+                    context?.setLoadingDialog(true)
                     Log.d("Merchandise Loading", "Loading GET merchandise list")
                 }
                 //아이템 가져오기 성공
                 is ViewState.Success -> {
-                    loadingDialogDismiss()
-                    Log.d("Merchandise Success", "Success GET merchandise list")
-                    //리사이클러뷰 어댑터 연결
-                    val result = typeCastItemQueryToItemEntity(response.value?.data?.getItemList?.edges)
-                    if (result.size == 0) {
-                        binding.lyNoResult.visibility = View.VISIBLE
-                        binding.tvNoKeyword.text = "${keyword}에 대한 검색 결과가 없습니다."
-                        merchandiseAdapter.submitList(emptyList())
-                        Log.d("Empty Merchandise List", "No merchandise data")
-                    } else {
-                        merchandiseAdapter.onItemClicked =
-                            {
-                                val intent = Intent(requireContext(), BiddingActivity::class.java)
-                                intent.putExtra("itemId", it)
-                                startActivity(intent)
-                            }
-                        merchandiseAdapter.submitList(result)
-                    }
+                    context?.setLoadingDialog(false)
+//                    Log.d("Merchandise Success", "Success GET merchandise list")
+//                    //리사이클러뷰 어댑터 연결
+//                    val result = typeCastItemQueryToItemEntity(response.value?.data?.getItemList?.edges)
+//                    if (result.size == 0) {
+//                        binding.lyNoResult.visibility = View.VISIBLE
+//                        binding.tvNoKeyword.text = "${keyword}에 대한 검색 결과가 없습니다."
+//                        merchandiseAdapter.submitList(emptyList())
+//                        Log.d("Empty Merchandise List", "No merchandise data")
+//                    } else {
+//                        merchandiseAdapter.onItemClicked =
+//                            {
+//                                val intent = Intent(requireContext(), BiddingActivity::class.java)
+//                                intent.putExtra("itemId", it)
+//                                startActivity(intent)
+//                            }
+//                        merchandiseAdapter.submitList(result)
+//                    }
                 }
                 //서버 연결 실패(만료) -> 재발급 요청
                 is ViewState.Error -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     merchandiseAdapter.submitList(emptyList())
                     Log.d("Merchandise Failure", "Fail GET merchandise list")
                 }
@@ -179,7 +178,7 @@ class SearchResultFragment :
                     currentSortType = "latestOrder"
                     balloon.dismiss()
                     binding.tvListSort.text = getString(R.string.category_latest_order)
-                    merchandiseViewModel.getKeywordItemList(keyword, currentSortType)
+                    merchandiseViewModel.getKeywordItemList(keyword, CursorType.createdAt)
                 }
             }
 
@@ -189,17 +188,7 @@ class SearchResultFragment :
                     currentSortType = "deadline"
                     balloon.dismiss()
                     binding.tvListSort.text = getString(R.string.category_deadline_imminent)
-                    merchandiseViewModel.getKeywordItemList(keyword, currentSortType)
-                }
-            }
-
-        val popularTextView =
-            balloon.getContentView().findViewById<TextView>(R.id.tv_sort_popular).apply {
-                setOnClickListener {
-                    currentSortType = "popular"
-                    balloon.dismiss()
-                    binding.tvListSort.text = getString(R.string.category_popular)
-                    merchandiseViewModel.getKeywordItemList(keyword, currentSortType)
+                    merchandiseViewModel.getKeywordItemList(keyword, CursorType.dueDate)
                 }
             }
 
@@ -214,17 +203,6 @@ class SearchResultFragment :
                 deadlineTextView.typeface =
                     ResourcesCompat.getFont(requireContext(), R.font.notosans_kr_bold)
                 deadlineTextView.setTextColor(
-                    ResourcesCompat.getColor(
-                        resources,
-                        R.color.nero,
-                        null
-                    )
-                )
-            }
-            "popular" -> {
-                popularTextView.typeface =
-                    ResourcesCompat.getFont(requireContext(), R.font.notosans_kr_bold)
-                popularTextView.setTextColor(
                     ResourcesCompat.getColor(
                         resources,
                         R.color.nero,

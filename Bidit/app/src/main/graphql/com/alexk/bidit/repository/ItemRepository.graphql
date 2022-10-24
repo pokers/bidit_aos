@@ -25,6 +25,7 @@ query getItemInfo($getItemId : Int!){
             url
         }
         user {
+            id
             nickname
             kakaoAccount {
                 nickname
@@ -45,15 +46,13 @@ query getItemList($itemQueryInfo:ItemQueryInput, $keywordInfo:String, $firstInfo
             endCursor
             hasPrevPage
         }
-        pageInfo {
-            hasNextPage
-        }
         edges {
             node {
                 id
                 status
                 sPrice
                 cPrice
+                buyNow
                 viewCount
                 title
                 createdAt

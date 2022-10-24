@@ -6,7 +6,7 @@
 
         <variable
             name="itemResponse"
-            type="com.alexk.bidit.domain.entity.item.ItemBaiscEntity" />
+            type="com.alexk.bidit.domain.entity.item.ItemBasicEntity" />
 
     </data>
 
@@ -20,8 +20,8 @@
             android:id="@+id/iv_merchandise_img"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:scaleType="centerInside"
-            app:layout_constraintDimensionRatio="4:4"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="1:1"
             android:src="@color/white_smoke"
             app:imageItemUrlList="@{itemResponse.itemImgList}"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +32,7 @@
             android:id="@+id/tv_deadline_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
+            android:layout_margin="6dp"
             android:background="@drawable/bg_rect_trasparent_black_trans_75_radius4_stroke0"
             android:fontFamily="@font/notosans_kr_medium"
             android:gravity="center"

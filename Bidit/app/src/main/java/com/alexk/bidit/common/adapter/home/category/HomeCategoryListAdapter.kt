@@ -2,11 +2,13 @@ package com.alexk.bidit.common.adapter.home.category
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alexk.bidit.R
+import com.alexk.bidit.common.util.value.CATEGORY_ID
 import com.alexk.bidit.databinding.ItemHomeCategoryListBinding
 import com.alexk.bidit.presentation.ui.category.CategoryActivity
 import com.bumptech.glide.Glide
@@ -16,7 +18,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class HomeCategoryListAdapter(val context: Context, private val imgList: List<Int>) :
     RecyclerView.Adapter<HomeCategoryListAdapter.HomeCategoryHolder>() {
 
-    private val categoryList: Array<String> = context.resources.getStringArray(R.array.category_home_item)
+    private val categoryList: Array<String> =
+        context.resources.getStringArray(R.array.category_home_item)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeCategoryHolder {
         val view = DataBindingUtil.inflate<ItemHomeCategoryListBinding>(
@@ -29,10 +32,10 @@ class HomeCategoryListAdapter(val context: Context, private val imgList: List<In
     }
 
     override fun onBindViewHolder(holder: HomeCategoryHolder, position: Int) {
-        holder.bind(categoryList[position], imgList[position])
+        holder.bind(categoryList[position + 1], imgList[position])
     }
 
-    override fun getItemCount() = categoryList.size
+    override fun getItemCount() = imgList.size
 
     inner class HomeCategoryHolder(val binding: ItemHomeCategoryListBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -46,7 +49,7 @@ class HomeCategoryListAdapter(val context: Context, private val imgList: List<In
             }
             itemView.setOnClickListener {
                 val intent = Intent(context, CategoryActivity::class.java)
-                intent.putExtra("categoryId", absoluteAdapterPosition.plus(2))
+                intent.putExtra(CATEGORY_ID, absoluteAdapterPosition + 1)
                 context.startActivity(intent)
             }
         }

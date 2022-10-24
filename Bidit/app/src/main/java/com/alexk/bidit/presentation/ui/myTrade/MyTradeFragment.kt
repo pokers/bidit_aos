@@ -30,7 +30,7 @@ class MyTradeFragment : BaseFragment<FragmentMyTradeBinding>(R.layout.fragment_m
         initEvent()
     }
 
-    override fun init() {
+    private fun init() {
         binding.apply {
             vpMyTradeList.apply {
                 adapter = MyTradeCategoryPageAdapter(this@MyTradeFragment)
@@ -42,7 +42,7 @@ class MyTradeFragment : BaseFragment<FragmentMyTradeBinding>(R.layout.fragment_m
         }
     }
 
-    override fun initEvent() {
+    private fun initEvent() {
         binding.apply {
             lyMyTradeList.apply {
                 addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {

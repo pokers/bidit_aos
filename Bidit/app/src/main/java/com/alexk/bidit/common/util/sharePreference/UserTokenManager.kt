@@ -6,8 +6,13 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.alexk.bidit.BuildConfig
 import com.alexk.bidit.GlobalApplication
+import com.alexk.bidit.common.util.KEYWORD
 import com.alexk.bidit.common.util.PUSH_TOKEN
 import com.alexk.bidit.common.util.TOKEN
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.kakao.sdk.auth.model.OAuthToken
+import org.json.JSONArray
 
 object UserTokenManager {
 
@@ -15,26 +20,34 @@ object UserTokenManager {
 
     private val prefs: SharedPreferences by lazy {
         val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+
         EncryptedSharedPreferences.create(
             BuildConfig.APPLICATION_ID,
             masterKeyAlias,
-            GlobalApplication.applicationContext(),
+            GlobalApplication.instance.applicationContext,
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
     }
 
-    fun getToken(): String {
-        Log.d(TAG, "getToken = ${prefs.getString(TOKEN, "").toString()}")
-        return prefs.getString(TOKEN, "").toString()
+    private val gsonBuilder = GsonBuilder().create()
+
+    fun getKakaoToken(): OAuthToken? {
+        val getOAuthToken = prefs.getString(TOKEN, "")
+        return gsonBuilder.fromJson(getOAuthToken, OAuthToken::class.java) ?: null
     }
 
-    fun setToken(value: String) {
-        Log.d(TAG, "setToken = $value")
-        prefs.edit().putString(TOKEN, value).apply()
+    fun getKakaoAccessToken(): String? {
+        return getKakaoToken()?.accessToken
     }
 
-    fun removeToken() {
+    fun setKakaoToken(oAuthToken: OAuthToken) {
+        prefs.edit()
+            .putString(TOKEN,gsonBuilder.toJson(oAuthToken, OAuthToken::class.java))
+            .apply()
+    }
+
+    fun removeKakaoToken() {
         prefs.edit().remove(TOKEN).apply()
     }
 

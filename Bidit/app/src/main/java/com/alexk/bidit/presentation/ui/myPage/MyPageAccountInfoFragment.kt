@@ -5,9 +5,9 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.alexk.bidit.R
+import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.databinding.FragmentMyPageAccountInfoBinding
-import com.alexk.bidit.common.util.view.ViewState
-import com.alexk.bidit.domain.entity.user.UserBasicEntity
+import com.alexk.bidit.common.util.value.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,12 +28,12 @@ class MyPageAccountInfoFragment :
         initEvent()
     }
 
-    override fun init() {
+    private fun init() {
         observeUserInfo()
         userViewModel.getMyInfo()
     }
 
-    override fun initEvent() {
+    private fun initEvent() {
         binding.apply {
             tvSignOut.setOnClickListener {
                 navigate(
@@ -52,18 +52,18 @@ class MyPageAccountInfoFragment :
         userViewModel.myInfo.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
-                    loadingDialogShow()
+                    context?.setLoadingDialog(true)
                     Log.d("My Page -> UserInfo", "Loading")
                 }
                 is ViewState.Success -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     Log.d("My Page -> UserInfo", "Success")
                     val result = response.value
                     userId = result?.id!!
                     binding.userBasicInfo = result
                 }
                 is ViewState.Error -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     Log.d("My Page -> UserInfo", "Error")
                 }
             }

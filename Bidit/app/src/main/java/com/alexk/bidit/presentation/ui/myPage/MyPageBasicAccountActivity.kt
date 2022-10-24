@@ -15,16 +15,6 @@ class MyPageBasicAccountActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        init()
-        initEvent()
-    }
-
-    override fun init() {
-
-    }
-
-    override fun initEvent() {
-
     }
 
     override fun onBackPressed() {

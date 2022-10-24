@@ -1,5 +1,6 @@
 package com.alexk.bidit.data.remote.repository
 
+import android.util.Log
 import com.alexk.bidit.*
 import com.alexk.bidit.common.util.ErrorCouldNotAdd
 import com.alexk.bidit.common.util.ErrorInvalidToken
@@ -60,7 +61,7 @@ class UserRepositoryImpl @Inject constructor(private val apiService: ApolloClien
             }
 
         } catch (e: ApolloException) {
-            throw ApolloException(ErrorUserNotFound)
+            e.printStackTrace()
         }
 
         return result
@@ -84,7 +85,7 @@ class UserRepositoryImpl @Inject constructor(private val apiService: ApolloClien
         status: Int?,
         pushToken: String
     ): Boolean {
-        val result: Boolean
+        var result = false
         try {
             val response = apiService.provideApolloClient().mutation(
                 UpdatePushTokenMutation(
@@ -96,7 +97,7 @@ class UserRepositoryImpl @Inject constructor(private val apiService: ApolloClien
 
             result = response?.updatePushToken!!
         } catch (e: ApolloException) {
-            throw ApolloException(ErrorInvalidToken)
+            e.printStackTrace()
         }
         return result
     }

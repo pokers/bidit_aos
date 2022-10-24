@@ -3,7 +3,8 @@ package com.alexk.bidit.common.adapter.home
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.alexk.bidit.presentation.ui.home.HomeCategoryFragment
+import com.alexk.bidit.common.util.value.ITEM_CATEGORY_TYPE
+import com.alexk.bidit.presentation.ui.home.category.HomeCategoryFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
@@ -11,26 +12,29 @@ class HomeCategoryPageAdapter(
     fragmentActivity: Fragment
 ) :
     FragmentStateAdapter(fragmentActivity) {
-    override fun getItemCount() = 5
+    override fun getItemCount() = PAGE_COUNT
 
     override fun createFragment(position: Int): Fragment {
         //프로모션이나 다른 UI가 나온다면 수정해주세요.
-        when(position){
+        return when (position) {
             0 -> {
-                //ending soon
-                val fragment = HomeCategoryFragment()
-                fragment.arguments = Bundle().apply {
-                    this.putString("sortType","deadline")
+                HomeCategoryFragment().apply {
+                    arguments = Bundle().apply {
+                        this.putString(ITEM_CATEGORY_TYPE, "DEADLINE")
+                    }
                 }
-                return fragment
             }
             else -> {
-                val fragment = HomeCategoryFragment()
-                fragment.arguments = Bundle().apply {
-                    this.putString("sortType","latestOrder")
+                HomeCategoryFragment().apply {
+                    arguments = Bundle().apply {
+                        this.putString(ITEM_CATEGORY_TYPE, "LATEST_ORDER")
+                    }
                 }
-                return fragment
             }
         }
+    }
+
+    companion object {
+        private const val PAGE_COUNT = 2
     }
 }

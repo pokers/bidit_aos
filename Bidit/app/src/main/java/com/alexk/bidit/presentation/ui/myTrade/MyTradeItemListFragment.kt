@@ -7,14 +7,13 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.common.CommonItemListAdapter
-import com.alexk.bidit.common.util.typeCastMyBiddingItemToItemEntity
-import com.alexk.bidit.common.util.typeCastUsersItemToItemEntity
-import com.alexk.bidit.common.util.view.GridRecyclerViewDeco
+import com.alexk.bidit.common.adapter.common.ItemListAdapter
+import com.alexk.bidit.common.util.setLoadingDialog
+import com.alexk.bidit.common.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentCommonMerchandiseListBinding
-import com.alexk.bidit.common.util.view.ViewState
+import com.alexk.bidit.common.util.value.ViewState
 import com.alexk.bidit.presentation.base.BaseFragment
-import com.alexk.bidit.presentation.ui.item.BiddingActivity
+import com.alexk.bidit.presentation.ui.bid.BiddingActivity
 import com.alexk.bidit.presentation.viewModel.BiddingViewModel
 import com.alexk.bidit.presentation.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +26,7 @@ class MyTradeItemListFragment :
 
     private val listType by lazy { arguments?.getString("listType") }
 
-    private val itemListAdapter by lazy { CommonItemListAdapter() }
+    private val itemListAdapter by lazy { ItemListAdapter() }
 
     private val userViewModel by viewModels<UserViewModel>()
     private val biddingViewModel by viewModels<BiddingViewModel>()
@@ -38,7 +37,7 @@ class MyTradeItemListFragment :
         initEvent()
     }
 
-    override fun init() {
+    private fun init() {
         initBiddingViewModel()
         initUserViewModel()
         binding.rvMerchandiseList.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -54,7 +53,7 @@ class MyTradeItemListFragment :
         }
     }
 
-    override fun initEvent() {
+    private fun initEvent() {
 
     }
 
@@ -65,13 +64,13 @@ class MyTradeItemListFragment :
         userViewModel.myInfo.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
-                    loadingDialogShow()
+                    context?.setLoadingDialog(true)
                     Log.d(TAG, "Loading my sold list")
                 }
                 is ViewState.Success -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     val result = response.value?.itemConnection
-                    if(result?.itemEdge?.isEmpty() == true){
+                    if(result?.itemList?.isEmpty() == true){
                         binding.lyNoList.visibility = View.VISIBLE
                     }
                     itemListAdapter.submitList(emptyList())
@@ -82,7 +81,7 @@ class MyTradeItemListFragment :
                     }
                 }
                 is ViewState.Error -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     Log.e(TAG, "Error my sold list")
                 }
             }
@@ -93,17 +92,17 @@ class MyTradeItemListFragment :
         biddingViewModel.myBiddingInfo.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
-                    loadingDialogShow()
+                    context?.setLoadingDialog(false)
                     Log.d(TAG, "Loading GET my bid list")
                 }
                 is ViewState.Success -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     Log.d(TAG, "Success GET my bid list")
                     val result = response.value?.data?.getMyBidding
                     if(result?.isEmpty() == true){
                         binding.lyNoList.visibility = View.VISIBLE
                     }
-                    itemListAdapter.submitList(typeCastMyBiddingItemToItemEntity(result))
+//                    itemListAdapter.submitList(typeCastMyBiddingItemToItemEntity(result))
 
                     itemListAdapter.onItemClicked = {
                         val intent = Intent(requireContext(), BiddingActivity::class.java)
@@ -112,7 +111,7 @@ class MyTradeItemListFragment :
                     }
                 }
                 is ViewState.Error -> {
-                    loadingDialogDismiss()
+                    context?.setLoadingDialog(false)
                     Log.d(TAG, "Error GET my bid list")
                 }
             }

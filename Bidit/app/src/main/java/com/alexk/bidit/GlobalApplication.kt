@@ -4,8 +4,11 @@ import android.app.Application
 import android.content.Context
 import android.util.Log
 import com.alexk.bidit.common.util.sharePreference.UserTokenManager
+import com.alexk.bidit.presentation.ui.login.LoginActivity
 import com.google.firebase.messaging.FirebaseMessaging
+import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
+import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.HiltAndroidApp
 
 
@@ -29,14 +32,12 @@ class GlobalApplication : Application() {
 
     private fun initFirebaseSdk(){
         FirebaseMessaging.getInstance().token.addOnSuccessListener {
-            Log.d("Get Fb Token",it)
             UserTokenManager.setPushToken(it)
         }
     }
 
     companion object {
         lateinit var instance: GlobalApplication
-        private const val TAG: String = "LoginActivity..."
         var userId = 0
         var userNickname = ""
 

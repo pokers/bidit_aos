@@ -6,11 +6,7 @@
 
         <variable
             name="itemInfo"
-            type="com.alexk.bidit.GetItemInfoQuery.GetItem" />
-
-        <variable
-            name="bidSellingUserInfo"
-            type="com.alexk.bidit.GetItemInfoQuery.User" />
+            type="com.alexk.bidit.domain.entity.item.ItemBasicEntity" />
 
     </data>
 
@@ -235,7 +231,7 @@
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_oval_transparent_sliver_stroke0_radius0"
-                app:imageUrl="@{bidSellingUserInfo.kakaoAccount.profile_image_url}"
+                app:imageUrl="@{itemInfo.itemUserInfo.kakaoAccount.profileImageUrl}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_merchandise_name" />
 
@@ -246,7 +242,7 @@
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/notosans_kr_medium"
                 android:includeFontPadding="false"
-                android:text="@{itemInfo.user.nickname}"
+                android:text="@{itemInfo.itemUserInfo.nickname}"
                 android:textColor="@color/charcoal"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="@id/iv_selling_user_img"
@@ -411,7 +407,7 @@
                 android:layout_marginEnd="@dimen/activity_margin"
                 android:fontFamily="@font/notosans_kr_regular"
                 android:includeFontPadding="false"
-                android:text="@{itemInfo.description.description}"
+                android:text="@{itemInfo.description}"
                 android:textColor="@color/nero"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
