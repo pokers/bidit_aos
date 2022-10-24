@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.alexk.bidit.GetBiddingInfoQuery
 import com.alexk.bidit.GetMyBiddingInfoQuery
 import com.alexk.bidit.common.util.value.BidStatus
-import com.alexk.bidit.common.util.value.ViewState
+import com.alexk.bidit.common.view.ViewState
 import com.alexk.bidit.domain.repository.BiddingRepository
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.exception.ApolloHttpException

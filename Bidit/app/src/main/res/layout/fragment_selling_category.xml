@@ -6,385 +6,56 @@
 
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ly_appbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white">
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/ly_appbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/iv_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/activity_margin"
-                    android:src="@drawable/ic_back"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/notosans_kr_medium"
-                    android:includeFontPadding="false"
-                    android:text="카테고리"
-                    android:textColor="@color/charcoal"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/tv_iphone"
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/notosans_kr_regular"
-                android:includeFontPadding="false"
-                android:text="아이폰"
-                android:textColor="@color/nero"
-                android:textSize="14sp"
+                android:src="@drawable/ic_back"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ly_appbar" />
-
-
-            <View
-                android:id="@+id/div_iphone"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="@dimen/activity_margin"
-                android:background="@color/whisper"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_iphone" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_galaxy"
-                android:layout_width="match_parent"
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/notosans_kr_regular"
+                android:fontFamily="@font/notosans_kr_medium"
                 android:includeFontPadding="false"
-                android:text="갤럭시"
-                android:textColor="@color/nero"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/div_iphone" />
-
-
-            <View
-                android:id="@+id/div_galaxy"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="@dimen/activity_margin"
-                android:background="@color/whisper"
+                android:text="카테고리"
+                android:textColor="@color/charcoal"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_galaxy" />
-
-
-            <TextView
-                android:id="@+id/tv_another_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/notosans_kr_regular"
-                android:includeFontPadding="false"
-                android:text="기타폰"
-                android:textColor="@color/nero"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/div_galaxy" />
-
-
-            <View
-                android:id="@+id/div_another_phone"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="@dimen/activity_margin"
-                android:background="@color/whisper"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_another_phone" />
-
-
-            <TextView
-                android:id="@+id/tv_smart_watch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/notosans_kr_regular"
-                android:includeFontPadding="false"
-                android:text="스마트워치"
-                android:textColor="@color/nero"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/div_another_phone" />
-
-
-            <View
-                android:id="@+id/div_smart_watch"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="@dimen/activity_margin"
-                android:background="@color/whisper"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_smart_watch" />
-
-
-            <TextView
-                android:id="@+id/tv_notebook"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/notosans_kr_regular"
-                android:includeFontPadding="false"
-                android:text="노트북·PC"
-                android:textColor="@color/nero"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/div_smart_watch" />
-
-
-            <View
-                android:id="@+id/div_notebook"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="@dimen/activity_margin"
-                android:background="@color/whisper"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_notebook" />
-
-
-            <TextView
-                android:id="@+id/tv_tablet"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/notosans_kr_regular"
-                android:includeFontPadding="false"
-                android:text="태블릿"
-                android:textColor="@color/nero"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/div_notebook" />
-
-
-            <View
-                android:id="@+id/div_tablet"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="@dimen/activity_margin"
-                android:background="@color/whisper"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_tablet" />
-
-
-            <TextView
-                android:id="@+id/tv_monitor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/notosans_kr_regular"
-                android:includeFontPadding="false"
-                android:text="티비·모니터"
-                android:textColor="@color/nero"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/div_tablet" />
-
-
-            <View
-                android:id="@+id/div_monitor"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="@dimen/activity_margin"
-                android:background="@color/whisper"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_monitor" />
-
-
-            <TextView
-                android:id="@+id/tv_game"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/notosans_kr_regular"
-                android:includeFontPadding="false"
-                android:text="게임"
-                android:textColor="@color/nero"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/div_monitor" />
-
-
-            <View
-                android:id="@+id/div_game"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="@dimen/activity_margin"
-                android:background="@color/whisper"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_game" />
-
-
-            <TextView
-                android:id="@+id/tv_audio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/notosans_kr_regular"
-                android:includeFontPadding="false"
-                android:text="음향기기"
-                android:textColor="@color/nero"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/div_game" />
-
-
-            <View
-                android:id="@+id/div_audio"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="@dimen/activity_margin"
-                android:background="@color/whisper"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_audio" />
-
-
-            <TextView
-                android:id="@+id/tv_camera"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/notosans_kr_regular"
-                android:includeFontPadding="false"
-                android:text="카메라"
-                android:textColor="@color/nero"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/div_audio" />
-
-
-            <View
-                android:id="@+id/div_camera"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="@dimen/activity_margin"
-                android:background="@color/whisper"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_camera" />
-
-
-            <TextView
-                android:id="@+id/tv_drone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/notosans_kr_regular"
-                android:includeFontPadding="false"
-                android:text="드론"
-                android:textColor="@color/nero"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/div_camera" />
-
-
-            <View
-                android:id="@+id/div_drone"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="@dimen/activity_margin"
-                android:background="@color/whisper"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_drone" />
-
-
-            <TextView
-                android:id="@+id/tv_another"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/notosans_kr_regular"
-                android:includeFontPadding="false"
-                android:text="기타"
-                android:textColor="@color/nero"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/div_drone" />
-
-
-            <View
-                android:id="@+id/div_another"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="@dimen/activity_margin"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="@dimen/activity_margin"
-                android:background="@color/whisper"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_another" />
-
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.core.widget.NestedScrollView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_category_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginEnd="@dimen/activity_margin"
+            android:nestedScrollingEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ly_appbar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

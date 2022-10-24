@@ -12,8 +12,8 @@ import com.alexk.bidit.common.adapter.bidding.BiddingMerchandiseImgPageAdapter
 import com.alexk.bidit.common.adapter.bidding.BiddingUserAdapter
 import com.alexk.bidit.common.util.ErrorLowPriceBidding
 import com.alexk.bidit.common.util.setLoadingDialog
-import com.alexk.bidit.common.util.showLongToastMessage
 import com.alexk.bidit.common.util.value.*
+import com.alexk.bidit.common.view.ViewState
 import com.alexk.bidit.databinding.FragmentBiddingBinding
 import com.alexk.bidit.domain.entity.item.ItemBasicEntity
 import com.alexk.bidit.domain.entity.item.img.ItemImgEntity

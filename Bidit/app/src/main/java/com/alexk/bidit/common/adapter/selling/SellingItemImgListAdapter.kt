@@ -1,6 +1,7 @@
 package com.alexk.bidit.common.adapter.selling
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
@@ -32,6 +33,9 @@ class SellingItemImgListAdapter() :
     override fun onBindViewHolder(holder: SellingItemImgHolder, position: Int) {
         with(holder.binding) {
             itemImgUrl = getItem(position)
+            if (position == 0) {
+                tvFirstImg.visibility = View.VISIBLE
+            }
             ivImgDelete.setOnClickListener {
                 onItemClicked?.invoke(getItem(position))
             }

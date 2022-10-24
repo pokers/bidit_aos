@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.ActivityMyPageAlarmBinding
-import com.alexk.bidit.common.util.value.ViewState
+import com.alexk.bidit.common.view.ViewState
 import com.alexk.bidit.common.dialog.LoadingDialog
 import com.alexk.bidit.presentation.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
