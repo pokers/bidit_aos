@@ -9,8 +9,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/activity_margin"
-        android:paddingEnd="@dimen/activity_margin"
+        android:paddingStart="@dimen/margin_activity"
+        android:paddingEnd="@dimen/margin_activity"
         android:background="@color/transparent">
 
         <RadioGroup

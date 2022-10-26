@@ -2,13 +2,12 @@ package com.alexk.bidit.common.adapter.home.category
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alexk.bidit.R
-import com.alexk.bidit.common.util.value.CATEGORY_ID
+import com.alexk.bidit.common.util.value.INTENT_KEY_CATEGORY_ID
 import com.alexk.bidit.databinding.ItemHomeCategoryListBinding
 import com.alexk.bidit.presentation.ui.category.CategoryActivity
 import com.bumptech.glide.Glide
@@ -49,7 +48,7 @@ class HomeCategoryListAdapter(val context: Context, private val imgList: List<In
             }
             itemView.setOnClickListener {
                 val intent = Intent(context, CategoryActivity::class.java)
-                intent.putExtra(CATEGORY_ID, absoluteAdapterPosition + 1)
+                intent.putExtra(INTENT_KEY_CATEGORY_ID, absoluteAdapterPosition + 1)
                 context.startActivity(intent)
             }
         }

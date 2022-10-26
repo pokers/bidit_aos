@@ -3,7 +3,7 @@ package com.alexk.bidit.common.adapter.home
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.alexk.bidit.common.util.value.ITEM_CATEGORY_TYPE
+import com.alexk.bidit.common.util.value.FRAGMENT_KEY_ITEM_CATEGORY_TYPE
 import com.alexk.bidit.presentation.ui.home.category.HomeCategoryFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -20,14 +20,14 @@ class HomeCategoryPageAdapter(
             0 -> {
                 HomeCategoryFragment().apply {
                     arguments = Bundle().apply {
-                        this.putString(ITEM_CATEGORY_TYPE, "DEADLINE")
+                        this.putString(FRAGMENT_KEY_ITEM_CATEGORY_TYPE, "DEADLINE")
                     }
                 }
             }
             else -> {
                 HomeCategoryFragment().apply {
                     arguments = Bundle().apply {
-                        this.putString(ITEM_CATEGORY_TYPE, "LATEST_ORDER")
+                        this.putString(FRAGMENT_KEY_ITEM_CATEGORY_TYPE, "LATEST_ORDER")
                     }
                 }
             }

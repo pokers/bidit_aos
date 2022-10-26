@@ -7,13 +7,13 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.common.ItemListAdapter
+import com.alexk.bidit.common.adapter.item.ItemListAdapter
 import com.alexk.bidit.common.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentCommonMerchandiseListBinding
 import com.alexk.bidit.common.view.ViewState
 import com.alexk.bidit.common.util.setLoadingDialog
-import com.alexk.bidit.common.util.value.ITEM_ID
-import com.alexk.bidit.common.util.value.ITEM_CATEGORY_TYPE
+import com.alexk.bidit.common.util.value.FRAGMENT_KEY_ITEM_ID
+import com.alexk.bidit.common.util.value.FRAGMENT_KEY_ITEM_CATEGORY_TYPE
 import com.alexk.bidit.domain.entity.item.ItemBasicEntity
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.bid.BiddingActivity
@@ -46,7 +46,7 @@ class HomeCategoryFragment :
     }
 
     private fun initSortType(): CursorType {
-        return when (arguments?.getString(ITEM_CATEGORY_TYPE)) {
+        return when (arguments?.getString(FRAGMENT_KEY_ITEM_CATEGORY_TYPE)) {
             "DEADLINE" -> {
                 CursorType.dueDate
             }
@@ -99,7 +99,7 @@ class HomeCategoryFragment :
     private fun addItemClickEvent() {
         itemListAdapter.onItemClicked = {
             val intent = Intent(requireContext(), BiddingActivity::class.java)
-            intent.putExtra(ITEM_ID, it)
+            intent.putExtra(FRAGMENT_KEY_ITEM_ID, it)
             startActivity(intent)
         }
     }
@@ -107,12 +107,12 @@ class HomeCategoryFragment :
     private fun setNoItemListLayout() {
         if(!existItemData){
             itemListAdapter.submitList(emptyList())
-            binding.lyNoList.visibility = View.VISIBLE
+            binding.lyNoList.root.visibility = View.VISIBLE
         }
     }
 
     private fun addItemToList(nextPageAvailable: Boolean, itemList: List<ItemBasicEntity>) {
-        binding.lyNoList.visibility = View.GONE
+        binding.lyNoList.root.visibility = View.GONE
         existItemData = true
         hasNextPage = nextPageAvailable
         if (nextPageAvailable) {

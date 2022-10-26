@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <dimen name="activity_margin">18dp</dimen>
+    <dimen name="margin_activity">18dp</dimen>
     <dimen name="design_bottom_navigation_height" tools:override="true">60dp</dimen>
+
+    <dimen name="size_chatting_channel_user_profile_img">60dp</dimen>
+    <dimen name="size_chatting_unread_count">20dp</dimen>
 </resources>

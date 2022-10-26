@@ -1,17 +1,16 @@
 package com.alexk.bidit.presentation.ui.bid.bidding
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
+import com.alexk.bidit.common.util.IntegerUtils.parsePriceTypeToInt
+import com.alexk.bidit.common.util.TextUtils.addComma
 import com.alexk.bidit.common.view.EditTextPriceWatcher
-import com.alexk.bidit.common.util.addComma
-import com.alexk.bidit.common.util.parsePriceTypeToInt
-import com.alexk.bidit.common.util.value.BID_PRICE
-import com.alexk.bidit.common.util.value.CURRENT_BID_PRICE
+import com.alexk.bidit.common.util.value.FRAGMENT_KEY_BID_PRICE
+import com.alexk.bidit.common.util.value.FRAGMENT_KEY_CURRENT_BID_PRICE
 import com.alexk.bidit.databinding.DialogBiddingBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -22,7 +21,7 @@ class BiddingBidDialog(private val bid: (Int) -> Unit) :
 
     private var currentPrice = 0
     private var mustOverPrice = 0
-    private val bidPrice by lazy { arguments?.getInt(BID_PRICE) }
+    private val bidPrice by lazy { arguments?.getInt(FRAGMENT_KEY_BID_PRICE) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,8 +42,8 @@ class BiddingBidDialog(private val bid: (Int) -> Unit) :
     }
 
     private fun initPrice() {
-        currentPrice = arguments?.getInt(CURRENT_BID_PRICE)!!
-        mustOverPrice = arguments?.getInt(CURRENT_BID_PRICE)!!
+        currentPrice = arguments?.getInt(FRAGMENT_KEY_CURRENT_BID_PRICE)!!
+        mustOverPrice = arguments?.getInt(FRAGMENT_KEY_CURRENT_BID_PRICE)!!
 
         binding.apply {
             editMerchandisePrice.apply {

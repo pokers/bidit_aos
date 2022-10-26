@@ -35,7 +35,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
     //0 : registed, 1: ongoing, 2: sold, 3: end, 4: cancel
     private val itemViewModel by viewModels<ItemViewModel>()
     private val bidViewModel by viewModels<BiddingViewModel>()
-    private val itemId by lazy { activity?.intent?.getIntExtra(ITEM_ID, 0) }
+    private val itemId by lazy { activity?.intent?.getIntExtra(FRAGMENT_KEY_ITEM_ID, 0) }
     private lateinit var itemInfo: ItemBasicEntity
     private var bidPrice = 0
     private var currentStatus = 0
@@ -124,8 +124,8 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
             bidViewModel.controlBid(itemId!!, bidPrice, BidStatus.VALID)
         }
         biddingDialog.arguments = Bundle().apply {
-            this.putInt(CURRENT_BID_PRICE, setCurrentBidPrice())
-            this.putInt(BID_PRICE, 1000)
+            this.putInt(FRAGMENT_KEY_CURRENT_BID_PRICE, setCurrentBidPrice())
+            this.putInt(FRAGMENT_KEY_BID_PRICE, 1000)
         }
         biddingDialog.show(childFragmentManager, biddingDialog.tag)
     }

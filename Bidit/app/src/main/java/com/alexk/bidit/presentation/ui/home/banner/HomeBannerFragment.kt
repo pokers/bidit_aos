@@ -3,7 +3,7 @@ package com.alexk.bidit.presentation.ui.home.banner
 import android.os.Bundle
 import android.view.View
 import com.alexk.bidit.R
-import com.alexk.bidit.common.util.value.HOME_BANNER_POSITION
+import com.alexk.bidit.common.util.value.FRAGMENT_KEY_HOME_BANNER_POSITION
 import com.alexk.bidit.databinding.FragmentHomeBannerBinding
 import com.alexk.bidit.presentation.base.BaseFragment
 
@@ -11,7 +11,7 @@ class HomeBannerFragment : BaseFragment<FragmentHomeBannerBinding>(R.layout.frag
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val bannerPosition = arguments?.getInt(HOME_BANNER_POSITION)
+        val bannerPosition = arguments?.getInt(FRAGMENT_KEY_HOME_BANNER_POSITION)
         setBannerImg(bannerPosition!!)
     }
 

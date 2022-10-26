@@ -41,7 +41,7 @@ kakao_sdk_version = "2.5.0"
 gson_version = "2.9.1"
 
 # sendbird
-sendbird_sdk_version = "3.0.141"
+sendbird_sdk_version = "4.1.1"
 
 # retrofit2
 retrofit2_version = "2.9.0"
@@ -78,7 +78,7 @@ androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayo
 junit = { module = "junit:junit", version.ref = "junit_version" }
 androidx-test-junit = { module = "androidx.test.ext:junit", version.ref = "androidx_test_junit_version" }
 androidx-test-espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx_test_espresso_version" }
-sendbird-sdk = { module = "com.sendbird.sdk:sendbird-android-sdk", version.ref = "sendbird_sdk_version" }
+sendbird-sdk = { module = "com.sendbird.sdk:sendbird-chat", version.ref = "sendbird_sdk_version" }
 retrofit2 = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit2_version" }
 okhttp3-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp3_logging_interceptor_version" }
 retrofit2-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit2_converter_gson_version" }

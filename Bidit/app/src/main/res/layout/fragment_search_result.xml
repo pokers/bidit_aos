@@ -15,7 +15,7 @@
             android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginStart="@dimen/margin_activity"
             android:layout_marginTop="33dp"
             android:background="@color/transparent"
             android:src="@drawable/ic_back"
@@ -26,15 +26,15 @@
             android:id="@+id/edit_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:maxLines="1"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="@dimen/activity_margin"
+            android:layout_marginEnd="@dimen/margin_activity"
             android:background="@drawable/bg_rect_transparent_white_smoke_radius4_stroke0"
             android:fontFamily="@font/notosans_kr_regular"
             android:hint="@string/content_input_keyword"
+            android:imeOptions="actionSearch"
             android:includeFontPadding="false"
             android:inputType="text"
-            android:imeOptions="actionSearch"
+            android:maxLines="1"
             android:paddingStart="12dp"
             android:paddingTop="10dp"
             android:paddingEnd="10dp"
@@ -56,43 +56,22 @@
             app:layout_constraintEnd_toEndOf="@id/edit_search"
             app:layout_constraintTop_toTopOf="@id/edit_search" />
 
-        <LinearLayout
-            android:id="@+id/ly_no_result"
+        <include
+            android:id="@+id/ly_no_list"
+            layout="@layout/content_no_item_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/rv_merchandise_list"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/iv_no_keyword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_no_result" />
-
-            <TextView
-                android:id="@+id/tv_no_keyword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/notosans_kr_regular"
-                android:includeFontPadding="false"
-                android:text="@string/content_no_search_result"
-                android:textColor="@color/black"
-                android:textSize="10sp" />
-
-        </LinearLayout>
+            app:layout_constraintTop_toTopOf="@+id/rv_merchandise_list" />
 
         <LinearLayout
             android:id="@+id/ly_sort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginStart="@dimen/margin_activity"
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="horizontal"
@@ -125,7 +104,7 @@
             android:id="@+id/btn_filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/activity_margin"
+            android:layout_marginEnd="@dimen/margin_activity"
             android:background="@color/transparent"
             android:src="@drawable/ic_filter"
             app:layout_constraintBottom_toBottomOf="@id/ly_sort"
@@ -136,16 +115,16 @@
             android:id="@+id/rv_merchandise_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_margin"
-            app:layout_constrainedHeight="true"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginStart="@dimen/margin_activity"
             android:layout_marginTop="28dp"
-            android:layout_marginEnd="@dimen/activity_margin"
+            android:layout_marginEnd="@dimen/margin_activity"
+            app:layout_constrainedHeight="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ly_sort" />
+            app:layout_constraintTop_toBottomOf="@id/ly_sort"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

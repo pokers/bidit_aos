@@ -1,11 +1,10 @@
-package com.alexk.bidit.common.dialog
+package com.alexk.bidit.common.view
 
 import android.app.Dialog
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Window
-import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.databinding.DialogLoadingBinding
 
 class LoadingDialog(context: Context) :Dialog(context){
