@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
-import com.alexk.bidit.common.util.addComma
+import com.alexk.bidit.common.util.TextUtils.addComma
 import com.alexk.bidit.common.util.showLongToastMessage
 import com.alexk.bidit.databinding.DialogSellingImmediatePurchaseBinding
 

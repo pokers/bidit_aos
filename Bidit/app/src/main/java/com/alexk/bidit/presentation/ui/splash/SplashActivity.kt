@@ -8,11 +8,11 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.alexk.bidit.GlobalApplication
-import com.alexk.bidit.common.util.ErrorInvalidToken
-import com.alexk.bidit.common.util.ErrorUserNotFound
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.sharePreference.UserTokenManager
 import com.alexk.bidit.common.util.showLongToastMessage
+import com.alexk.bidit.common.util.value.ApolloErrorConstant.ErrorInvalidToken
+import com.alexk.bidit.common.util.value.ApolloErrorConstant.ErrorUserNotFound
 import com.alexk.bidit.databinding.ActivitySplashBinding
 import com.alexk.bidit.common.view.ViewState
 import com.alexk.bidit.domain.entity.user.UserBasicEntity
@@ -23,6 +23,7 @@ import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.KakaoSdkError
 import com.kakao.sdk.user.UserApiClient
+import com.sendbird.android.SendbirdChat
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -63,6 +64,14 @@ class SplashActivity : AppCompatActivity() {
         }, 500)
     }
 
+    private fun connectToSendbirdServer(userId: String) {
+        SendbirdChat.connect(userId) { _, e ->
+            if(e != null){
+                Log.e(TAG, "connectToSendbirdServer: ${e.message}" )
+            }
+        }
+    }
+
     private fun observeMyInfo() {
         viewModel.myInfo.observe(this) { response ->
             when (response) {
@@ -71,7 +80,9 @@ class SplashActivity : AppCompatActivity() {
                 }
                 is ViewState.Success -> {
                     setLoadingDialog(false)
-                    setUserInfo(userResponse = response.value!!)
+                    val userResponse = response.value!!
+                    setUserInfo(userResponse = userResponse)
+                    connectToSendbirdServer(userResponse.id.toString())
                     viewModel.updatePushToken(null, UserTokenManager.getPushToken())
                 }
                 is ViewState.Error -> {
@@ -83,25 +94,25 @@ class SplashActivity : AppCompatActivity() {
     }
 
 
-    private fun checkKakaoTokenExpired(){
+    private fun checkKakaoTokenExpired() {
         if (AuthApiClient.instance.hasToken()) {
             UserApiClient.instance.accessTokenInfo { _, error ->
                 if (error != null) {
                     if (error is KakaoSdkError && error.isInvalidTokenError()) {
                         startLoginActivity()
-                    }
-                    else {
+                    } else {
                         showLongToastMessage("카카오 로그인에 실패했습니다.")
                         UserTokenManager.removeKakaoToken()
                         UserTokenManager.removePushToken()
                     }
-                }
-                else {
-                    AuthApiClient.instance.refreshAccessToken(oldToken = UserTokenManager.getKakaoToken()!!, callback = refreshKakaoTokenCallback())
+                } else {
+                    AuthApiClient.instance.refreshAccessToken(
+                        oldToken = UserTokenManager.getKakaoToken()!!,
+                        callback = refreshKakaoTokenCallback()
+                    )
                 }
             }
-        }
-        else {
+        } else {
             startLoginActivity()
         }
     }
@@ -141,7 +152,8 @@ class SplashActivity : AppCompatActivity() {
             }
         }
     }
-    companion object{
+
+    companion object {
         private const val TAG = "SplashActivity"
     }
 }

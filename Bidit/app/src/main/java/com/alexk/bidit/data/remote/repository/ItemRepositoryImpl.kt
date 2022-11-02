@@ -2,7 +2,7 @@ package com.alexk.bidit.data.remote.repository
 
 import com.alexk.bidit.*
 import com.alexk.bidit.GlobalApplication.Companion.userId
-import com.alexk.bidit.common.util.ErrorItemNotFound
+import com.alexk.bidit.common.util.value.ApolloErrorConstant.ErrorItemNotFound
 import com.alexk.bidit.di.ApolloClient
 import com.alexk.bidit.domain.entity.item.ItemBasicEntity
 import com.alexk.bidit.domain.entity.item.category.ItemCategoryRequestEntity

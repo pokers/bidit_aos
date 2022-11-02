@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_user_profile_img"
+            android:layout_width="@dimen/size_chatting_channel_user_profile_img"
+            android:layout_height="@dimen/size_chatting_channel_user_profile_img"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_user_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:fontFamily="@font/notosans_kr_bold"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:textColor="@color/charcoal"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@id/tv_chatting_last_message"
+            app:layout_constraintStart_toEndOf="@id/iv_user_profile_img"
+            app:layout_constraintTop_toTopOf="@id/iv_user_profile_img"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="user" />
+
+        <TextView
+            android:id="@+id/tv_last_chatting_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/notosans_kr_medium"
+            android:includeFontPadding="false"
+            android:textColor="@color/nobel"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_user_nickname"
+            app:layout_constraintStart_toEndOf="@id/tv_user_nickname"
+            app:layout_constraintTop_toTopOf="@id/tv_user_nickname" />
+
+        <TextView
+            android:id="@+id/tv_chatting_last_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/notosans_kr_medium"
+            android:includeFontPadding="false"
+            android:maxLines="1"
+            android:textColor="@color/charcoal"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_user_profile_img"
+            app:layout_constraintEnd_toStartOf="@id/tv_unread_count"
+            app:layout_constraintStart_toEndOf="@id/iv_user_profile_img"
+            app:layout_constraintTop_toBottomOf="@id/tv_user_nickname"
+            tools:text="message" />
+
+
+        <TextView
+            android:id="@+id/tv_unread_count"
+            android:layout_width="@dimen/size_chatting_unread_count"
+            android:layout_height="@dimen/size_chatting_unread_count"
+            android:background="@drawable/bg_chatting_unread_count"
+            android:fontFamily="@font/notosans_kr_medium"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_user_profile_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_user_profile_img"
+            tools:text="1" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

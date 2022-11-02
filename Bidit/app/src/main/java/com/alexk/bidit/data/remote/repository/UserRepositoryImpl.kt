@@ -2,9 +2,8 @@ package com.alexk.bidit.data.remote.repository
 
 import android.util.Log
 import com.alexk.bidit.*
-import com.alexk.bidit.common.util.ErrorCouldNotAdd
-import com.alexk.bidit.common.util.ErrorInvalidToken
-import com.alexk.bidit.common.util.ErrorUserNotFound
+import com.alexk.bidit.common.util.value.ApolloErrorConstant.ErrorCouldNotAdd
+import com.alexk.bidit.common.util.value.ApolloErrorConstant.ErrorUserNotFound
 import com.alexk.bidit.di.ApolloClient
 import com.alexk.bidit.domain.entity.user.*
 import com.alexk.bidit.domain.entity.user.alarm.UserAlarmEntity

@@ -7,7 +7,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.common.ItemListAdapter
+import com.alexk.bidit.common.adapter.item.ItemListAdapter
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentCommonMerchandiseListBinding
@@ -71,7 +71,7 @@ class MyTradeItemListFragment :
                     context?.setLoadingDialog(false)
                     val result = response.value?.itemConnection
                     if(result?.itemList?.isEmpty() == true){
-                        binding.lyNoList.visibility = View.VISIBLE
+                        binding.lyNoList.root.visibility = View.VISIBLE
                     }
                     itemListAdapter.submitList(emptyList())
                     itemListAdapter.onItemClicked = {
@@ -100,7 +100,7 @@ class MyTradeItemListFragment :
                     Log.d(TAG, "Success GET my bid list")
                     val result = response.value?.data?.getMyBidding
                     if(result?.isEmpty() == true){
-                        binding.lyNoList.visibility = View.VISIBLE
+                        binding.lyNoList.root.visibility = View.VISIBLE
                     }
 //                    itemListAdapter.submitList(typeCastMyBiddingItemToItemEntity(result))
 

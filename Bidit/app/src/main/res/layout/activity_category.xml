@@ -25,7 +25,7 @@
                 android:id="@+id/btn_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_margin"
+                android:layout_marginStart="@dimen/margin_activity"
                 android:background="@color/transparent"
                 android:src="@drawable/ic_back"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -49,43 +49,22 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <LinearLayout
+        <include
             android:id="@+id/ly_no_list"
+            layout="@layout/content_no_item_list"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
             android:visibility="gone"
-            android:orientation="vertical"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ly_sort">
-
-            <ImageView
-                android:id="@+id/iv_no_keyword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_no_result" />
-
-            <TextView
-                android:id="@+id/tv_no_keyword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/notosans_kr_regular"
-                android:includeFontPadding="false"
-                android:text="@string/content_merchandise_no_list"
-                android:textColor="@color/black"
-                android:textSize="10sp" />
-
-        </LinearLayout>
+            app:layout_constraintTop_toBottomOf="@+id/ly_sort" />
 
         <LinearLayout
             android:id="@+id/ly_sort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginStart="@dimen/margin_activity"
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="horizontal"
@@ -119,7 +98,7 @@
             android:id="@+id/btn_filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/activity_margin"
+            android:layout_marginEnd="@dimen/margin_activity"
             android:background="@color/transparent"
             android:src="@drawable/ic_filter"
             app:layout_constraintBottom_toBottomOf="@id/ly_sort"
@@ -132,14 +111,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:layout_marginTop="24dp"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constrainedHeight="true"
             android:layout_marginEnd="6dp"
+            app:layout_constrainedHeight="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ly_sort" />
+            app:layout_constraintTop_toBottomOf="@+id/ly_sort"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

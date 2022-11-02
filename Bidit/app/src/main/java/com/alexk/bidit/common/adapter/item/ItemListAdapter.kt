@@ -1,4 +1,4 @@
-package com.alexk.bidit.common.adapter.common
+package com.alexk.bidit.common.adapter.item
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

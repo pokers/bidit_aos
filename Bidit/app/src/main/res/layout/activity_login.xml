@@ -25,7 +25,7 @@
             android:id="@+id/tv_main_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/activity_margin"
+            android:layout_marginStart="@dimen/margin_activity"
             android:fontFamily="@font/notosans_kr_bold"
             android:includeFontPadding="false"
             android:text="@string/content_opening"

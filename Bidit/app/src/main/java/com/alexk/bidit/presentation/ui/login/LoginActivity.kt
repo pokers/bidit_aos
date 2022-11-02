@@ -9,13 +9,15 @@ import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.common.util.sharePreference.UserTokenManager
 import com.alexk.bidit.databinding.ActivityLoginBinding
 import com.alexk.bidit.common.view.ViewState
-import com.alexk.bidit.common.util.ErrorUserNotFound
 import com.alexk.bidit.common.util.setLoadingDialog
+import com.alexk.bidit.common.util.value.ApolloErrorConstant.ErrorUserNotFound
 import com.alexk.bidit.domain.entity.user.UserBasicEntity
 import com.alexk.bidit.presentation.ui.home.HomeActivity
+import com.alexk.bidit.presentation.ui.splash.SplashActivity
 import com.alexk.bidit.presentation.viewModel.UserViewModel
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
+import com.sendbird.android.SendbirdChat
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlin.RuntimeException
@@ -89,6 +91,14 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun connectToSendbirdServer(userId: String) {
+        SendbirdChat.connect(userId) { _, e ->
+            if(e != null){
+                Log.e(TAG, "connectToSendbirdServer: ${e.message}" )
+            }
+        }
+    }
+
     private fun observeUserInfo() {
         viewModel.myInfo.observe(this) { response ->
             when (response) {
@@ -103,6 +113,7 @@ class LoginActivity : AppCompatActivity() {
                         viewModel.addUser()
                     } else {
                         setUserInfoFisrtTime(userResponse = userResponse)
+                        connectToSendbirdServer(userResponse.id!!.toString())
                         viewModel.updatePushToken(null, UserTokenManager.getPushToken())
                     }
                 }

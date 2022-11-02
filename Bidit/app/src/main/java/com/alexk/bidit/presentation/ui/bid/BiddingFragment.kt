@@ -10,9 +10,12 @@ import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.bidding.BiddingMerchandiseImgPageAdapter
 import com.alexk.bidit.common.adapter.bidding.BiddingUserAdapter
-import com.alexk.bidit.common.util.ErrorLowPriceBidding
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.value.*
+import com.alexk.bidit.common.util.value.ApolloErrorConstant.ErrorLowPriceBidding
+import com.alexk.bidit.common.util.value.KeyConstants.FRAGMENT_KEY_BID_PRICE
+import com.alexk.bidit.common.util.value.KeyConstants.FRAGMENT_KEY_CURRENT_BID_PRICE
+import com.alexk.bidit.common.util.value.KeyConstants.FRAGMENT_KEY_ITEM_ID
 import com.alexk.bidit.common.view.ViewState
 import com.alexk.bidit.databinding.FragmentBiddingBinding
 import com.alexk.bidit.domain.entity.item.ItemBasicEntity
@@ -35,7 +38,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
     //0 : registed, 1: ongoing, 2: sold, 3: end, 4: cancel
     private val itemViewModel by viewModels<ItemViewModel>()
     private val bidViewModel by viewModels<BiddingViewModel>()
-    private val itemId by lazy { activity?.intent?.getIntExtra(ITEM_ID, 0) }
+    private val itemId by lazy { activity?.intent?.getIntExtra(FRAGMENT_KEY_ITEM_ID, 0) }
     private lateinit var itemInfo: ItemBasicEntity
     private var bidPrice = 0
     private var currentStatus = 0
@@ -124,8 +127,8 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
             bidViewModel.controlBid(itemId!!, bidPrice, BidStatus.VALID)
         }
         biddingDialog.arguments = Bundle().apply {
-            this.putInt(CURRENT_BID_PRICE, setCurrentBidPrice())
-            this.putInt(BID_PRICE, 1000)
+            this.putInt(FRAGMENT_KEY_CURRENT_BID_PRICE, setCurrentBidPrice())
+            this.putInt(FRAGMENT_KEY_BID_PRICE, 1000)
         }
         biddingDialog.show(childFragmentManager, biddingDialog.tag)
     }

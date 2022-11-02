@@ -5,8 +5,7 @@ import android.text.Selection
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.widget.EditText
-import com.alexk.bidit.common.util.addComma
-import java.lang.NumberFormatException
+import com.alexk.bidit.common.util.TextUtils.addComma
 
 
 class EditTextPriceWatcher(private val editText: EditText) : TextWatcher {
