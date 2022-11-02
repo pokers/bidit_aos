@@ -9,8 +9,8 @@ import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.common.util.sharePreference.UserTokenManager
 import com.alexk.bidit.databinding.ActivityLoginBinding
 import com.alexk.bidit.common.view.ViewState
-import com.alexk.bidit.common.util.ErrorUserNotFound
 import com.alexk.bidit.common.util.setLoadingDialog
+import com.alexk.bidit.common.util.value.ApolloErrorConstant.ErrorUserNotFound
 import com.alexk.bidit.domain.entity.user.UserBasicEntity
 import com.alexk.bidit.presentation.ui.home.HomeActivity
 import com.alexk.bidit.presentation.ui.splash.SplashActivity

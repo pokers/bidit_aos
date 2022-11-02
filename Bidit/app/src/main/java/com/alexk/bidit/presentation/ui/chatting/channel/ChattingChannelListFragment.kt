@@ -8,8 +8,8 @@ import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.chatting.ChattingChannelListAdapter
 import com.alexk.bidit.common.adapter.chatting.callback.OnChattingChannelClickListener
 import com.alexk.bidit.common.util.showLongToastMessage
-import com.alexk.bidit.common.util.value.INTENT_KEY_CHANNEL_TITLE
-import com.alexk.bidit.common.util.value.INTENT_KEY_CHANNEL_URL
+import com.alexk.bidit.common.util.value.KeyConstants.INTENT_KEY_CHANNEL_TITLE
+import com.alexk.bidit.common.util.value.KeyConstants.INTENT_KEY_CHANNEL_URL
 import com.alexk.bidit.databinding.FragmentChattingChannelListBinding
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.chatting.chat.ChattingActivity

@@ -8,11 +8,11 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.alexk.bidit.GlobalApplication
-import com.alexk.bidit.common.util.ErrorInvalidToken
-import com.alexk.bidit.common.util.ErrorUserNotFound
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.sharePreference.UserTokenManager
 import com.alexk.bidit.common.util.showLongToastMessage
+import com.alexk.bidit.common.util.value.ApolloErrorConstant.ErrorInvalidToken
+import com.alexk.bidit.common.util.value.ApolloErrorConstant.ErrorUserNotFound
 import com.alexk.bidit.databinding.ActivitySplashBinding
 import com.alexk.bidit.common.view.ViewState
 import com.alexk.bidit.domain.entity.user.UserBasicEntity

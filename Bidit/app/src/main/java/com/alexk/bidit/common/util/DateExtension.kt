@@ -1,5 +1,6 @@
 package com.alexk.bidit.common.util
 
+import org.w3c.dom.Text
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -14,7 +15,8 @@ fun Long.toChatTime(): String {
 
 fun Long.equalDate(compareMillisecond: Long): Boolean {
     val date = Instant.ofEpochMilli(this).atZone(ZoneId.systemDefault()).toLocalDateTime()
-    val date2 = Instant.ofEpochMilli(compareMillisecond).atZone(ZoneId.systemDefault()).toLocalDateTime()
+    val date2 =
+        Instant.ofEpochMilli(compareMillisecond).atZone(ZoneId.systemDefault()).toLocalDateTime()
     val formatter = DateTimeFormatter.ofPattern("MMdd")
 
     return date.format(formatter) == date2.format(formatter)
@@ -22,7 +24,8 @@ fun Long.equalDate(compareMillisecond: Long): Boolean {
 
 fun Long.equalTime(compareMillisecond: Long): Boolean {
     val date = Instant.ofEpochMilli(this).atZone(ZoneId.systemDefault()).toLocalDateTime()
-    val date2 = Instant.ofEpochMilli(compareMillisecond).atZone(ZoneId.systemDefault()).toLocalDateTime()
+    val date2 =
+        Instant.ofEpochMilli(compareMillisecond).atZone(ZoneId.systemDefault()).toLocalDateTime()
     val formatter = DateTimeFormatter.ofPattern("HHmm")
 
     return date.format(formatter) == date2.format(formatter)
@@ -41,3 +44,7 @@ fun Long.toDate(): String {
 }
 
 fun currentMillisecond(): Long = System.currentTimeMillis()
+
+fun setMillisecond(millisecond: Long): String {
+    return millisecond.toDate()
+}

@@ -10,9 +10,12 @@ import com.alexk.bidit.GlobalApplication
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.bidding.BiddingMerchandiseImgPageAdapter
 import com.alexk.bidit.common.adapter.bidding.BiddingUserAdapter
-import com.alexk.bidit.common.util.ErrorLowPriceBidding
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.value.*
+import com.alexk.bidit.common.util.value.ApolloErrorConstant.ErrorLowPriceBidding
+import com.alexk.bidit.common.util.value.KeyConstants.FRAGMENT_KEY_BID_PRICE
+import com.alexk.bidit.common.util.value.KeyConstants.FRAGMENT_KEY_CURRENT_BID_PRICE
+import com.alexk.bidit.common.util.value.KeyConstants.FRAGMENT_KEY_ITEM_ID
 import com.alexk.bidit.common.view.ViewState
 import com.alexk.bidit.databinding.FragmentBiddingBinding
 import com.alexk.bidit.domain.entity.item.ItemBasicEntity

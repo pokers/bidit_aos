@@ -8,9 +8,9 @@ import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
 import com.alexk.bidit.common.util.IntegerUtils.parsePriceTypeToInt
 import com.alexk.bidit.common.util.TextUtils.addComma
+import com.alexk.bidit.common.util.value.KeyConstants.FRAGMENT_KEY_BID_PRICE
+import com.alexk.bidit.common.util.value.KeyConstants.FRAGMENT_KEY_CURRENT_BID_PRICE
 import com.alexk.bidit.common.view.EditTextPriceWatcher
-import com.alexk.bidit.common.util.value.FRAGMENT_KEY_BID_PRICE
-import com.alexk.bidit.common.util.value.FRAGMENT_KEY_CURRENT_BID_PRICE
 import com.alexk.bidit.databinding.DialogBiddingBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 

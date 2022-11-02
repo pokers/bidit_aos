@@ -3,7 +3,7 @@ package com.alexk.bidit.common.adapter.home
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.alexk.bidit.common.util.value.FRAGMENT_KEY_ITEM_CATEGORY_TYPE
+import com.alexk.bidit.common.util.value.KeyConstants.FRAGMENT_KEY_ITEM_CATEGORY_TYPE
 import com.alexk.bidit.presentation.ui.home.category.HomeCategoryFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 

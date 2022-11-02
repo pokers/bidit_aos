@@ -7,13 +7,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.alexk.bidit.R
-import com.alexk.bidit.common.util.value.FRAGMENT_KEY_ITEM_IMG_URL
-import com.alexk.bidit.databinding.FragmentBiddingBannerBinding
+import com.alexk.bidit.common.util.value.KeyConstants.FRAGMENT_KEY_ITEM_IMG_URL
 import com.bumptech.glide.Glide
 
 class BiddingMerchandiseImgFragment : Fragment() {
 
-    lateinit var binding: FragmentBiddingBannerBinding
+    lateinit var binding: com.alexk.bidit.databinding.FragmentBiddingBannerBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,

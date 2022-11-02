@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alexk.bidit.R
-import com.alexk.bidit.common.util.value.INTENT_KEY_CATEGORY_ID
+import com.alexk.bidit.common.util.value.KeyConstants.INTENT_KEY_CATEGORY_ID
 import com.alexk.bidit.databinding.ItemHomeCategoryListBinding
 import com.alexk.bidit.presentation.ui.category.CategoryActivity
 import com.bumptech.glide.Glide

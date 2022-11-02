@@ -5,4 +5,5 @@
 
     <dimen name="size_chatting_channel_user_profile_img">60dp</dimen>
     <dimen name="size_chatting_unread_count">20dp</dimen>
+    <dimen name="size_immediate_purchase_item_img">30dp</dimen>
 </resources>

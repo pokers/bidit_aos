@@ -3,7 +3,7 @@ package com.alexk.bidit.common.adapter.bidding
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.alexk.bidit.common.util.value.FRAGMENT_KEY_ITEM_IMG_URL
+import com.alexk.bidit.common.util.value.KeyConstants.FRAGMENT_KEY_ITEM_IMG_URL
 import com.alexk.bidit.domain.entity.item.img.ItemImgEntity
 import com.alexk.bidit.presentation.ui.bid.img.BiddingMerchandiseImgFragment
 

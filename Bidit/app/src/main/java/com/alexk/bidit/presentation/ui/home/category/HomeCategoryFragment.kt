@@ -12,8 +12,8 @@ import com.alexk.bidit.common.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.FragmentCommonMerchandiseListBinding
 import com.alexk.bidit.common.view.ViewState
 import com.alexk.bidit.common.util.setLoadingDialog
-import com.alexk.bidit.common.util.value.FRAGMENT_KEY_ITEM_ID
-import com.alexk.bidit.common.util.value.FRAGMENT_KEY_ITEM_CATEGORY_TYPE
+import com.alexk.bidit.common.util.value.KeyConstants.FRAGMENT_KEY_ITEM_CATEGORY_TYPE
+import com.alexk.bidit.common.util.value.KeyConstants.FRAGMENT_KEY_ITEM_ID
 import com.alexk.bidit.domain.entity.item.ItemBasicEntity
 import com.alexk.bidit.presentation.base.BaseFragment
 import com.alexk.bidit.presentation.ui.bid.BiddingActivity

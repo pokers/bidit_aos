@@ -16,8 +16,8 @@ import com.alexk.bidit.common.adapter.selling.SellingItemImgListAdapter
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.setTextColorWithResourceCompat
 import com.alexk.bidit.common.util.showLongToastMessage
-import com.alexk.bidit.common.util.value.FRAGMENT_KEY_SELLING_ITEM_CATEGORY_IDX
-import com.alexk.bidit.common.util.value.FRAGMENT_KEY_SELLING_ITEM_CATEGORY_LISTENER_KEY
+import com.alexk.bidit.common.util.value.KeyConstants.FRAGMENT_KEY_SELLING_ITEM_CATEGORY_IDX
+import com.alexk.bidit.common.util.value.KeyConstants.FRAGMENT_KEY_SELLING_ITEM_CATEGORY_LISTENER_KEY
 import com.alexk.bidit.common.view.EditTextAutoCommaWatcher
 import com.alexk.bidit.databinding.FragmentSellingBinding
 import com.alexk.bidit.common.view.ViewState

@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alexk.bidit.*
-import com.alexk.bidit.common.util.ErrorCouldNotAdd
-import com.alexk.bidit.common.util.ErrorInvalidToken
-import com.alexk.bidit.common.util.ErrorNotMatchedArticle
+import com.alexk.bidit.common.util.value.ApolloErrorConstant.ErrorCouldNotAdd
+import com.alexk.bidit.common.util.value.ApolloErrorConstant.ErrorInvalidToken
+import com.alexk.bidit.common.util.value.ApolloErrorConstant.ErrorNotMatchedArticle
 import com.alexk.bidit.domain.repository.UserRepository
 import com.alexk.bidit.common.view.ViewState
 import com.alexk.bidit.domain.entity.user.UserBasicEntity

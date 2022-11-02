@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.selling.SellingItemCategoryListAdapter
 import com.alexk.bidit.common.adapter.selling.callback.OnSellingItemCategoryClickListener
-import com.alexk.bidit.common.util.value.FRAGMENT_KEY_SELLING_ITEM_CATEGORY_IDX
-import com.alexk.bidit.common.util.value.FRAGMENT_KEY_SELLING_ITEM_CATEGORY_LISTENER_KEY
+import com.alexk.bidit.common.util.value.KeyConstants.FRAGMENT_KEY_SELLING_ITEM_CATEGORY_IDX
+import com.alexk.bidit.common.util.value.KeyConstants.FRAGMENT_KEY_SELLING_ITEM_CATEGORY_LISTENER_KEY
 import com.alexk.bidit.databinding.FragmentSellingCategoryBinding
 import com.alexk.bidit.presentation.base.BaseFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
