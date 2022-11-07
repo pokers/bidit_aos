@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import com.alexk.bidit.R
 import com.alexk.bidit.databinding.DialogBiddingBoardDeleteBinding
 
-class BiddingBoardDeleteDialog(context: Context, private val deleteEvent: (Unit) -> Unit):Dialog(context) {
+class BiddingBoardDeleteDialog(context: Context, private val deleteEvent: () -> Unit):Dialog(context) {
     private lateinit var binding : DialogBiddingBoardDeleteBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +24,7 @@ class BiddingBoardDeleteDialog(context: Context, private val deleteEvent: (Unit)
                 dismiss()
             }
             btnDelete.setOnClickListener {
-                deleteEvent
+                deleteEvent.invoke()
                 dismiss()
             }
         }

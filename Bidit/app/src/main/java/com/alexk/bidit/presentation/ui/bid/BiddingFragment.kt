@@ -11,6 +11,7 @@ import com.alexk.bidit.R
 import com.alexk.bidit.common.adapter.bidding.BiddingMerchandiseImgPageAdapter
 import com.alexk.bidit.common.adapter.bidding.BiddingUserAdapter
 import com.alexk.bidit.common.util.setLoadingDialog
+import com.alexk.bidit.common.util.showLongToastMessage
 import com.alexk.bidit.common.util.value.*
 import com.alexk.bidit.common.util.value.ApolloErrorConstant.ErrorLowPriceBidding
 import com.alexk.bidit.common.util.value.KeyConstants.FRAGMENT_KEY_BID_PRICE
@@ -218,6 +219,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
                     requireContext().setLoadingDialog(true)
                 }
                 is ViewState.Success -> {
+                    requireContext().showLongToastMessage("게시글이 삭제 되었습니다.")
                     requireContext().setLoadingDialog(false)
                     activity?.finish()
                     startActivity(Intent(requireContext(), HomeActivity::class.java))
