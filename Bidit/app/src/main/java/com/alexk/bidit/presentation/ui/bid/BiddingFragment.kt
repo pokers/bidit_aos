@@ -147,7 +147,7 @@ class BiddingFragment : BaseFragment<FragmentBiddingBinding>(R.layout.fragment_b
 
     private fun showImmediatePurchaseDialog() {
         val dialog =
-            BiddingBidImmediatePurchaseDialog(requireContext(), itemInfo.buyNow!!)
+            BiddingBidImmediatePurchaseDialog(requireContext(), itemInfo.buyNow!!, itemInfo.itemUserInfo?.id!!)
         dialog.setCanceledOnTouchOutside(true)
         dialog.show()
         dialog.window?.setLayout(
