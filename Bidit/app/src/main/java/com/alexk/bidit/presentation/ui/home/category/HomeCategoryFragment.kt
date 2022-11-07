@@ -57,12 +57,6 @@ class HomeCategoryFragment :
     }
 
     private fun initItemList() {
-        itemViewModel.getSortTypeItemList(
-            firstInfo = nextFirstItemCount,
-            lastInfo = nextLastItemCount,
-            cursorType = sortType
-        )
-
         binding.rvMerchandiseList.apply {
             layoutManager =
                 GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
@@ -108,6 +102,7 @@ class HomeCategoryFragment :
         if(!existItemData){
             itemListAdapter.submitList(emptyList())
             binding.lyNoList.root.visibility = View.VISIBLE
+            existItemData = false
         }
     }
 
@@ -147,11 +142,7 @@ class HomeCategoryFragment :
 
     override fun onResume() {
         super.onResume()
-        itemViewModel.getSortTypeItemList(
-            firstInfo = nextFirstItemCount,
-            lastInfo = nextLastItemCount,
-            cursorType = sortType
-        )
+        getNextItemList()
     }
 
     companion object {
