@@ -14,7 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.common.ItemListAdapter
+import com.alexk.bidit.common.adapter.item.ItemListAdapter
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.sharePreference.SearchKeywordManager
 import com.alexk.bidit.databinding.FragmentSearchResultBinding

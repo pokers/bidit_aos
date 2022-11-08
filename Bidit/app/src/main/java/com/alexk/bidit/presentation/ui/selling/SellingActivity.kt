@@ -5,10 +5,8 @@ import android.util.Log
 import com.alexk.bidit.databinding.ActivitySellingBinding
 import dagger.hilt.android.AndroidEntryPoint
 import com.alexk.bidit.R
-import com.alexk.bidit.common.util.value.SAVE_SELLING_INFO
 import com.alexk.bidit.domain.entity.selling.SellingEntity
 import com.alexk.bidit.presentation.base.BaseActivity
-import com.alexk.bidit.presentation.ui.selling.SellingActivity.Companion.SELLING_INFO
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint

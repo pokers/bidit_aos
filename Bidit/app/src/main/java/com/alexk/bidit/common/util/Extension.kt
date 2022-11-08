@@ -5,24 +5,8 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
-import com.alexk.bidit.GetBiddingInfoQuery
-import com.alexk.bidit.GetItemListQuery
-import com.alexk.bidit.GetMyBiddingInfoQuery
-import com.alexk.bidit.GetMyInfoQuery
-import com.alexk.bidit.common.dialog.LoadingDialog
-import com.alexk.bidit.domain.entity.item.ItemBasicEntity
-import com.alexk.bidit.domain.entity.item.img.ItemImgEntity
+import com.alexk.bidit.common.view.LoadingDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.sendbird.android.constant.StringSet.s
-
-fun addComma(number: Int): String = if (number >= 0) {
-    "%,d".format(number)
-} else {
-    "- "
-}
-
-fun parsePriceTypeToInt(price: String): Int =
-    price.replace(",", "").toInt()
 
 
 fun BottomSheetDialogFragment.setDialogTransparentBackground() {

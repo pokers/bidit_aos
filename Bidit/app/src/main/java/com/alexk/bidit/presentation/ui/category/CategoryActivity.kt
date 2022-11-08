@@ -11,12 +11,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.common.ItemListAdapter
+import com.alexk.bidit.common.adapter.item.ItemListAdapter
 import com.alexk.bidit.common.view.GridRecyclerViewDeco
 import com.alexk.bidit.databinding.ActivityCategoryBinding
 import com.alexk.bidit.common.view.ViewState
 import com.alexk.bidit.common.util.setLoadingDialog
-import com.alexk.bidit.common.util.value.CATEGORY_ID
+import com.alexk.bidit.common.util.value.KeyConstants.INTENT_KEY_CATEGORY_ID
 import com.alexk.bidit.presentation.ui.category.filter.CategoryFilterDialog
 import com.alexk.bidit.presentation.viewModel.ItemViewModel
 import com.alexk.bidit.type.CursorType
@@ -34,7 +34,7 @@ class CategoryActivity : AppCompatActivity() {
     private val itemViewModel by viewModels<ItemViewModel>()
     private val itemListAdapter by lazy { ItemListAdapter() }
     private val itemCursorTypeBalloon by lazy { makeBalloon() }
-    private val categoryId by lazy { intent?.getIntExtra(CATEGORY_ID, -1)!! }
+    private val categoryId by lazy { intent?.getIntExtra(INTENT_KEY_CATEGORY_ID, -1)!! }
     private var currentCursorType = CursorType.createdAt
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -154,7 +154,7 @@ class CategoryActivity : AppCompatActivity() {
 
     private fun setNoItemListLayout() {
         itemListAdapter.submitList(emptyList())
-        binding.lyNoList.visibility = View.VISIBLE
+        binding.lyNoList.root.visibility = View.VISIBLE
     }
 
     private fun observeCategoryItemList() {

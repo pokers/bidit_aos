@@ -6,9 +6,8 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.alexk.bidit.BuildConfig
 import com.alexk.bidit.GlobalApplication
-import com.alexk.bidit.common.util.KEYWORD
-import com.alexk.bidit.common.util.PUSH_TOKEN
-import com.alexk.bidit.common.util.TOKEN
+import com.alexk.bidit.common.util.sharePreference.SPKeyConstants.PUSH_TOKEN
+import com.alexk.bidit.common.util.sharePreference.SPKeyConstants.TOKEN
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.kakao.sdk.auth.model.OAuthToken

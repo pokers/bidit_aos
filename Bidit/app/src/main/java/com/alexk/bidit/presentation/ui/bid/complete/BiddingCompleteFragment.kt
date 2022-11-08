@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.alexk.bidit.R
-import com.alexk.bidit.common.util.addComma
+import com.alexk.bidit.common.util.TextUtils.addComma
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.util.value.BidStatus
 import com.alexk.bidit.common.view.ViewState

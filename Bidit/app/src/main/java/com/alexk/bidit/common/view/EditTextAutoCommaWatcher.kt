@@ -8,7 +8,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import com.alexk.bidit.R
-import com.alexk.bidit.common.util.addComma
+import com.alexk.bidit.common.util.TextUtils.addComma
 
 
 class EditTextAutoCommaWatcher(private val editText: EditText) : TextWatcher {

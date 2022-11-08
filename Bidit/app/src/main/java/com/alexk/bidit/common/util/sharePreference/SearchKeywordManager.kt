@@ -5,7 +5,7 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.alexk.bidit.BuildConfig
 import com.alexk.bidit.GlobalApplication
-import com.alexk.bidit.common.util.KEYWORD
+import com.alexk.bidit.common.util.sharePreference.SPKeyConstants.KEYWORD
 import org.json.JSONArray
 
 object SearchKeywordManager {

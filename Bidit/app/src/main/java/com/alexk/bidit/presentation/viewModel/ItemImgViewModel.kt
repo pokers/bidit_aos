@@ -2,6 +2,7 @@ package com.alexk.bidit.presentation.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.alexk.bidit.common.view.ViewState
 import com.alexk.bidit.domain.entity.item.img.ItemImgEntity

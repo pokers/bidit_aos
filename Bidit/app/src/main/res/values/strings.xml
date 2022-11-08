@@ -94,6 +94,7 @@
     <string name="content_selling_complete">판매완료</string>
     <string name="content_merchandise_no_list">상품이 없습니다.</string>
     <string name="content_selling_cancel">판매취소</string>
+    <string name="content_chatting_hint">메세지를 입력해주세요.</string>
 
     <string-array name="category_detail_merchandise">
         <item>Ending Soon</item>

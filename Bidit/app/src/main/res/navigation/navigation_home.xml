@@ -5,6 +5,7 @@
     android:id="@+id/navigation_home"
     app:startDestination="@id/homeFragment">
 
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.alexk.bidit.presentation.ui.home.HomeFragment"
@@ -67,14 +68,18 @@
 
     <fragment
         android:id="@+id/chattingChannelListFragment"
-        android:name="com.alexk.bidit.presentation.ui.chatting.ChattingChannelListFragment"
+        android:name="com.alexk.bidit.presentation.ui.chatting.channel.ChattingChannelListFragment"
         android:label="ChattingFragment"
-        tools:layout="@layout/fragment_chatting_channel" />
+        tools:layout="@layout/fragment_chatting_channel_list" />
 
     <fragment
         android:id="@+id/myPageAccountInfoFragment"
         android:name="com.alexk.bidit.presentation.ui.myPage.MyPageAccountInfoFragment"
         android:label="MyPageAccountInfoFragment"
         tools:layout="@layout/fragment_my_page_account_info"/>
+    <fragment
+        android:id="@+id/chattingChannelListFragment2"
+        android:name="com.alexk.bidit.presentation.ui.chatting.channel.ChattingChannelListFragment"
+        android:label="ChattingChannelListFragment" />
 
 </navigation>

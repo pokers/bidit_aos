@@ -1,5 +1,5 @@
 package com.alexk.bidit.common.adapter.selling.callback
 
-interface SellingItemCategoryClickListener {
+interface OnSellingItemCategoryClickListener {
     fun onCategoryClick(index : Int)
 }

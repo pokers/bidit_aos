@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alexk.bidit.R
-import com.alexk.bidit.common.adapter.common.ItemListAdapter
+import com.alexk.bidit.common.adapter.item.ItemListAdapter
 import com.alexk.bidit.common.adapter.search.SearchKeywordListAdapter
 import com.alexk.bidit.common.util.setLoadingDialog
 import com.alexk.bidit.common.view.GridRecyclerViewDeco
